@@ -15,4 +15,4 @@ dependencyResolutionManagement {
 
 rootProject.name = "MyRation"
 include(":app")
- 
+include(":data")
