@@ -1,4 +1,4 @@
-package com.example.data
+package com.example.data.health_api
 
 import java.time.Duration
 import java.time.Instant

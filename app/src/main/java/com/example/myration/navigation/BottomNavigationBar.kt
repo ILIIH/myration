@@ -28,7 +28,7 @@ import com.example.myration.ui.theme.Typography
 
 @Composable
 fun BottomNavigationBar(navController: NavHostController) {
-    val selectedTab = remember { mutableStateOf(NavigationRoute.COOKING_TAB) }
+    val selectedTab = remember { mutableStateOf(NavigationRoute.GROCERIES_LIST_TAB) }
     Box(
         modifier = Modifier
             .fillMaxWidth()
@@ -41,29 +41,6 @@ fun BottomNavigationBar(navController: NavHostController) {
             horizontalArrangement = Arrangement.SpaceEvenly,
             verticalAlignment = Alignment.CenterVertically
         ) {
-            Column(
-                modifier = Modifier.weight(1f).clickable {
-                    selectedTab.value = NavigationRoute.GROCERIES_LIST_TAB
-                    navController.navigate(NavigationRoute.GROCERIES_LIST_TAB.route)
-                },
-                horizontalAlignment = Alignment.CenterHorizontally,
-                verticalArrangement = Arrangement.SpaceBetween
-            ) {
-                Image(
-                    painter = painterResource(
-                        id = if (selectedTab.value == NavigationRoute.GROCERIES_LIST_TAB) {
-                            R.drawable.ic_my_groceries_selected_tab
-                        } else {
-                            R.drawable.ic_my_groceries_not_selected_tab
-                        }
-                    ),
-                    contentDescription = "Groceries tab",
-                    modifier = Modifier.size(25.dp)
-                )
-                Text(text = "My groceries",
-                    style = Typography.labelSmall,
-                    color = if (selectedTab.value == NavigationRoute.GROCERIES_LIST_TAB) PrimaryColor else SecondaryBackgroundColor)
-            }
             Column(
                 modifier = Modifier.weight(1f)
                     .clickable {
@@ -87,6 +64,29 @@ fun BottomNavigationBar(navController: NavHostController) {
                 Text(text = "Add products",
                     style = Typography.labelSmall,
                     color = if (selectedTab.value == NavigationRoute.ADD_PRODUCTS_TAB) PrimaryColor else SecondaryBackgroundColor)
+            }
+            Column(
+                modifier = Modifier.weight(1f).clickable {
+                    selectedTab.value = NavigationRoute.GROCERIES_LIST_TAB
+                    navController.navigate(NavigationRoute.GROCERIES_LIST_TAB.route)
+                },
+                horizontalAlignment = Alignment.CenterHorizontally,
+                verticalArrangement = Arrangement.SpaceBetween
+            ) {
+                Image(
+                    painter = painterResource(
+                        id = if (selectedTab.value == NavigationRoute.GROCERIES_LIST_TAB) {
+                            R.drawable.ic_my_groceries_selected_tab
+                        } else {
+                            R.drawable.ic_my_groceries_not_selected_tab
+                        }
+                    ),
+                    contentDescription = "Groceries tab",
+                    modifier = Modifier.size(25.dp)
+                )
+                Text(text = "My groceries",
+                    style = Typography.labelSmall,
+                    color = if (selectedTab.value == NavigationRoute.GROCERIES_LIST_TAB) PrimaryColor else SecondaryBackgroundColor)
             }
             Column(
                 modifier = Modifier.weight(1f)

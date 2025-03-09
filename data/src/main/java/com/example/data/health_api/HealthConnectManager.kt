@@ -1,4 +1,4 @@
-package com.example.data
+package com.example.data.health_api
 
 import android.content.Context
 import android.os.Build
@@ -19,13 +19,10 @@ import androidx.health.connect.client.records.metadata.DataOrigin
 import androidx.health.connect.client.request.ReadRecordsRequest
 import androidx.health.connect.client.time.TimeRangeFilter
 import androidx.health.connect.client.units.Mass
-import androidx.work.OneTimeWorkRequestBuilder
-import androidx.work.WorkManager
 import java.time.Instant
 import java.time.ZonedDateTime
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
-import java.util.concurrent.TimeUnit
 
 const val MIN_SUPPORTED_SDK = Build.VERSION_CODES.O_MR1
 

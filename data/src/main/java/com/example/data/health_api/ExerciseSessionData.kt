@@ -1,4 +1,4 @@
-package com.example.data
+package com.example.data.health_api
 import androidx.health.connect.client.records.HeartRateRecord
 import androidx.health.connect.client.records.SpeedRecord
 import androidx.health.connect.client.units.Energy

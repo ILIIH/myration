@@ -16,7 +16,9 @@ import androidx.navigation.compose.rememberNavController
 import com.example.myration.navigation.AppNavHost
 import com.example.myration.navigation.BottomNavigationBar
 import com.example.myration.ui.theme.MyRationTheme
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MainActivity : ComponentActivity() {
 
     private val healthConnectClient by lazy { HealthConnectClient.getOrCreate(applicationContext) }
