@@ -2,8 +2,9 @@ package com.example.data.di
 
 import android.content.Context
 import androidx.room.Room
-import com.example.data.model.ProductDB
+import com.example.data.model.LocalDataBase
 import com.example.data.source.ProductDataSource
+import com.example.data.source.RecipeDataSource
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -17,16 +18,22 @@ object LocalDatabaseModule {
 
     @Provides
     @Singleton
-    fun provideDatabase(@ApplicationContext context: Context): ProductDB {
+    fun provideDatabase(@ApplicationContext context: Context): LocalDataBase {
         return Room.databaseBuilder(
             context,
-            ProductDB::class.java,
+            LocalDataBase::class.java,
             "product_database"
         ).build()
     }
 
     @Provides
-    fun provideNoteDao(database: ProductDB): ProductDataSource {
+    fun provideProductsDao(database: LocalDataBase): ProductDataSource {
         return database.productDao()
     }
+
+    @Provides
+    fun provideRecipeDao(database: LocalDataBase): RecipeDataSource {
+        return database.recipeDao()
+    }
+
 }

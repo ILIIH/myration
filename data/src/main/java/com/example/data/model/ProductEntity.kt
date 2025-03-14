@@ -2,6 +2,8 @@ package com.example.data.model
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import com.example.domain.model.MeasurementMetric
+import com.example.domain.model.Product
 
 @Entity(tableName = "products")
 data class ProductEntity(
@@ -11,3 +13,4 @@ data class ProductEntity(
     val measurementMetric: String,
     val expirationDate: String
 )
+

@@ -9,7 +9,7 @@ import com.example.myration.ui.GroceriesListScreen
 
 @Composable
 fun AppNavHost(navController: NavHostController) {
-    NavHost(navController = navController, startDestination = NavigationRoute.ADD_PRODUCTS_TAB.route) {
+    NavHost(navController = navController, startDestination = NavigationRoute.GROCERIES_LIST_TAB.route) {
         composable(NavigationRoute.ADD_PRODUCTS_TAB.route) {
             AddProductScreen()
         }

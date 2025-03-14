@@ -13,15 +13,28 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.wear.compose.material.Button
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
+import androidx.compose.ui.window.Dialog
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.wear.compose.material.ButtonDefaults
 import com.example.myration.R
 import com.example.myration.ui.theme.PrimaryColor
 import com.example.myration.ui.theme.SecondaryBackgroundColor
@@ -32,6 +45,8 @@ import com.example.myration.view_models.AddProductViewModel
 fun AddProductScreen(
     viewModel: AddProductViewModel = hiltViewModel()
 ) {
+    var isManuallyAddVisible by remember { mutableStateOf(false) }
+
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -48,13 +63,22 @@ fun AddProductScreen(
         AddProductOption(
             iconRes = R.drawable.ic_add_product_manually,
             text = "Add manually",
-            modifier = Modifier.clickable { }
+            modifier = Modifier.clickable { isManuallyAddVisible = true }
         )
         AddProductOption(
             iconRes = R.drawable.ic_say_what_did_buy,
             text = "Add with voice",
             modifier = Modifier.clickable { }
         )
+
+        if (isManuallyAddVisible) {
+            ManuallyAddProduct(
+                onDismissRequest = { isManuallyAddVisible = false },
+                onAddProduct = {weight ,name , measurementMetric, expirationDate ->
+                    viewModel.addProduct(weight,name,measurementMetric,expirationDate)
+                    isManuallyAddVisible = false}
+            )
+        }
     }
 }
 
@@ -81,5 +105,92 @@ fun AddProductOption(iconRes: Int, text: String, modifier: Modifier) {
             style = Typography.titleLarge,
             color = PrimaryColor
         )
+    }
+}
+
+@Composable
+fun ManuallyAddProduct(onDismissRequest: () -> Unit,
+                       onAddProduct: (weight: Float,
+                                      name: String,
+                                      measurementMetric: String,
+                                      expirationDate: String)->Unit) {
+    Dialog(onDismissRequest = onDismissRequest) {
+        var productName by remember { mutableStateOf(TextFieldValue("")) }
+        var productWeight by remember { mutableStateOf(TextFieldValue("")) }
+        var productMeasurementMetric by remember { mutableStateOf(TextFieldValue("")) }
+        var productExpiration by remember { mutableStateOf(TextFieldValue("")) }
+
+        Surface(
+            shape = MaterialTheme.shapes.extraLarge,
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(16.dp)
+                .background(Color.White)
+        ) {
+            Column(
+                modifier = Modifier
+                    .padding(16.dp)
+                    .fillMaxWidth(),
+                horizontalAlignment = Alignment.CenterHorizontally
+            ) {
+                Text(
+                    text = "Add product",
+                    fontSize = 20.sp,
+                    fontWeight = FontWeight.Bold,
+                    color = Color.Black
+                )
+                Spacer(modifier = Modifier.height(60.dp))
+                TextField(
+                    value = productName,
+                    onValueChange = { productName = it },
+                    modifier = Modifier.fillMaxWidth(),
+                    label = { Text("Product name") },
+                    singleLine = true,
+                )
+                Spacer(modifier = Modifier.height(20.dp))
+                TextField(
+                    value = productWeight,
+                    onValueChange = { productWeight = it },
+                    modifier = Modifier.fillMaxWidth(),
+                    label = { Text("Product weight") },
+                    singleLine = true,
+                )
+                Spacer(modifier = Modifier.height(20.dp))
+                TextField(
+                    value = productMeasurementMetric,
+                    onValueChange = { productMeasurementMetric = it },
+                    modifier = Modifier.fillMaxWidth(),
+                    label = { Text("Measurement Metric (lt, kg,pcs)") },
+                    singleLine = true,
+                )
+                Spacer(modifier = Modifier.height(20.dp))
+                TextField(
+                    value = productExpiration,
+                    onValueChange = { productExpiration = it },
+                    modifier = Modifier.fillMaxWidth(),
+                    label = { Text("Product expiry date") },
+                    singleLine = true,
+                )
+                Spacer(modifier = Modifier.height(20.dp))
+                Button(
+                    onClick = {
+                        onAddProduct(
+                            productWeight.text.toFloat(),
+                            productName.text,
+                            productMeasurementMetric.text,
+                            productExpiration.text,  )
+                    },
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .align(Alignment.CenterHorizontally),
+                    colors = ButtonDefaults.buttonColors(
+                        backgroundColor = PrimaryColor,
+                        contentColor = Color.White
+                    )
+                ){
+                    Text(text = "Submit", color = Color.White)
+                }
+            }
+        }
     }
 }
