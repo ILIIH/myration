@@ -1,26 +1,30 @@
 package com.example.domain.model
 
 import java.sql.Time
+import java.time.Duration
 
 enum class CookingDifficulty(val difficultyLevel: Int) {
     EASY(1),
-    MIDDLE(2),
-    HARD(3),
-    EXTRA_HARD(4);
+    EASY_MIDDLE(2),
+    MIDDLE(3),
+    EASY_HARD(4),
+    HARD(5),
+    EXTRA_HARD(6);
 
     companion object {
         fun fromInt(value: Int): CookingDifficulty {
-            return entries.find { it.difficultyLevel == value } ?: EASY  // Default to EASY
+            return entries.find { it.difficultyLevel == value } ?: EASY
         }
     }
 }
 enum class RecipeType(val desc: String) {
-    MAIN("main"),
-    STARTER("starter"),
-    DESERT("desert"),
-    COCKTAIL("cocktail"),
-    SOUP("soup"),
-    HIGH_PROTEIN("high protein");
+    MAIN("Main"),
+    STARTER("Starter"),
+    DESERT("Dessert"),
+    COCKTAIL("Cocktail"),
+    SOUP("Soup"),
+    OTHER("Other"),
+    HIGH_PROTEIN("High protein");
 
     companion object {
         fun fromString(value: String): RecipeType {
@@ -30,14 +34,18 @@ enum class RecipeType(val desc: String) {
 }
 
 data class Recipe (
-    val id: Int? ,
+    val id: Int?,
     val name: String,
-    val cookingTime: Time,
+    val cookingTime: Duration,
     val cookingDifficulty: CookingDifficulty,
     val kcal: Int,
     val type: RecipeType,
     val recipeCountry: String,
-    val description: String)
+    val description: String,
+    val instructions: String,
+    val thumbnail: String,
+    val youtube: String
+)
 
 data class RecipeIngredient (
     val id: Int,

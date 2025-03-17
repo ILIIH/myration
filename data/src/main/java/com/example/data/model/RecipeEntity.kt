@@ -12,7 +12,10 @@ data class RecipeEntity (
     val kcal: Int,
     val type: String,
     val recipeCountry: String,
-    val description: String
+    val description: String,
+    val instructions: String,
+    val thumbnail: String,
+    val youtube: String
 )
 
 @Entity(tableName = "recipe_ingredients")

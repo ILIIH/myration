@@ -77,6 +77,9 @@ dependencies {
     kapt("com.google.dagger:hilt-compiler:2.50")
     implementation("androidx.hilt:hilt-navigation-compose:1.2.0")
 
+    // Image download
+    implementation("io.coil-kt:coil-compose:2.5.0")
+
     implementation(project(":data"))
     implementation(project(":domain"))
 }

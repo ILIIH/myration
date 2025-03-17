@@ -4,7 +4,7 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import com.example.myration.ui.AddProductScreen
-import com.example.myration.ui.CookingScreen
+import com.example.myration.ui.CookingScreen.CookingScreen
 import com.example.myration.ui.GroceriesListScreen
 
 @Composable

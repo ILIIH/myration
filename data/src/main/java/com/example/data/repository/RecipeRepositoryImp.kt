@@ -1,19 +1,38 @@
 package com.example.data.repository
 
+import android.content.SharedPreferences
+import com.example.data.model.maping.toData
 import com.example.data.model.maping.toDomain
+import com.example.data.source.RecipeApiService
 import com.example.data.source.RecipeDataSource
 import com.example.domain.model.Recipe
 import com.example.domain.model.RecipeIngredient
 import com.example.domain.repository.RecipeRepository
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
-class RecipeRepositoryImp @Inject constructor(private val dataSource: RecipeDataSource): RecipeRepository {
+class RecipeRepositoryImp @Inject constructor(
+    private val localDataSource: RecipeDataSource,
+    private  val remoteDataSource: RecipeApiService,
+    private val preferences: SharedPreferences
+): RecipeRepository {
+
     override suspend fun addRecipe(recipe: Recipe) {
         TODO("Not yet implemented")
     }
 
     override suspend fun getAllRecipe(): List<Recipe> {
-        return  dataSource.getAllRecipes().map { it.toDomain()}
+        withContext(Dispatchers.IO){
+            if (!preferences.getBoolean(IS_DATA_FETCHED, false)){
+                for (ch in 'a'..'z') {
+                    val meals = remoteDataSource.getRecipeStartedWith(ch)
+                    localDataSource.insertAllRecipe(meals.meals?.map { it.toData() }?: listOf())
+                }
+                preferences.edit().putBoolean(IS_DATA_FETCHED, true).apply()
+            }
+        }
+        return  localDataSource.getAllRecipes().map { it.toDomain()}
     }
 
     override suspend fun addIngredients(recipeIngredients: RecipeIngredient) {
@@ -23,4 +42,9 @@ class RecipeRepositoryImp @Inject constructor(private val dataSource: RecipeData
     override suspend fun getRecipeIngredient(recipeId: Int): List<RecipeIngredient> {
         TODO("Not yet implemented")
     }
+
+    companion object {
+        private const val  IS_DATA_FETCHED = "is_data_fetched"
+    }
+
 }

@@ -1,4 +1,4 @@
-package com.example.myration.ui
+package com.example.myration.ui.CookingScreen
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -45,30 +45,6 @@ fun CookingScreen(
             .fillMaxSize()
             .background(SecondaryBackgroundColor)
     ) {
-        LazyColumn (modifier = Modifier.padding(top=50.dp)){
-            items(
-                count = recipeList.size,
-                itemContent = { index ->
-                    Row(
-                        modifier = Modifier
-                            .padding(vertical = 12.dp, horizontal = 24.dp)
-                            .fillMaxWidth()
-                            .shadow(elevation = 8.dp, shape = RoundedCornerShape(12.dp))
-                            .border(width = 1.dp, color = Color.Black, shape = RoundedCornerShape(12.dp))
-                            .background(color = Color.White, shape = RoundedCornerShape(12.dp))
-                            .padding(vertical = 8.dp, horizontal = 12.dp),
-                        verticalAlignment = Alignment.CenterVertically,
-                        horizontalArrangement = Arrangement.spacedBy(16.dp, Alignment.CenterHorizontally)
-                    ) {
-                        Text(
-                            text =recipeList[index].name,
-                            style = Typography.bodyLarge,
-                            color = PrimaryColor
-                        )
-                        Spacer(modifier = Modifier.width(20.dp))
-                    }
-                }
-            )
-        }
+        RecipesList(recipeList)
     }
 }

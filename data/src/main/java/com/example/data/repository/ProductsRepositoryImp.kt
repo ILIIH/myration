@@ -1,9 +1,7 @@
 package com.example.data.repository
 
-
-import com.example.data.model.ProductEntity
-import com.example.data.model.toData
-import com.example.data.model.toDomain
+import com.example.data.model.maping.toData
+import com.example.data.model.maping.toDomain
 import com.example.data.source.ProductDataSource
 import com.example.domain.model.Product
 import com.example.domain.repository.ProductsRepository
