@@ -1,6 +1,7 @@
 package com.example.data.repository
 
 import android.content.SharedPreferences
+import com.example.data.model.RecipeIngredientEntity
 import com.example.data.model.maping.toData
 import com.example.data.model.maping.toDomain
 import com.example.data.source.RecipeApiService
@@ -27,7 +28,21 @@ class RecipeRepositoryImp @Inject constructor(
             if (!preferences.getBoolean(IS_DATA_FETCHED, false)){
                 for (ch in 'a'..'z') {
                     val meals = remoteDataSource.getRecipeStartedWith(ch)
-                    localDataSource.insertAllRecipe(meals.meals?.map { it.toData() }?: listOf())
+                    if( meals.meals != null ){
+                        for (recipe in  meals.meals){
+                            localDataSource.addRecipe(recipe.toData())
+                            for ((index, ingredient) in recipe.ingredients.withIndex()) {
+                                val ingredientAmount = if (index < recipe.measures.size) recipe.measures[index] ?: "" else ""
+                                localDataSource.addRecipeIngredient(
+                                    RecipeIngredientEntity(
+                                        recipeID = recipe.id?.toInt()?:0,
+                                        productName =  ingredient?:"",
+                                        productAmount = ingredientAmount
+                                    )
+                                )
+                            }
+                        }
+                    }
                 }
                 preferences.edit().putBoolean(IS_DATA_FETCHED, true).apply()
             }

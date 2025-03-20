@@ -9,14 +9,14 @@ import com.example.data.model.RecipeIngredientEntity
 
 @Dao
 interface RecipeDataSource {
-    @Insert
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun addRecipe(recipeEntity: RecipeEntity)
 
     @Query("SELECT * FROM recipe")
     suspend fun getAllRecipes(): List<RecipeEntity>
 
     @Insert
-    suspend fun addRecipeIngredients(ingredient: RecipeIngredientEntity)
+    suspend fun addRecipeIngredient(ingredient: RecipeIngredientEntity)
 
     @Query("SELECT * FROM recipe_ingredients WHERE  recipeID = :recipeID")
     suspend fun getIngredients(recipeID: Int): List<RecipeIngredientEntity>
