@@ -24,29 +24,7 @@ class RecipeRepositoryImp @Inject constructor(
     }
 
     override suspend fun getAllRecipe(): List<Recipe> {
-        withContext(Dispatchers.IO){
-            if (!preferences.getBoolean(IS_DATA_FETCHED, false)){
-                for (ch in 'a'..'z') {
-                    val meals = remoteDataSource.getRecipeStartedWith(ch)
-                    if( meals.meals != null ){
-                        for (recipe in  meals.meals){
-                            localDataSource.addRecipe(recipe.toData())
-                            for ((index, ingredient) in recipe.ingredients.withIndex()) {
-                                val ingredientAmount = if (index < recipe.measures.size) recipe.measures[index] ?: "" else ""
-                                localDataSource.addRecipeIngredient(
-                                    RecipeIngredientEntity(
-                                        recipeID = recipe.id?.toInt()?:0,
-                                        productName =  ingredient?:"",
-                                        productAmount = ingredientAmount
-                                    )
-                                )
-                            }
-                        }
-                    }
-                }
-                preferences.edit().putBoolean(IS_DATA_FETCHED, true).apply()
-            }
-        }
+        if (!preferences.getBoolean(IS_DATA_FETCHED, false)) initRecipes()
         return  localDataSource.getAllRecipes().map { it.toDomain()}
     }
 
@@ -62,4 +40,27 @@ class RecipeRepositoryImp @Inject constructor(
         private const val  IS_DATA_FETCHED = "is_data_fetched"
     }
 
+    private suspend fun initRecipes(){
+        withContext(Dispatchers.IO){
+            for (ch in 'a'..'z') {
+                val meals = remoteDataSource.getRecipeStartedWith(ch)
+                if( meals.meals != null ){
+                    for (recipe in  meals.meals){
+                        localDataSource.addRecipe(recipe.toData())
+                        for ((index, ingredient) in recipe.ingredients.withIndex()) {
+                            val ingredientAmount = if (index < recipe.measures.size) recipe.measures[index] ?: "" else ""
+                            localDataSource.addRecipeIngredient(
+                                RecipeIngredientEntity(
+                                    recipeID = recipe.id?.toInt()?:0,
+                                    productName =  ingredient?:"",
+                                    productAmount = ingredientAmount
+                                )
+                            )
+                        }
+                    }
+                }
+                preferences.edit().putBoolean(IS_DATA_FETCHED, true).apply()
+            }
+        }
+    }
 }

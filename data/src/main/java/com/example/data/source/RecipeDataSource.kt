@@ -12,7 +12,16 @@ interface RecipeDataSource {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun addRecipe(recipeEntity: RecipeEntity)
 
-    @Query("SELECT * FROM recipe")
+    @Query("SELECT r.*\n" +
+            "FROM recipe r\n" +
+            "WHERE r.id IN (\n" +
+            "    SELECT ri.recipeID\n" +
+            "    FROM recipe_ingredients ri\n" +
+            "    JOIN products p ON LOWER(ri.productName) LIKE LOWER('%' || p.name || '%')\n" +
+            "       OR LOWER(p.name) LIKE LOWER('%' || ri.productName || '%')\n" +
+            "    GROUP BY ri.recipeID\n" +
+            "    HAVING COUNT(DISTINCT ri.productName) <= 2\n" +
+            ");\n")
     suspend fun getAllRecipes(): List<RecipeEntity>
 
     @Insert
