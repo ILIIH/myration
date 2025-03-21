@@ -34,7 +34,7 @@ enum class RecipeType(val desc: String) {
 }
 
 data class Recipe (
-    val id: Int?,
+    val id: Int,
     val name: String,
     val cookingTime: Duration,
     val cookingDifficulty: CookingDifficulty,

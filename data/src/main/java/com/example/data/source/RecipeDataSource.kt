@@ -23,7 +23,8 @@ interface RecipeDataSource {
             "    HAVING COUNT(DISTINCT ri.productName) <= 2\n" +
             ");\n")
     suspend fun getAllRecipes(): List<RecipeEntity>
-
+    @Query("SELECT * FROM recipe WHERE  id = :recipeID")
+    suspend fun getRecipeById(recipeID: Int): RecipeEntity
     @Insert
     suspend fun addRecipeIngredient(ingredient: RecipeIngredientEntity)
 

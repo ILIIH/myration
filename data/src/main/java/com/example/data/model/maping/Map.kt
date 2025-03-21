@@ -3,10 +3,12 @@ package com.example.data.model.maping
 import com.example.data.model.ProductEntity
 import com.example.data.model.RecipeAPIEntity
 import com.example.data.model.RecipeEntity
+import com.example.data.model.RecipeIngredientEntity
 import com.example.domain.model.CookingDifficulty
 import com.example.domain.model.MeasurementMetric
 import com.example.domain.model.Product
 import com.example.domain.model.Recipe
+import com.example.domain.model.RecipeIngredient
 import com.example.domain.model.RecipeType
 import java.time.Duration
 
@@ -35,7 +37,7 @@ fun Product.toData(): ProductEntity {
 
 fun RecipeEntity.toDomain():Recipe {
     return  Recipe(
-        id = this.id,
+        id = this.id?:0,
         name = this.name,
         cookingTime = Duration.ofMinutes(this.cookingTime.toLong()),
         cookingDifficulty = CookingDifficulty.fromInt(this.cookingDifficulty),
@@ -82,7 +84,14 @@ fun RecipeAPIEntity.toData() :RecipeEntity {
     )
 }
 
-
+fun RecipeIngredientEntity.toDomain(): RecipeIngredient {
+    return RecipeIngredient(
+        id = this.id?:0,
+        recipeID = this.recipeID,
+        productName = this.productName,
+        productAmount = this.productAmount
+    )
+}
 fun getGrams(text: String): Int {
     val regex = """(\d+)g""".toRegex()
     val combinedNumber = regex.findAll(text)

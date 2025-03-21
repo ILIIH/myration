@@ -3,6 +3,7 @@ package com.example.myration.ui.CookingScreen
 import coil.compose.AsyncImage
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -36,7 +37,7 @@ import com.example.myration.ui.theme.SecondaryHalfTransparentColor
 import com.example.myration.ui.theme.Typography
 
 @Composable
-fun RecipesList(recipeList: List<Recipe>) {
+fun RecipesList(recipeList: List<Recipe> , navigateToRecipeDetails: (recipeId: Int)-> Unit) {
     LazyColumn(modifier = Modifier.padding(top = 50.dp, start =  20.dp, end = 20.dp)) {
         itemsIndexed(recipeList.chunked(3)) { index, chunk ->
             Row(
@@ -45,21 +46,21 @@ fun RecipesList(recipeList: List<Recipe>) {
             ) {
                 if (index % 2 == 0) {
                     chunk.take(2).forEach { recipe ->
-                        Box(modifier = Modifier.weight(1f)){
+                        Box(modifier = Modifier.weight(1f).clickable { navigateToRecipeDetails(recipe.id) }){
                             RecipeItemShort(recipe)
                         }
                     }
                 } else {
-                    RecipeItemLong(chunk.first())
+                    RecipeItemLong(chunk.first(), modified = Modifier.clickable { navigateToRecipeDetails(chunk.first().id) })
                 }
             }
         }
     }
 }
 @Composable
-fun RecipeItemLong(recipe: Recipe) {
+fun RecipeItemLong(recipe: Recipe, modified: Modifier) {
     Row(
-        modifier = Modifier
+        modifier = modified
             .fillMaxWidth()
             .padding(horizontal = 10.dp, vertical = 30.dp)
             .height(200.dp)

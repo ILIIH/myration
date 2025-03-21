@@ -1,0 +1,21 @@
+package com.example.myration.ui.RecipeDetailsScreen
+
+import com.example.domain.model.CookingDifficulty
+import com.example.domain.model.RecipeIngredient
+import com.example.domain.model.RecipeType
+import java.time.Duration
+
+data class RecipeDetailViewState (
+    val id: Int,
+    val name: String,
+    val cookingTime: Duration,
+    val cookingDifficulty: CookingDifficulty,
+    val kcal: Int,
+    val type: RecipeType,
+    val recipeCountry: String,
+    val description: String,
+    val instructions: String,
+    val thumbnail: String,
+    val youtube: String,
+    val ingredients: List<RecipeIngredient>
+)

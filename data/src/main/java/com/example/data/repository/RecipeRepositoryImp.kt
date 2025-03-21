@@ -27,13 +27,15 @@ class RecipeRepositoryImp @Inject constructor(
         if (!preferences.getBoolean(IS_DATA_FETCHED, false)) initRecipes()
         return  localDataSource.getAllRecipes().map { it.toDomain()}
     }
-
+    override suspend fun getRecipeById(recipeId: Int): Recipe {
+        return localDataSource.getRecipeById(recipeId).toDomain()
+    }
     override suspend fun addIngredients(recipeIngredients: RecipeIngredient) {
         TODO("Not yet implemented")
     }
 
     override suspend fun getRecipeIngredient(recipeId: Int): List<RecipeIngredient> {
-        TODO("Not yet implemented")
+        return localDataSource.getIngredients(recipeId).map { it.toDomain() }
     }
 
     companion object {
