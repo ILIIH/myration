@@ -1,14 +1,9 @@
 package com.example.myration.view_models
 
-import androidx.compose.runtime.collectAsState
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.core.ResultState
-import com.example.domain.model.CookingDifficulty
-import com.example.domain.model.Recipe
-import com.example.domain.model.RecipeIngredient
-import com.example.domain.model.RecipeType
 import com.example.domain.repository.RecipeRepository
 import com.example.myration.ui.RecipeDetailsScreen.RecipeDetailViewState
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -16,7 +11,6 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
-import java.time.Duration
 import javax.inject.Inject
 
 @HiltViewModel
@@ -49,7 +43,7 @@ class RecipeDetailsViewModel @Inject constructor(
                             description = recipe.description,
                             instructions = recipe.instructions,
                             thumbnail = recipe.thumbnail,
-                            youtube = recipe.youtube,
+                            videoUrl = recipe.videoId,
                             ingredients = ingredients
                         )
                     )

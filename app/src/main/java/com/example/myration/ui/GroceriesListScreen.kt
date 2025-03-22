@@ -26,6 +26,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import com.example.domain.model.Product
 import com.example.myration.R
 import com.example.myration.ui.theme.PrimaryColor
 import com.example.myration.ui.theme.SecondaryBackgroundColor
@@ -47,45 +48,53 @@ fun GroceriesListScreen(
             items(
                 count = productList.size,
                 itemContent = { index ->
-                    Row(
-                        modifier = Modifier
-                            .padding(vertical = 12.dp, horizontal = 24.dp)
-                            .fillMaxWidth()
-                            .shadow(elevation = 8.dp, shape = RoundedCornerShape(12.dp))
-                            .border(width = 1.dp, color = Color.Black, shape = RoundedCornerShape(12.dp))
-                            .background(color = Color.White, shape = RoundedCornerShape(12.dp))
-                            .padding(vertical = 8.dp, horizontal = 12.dp),
-                        verticalAlignment = Alignment.CenterVertically,
-                        horizontalArrangement = Arrangement.spacedBy(16.dp, Alignment.CenterHorizontally)
-                    ) {
-                        Text(
-                            text =productList[index].name,
-                            style = Typography.bodyLarge,
-                            color = PrimaryColor
-                        )
-                        Spacer(modifier = Modifier.width(20.dp))
-                        Text(
-                            text =productList[index].weight.toString(),
-                            style = Typography.bodyLarge,
-                            color = PrimaryColor
-                        )
-                        Spacer(modifier = Modifier.width(5.dp))
-                        Text(
-                            text =productList[index].measurementMetric.desc,
-                            style = Typography.bodyLarge,
-                            color = PrimaryColor
-                        )
-                        Spacer(modifier = Modifier.width(20.dp))
-                        Image(
-                            painter = painterResource(id = R.drawable.ic_baseline_delete_24),
-                            contentDescription = "Remove product",
-                            modifier = Modifier.size(30.dp).clickable {
-                                viewModel.removeProduct(productList[index].id)
-                            }
-                        )
-                    }
+                    GroceryItem(
+                        product = productList[index],
+                        removeProduct = {id -> viewModel.removeProduct(id) }
+                    )
                 }
             )
         }
+    }
+}
+
+@Composable
+fun GroceryItem(product: Product, removeProduct:(prodId: Int) -> Unit) {
+    Row(
+        modifier = Modifier
+            .padding(vertical = 12.dp, horizontal = 24.dp)
+            .fillMaxWidth()
+            .shadow(elevation = 8.dp, shape = RoundedCornerShape(12.dp))
+            .border(width = 1.dp, color = Color.Black, shape = RoundedCornerShape(12.dp))
+            .background(color = Color.White, shape = RoundedCornerShape(12.dp))
+            .padding(vertical = 8.dp, horizontal = 12.dp),
+        verticalAlignment = Alignment.CenterVertically,
+        horizontalArrangement = Arrangement.spacedBy(16.dp, Alignment.CenterHorizontally)
+    ) {
+        Text(
+            text =product.name,
+            style = Typography.bodyLarge,
+            color = PrimaryColor
+        )
+        Spacer(modifier = Modifier.width(20.dp))
+        Text(
+            text =product.weight.toString(),
+            style = Typography.bodyLarge,
+            color = PrimaryColor
+        )
+        Spacer(modifier = Modifier.width(5.dp))
+        Text(
+            text =product.measurementMetric.desc,
+            style = Typography.bodyLarge,
+            color = PrimaryColor
+        )
+        Spacer(modifier = Modifier.width(20.dp))
+        Image(
+            painter = painterResource(id = R.drawable.ic_baseline_delete_24),
+            contentDescription = "Remove product",
+            modifier = Modifier
+                .size(30.dp)
+                .clickable { removeProduct(product.id ?: 0) }
+        )
     }
 }

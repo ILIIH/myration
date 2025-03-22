@@ -47,7 +47,7 @@ fun RecipeEntity.toDomain():Recipe {
         description = this.description,
         instructions =  this.instructions,
         thumbnail = this.thumbnail,
-        youtube = this.youtube
+        videoId = this.youtube
     )
 }
 

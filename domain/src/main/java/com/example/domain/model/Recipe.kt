@@ -44,7 +44,7 @@ data class Recipe (
     val description: String,
     val instructions: String,
     val thumbnail: String,
-    val youtube: String
+    val videoId: String
 )
 
 data class RecipeIngredient (
