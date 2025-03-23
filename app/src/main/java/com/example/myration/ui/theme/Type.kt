@@ -47,7 +47,7 @@ val Typography = Typography(
     ),
     displaySmall = TextStyle(
         fontFamily = LatoFont,
-        fontWeight = FontWeight.W100,
+        fontWeight = FontWeight.W200,
         fontSize = 11.sp,
         lineHeight = 16.sp,
         letterSpacing = 0.5.sp

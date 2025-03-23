@@ -17,10 +17,9 @@ interface RecipeDataSource {
             "WHERE r.id IN (\n" +
             "    SELECT ri.recipeID\n" +
             "    FROM recipe_ingredients ri\n" +
-            "    JOIN products p ON LOWER(ri.productName) LIKE LOWER('%' || p.name || '%')\n" +
-            "       OR LOWER(p.name) LIKE LOWER('%' || ri.productName || '%')\n" +
+            "    LEFT JOIN products p ON ri.productName = p.name\n" +
             "    GROUP BY ri.recipeID\n" +
-            "    HAVING COUNT(DISTINCT ri.productName) <= 2\n" +
+            "    HAVING COUNT(ri.productName) - COUNT(p.name) <= 3\n" +
             ");\n")
     suspend fun getAllRecipes(): List<RecipeEntity>
     @Query("SELECT * FROM recipe WHERE  id = :recipeID")
