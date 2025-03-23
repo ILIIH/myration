@@ -187,7 +187,7 @@ fun IngredientsList(ingredients: List<RecipeIngredient>){
     LazyColumn(
         modifier = Modifier
             .padding(top = 50.dp, start = 20.dp)
-            .height((ingredients.size * 11).dp),
+            .height((ingredients.size * 14).dp),
             userScrollEnabled = false
     ) {
             items(
