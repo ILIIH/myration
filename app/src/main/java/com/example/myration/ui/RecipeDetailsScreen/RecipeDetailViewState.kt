@@ -16,6 +16,6 @@ data class RecipeDetailViewState (
     val description: String,
     val instructions: String,
     val thumbnail: String,
-    val videoUrl: String,
+    val videoId: String,
     val ingredients: List<RecipeIngredient>
 )

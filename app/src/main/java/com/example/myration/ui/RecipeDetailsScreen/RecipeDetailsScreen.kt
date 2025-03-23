@@ -2,8 +2,6 @@ package com.example.myration.ui.RecipeDetailsScreen
 
 import android.content.Intent
 import android.net.Uri
-import android.webkit.WebView
-import android.widget.Toast
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
@@ -20,12 +18,14 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Divider
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -35,7 +35,6 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.viewinterop.AndroidView
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.wear.compose.material.Button
 import androidx.wear.compose.material.ButtonDefaults
@@ -43,7 +42,6 @@ import coil.compose.AsyncImage
 import com.example.core.ResultState
 import com.example.domain.model.RecipeIngredient
 import com.example.myration.R
-import com.example.myration.navigation.NavigationRoute
 import com.example.myration.ui.theme.PrimaryColor
 import com.example.myration.ui.theme.SecondaryColor
 import com.example.myration.ui.theme.SecondaryHalfTransparentColor
@@ -84,7 +82,7 @@ fun RecipeDetailsLoaded(state: RecipeDetailViewState) {
         BlocksDivider()
         RecipeDescription(state.instructions)
         BlocksDivider()
-        VideoRecipe(state.videoUrl)
+        VideoRecipe(state.videoId)
     }
 }
 
@@ -98,19 +96,16 @@ fun BlocksDivider() {
 }
 
 @Composable
-fun VideoRecipe(videoUrl: String){
+fun VideoRecipe(videoId: String){
     val context = LocalContext.current
+    val intent = remember { Intent(Intent.ACTION_VIEW, Uri.parse("https://www.youtube.com/watch?v=$videoId")) }
 
     Button(
         onClick = {
-            val intent = Intent(Intent.ACTION_VIEW, Uri.parse(videoUrl))
-            if (intent.resolveActivity(context.packageManager) != null) {
-                context.startActivity(intent)
-            } else {
-                Toast.makeText(context, "No browser found", Toast.LENGTH_SHORT).show()
-            }
+            context.startActivity(intent)
         },
         modifier = Modifier
+            .padding(bottom = 120.dp)
             .fillMaxWidth()
             .height(300.dp)
             .padding(horizontal = 30.dp, vertical = 30.dp),
@@ -118,6 +113,7 @@ fun VideoRecipe(videoUrl: String){
             backgroundColor = SecondaryColor,
             contentColor = Color.White
         ),
+        shape = RoundedCornerShape(24.dp)
     ) {
         Box(
             modifier = Modifier.fillMaxSize(),
@@ -165,7 +161,8 @@ fun RecipeDescription(recipe: String){
         colors = ButtonDefaults.buttonColors(
             backgroundColor = PrimaryColor,
             contentColor = Color.White
-        )
+        ),
+        shape = RoundedCornerShape(24.dp)
     ){
         Text(text = "Cooked", color = Color.White)
     }

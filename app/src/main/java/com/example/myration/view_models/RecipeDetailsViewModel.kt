@@ -43,7 +43,7 @@ class RecipeDetailsViewModel @Inject constructor(
                             description = recipe.description,
                             instructions = recipe.instructions,
                             thumbnail = recipe.thumbnail,
-                            videoUrl = recipe.videoId,
+                            videoId = recipe.videoId,
                             ingredients = ingredients
                         )
                     )
