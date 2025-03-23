@@ -3,6 +3,7 @@ package com.example.myration.ui.RecipeDetailsScreen
 import android.content.Intent
 import android.net.Uri
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -43,6 +44,7 @@ import com.example.core.ResultState
 import com.example.domain.model.RecipeIngredient
 import com.example.myration.R
 import com.example.myration.ui.theme.PrimaryColor
+import com.example.myration.ui.theme.PrimaryTransparentColor
 import com.example.myration.ui.theme.SecondaryColor
 import com.example.myration.ui.theme.SecondaryHalfTransparentColor
 import com.example.myration.ui.theme.Typography
@@ -75,6 +77,7 @@ fun RecipeDetailsLoaded(state: RecipeDetailViewState) {
         modifier = Modifier
             .fillMaxSize()
             .verticalScroll(rememberScrollState())
+            .background(PrimaryTransparentColor)
     ) {
         RecipeTopBar(state)
         BlocksDivider()
