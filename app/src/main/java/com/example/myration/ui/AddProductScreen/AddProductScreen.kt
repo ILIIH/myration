@@ -59,7 +59,9 @@ fun AddProductScreen(
         AddProductOption(
             iconRes = R.drawable.ic_add_products_selected_tab,
             text = "Scan recipe",
-            modifier = Modifier.clickable { }
+            modifier = Modifier.clickable {
+                navController.navigate(NavigationRoute.SCAN_PRODUCTS_SCREEN.route)
+            }
         )
         AddProductOption(
             iconRes = R.drawable.ic_add_product_manually,
@@ -71,7 +73,9 @@ fun AddProductScreen(
         AddProductOption(
             iconRes = R.drawable.ic_say_what_did_buy,
             text = "Add with voice",
-            modifier = Modifier.clickable { }
+            modifier = Modifier.clickable {
+                navController.navigate(NavigationRoute.ADD_PRODUCT_VOICE.route)
+            }
         )
     }
 }

@@ -88,7 +88,7 @@ fun AddProductManuallyScreen(
                 TextField(
                     value = productExpiration,
                     onValueChange = { productExpiration = it },
-                    modifier = Modifier.fillMaxWidth(),
+                    modifier = Modifier.fillMaxWidth().background(Color.White),
                     label = { Text("Product expiry date") },
                     singleLine = true,
                 )
