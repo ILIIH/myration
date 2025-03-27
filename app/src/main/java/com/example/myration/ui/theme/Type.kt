@@ -33,7 +33,7 @@ val Typography = Typography(
     ),
     titleLarge = TextStyle(
         fontFamily = LatoFont,
-        fontWeight = FontWeight.SemiBold,
+        fontWeight = FontWeight.W800,
         fontSize = 24.sp,
         lineHeight = 24.sp,
         letterSpacing = 0.sp
@@ -47,7 +47,7 @@ val Typography = Typography(
     ),
     displaySmall = TextStyle(
         fontFamily = LatoFont,
-        fontWeight = FontWeight.W200,
+        fontWeight = FontWeight.W400,
         fontSize = 11.sp,
         lineHeight = 16.sp,
         letterSpacing = 0.5.sp

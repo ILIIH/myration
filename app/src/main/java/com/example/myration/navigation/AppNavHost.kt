@@ -10,7 +10,7 @@ import com.example.myration.ui.AddProductScreen.AddProductScreen
 import com.example.myration.ui.AddProductScreen.AddProductVoiceScreen
 import com.example.myration.ui.AddProductScreen.ScanRecipeScreen
 import com.example.myration.ui.CookingScreen.CookingScreen
-import com.example.myration.ui.GroceriesListScreen
+import com.example.myration.ui.GroceriesListScreen.GroceriesListScreen
 import com.example.myration.ui.RecipeDetailsScreen.RecipeDetailsScreen
 
 @Composable

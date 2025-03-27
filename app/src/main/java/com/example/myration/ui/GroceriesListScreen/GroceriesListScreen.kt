@@ -1,4 +1,4 @@
-package com.example.myration.ui
+package com.example.myration.ui.GroceriesListScreen
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background

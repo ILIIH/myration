@@ -3,9 +3,9 @@ package com.example.myration.view_models
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.core.ResultState
+import com.example.core.MVI.ResultState
 import com.example.domain.repository.RecipeRepository
-import com.example.myration.ui.RecipeDetailsScreen.RecipeDetailViewState
+import com.example.myration.state.RecipeDetailViewState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -21,7 +21,8 @@ class RecipeDetailsViewModel @Inject constructor(
 
     val recipeId: Int? = savedStateHandle["recipeId"]
 
-    private val _recipeDetailsState: MutableStateFlow<ResultState<RecipeDetailViewState>> = MutableStateFlow(ResultState.Loading)
+    private val _recipeDetailsState: MutableStateFlow<ResultState<RecipeDetailViewState>> = MutableStateFlow(
+        ResultState.Loading)
     val recipeDetailsState: StateFlow<ResultState<RecipeDetailViewState>> = _recipeDetailsState.asStateFlow()
 
     init{

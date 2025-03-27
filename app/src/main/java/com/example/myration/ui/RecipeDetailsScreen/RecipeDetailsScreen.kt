@@ -40,9 +40,10 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.wear.compose.material.Button
 import androidx.wear.compose.material.ButtonDefaults
 import coil.compose.AsyncImage
-import com.example.core.ResultState
+import com.example.core.MVI.ResultState
 import com.example.domain.model.RecipeIngredient
 import com.example.myration.R
+import com.example.myration.state.RecipeDetailViewState
 import com.example.myration.ui.theme.PrimaryColor
 import com.example.myration.ui.theme.PrimaryTransparentColor
 import com.example.myration.ui.theme.SecondaryColor
@@ -54,9 +55,9 @@ import com.example.myration.view_models.RecipeDetailsViewModel
 fun RecipeDetailsScreen(
     viewModel: RecipeDetailsViewModel = hiltViewModel()
 ) {
-    val recipe = viewModel.recipeDetailsState.collectAsState()
+    val productUpload = viewModel.recipeDetailsState.collectAsState()
 
-    when (val state = recipe.value) {
+    when (val state = productUpload.value) {
         is ResultState.Success -> {
             RecipeDetailsLoaded(state.data)
         }
@@ -64,7 +65,12 @@ fun RecipeDetailsScreen(
             CircularProgressIndicator()
         }
         is ResultState.Error -> {
-            Text(text = "Error: ${state.message}")
+            Text(
+                text = "Error: ${state.message}",
+                color = Color.Red,
+                textAlign = TextAlign.Center,
+                modifier = Modifier.fillMaxWidth()
+            )
         }
     }
 

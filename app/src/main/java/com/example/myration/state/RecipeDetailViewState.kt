@@ -1,5 +1,6 @@
-package com.example.myration.ui.RecipeDetailsScreen
+package com.example.myration.state
 
+import com.example.core.MVI.Reducer
 import com.example.domain.model.CookingDifficulty
 import com.example.domain.model.RecipeIngredient
 import com.example.domain.model.RecipeType
@@ -18,4 +19,4 @@ data class RecipeDetailViewState (
     val thumbnail: String,
     val videoId: String,
     val ingredients: List<RecipeIngredient>
-)
+) : Reducer.ViewState
