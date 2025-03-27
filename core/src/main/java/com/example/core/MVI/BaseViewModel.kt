@@ -25,12 +25,12 @@ abstract class BaseViewModel<State : Reducer.ViewState, Event : Reducer.ViewEven
     private val _effects = Channel<Effect>(capacity = Channel.CONFLATED)
     val effect = _effects.receiveAsFlow()
 
-    val timeCapsule: TimeCapsule<State> = TimeTravelCapsule { storedState ->
+    val timeCapsule: TimeCapsule<State> = TimeCapsule { storedState ->
         _state.tryEmit(storedState)
     }
 
     init {
-        timeCapsule.addState(initialState)
+        timeCapsule.saveState(initialState)
     }
     fun sendEffect(effect: Effect) {
         _effects.trySend(effect)
@@ -42,7 +42,7 @@ abstract class BaseViewModel<State : Reducer.ViewState, Event : Reducer.ViewEven
         val success = _state.tryEmit(newState)
 
         if (success) {
-            timeCapsule.addState(newState)
+            timeCapsule.saveState(newState)
         }
     }
 
@@ -52,7 +52,7 @@ abstract class BaseViewModel<State : Reducer.ViewState, Event : Reducer.ViewEven
         val success = _state.tryEmit(newState)
 
         if (success) {
-            timeCapsule.addState(newState)
+            timeCapsule.saveState(newState)
         }
 
         effect?.let {
