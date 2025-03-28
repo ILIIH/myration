@@ -3,42 +3,57 @@ package com.example.core.util
 import android.content.Context
 import android.media.MediaRecorder
 import android.os.Build
+import android.util.Log
+import java.io.IOException
 
-class AudioRecorder(val context: Context) {
+class AudioRecorder(private val context: Context) {
 
-    val filePath = "${context.externalCacheDir?.absolutePath}/recorded_audio.3gp"
-
-    var recorder = if (Build.VERSION.SDK_INT > Build.VERSION_CODES.S) {
-            MediaRecorder(context)
-        } else {
-            MediaRecorder()
-        }
-
-    fun setupRecorder(filePath: String) {
-        recorder.apply {
-            setAudioSource(MediaRecorder.AudioSource.MIC)
-            setOutputFormat(MediaRecorder.OutputFormat.THREE_GPP)
-            setAudioEncoder(MediaRecorder.AudioEncoder.AMR_NB)
-            setOutputFile(filePath)
-            prepare()
-        }
-    }
+    private var recorder: MediaRecorder? = null
+    val filePath: String = "${context.externalCacheDir?.absolutePath}/recorded_audio.3gp"
+    private var isRecording = false
 
     fun startRecording() {
+        stopRecording() // Just in case
 
         recorder = if (Build.VERSION.SDK_INT > Build.VERSION_CODES.S) {
             MediaRecorder(context)
         } else {
             MediaRecorder()
         }
-        setupRecorder(filePath)
+
+        try {
+            recorder?.apply {
+                setAudioSource(MediaRecorder.AudioSource.MIC)
+                setOutputFormat(MediaRecorder.OutputFormat.THREE_GPP)
+                setAudioEncoder(MediaRecorder.AudioEncoder.AMR_NB)
+                setOutputFile(filePath)
+                prepare()
+                start()
+                isRecording = true
+            }
+        } catch (e: IOException) {
+            Log.e("AudioRecorder", "prepare() failed", e)
+        } catch (e: IllegalStateException) {
+            Log.e("AudioRecorder", "start() failed", e)
+        }
     }
 
     fun stopRecording() {
-        recorder.apply {
-            stop()
-            reset()
-            release()
+        try {
+            if (isRecording) {
+                recorder?.apply {
+                    stop()
+                    reset()
+                    release()
+                }
+                isRecording = false
+            }
+        } catch (e: IllegalStateException) {
+            Log.e("AudioRecorder", "stop() failed", e)
+        } finally {
+            recorder = null
         }
     }
+
+    fun isRecording(): Boolean = isRecording
 }

@@ -1,13 +1,15 @@
 package com.example.myration.navigation
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.platform.LocalContext
 import androidx.navigation.NavHostController
 import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
+import com.example.core.util.AudioRecorder
 import com.example.myration.ui.AddProductScreen.AddProductManuallyScreen
 import com.example.myration.ui.AddProductScreen.AddProductScreen
-import com.example.myration.ui.AddProductScreen.AddProductVoiceScreen
+import com.example.myration.ui.AddProductScreen.AddProductVoice.AddProductVoiceScreen
 import com.example.myration.ui.AddProductScreen.ScanRecipeScreen
 import com.example.myration.ui.CookingScreen.CookingScreen
 import com.example.myration.ui.GroceriesListScreen.GroceriesListScreen
@@ -20,7 +22,8 @@ fun AppNavHost(navController: NavHostController) {
             AddProductManuallyScreen()
         }
         composable(NavigationRoute.ADD_PRODUCT_VOICE.route) {
-            AddProductVoiceScreen()
+            val context = LocalContext.current
+            AddProductVoiceScreen(AudioRecorder(context))
         }
         composable(NavigationRoute.SCAN_PRODUCTS_SCREEN.route) {
             ScanRecipeScreen()
