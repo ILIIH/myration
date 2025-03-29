@@ -15,7 +15,6 @@ val LatoFont = FontFamily(
     Font(R.font.lato_thin, FontWeight.ExtraLight)
 )
 
-
 val Typography = Typography(
     displayLarge = TextStyle(
         fontFamily = LatoFont,

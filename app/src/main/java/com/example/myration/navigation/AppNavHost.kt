@@ -29,7 +29,7 @@ fun AppNavHost(navController: NavHostController) {
             ScanRecipeScreen()
         }
         composable(NavigationRoute.COOKING_TAB.route) {
-            CookingScreen(navController =  navController)
+            CookingScreen(navController = navController)
         }
         composable(
             route = NavigationRoute.RECIPE_DETAILS_SCREEN.route,

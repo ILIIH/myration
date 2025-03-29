@@ -15,16 +15,16 @@ import java.time.Duration
 // Product
 
 fun ProductEntity.toDomain(): Product {
-    val metric = when(this.measurementMetric){
+    val metric = when (this.measurementMetric) {
         "lt" -> MeasurementMetric.LITERS
         "kg" -> MeasurementMetric.KILOGRAM
         else -> MeasurementMetric.PIECE
     }
-    return Product(this.id,this.weight, this.name, metric, this.expirationDate)
+    return Product(this.id, this.weight, this.name, metric, this.expirationDate)
 }
 
 fun Product.toData(): ProductEntity {
-    return  ProductEntity(
+    return ProductEntity(
         null,
         this.weight,
         this.name,
@@ -35,9 +35,9 @@ fun Product.toData(): ProductEntity {
 
 // Recipe
 
-fun RecipeEntity.toDomain():Recipe {
-    return  Recipe(
-        id = this.id?:0,
+fun RecipeEntity.toDomain(): Recipe {
+    return Recipe(
+        id = this.id ?: 0,
         name = this.name,
         cookingTime = Duration.ofMinutes(this.cookingTime.toLong()),
         cookingDifficulty = CookingDifficulty.fromInt(this.cookingDifficulty),
@@ -45,48 +45,46 @@ fun RecipeEntity.toDomain():Recipe {
         type = RecipeType.fromString(this.type),
         recipeCountry = this.recipeCountry,
         description = this.description,
-        instructions =  this.instructions,
+        instructions = this.instructions,
         thumbnail = this.thumbnail,
         videoId = this.youtube
     )
 }
 
-fun RecipeAPIEntity.toData() :RecipeEntity {
-
+fun RecipeAPIEntity.toData(): RecipeEntity {
     val calPerGramAvg = 2.94
     val calPerGramDesert = 3.86
-    var ingKcal  = 0
+    var ingKcal = 0
 
     this.measures.forEach {
-        if(it != null ){
-            ingKcal =+ getGrams(it)
+        if (it != null) {
+            ingKcal = +getGrams(it)
         }
     }
 
-    ingKcal = if(this.category == RecipeType.DESERT.desc) {
-        (ingKcal*calPerGramDesert).toInt()
+    ingKcal = if (this.category == RecipeType.DESERT.desc) {
+        (ingKcal * calPerGramDesert).toInt()
+    } else {
+        (ingKcal * calPerGramAvg).toInt()
     }
-    else {
-        (ingKcal*calPerGramAvg).toInt()
-    }
-    return  RecipeEntity(
+    return RecipeEntity(
         id = this.id?.toInt(),
-        name = this.name?:"",
+        name = this.name ?: "",
         cookingTime = "0", // TO_DO
-        cookingDifficulty = (this.ingredients.size/2.0f).toInt(),
+        cookingDifficulty = (this.ingredients.size / 2.0f).toInt(),
         kcal = ingKcal,
-        type = this.category?:"",
-        recipeCountry = this.area?:"",
-        description = this.tags?:"",
-        instructions = this.instructions?:"",
-        thumbnail = this.thumbnail?:"",
-        youtube = this.youtube?:""
+        type = this.category ?: "",
+        recipeCountry = this.area ?: "",
+        description = this.tags ?: "",
+        instructions = this.instructions ?: "",
+        thumbnail = this.thumbnail ?: "",
+        youtube = this.youtube ?: ""
     )
 }
 
 fun RecipeIngredientEntity.toDomain(): RecipeIngredient {
     return RecipeIngredient(
-        id = this.id?:0,
+        id = this.id ?: 0,
         recipeID = this.recipeID,
         productName = this.productName,
         productAmount = this.productAmount
@@ -97,5 +95,5 @@ fun getGrams(text: String): Int {
     val combinedNumber = regex.findAll(text)
         .joinToString("") { it.groupValues[1] }
 
-    return combinedNumber.toIntOrNull()?:0
+    return combinedNumber.toIntOrNull() ?: 0
 }

@@ -1,6 +1,5 @@
 package com.example.domain.model
 
-import java.sql.Time
 import java.time.Duration
 
 enum class CookingDifficulty(val difficultyLevel: Int) {
@@ -28,12 +27,12 @@ enum class RecipeType(val desc: String) {
 
     companion object {
         fun fromString(value: String): RecipeType {
-            return entries.find { it.desc.equals(value, ignoreCase = true) } ?: MAIN  // Default to MAIN
+            return entries.find { it.desc.equals(value, ignoreCase = true) } ?: MAIN // Default to MAIN
         }
     }
 }
 
-data class Recipe (
+data class Recipe(
     val id: Int,
     val name: String,
     val cookingTime: Duration,
@@ -47,8 +46,9 @@ data class Recipe (
     val videoId: String
 )
 
-data class RecipeIngredient (
+data class RecipeIngredient(
     val id: Int,
     val recipeID: Int,
     val productName: String,
-    val productAmount: String)
+    val productAmount: String
+)

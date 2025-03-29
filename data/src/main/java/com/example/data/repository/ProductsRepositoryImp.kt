@@ -7,12 +7,12 @@ import com.example.domain.model.Product
 import com.example.domain.repository.ProductsRepository
 import javax.inject.Inject
 
-class ProductsRepositoryImp @Inject constructor(private val dataSource: ProductDataSource):
+class ProductsRepositoryImp @Inject constructor(private val dataSource: ProductDataSource) :
     ProductsRepository {
-    override suspend fun addProduct( product: Product) {
+    override suspend fun addProduct(product: Product) {
         dataSource.addProduct(product.toData())
     }
-    override suspend fun removeProductById( id: Int) {
+    override suspend fun removeProductById(id: Int) {
         dataSource.deleteProductById(id)
     }
     override suspend fun getAllProduct(): List<Product> {

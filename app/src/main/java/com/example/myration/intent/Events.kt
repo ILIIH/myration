@@ -1,7 +1,7 @@
 package com.example.myration.intent
 
 import androidx.compose.runtime.Immutable
-import com.example.core.MVI.Reducer
+import com.example.core.Mvi.Reducer
 import com.example.domain.model.Product
 
 @Immutable

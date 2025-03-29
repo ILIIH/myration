@@ -12,4 +12,3 @@ enum class NavigationRoute(val route: String) {
         return "recipe_details_screen/$recipeId"
     }
 }
-

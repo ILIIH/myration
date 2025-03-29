@@ -30,7 +30,7 @@ class MainActivity : ComponentActivity() {
         setContent {
             MyRationTheme {
                 Surface(
-                    modifier = Modifier.fillMaxSize(),
+                    modifier = Modifier.fillMaxSize()
                 ) {
                     val navController = rememberNavController()
                     Scaffold(
@@ -47,11 +47,11 @@ class MainActivity : ComponentActivity() {
         }
     }
 
-    private fun hideSystemNavBar(){
+    private fun hideSystemNavBar() {
         window.decorView.apply {
             systemUiVisibility = View.SYSTEM_UI_FLAG_HIDE_NAVIGATION or
-                    View.SYSTEM_UI_FLAG_FULLSCREEN or
-                    View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY
+                View.SYSTEM_UI_FLAG_FULLSCREEN or
+                View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY
         }
     }
     suspend fun hasAllPermissions(permissions: Set<String>): Boolean {

@@ -1,8 +1,8 @@
-package com.example.myration.view_models
+package com.example.myration.viewModels
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.core.MVI.ResultState
+import com.example.core.Mvi.ResultState
 import com.example.data.repository.ProductsRepositoryImp
 import com.example.domain.model.MeasurementMetric
 import com.example.domain.model.Product
@@ -19,27 +19,30 @@ class AddProductViewModel @Inject constructor(
 ) : ViewModel() {
 
     private val _addProductState: MutableStateFlow<ResultState<Boolean>> = MutableStateFlow(
-        ResultState.Success(false))
+        ResultState.Success(false)
+    )
     val addProductState: StateFlow<ResultState<Boolean>> = _addProductState.asStateFlow()
 
-    fun addProduct( weight: Float,name: String, measurementMetric: String, expirationDate: String) {
+    fun addProduct(weight: Float, name: String, measurementMetric: String, expirationDate: String) {
         viewModelScope.launch {
             try {
                 _addProductState.value = ResultState.Loading
-                repository.addProduct(Product(weight = weight,
-                    name = name,
-                    measurementMetric = when (measurementMetric) {
-                        "kg" -> MeasurementMetric.KILOGRAM
-                        "lt" -> MeasurementMetric.LITERS
-                        else -> MeasurementMetric.PIECE
-                    },
-                    expirationDate = expirationDate))
+                repository.addProduct(
+                    Product(
+                        weight = weight,
+                        name = name,
+                        measurementMetric = when (measurementMetric) {
+                            "kg" -> MeasurementMetric.KILOGRAM
+                            "lt" -> MeasurementMetric.LITERS
+                            else -> MeasurementMetric.PIECE
+                        },
+                        expirationDate = expirationDate
+                    )
+                )
                 _addProductState.value = ResultState.Success(true)
-            }catch (error: Error){
-                _addProductState.value = ResultState.Error(error.message?:"Unknown error")
-
+            } catch (error: Error) {
+                _addProductState.value = ResultState.Error(error.message ?: "Unknown error")
             }
-
         }
     }
 }

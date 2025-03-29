@@ -30,8 +30,8 @@ import com.example.domain.model.Product
 import com.example.myration.R
 import com.example.myration.ui.theme.PrimaryColor
 import com.example.myration.ui.theme.SecondaryBackgroundColor
-import com.example.myration.view_models.GroceriesViewModel
 import com.example.myration.ui.theme.Typography
+import com.example.myration.viewModels.GroceriesViewModel
 
 @Composable
 fun GroceriesListScreen(
@@ -44,13 +44,13 @@ fun GroceriesListScreen(
             .fillMaxSize()
             .background(SecondaryBackgroundColor)
     ) {
-        LazyColumn (modifier = Modifier.padding(top=50.dp)){
+        LazyColumn(modifier = Modifier.padding(top = 50.dp)) {
             items(
                 count = productList.size,
                 itemContent = { index ->
                     GroceryItem(
                         product = productList[index],
-                        removeProduct = {id -> viewModel.removeProduct(id) }
+                        removeProduct = { id -> viewModel.removeProduct(id) }
                     )
                 }
             )
@@ -59,7 +59,7 @@ fun GroceriesListScreen(
 }
 
 @Composable
-fun GroceryItem(product: Product, removeProduct:(prodId: Int) -> Unit) {
+fun GroceryItem(product: Product, removeProduct: (prodId: Int) -> Unit) {
     Row(
         modifier = Modifier
             .padding(vertical = 12.dp, horizontal = 24.dp)
@@ -72,19 +72,19 @@ fun GroceryItem(product: Product, removeProduct:(prodId: Int) -> Unit) {
         horizontalArrangement = Arrangement.spacedBy(16.dp, Alignment.CenterHorizontally)
     ) {
         Text(
-            text =product.name,
+            text = product.name,
             style = Typography.bodyLarge,
             color = PrimaryColor
         )
         Spacer(modifier = Modifier.width(20.dp))
         Text(
-            text =product.weight.toString(),
+            text = product.weight.toString(),
             style = Typography.bodyLarge,
             color = PrimaryColor
         )
         Spacer(modifier = Modifier.width(5.dp))
         Text(
-            text =product.measurementMetric.desc,
+            text = product.measurementMetric.desc,
             style = Typography.bodyLarge,
             color = PrimaryColor
         )

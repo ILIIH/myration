@@ -1,4 +1,4 @@
-package com.example.core.MVI
+package com.example.core.Mvi
 
 interface Reducer<State : Reducer.ViewState, Event : Reducer.ViewEvent, Effect : Reducer.ViewEffect> {
     interface ViewState

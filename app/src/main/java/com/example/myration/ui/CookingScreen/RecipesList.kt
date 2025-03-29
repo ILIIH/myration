@@ -1,6 +1,5 @@
 package com.example.myration.ui.CookingScreen
 
-import coil.compose.AsyncImage
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
@@ -12,7 +11,6 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
@@ -29,16 +27,16 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
+import coil.compose.AsyncImage
 import com.example.domain.model.Recipe
 import com.example.myration.R
-import com.example.myration.ui.theme.PrimaryColor
 import com.example.myration.ui.theme.SecondaryColor
 import com.example.myration.ui.theme.SecondaryHalfTransparentColor
 import com.example.myration.ui.theme.Typography
 
 @Composable
-fun RecipesList(recipeList: List<Recipe> , navigateToRecipeDetails: (recipeId: Int)-> Unit) {
-    LazyColumn(modifier = Modifier.padding(top = 50.dp, start =  20.dp, end = 20.dp)) {
+fun RecipesList(recipeList: List<Recipe>, navigateToRecipeDetails: (recipeId: Int) -> Unit) {
+    LazyColumn(modifier = Modifier.padding(top = 50.dp, start = 20.dp, end = 20.dp)) {
         itemsIndexed(recipeList.chunked(3)) { index, chunk ->
             Row(
                 modifier = Modifier.fillMaxWidth(),
@@ -46,7 +44,7 @@ fun RecipesList(recipeList: List<Recipe> , navigateToRecipeDetails: (recipeId: I
             ) {
                 if (index % 2 == 0) {
                     chunk.take(2).forEach { recipe ->
-                        Box(modifier = Modifier.weight(1f).clickable { navigateToRecipeDetails(recipe.id) }){
+                        Box(modifier = Modifier.weight(1f).clickable { navigateToRecipeDetails(recipe.id) }) {
                             RecipeItemShort(recipe)
                         }
                     }
@@ -57,6 +55,7 @@ fun RecipesList(recipeList: List<Recipe> , navigateToRecipeDetails: (recipeId: I
         }
     }
 }
+
 @Composable
 fun RecipeItemLong(recipe: Recipe, modified: Modifier) {
     Row(
@@ -75,14 +74,14 @@ fun RecipeItemLong(recipe: Recipe, modified: Modifier) {
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.spacedBy(16.dp, Alignment.CenterHorizontally)
     ) {
-        Column (
+        Column(
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.Center
-        ){
+        ) {
             Text(
                 text = recipe.type.desc,
                 style = Typography.displaySmall,
-                color = SecondaryColor,
+                color = SecondaryColor
             )
             Spacer(modifier = Modifier.height(20.dp))
             AsyncImage(
@@ -98,7 +97,7 @@ fun RecipeItemLong(recipe: Recipe, modified: Modifier) {
             )
         }
         Spacer(modifier = Modifier.width(20.dp))
-        Column (
+        Column(
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.Center
         ) {
@@ -115,11 +114,12 @@ fun RecipeItemLong(recipe: Recipe, modified: Modifier) {
             Text(
                 text = recipe.kcal.toString() + " kcal",
                 style = Typography.displaySmall,
-                color = SecondaryColor,
+                color = SecondaryColor
             )
         }
     }
 }
+
 @Composable
 fun RecipeItemShort(recipe: Recipe) {
     Column(
@@ -141,7 +141,7 @@ fun RecipeItemShort(recipe: Recipe) {
         Text(
             text = recipe.type.desc,
             style = Typography.displaySmall,
-            color = SecondaryColor,
+            color = SecondaryColor
         )
         Spacer(modifier = Modifier.height(20.dp))
         AsyncImage(
@@ -160,13 +160,13 @@ fun RecipeItemShort(recipe: Recipe) {
             text = recipe.name,
             style = Typography.displayLarge,
             color = SecondaryColor,
-            textAlign = TextAlign.Center,
+            textAlign = TextAlign.Center
         )
         Spacer(modifier = Modifier.height(10.dp))
         Text(
             text = recipe.kcal.toString() + " kcal",
             style = Typography.displaySmall,
-            color = SecondaryColor,
+            color = SecondaryColor
         )
     }
 }

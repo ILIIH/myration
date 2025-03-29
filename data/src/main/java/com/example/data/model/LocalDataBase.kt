@@ -8,5 +8,5 @@ import com.example.data.source.RecipeDataSource
 @Database(entities = [ProductEntity::class, RecipeEntity::class, RecipeIngredientEntity::class], version = 1)
 abstract class LocalDataBase : RoomDatabase() {
     abstract fun productDao(): ProductDataSource
-    abstract fun recipeDao() : RecipeDataSource
+    abstract fun recipeDao(): RecipeDataSource
 }

@@ -1,12 +1,12 @@
 package com.example.myration.state
 
-import com.example.core.MVI.Reducer
+import com.example.core.Mvi.Reducer
 import com.example.domain.model.CookingDifficulty
 import com.example.domain.model.RecipeIngredient
 import com.example.domain.model.RecipeType
 import java.time.Duration
 
-data class RecipeDetailViewState (
+data class RecipeDetailViewState(
     val id: Int,
     val name: String,
     val cookingTime: Duration,

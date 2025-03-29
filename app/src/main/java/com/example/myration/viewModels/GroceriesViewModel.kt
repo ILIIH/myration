@@ -1,4 +1,4 @@
-package com.example.myration.view_models
+package com.example.myration.viewModels
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -19,11 +19,11 @@ class GroceriesViewModel @Inject constructor(
     private val _products: MutableStateFlow<List<Product>> = MutableStateFlow(emptyList())
     val productList: StateFlow<List<Product>> = _products.asStateFlow()
 
-    init{
+    init {
         getAllProduct()
     }
 
-    private fun getAllProduct( ) {
+    private fun getAllProduct() {
         viewModelScope.launch {
             _products.value = repository.getAllProduct()
         }
@@ -31,7 +31,7 @@ class GroceriesViewModel @Inject constructor(
 
     fun removeProduct(id: Int?) {
         viewModelScope.launch {
-            if(id!=null){
+            if (id != null) {
                 repository.removeProductById(id)
                 _products.value = _products.value.filter { it.id != id }
             }

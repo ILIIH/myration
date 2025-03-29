@@ -1,4 +1,4 @@
-package com.example.data.health_api
+package com.example.data.healthApi
 import androidx.health.connect.client.records.HeartRateRecord
 import androidx.health.connect.client.records.SpeedRecord
 import androidx.health.connect.client.units.Energy
@@ -19,5 +19,5 @@ data class ExerciseSessionData(
     val minSpeed: Velocity? = null,
     val maxSpeed: Velocity? = null,
     val avgSpeed: Velocity? = null,
-    val speedRecord: List<SpeedRecord> = listOf(),
+    val speedRecord: List<SpeedRecord> = listOf()
 )

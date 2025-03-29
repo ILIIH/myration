@@ -1,4 +1,4 @@
-package com.example.data.health_api
+package com.example.data.healthApi
 
 import android.content.Context
 import android.os.Build
@@ -19,10 +19,10 @@ import androidx.health.connect.client.records.metadata.DataOrigin
 import androidx.health.connect.client.request.ReadRecordsRequest
 import androidx.health.connect.client.time.TimeRangeFilter
 import androidx.health.connect.client.units.Mass
-import java.time.Instant
-import java.time.ZonedDateTime
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
+import java.time.Instant
+import java.time.ZonedDateTime
 
 const val MIN_SUPPORTED_SDK = Build.VERSION_CODES.O_MR1
 
@@ -45,7 +45,7 @@ class HealthConnectManager(private val context: Context) {
     }
 
     @OptIn(ExperimentalFeatureAvailabilityApi::class)
-    fun isFeatureAvailable(feature: Int): Boolean{
+    fun isFeatureAvailable(feature: Int): Boolean {
         return healthConnectClient
             .features
             .getFeatureStatus(feature) == HealthConnectFeatures.FEATURE_STATUS_AVAILABLE
@@ -102,7 +102,7 @@ class HealthConnectManager(private val context: Context) {
      */
     private fun buildHeartRateSeries(
         sessionStartTime: ZonedDateTime,
-        sessionEndTime: ZonedDateTime,
+        sessionEndTime: ZonedDateTime
     ): HeartRateRecord {
         TODO()
     }
@@ -111,11 +111,10 @@ class HealthConnectManager(private val context: Context) {
      * TODO: Reads aggregated data and raw data for selected data types, for a given [ExerciseSessionRecord].
      */
     suspend fun readAssociatedSessionData(
-        uid: String,
+        uid: String
     ): ExerciseSessionData {
         TODO()
     }
-
 
     /**
      * TODO: Obtains a changes token for the specified record types.
@@ -135,12 +134,12 @@ class HealthConnectManager(private val context: Context) {
     /**
      * TODO: Enqueue the ReadStepWorker
 
-    fun enqueueReadStepWorker(){
-        val readRequest = OneTimeWorkRequestBuilder<ReadStepWorker>()
-            .setInitialDelay(10, TimeUnit.SECONDS)
-            .build()
-        WorkManager.getInstance(context).enqueue(readRequest)
-    }
+     fun enqueueReadStepWorker(){
+     val readRequest = OneTimeWorkRequestBuilder<ReadStepWorker>()
+     .setInitialDelay(10, TimeUnit.SECONDS)
+     .build()
+     WorkManager.getInstance(context).enqueue(readRequest)
+     }
      */
 
     /**
@@ -148,7 +147,7 @@ class HealthConnectManager(private val context: Context) {
      */
     private suspend inline fun <reified T : Record> readData(
         timeRangeFilter: TimeRangeFilter,
-        dataOriginFilter: Set<DataOrigin> = setOf(),
+        dataOriginFilter: Set<DataOrigin> = setOf()
     ): List<T> {
         val request = ReadRecordsRequest(
             recordType = T::class,

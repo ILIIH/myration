@@ -15,9 +15,9 @@ import javax.inject.Inject
 
 class RecipeRepositoryImp @Inject constructor(
     private val localDataSource: RecipeDataSource,
-    private  val remoteDataSource: RecipeApiService,
+    private val remoteDataSource: RecipeApiService,
     private val preferences: SharedPreferences
-): RecipeRepository {
+) : RecipeRepository {
 
     override suspend fun addRecipe(recipe: Recipe) {
         TODO("Not yet implemented")
@@ -25,7 +25,7 @@ class RecipeRepositoryImp @Inject constructor(
 
     override suspend fun getAllRecipe(): List<Recipe> {
         if (!preferences.getBoolean(IS_DATA_FETCHED, false)) initRecipes()
-        return  localDataSource.getAllRecipes().map { it.toDomain()}
+        return localDataSource.getAllRecipes().map { it.toDomain() }
     }
     override suspend fun getRecipeById(recipeId: Int): Recipe {
         return localDataSource.getRecipeById(recipeId).toDomain()
@@ -39,22 +39,22 @@ class RecipeRepositoryImp @Inject constructor(
     }
 
     companion object {
-        private const val  IS_DATA_FETCHED = "is_data_fetched"
+        private const val IS_DATA_FETCHED = "is_data_fetched"
     }
 
-    private suspend fun initRecipes(){
-        withContext(Dispatchers.IO){
+    private suspend fun initRecipes() {
+        withContext(Dispatchers.IO) {
             for (ch in 'a'..'z') {
                 val meals = remoteDataSource.getRecipeStartedWith(ch)
-                if( meals.meals != null ){
-                    for (recipe in  meals.meals){
+                if (meals.meals != null) {
+                    for (recipe in meals.meals) {
                         localDataSource.addRecipe(recipe.toData())
                         for ((index, ingredient) in recipe.ingredients.withIndex()) {
                             val ingredientAmount = if (index < recipe.measures.size) recipe.measures[index] ?: "" else ""
                             localDataSource.addRecipeIngredient(
                                 RecipeIngredientEntity(
-                                    recipeID = recipe.id?.toInt()?:0,
-                                    productName =  ingredient?:"",
+                                    recipeID = recipe.id?.toInt() ?: 0,
+                                    productName = ingredient ?: "",
                                     productAmount = ingredientAmount
                                 )
                             )

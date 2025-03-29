@@ -12,7 +12,8 @@ interface RecipeDataSource {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun addRecipe(recipeEntity: RecipeEntity)
 
-    @Query("SELECT r.*\n" +
+    @Query(
+        "SELECT r.*\n" +
             "FROM recipe r\n" +
             "WHERE r.id IN (\n" +
             "    SELECT ri.recipeID\n" +
@@ -20,10 +21,13 @@ interface RecipeDataSource {
             "    LEFT JOIN products p ON ri.productName = p.name\n" +
             "    GROUP BY ri.recipeID\n" +
             "    HAVING COUNT(ri.productName) - COUNT(p.name) <= 3\n" +
-            ");\n")
+            ");\n"
+    )
     suspend fun getAllRecipes(): List<RecipeEntity>
+
     @Query("SELECT * FROM recipe WHERE  id = :recipeID")
     suspend fun getRecipeById(recipeID: Int): RecipeEntity
+
     @Insert
     suspend fun addRecipeIngredient(ingredient: RecipeIngredientEntity)
 
@@ -32,5 +36,4 @@ interface RecipeDataSource {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertAllRecipe(data: List<RecipeEntity>)
-
 }

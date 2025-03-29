@@ -1,7 +1,6 @@
 package com.example.data.source
 
 import com.example.data.model.MealsResponse
-import com.example.data.model.RecipeAPIEntity
 import retrofit2.http.GET
 import retrofit2.http.Query
 

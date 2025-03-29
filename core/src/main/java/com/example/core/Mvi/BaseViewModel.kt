@@ -1,4 +1,4 @@
-package com.example.core.MVI
+package com.example.core.Mvi
 
 import androidx.lifecycle.ViewModel
 import kotlinx.coroutines.channels.Channel

@@ -32,10 +32,10 @@ import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.wear.compose.material.Button
 import androidx.wear.compose.material.ButtonDefaults
-import com.example.core.MVI.ResultState
+import com.example.core.Mvi.ResultState
 import com.example.myration.ui.theme.PrimaryColor
 import com.example.myration.ui.theme.SecondaryBackgroundColor
-import com.example.myration.view_models.AddProductViewModel
+import com.example.myration.viewModels.AddProductViewModel
 
 @Composable
 fun AddProductManuallyScreen(
@@ -45,7 +45,7 @@ fun AddProductManuallyScreen(
 
     when (val state = uploadState.value) {
         is ResultState.Success -> {
-            AddProductManuallyScreenLoaded(viewModel , state.data)
+            AddProductManuallyScreenLoaded(viewModel, state.data)
         }
         is ResultState.Loading -> {
             CircularProgressIndicator()
@@ -59,12 +59,10 @@ fun AddProductManuallyScreen(
             )
         }
     }
-
-
 }
 
 @Composable
-fun AddProductManuallyScreenLoaded(viewModel: AddProductViewModel, loadingState: Boolean){
+fun AddProductManuallyScreenLoaded(viewModel: AddProductViewModel, loadingState: Boolean) {
     var productName by remember { mutableStateOf(TextFieldValue("")) }
     var productWeight by remember { mutableStateOf(TextFieldValue("")) }
     var productMeasurementMetric by remember { mutableStateOf(TextFieldValue("")) }
@@ -109,7 +107,7 @@ fun AddProductManuallyScreenLoaded(viewModel: AddProductViewModel, loadingState:
                 modifier = Modifier.fillMaxWidth(),
                 label = { Text("Product name") },
                 singleLine = true,
-                colors = OutlinedTextFieldDefaults.colors( unfocusedContainerColor = Color.White, focusedContainerColor = Color.White )
+                colors = OutlinedTextFieldDefaults.colors(unfocusedContainerColor = Color.White, focusedContainerColor = Color.White)
             )
             Spacer(modifier = Modifier.height(20.dp))
             TextField(
@@ -118,7 +116,7 @@ fun AddProductManuallyScreenLoaded(viewModel: AddProductViewModel, loadingState:
                 modifier = Modifier.fillMaxWidth(),
                 label = { Text("Product weight") },
                 singleLine = true,
-                colors = OutlinedTextFieldDefaults.colors( unfocusedContainerColor = Color.White, focusedContainerColor = Color.White )
+                colors = OutlinedTextFieldDefaults.colors(unfocusedContainerColor = Color.White, focusedContainerColor = Color.White)
             )
             Spacer(modifier = Modifier.height(20.dp))
             TextField(
@@ -127,7 +125,7 @@ fun AddProductManuallyScreenLoaded(viewModel: AddProductViewModel, loadingState:
                 modifier = Modifier.fillMaxWidth(),
                 label = { Text("Measurement Metric (lt, kg,pcs)") },
                 singleLine = true,
-                colors = OutlinedTextFieldDefaults.colors( unfocusedContainerColor = Color.White, focusedContainerColor = Color.White )
+                colors = OutlinedTextFieldDefaults.colors(unfocusedContainerColor = Color.White, focusedContainerColor = Color.White)
             )
             Spacer(modifier = Modifier.height(20.dp))
             TextField(
@@ -138,16 +136,17 @@ fun AddProductManuallyScreenLoaded(viewModel: AddProductViewModel, loadingState:
                     .background(Color.White),
                 label = { Text("Product expiry date") },
                 singleLine = true,
-                colors = OutlinedTextFieldDefaults.colors( unfocusedContainerColor = Color.White, focusedContainerColor = Color.White )
+                colors = OutlinedTextFieldDefaults.colors(unfocusedContainerColor = Color.White, focusedContainerColor = Color.White)
             )
             Spacer(modifier = Modifier.height(20.dp))
             Button(
                 onClick = {
                     viewModel.addProduct(
-                        productWeight.text.toFloat()
-                        ,productName.text
-                        ,productMeasurementMetric.text
-                        ,productExpiration.text)
+                        productWeight.text.toFloat(),
+                        productName.text,
+                        productMeasurementMetric.text,
+                        productExpiration.text
+                    )
                 },
                 modifier = Modifier
                     .fillMaxWidth()
@@ -156,7 +155,7 @@ fun AddProductManuallyScreenLoaded(viewModel: AddProductViewModel, loadingState:
                     backgroundColor = PrimaryColor,
                     contentColor = Color.White
                 )
-            ){
+            ) {
                 Text(text = "Submit", color = Color.White)
             }
         }

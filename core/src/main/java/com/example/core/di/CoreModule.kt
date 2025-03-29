@@ -1,7 +1,6 @@
 package com.example.core.di
 
 import android.content.Context
-import android.content.SharedPreferences
 import com.example.core.util.AudioRecorder
 import dagger.Module
 import dagger.Provides
@@ -16,6 +15,4 @@ object CoreModule {
     fun provideAudioRecorder(@ApplicationContext context: Context): AudioRecorder {
         return AudioRecorder(context)
     }
-
-
 }

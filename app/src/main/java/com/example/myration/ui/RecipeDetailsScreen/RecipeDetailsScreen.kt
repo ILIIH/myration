@@ -40,7 +40,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.wear.compose.material.Button
 import androidx.wear.compose.material.ButtonDefaults
 import coil.compose.AsyncImage
-import com.example.core.MVI.ResultState
+import com.example.core.Mvi.ResultState
 import com.example.domain.model.RecipeIngredient
 import com.example.myration.R
 import com.example.myration.state.RecipeDetailViewState
@@ -49,7 +49,7 @@ import com.example.myration.ui.theme.PrimaryTransparentColor
 import com.example.myration.ui.theme.SecondaryColor
 import com.example.myration.ui.theme.SecondaryHalfTransparentColor
 import com.example.myration.ui.theme.Typography
-import com.example.myration.view_models.RecipeDetailsViewModel
+import com.example.myration.viewModels.RecipeDetailsViewModel
 
 @Composable
 fun RecipeDetailsScreen(
@@ -73,8 +73,6 @@ fun RecipeDetailsScreen(
             )
         }
     }
-
-
 }
 
 @Composable
@@ -105,7 +103,7 @@ fun BlocksDivider() {
 }
 
 @Composable
-fun VideoRecipe(videoId: String){
+fun VideoRecipe(videoId: String) {
     val context = LocalContext.current
     val intent = remember { Intent(Intent.ACTION_VIEW, Uri.parse("https://www.youtube.com/watch?v=$videoId")) }
 
@@ -136,8 +134,9 @@ fun VideoRecipe(videoId: String){
         }
     }
 }
+
 @Composable
-fun RecipeDescription(recipe: String){
+fun RecipeDescription(recipe: String) {
     Text(
         text = "Recipe",
         style = Typography.titleLarge,
@@ -162,7 +161,6 @@ fun RecipeDescription(recipe: String){
 
     Button(
         onClick = {
-
         },
         modifier = Modifier
             .fillMaxWidth()
@@ -172,12 +170,13 @@ fun RecipeDescription(recipe: String){
             contentColor = Color.White
         ),
         shape = RoundedCornerShape(24.dp)
-    ){
+    ) {
         Text(text = "Cooked", color = Color.White)
     }
 }
+
 @Composable
-fun IngredientsList(ingredients: List<RecipeIngredient>){
+fun IngredientsList(ingredients: List<RecipeIngredient>) {
     Text(
         text = "Ingredients",
         style = Typography.titleLarge,
@@ -194,20 +193,21 @@ fun IngredientsList(ingredients: List<RecipeIngredient>){
         modifier = Modifier
             .padding(top = 50.dp, start = 20.dp)
             .height((ingredients.size * 14).dp),
-            userScrollEnabled = false
+        userScrollEnabled = false
     ) {
-            items(
-                count = ingredients.size,
-                itemContent = { index ->
-                    Text(
-                        text = "• " + ingredients[index].productName + " " + ingredients[index].productAmount,
-                        style = Typography.displaySmall,
-                        color = SecondaryColor,
-                    )
-                }
-            )
+        items(
+            count = ingredients.size,
+            itemContent = { index ->
+                Text(
+                    text = "• " + ingredients[index].productName + " " + ingredients[index].productAmount,
+                    style = Typography.displaySmall,
+                    color = SecondaryColor
+                )
+            }
+        )
     }
 }
+
 @Composable
 fun RecipeTopBar(state: RecipeDetailViewState) {
     Row(
@@ -219,14 +219,14 @@ fun RecipeTopBar(state: RecipeDetailViewState) {
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.spacedBy(16.dp, Alignment.CenterHorizontally)
     ) {
-        Column (
+        Column(
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.Center
         ) {
             Text(
                 text = state.type.desc,
                 style = Typography.displaySmall,
-                color = SecondaryColor,
+                color = SecondaryColor
             )
             Spacer(modifier = Modifier.height(15.dp))
             Text(
@@ -242,15 +242,14 @@ fun RecipeTopBar(state: RecipeDetailViewState) {
             Text(
                 text = state.kcal.toString() + " kcal",
                 style = Typography.displaySmall,
-                color = SecondaryColor,
+                color = SecondaryColor
             )
         }
         Spacer(modifier = Modifier.width(20.dp))
-        Column (
+        Column(
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.Center
-        ){
-
+        ) {
             Spacer(modifier = Modifier.height(30.dp))
             AsyncImage(
                 model = state.thumbnail,

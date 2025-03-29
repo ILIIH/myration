@@ -1,9 +1,7 @@
-package com.example.myration.view_models
+package com.example.myration.viewModels
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.data.repository.ProductsRepositoryImp
-import com.example.domain.model.Product
 import com.example.domain.model.Recipe
 import com.example.domain.repository.RecipeRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -21,7 +19,7 @@ class CookingViewModel @Inject constructor(
     private val _recipes: MutableStateFlow<List<Recipe>> = MutableStateFlow(emptyList())
     val recipesList: StateFlow<List<Recipe>> = _recipes.asStateFlow()
 
-    init{
+    init {
         getAllRecipes()
     }
 

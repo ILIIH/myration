@@ -1,7 +1,5 @@
 package com.example.data.model
 
-import com.google.gson.annotations.SerializedName
-
 data class MealsResponse(
     val meals: List<RecipeAPIEntity>?
 )

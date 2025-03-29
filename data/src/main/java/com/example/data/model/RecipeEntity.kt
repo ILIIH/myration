@@ -4,7 +4,7 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 
 @Entity(tableName = "recipe")
-data class RecipeEntity (
+data class RecipeEntity(
     @PrimaryKey(autoGenerate = true) val id: Int? = null,
     val name: String,
     val cookingTime: String,
@@ -19,7 +19,7 @@ data class RecipeEntity (
 )
 
 @Entity(tableName = "recipe_ingredients")
-data class RecipeIngredientEntity (
+data class RecipeIngredientEntity(
     @PrimaryKey(autoGenerate = true) val id: Int? = null,
     val recipeID: Int,
     val productName: String,
