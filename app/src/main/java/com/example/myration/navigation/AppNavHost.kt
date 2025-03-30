@@ -22,8 +22,7 @@ fun AppNavHost(navController: NavHostController) {
             AddProductManuallyScreen()
         }
         composable(NavigationRoute.ADD_PRODUCT_VOICE.route) {
-            val context = LocalContext.current
-            AddProductVoiceScreen(AudioRecorder(context))
+            AddProductVoiceScreen()
         }
         composable(NavigationRoute.SCAN_PRODUCTS_SCREEN.route) {
             ScanRecipeScreen()

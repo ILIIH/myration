@@ -13,22 +13,20 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableFloatStateOf
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
+import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
-import com.example.core.util.AudioRecorder
+import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.myration.ui.theme.SecondaryBackgroundColor
+import com.example.myration.viewModels.AddProductVoiceViewModel
 
 @Composable
-fun AddProductVoiceScreen(recorder: AudioRecorder) {
-    var recordingProgress by remember { mutableFloatStateOf(0f) }
+fun AddProductVoiceScreen(
+    viewModel: AddProductVoiceViewModel = hiltViewModel()
+) {
+    val isRecording = viewModel.isRecording.collectAsState()
+    val recordingProgress = viewModel.recordingProgress.collectAsState()
     val context = LocalContext.current
-    var isRecording by remember { mutableStateOf(false) }
-    val maxRecordLength = 5000f
 
     val permissions = arrayOf(
         RECORD_AUDIO,
@@ -49,34 +47,18 @@ fun AddProductVoiceScreen(recorder: AudioRecorder) {
             .background(SecondaryBackgroundColor)
     ) {
         RecordingWidget(
-            isRecording,
-            recordingProgress,
-            maxRecordLength,
-            { recorder.startRecording(); isRecording = true },
-            { recorder.stopRecording(); isRecording = false }
+            isRecording.value,
+            recordingProgress.value,
+            viewModel.maxRecordLength,
+            viewModel::startRecording,
+            viewModel::stopRecorder
         )
-
         TextFromAudioWidget()
     }
 
-    LaunchedEffect(isRecording) {
-        TimerManager.start(
-            intervalMillis = 100L,
-            onTick = {
-                if (recordingProgress < maxRecordLength) {
-                    recordingProgress += 10f
-                }
-            }
-        )
-
-        if (!isRecording) {
-            recordingProgress = 0f
-            TimerManager.stop()
-        }
-    }
     LaunchedEffect(recordingProgress) {
-        if (recordingProgress >= maxRecordLength) {
-            isRecording = false
+        if (recordingProgress.value >= viewModel.maxRecordLength) {
+            viewModel.stopRecorder()
         }
     }
     LaunchedEffect(Unit) {
