@@ -1,6 +1,7 @@
 package com.example.core.di
 
 import android.content.Context
+import com.example.core.camera.CameraController
 import com.example.core.util.AudioRecorder
 import dagger.Module
 import dagger.Provides
@@ -15,4 +16,9 @@ object CoreModule {
     fun provideAudioRecorder(@ApplicationContext context: Context): AudioRecorder {
         return AudioRecorder(context)
     }
+    @Provides
+    fun provideCameraController(): CameraController {
+        return CameraController()
+    }
+
 }

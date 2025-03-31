@@ -1,4 +1,4 @@
-package com.example.myration.ui.AddProductScreen
+package com.example.myration.ui.AddProductScreen.AddProductManuallyScreen
 
 import android.widget.Toast
 import androidx.compose.foundation.background

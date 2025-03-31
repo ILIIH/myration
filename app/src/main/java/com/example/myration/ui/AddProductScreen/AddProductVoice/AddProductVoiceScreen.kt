@@ -56,7 +56,7 @@ fun AddProductVoiceScreen(
         TextFromAudioWidget()
     }
 
-    LaunchedEffect(recordingProgress) {
+    LaunchedEffect(recordingProgress.value) {
         if (recordingProgress.value >= viewModel.maxRecordLength) {
             viewModel.stopRecorder()
         }
