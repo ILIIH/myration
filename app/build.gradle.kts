@@ -87,6 +87,9 @@ dependencies {
     implementation("androidx.camera:camera-view:1.4.2")
     implementation("androidx.camera:camera-extensions:1.4.2")
 
+    // Image processing
+    implementation("io.coil-kt:coil-compose:2.5.0")
+
     implementation(project(":data"))
     implementation(project(":domain"))
 }

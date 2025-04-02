@@ -16,23 +16,32 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.core.camera.CameraController
 import com.example.core.camera.CameraPreviewView
 import com.example.myration.R
+import com.example.myration.state.ImageScanState
 import com.example.myration.ui.theme.SecondaryBackgroundColor
+import com.example.myration.viewModels.ScanRecipeViewModel
 
 @Composable
-fun ScanRecipeScreen() {
+fun ScanRecipeScreen(
+    viewModel: ScanRecipeViewModel = hiltViewModel()
+) {
     val context = LocalContext.current
-    val controller = remember { CameraController() }
+    val screenState = viewModel.scanImageState.collectAsState()
 
     val cameraPermissionLauncher = rememberLauncherForActivityResult(
         contract = ActivityResultContracts.RequestPermission(),
@@ -47,40 +56,16 @@ fun ScanRecipeScreen() {
         cameraPermissionLauncher.launch(Manifest.permission.CAMERA)
     }
 
-    Column(
-        modifier = Modifier
-            .fillMaxSize()
-            .background(SecondaryBackgroundColor)
-            .padding(20.dp),
-        horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.spacedBy(16.dp, Alignment.CenterVertically)
-    ) {
-        CameraPreviewView(
-            modifier = Modifier
-                .fillMaxWidth()
-                .height(500.dp)
-                .padding(horizontal = 20.dp, vertical = 30.dp),
-            controller = controller
+    when(screenState.value)  {
+        ImageScanState.PickingImage -> PickingImageWidget(
+            context = context,
+            submitImage = viewModel::submitPhoto,
+            errorPickingImage = viewModel::pickingImageError
         )
-
-        Image(
-            painter = painterResource(id = R.drawable.ic_make_photo_icon),
-            contentDescription = "Make a photo",
-            modifier = Modifier
-                .size(50.dp)
-                .clickable {
-                    controller.takePhoto(
-                        context = context,
-                        outputDirectory = context.cacheDir,
-                        onImageSaved = { uri ->
-                            // TODO: Upload the image or display it
-                            Toast.makeText(context, "Saved: $uri", Toast.LENGTH_SHORT).show()
-                        },
-                        onError = { e ->
-                            Toast.makeText(context, "Error: ${e.message}", Toast.LENGTH_SHORT).show()
-                        }
-                    )
-                }
+        is ImageScanState.ImageScanning ->ImageScanningWidget(
+            uri = (screenState.value as ImageScanState.ImageScanning).uri,
+            cancelScanning = viewModel::cancelScanning
         )
+        else -> {}
     }
 }
