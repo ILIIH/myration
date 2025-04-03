@@ -65,14 +65,14 @@ fun ImageScanningWidget( uri: Uri, cancelScanning: () -> Unit){
             modifier =  Modifier.padding(horizontal = 40.dp, vertical = 10.dp)
         )
 
-        AsyncImage(
-            model = uri,
-            contentDescription = "Selected image",
+        ScanImageView(
+            uri = uri,
             modifier = Modifier
                 .fillMaxWidth()
                 .height(500.dp)
-                .padding(horizontal = 20.dp, vertical = 30.dp),
-            )
+                .padding(horizontal = 20.dp, vertical = 30.dp)
+        )
+
         Image(
             painter = painterResource(id = R.drawable.ic_baseline_close),
             contentDescription = "Make a photo",
