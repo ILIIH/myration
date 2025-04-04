@@ -17,6 +17,7 @@ import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.asImageBitmap
 import androidx.compose.ui.platform.LocalContext
+import com.example.core.media.image.decodeSampledBitmapFromStream
 import com.example.myration.ui.AddProductScreen.AddProductVoice.TimerManager
 
 
@@ -52,8 +53,11 @@ fun ScanImageView(uri: Uri, modifier: Modifier = Modifier) {
 
     val bitmap = remember(uri) {
         try {
-            val inputStream = context.contentResolver.openInputStream(uri)
-            val originalBitmap = BitmapFactory.decodeStream(inputStream)
+            val originalBitmap = decodeSampledBitmapFromStream(
+                inputStreamProvider = { context.contentResolver.openInputStream(uri)!! },
+                reqWidth = 800,
+                reqHeight = 800
+            ) ?: throw NullPointerException("originalBitmap is null")
 
             // Re-open the stream to read EXIF data
             val exifStream = context.contentResolver.openInputStream(uri)
