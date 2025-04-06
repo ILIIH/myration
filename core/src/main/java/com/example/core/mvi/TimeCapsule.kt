@@ -1,4 +1,4 @@
-package com.example.core.Mvi
+package com.example.core.mvi
 
 class TimeCapsule<T>(private val onRestore: (T) -> Unit) {
     private val stateHistory = mutableListOf<T>()

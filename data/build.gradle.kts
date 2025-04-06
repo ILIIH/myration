@@ -15,6 +15,10 @@ android {
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles("consumer-rules.pro")
     }
+    buildFeatures {
+        buildConfig = false
+        androidResources = false
+    }
 
     buildTypes {
         release {
@@ -59,7 +63,6 @@ dependencies {
     kapt("com.google.dagger:hilt-compiler:2.50")
 
     // Network
-
     implementation("com.squareup.retrofit2:retrofit:2.9.0")
     implementation("com.squareup.retrofit2:converter-gson:2.9.0") // Gson for JSON parsing
     implementation("com.squareup.okhttp3:logging-interceptor:5.0.0-alpha.3") // Optional: Logging

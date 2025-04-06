@@ -1,4 +1,4 @@
-package com.example.core.Mvi
+package com.example.core.mvi
 
 sealed class ResultState<out T> {
     data object Loading : ResultState<Nothing>()

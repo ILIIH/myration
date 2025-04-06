@@ -22,7 +22,7 @@ import com.example.myration.ui.AddProductScreen.AddProductVoice.TimerManager
 
 
 @Composable
-fun ScanImageView(uri: Uri, modifier: Modifier = Modifier) {
+fun ScanImageView(uri: Uri, modifier: Modifier = Modifier, width: Int, height: Int) {
     val context = LocalContext.current
     val scanLineY = remember { mutableFloatStateOf(0f)   }
     var scanForward = remember{ mutableStateOf(false) }
@@ -55,8 +55,8 @@ fun ScanImageView(uri: Uri, modifier: Modifier = Modifier) {
         try {
             val originalBitmap = decodeSampledBitmapFromStream(
                 inputStreamProvider = { context.contentResolver.openInputStream(uri)!! },
-                reqWidth = 800,
-                reqHeight = 800
+                reqWidth = width,
+                reqHeight = height
             ) ?: throw NullPointerException("originalBitmap is null")
 
             // Re-open the stream to read EXIF data

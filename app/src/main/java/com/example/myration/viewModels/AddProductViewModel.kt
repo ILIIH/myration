@@ -2,7 +2,7 @@ package com.example.myration.viewModels
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.core.Mvi.ResultState
+import com.example.core.mvi.ResultState
 import com.example.data.repository.ProductsRepositoryImp
 import com.example.domain.model.MeasurementMetric
 import com.example.domain.model.Product

@@ -40,7 +40,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.wear.compose.material.Button
 import androidx.wear.compose.material.ButtonDefaults
 import coil.compose.AsyncImage
-import com.example.core.Mvi.ResultState
+import com.example.core.mvi.ResultState
 import com.example.domain.model.RecipeIngredient
 import com.example.myration.R
 import com.example.myration.state.RecipeDetailViewState

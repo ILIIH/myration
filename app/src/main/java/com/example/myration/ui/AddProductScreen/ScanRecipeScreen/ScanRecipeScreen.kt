@@ -29,8 +29,8 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
-import com.example.core.camera.CameraController
-import com.example.core.camera.CameraPreviewView
+import com.example.core_ui.camera.CameraController
+import com.example.core_ui.camera.CameraPreviewView
 import com.example.myration.R
 import com.example.myration.state.ImageScanState
 import com.example.myration.ui.theme.SecondaryBackgroundColor

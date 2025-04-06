@@ -1,6 +1,6 @@
 package com.example.myration.reducer
 
-import com.example.core.Mvi.Reducer
+import com.example.core.mvi.Reducer
 import com.example.myration.intent.Effects
 import com.example.myration.intent.Events
 import com.example.myration.state.GroceriesViewState

@@ -3,7 +3,7 @@ package com.example.myration.viewModels
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.core.Mvi.ResultState
+import com.example.core.mvi.ResultState
 import com.example.domain.repository.RecipeRepository
 import com.example.myration.state.RecipeDetailViewState
 import dagger.hilt.android.lifecycle.HiltViewModel

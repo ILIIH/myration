@@ -3,7 +3,6 @@ package com.example.myration.viewModels
 import android.net.Uri
 import android.util.Log
 import androidx.lifecycle.ViewModel
-import com.example.core.Mvi.ResultState
 import com.example.myration.state.ImageScanState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow

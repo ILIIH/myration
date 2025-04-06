@@ -1,6 +1,6 @@
 package com.example.myration.state
 
-import com.example.core.Mvi.Reducer
+import com.example.core.mvi.Reducer
 import com.example.domain.model.Product
 
 data class GroceriesViewState(

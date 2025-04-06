@@ -1,9 +1,8 @@
-package com.example.core.android
+package com.example.android
 
 import android.content.Context
 import androidx.camera.lifecycle.ProcessCameraProvider
-import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.suspendCancellableCoroutine
+
 import java.util.concurrent.Executor
 import java.util.concurrent.Executors
 import kotlin.coroutines.resume

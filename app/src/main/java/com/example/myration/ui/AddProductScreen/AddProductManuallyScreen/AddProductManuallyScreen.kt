@@ -32,7 +32,7 @@ import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.wear.compose.material.Button
 import androidx.wear.compose.material.ButtonDefaults
-import com.example.core.Mvi.ResultState
+import com.example.core.mvi.ResultState
 import com.example.myration.ui.theme.PrimaryColor
 import com.example.myration.ui.theme.SecondaryBackgroundColor
 import com.example.myration.viewModels.AddProductViewModel

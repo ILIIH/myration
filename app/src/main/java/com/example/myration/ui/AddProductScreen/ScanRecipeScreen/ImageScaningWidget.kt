@@ -31,8 +31,8 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
-import com.example.core.camera.CameraController
-import com.example.core.camera.CameraPreviewView
+import com.example.core_ui.camera.CameraController
+import com.example.core_ui.camera.CameraPreviewView
 import com.example.myration.R
 import com.example.myration.navigation.NavigationRoute
 import com.example.myration.ui.theme.PrimaryColor
@@ -70,7 +70,8 @@ fun ImageScanningWidget( uri: Uri, cancelScanning: () -> Unit){
             modifier = Modifier
                 .fillMaxWidth()
                 .height(500.dp)
-                .padding(horizontal = 20.dp, vertical = 30.dp)
+                .padding(horizontal = 20.dp, vertical = 30.dp),
+            400, 500
         )
 
         Image(
