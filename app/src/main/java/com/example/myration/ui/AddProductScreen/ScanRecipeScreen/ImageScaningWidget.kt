@@ -1,6 +1,7 @@
 package com.example.myration.ui.AddProductScreen.ScanRecipeScreen
 
 import android.content.Context
+import android.graphics.Bitmap
 import android.net.Uri
 import android.widget.Toast
 import androidx.compose.foundation.Image
@@ -41,7 +42,7 @@ import com.example.myration.ui.theme.Typography
 
 
 @Composable
-fun ImageScanningWidget( uri: Uri, cancelScanning: () -> Unit){
+fun ImageScanningWidget(bitmap: Bitmap?, cancelScanning: () -> Unit){
     val scanningProgress = remember{ mutableFloatStateOf(0.3f) }
 
     Column(
@@ -66,12 +67,11 @@ fun ImageScanningWidget( uri: Uri, cancelScanning: () -> Unit){
         )
 
         ScanImageView(
-            uri = uri,
+            bitmap = bitmap,
             modifier = Modifier
                 .fillMaxWidth()
                 .height(500.dp)
-                .padding(horizontal = 20.dp, vertical = 30.dp),
-            400, 500
+                .padding(horizontal = 20.dp, vertical = 30.dp)
         )
 
         Image(

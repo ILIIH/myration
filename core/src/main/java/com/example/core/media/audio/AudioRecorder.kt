@@ -1,4 +1,4 @@
-package com.example.core.util
+package com.example.core.media.audio
 
 import android.content.Context
 import android.media.MediaRecorder
@@ -9,7 +9,7 @@ import java.io.IOException
 class AudioRecorder(private val context: Context) {
 
     private var recorder: MediaRecorder? = null
-    val filePath: String = "${context.externalCacheDir?.absolutePath}/recorded_audio.3gp"
+    private val filePath: String = "${context.externalCacheDir?.absolutePath}/$AUDIO_FILE_NAME"
     private var isRecording = false
 
     fun startRecording() {
@@ -24,7 +24,7 @@ class AudioRecorder(private val context: Context) {
         try {
             recorder?.apply {
                 setAudioSource(MediaRecorder.AudioSource.MIC)
-                setOutputFormat(MediaRecorder.OutputFormat.THREE_GPP)
+                setOutputFormat(MediaRecorder.OutputFormat.MPEG_4)
                 setAudioEncoder(MediaRecorder.AudioEncoder.AMR_NB)
                 setOutputFile(filePath)
                 prepare()
@@ -38,7 +38,7 @@ class AudioRecorder(private val context: Context) {
         }
     }
 
-    fun stopRecording() {
+    fun stopRecording(){
         try {
             if (isRecording) {
                 recorder?.apply {
@@ -53,6 +53,10 @@ class AudioRecorder(private val context: Context) {
         } finally {
             recorder = null
         }
+    }
+
+    companion object {
+        const val AUDIO_FILE_NAME = "recorded_audio.mp4"
     }
 
     fun isRecording(): Boolean = isRecording

@@ -56,14 +56,14 @@ fun ScanRecipeScreen(
         cameraPermissionLauncher.launch(Manifest.permission.CAMERA)
     }
 
-    when(screenState.value)  {
+    when(val state = screenState.value)  {
         ImageScanState.PickingImage -> PickingImageWidget(
             context = context,
             submitImage = viewModel::submitPhoto,
             errorPickingImage = viewModel::pickingImageError
         )
         is ImageScanState.ImageScanning ->ImageScanningWidget(
-            uri = (screenState.value as ImageScanState.ImageScanning).uri,
+            bitmap  = state.bitmap,
             cancelScanning = viewModel::cancelScanning
         )
         else -> {}

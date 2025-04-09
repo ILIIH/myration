@@ -13,6 +13,11 @@ android {
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles("consumer-rules.pro")
+        externalNativeBuild {
+            cmake {
+                cppFlags += ""
+            }
+        }
     }
     buildTypes {
         release {
@@ -25,7 +30,6 @@ android {
     }
     buildFeatures {
         buildConfig = false
-        androidResources = false
     }
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_17
@@ -33,6 +37,12 @@ android {
     }
     kotlinOptions {
         jvmTarget = "17"
+    }
+    externalNativeBuild {
+        cmake {
+            path = file("../../../Desktop/DataSciense/whisper.cpp/CMakeLists.txt")
+            version = "3.22.1"
+        }
     }
 }
 
@@ -48,5 +58,8 @@ dependencies {
     // DI
     implementation("com.google.dagger:hilt-android:2.50")
     kapt("com.google.dagger:hilt-compiler:2.50")
+
+    // Text recognition AI
+    implementation ("com.google.mlkit:text-recognition:16.0.1")
 
 }
