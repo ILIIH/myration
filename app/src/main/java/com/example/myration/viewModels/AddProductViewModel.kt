@@ -36,7 +36,8 @@ class AddProductViewModel @Inject constructor(
                             "lt" -> MeasurementMetric.LITERS
                             else -> MeasurementMetric.PIECE
                         },
-                        expirationDate = expirationDate
+                        expirationDate = expirationDate,
+                        id = 0
                     )
                 )
                 _addProductState.value = ResultState.Success(true)

@@ -36,9 +36,9 @@ import com.example.core_ui.camera.CameraController
 import com.example.core_ui.camera.CameraPreviewView
 import com.example.myration.R
 import com.example.myration.navigation.NavigationRoute
-import com.example.myration.ui.theme.PrimaryColor
-import com.example.myration.ui.theme.SecondaryBackgroundColor
-import com.example.myration.ui.theme.Typography
+import com.example.theme.PrimaryColor
+import com.example.theme.SecondaryBackgroundColor
+import com.example.theme.Typography
 
 
 @Composable

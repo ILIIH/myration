@@ -17,7 +17,7 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.hilt.navigation.compose.hiltViewModel
-import com.example.myration.ui.theme.SecondaryBackgroundColor
+import com.example.theme.SecondaryBackgroundColor
 import com.example.myration.viewModels.AddProductVoiceViewModel
 
 @Composable

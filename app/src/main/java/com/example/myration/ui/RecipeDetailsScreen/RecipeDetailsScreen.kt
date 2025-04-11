@@ -44,11 +44,11 @@ import com.example.core.mvi.ResultState
 import com.example.domain.model.RecipeIngredient
 import com.example.myration.R
 import com.example.myration.state.RecipeDetailViewState
-import com.example.myration.ui.theme.PrimaryColor
-import com.example.myration.ui.theme.PrimaryTransparentColor
-import com.example.myration.ui.theme.SecondaryColor
-import com.example.myration.ui.theme.SecondaryHalfTransparentColor
-import com.example.myration.ui.theme.Typography
+import com.example.theme.PrimaryColor
+import com.example.theme.PrimaryTransparentColor
+import com.example.theme.SecondaryColor
+import com.example.theme.SecondaryHalfTransparentColor
+import com.example.theme.Typography
 import com.example.myration.viewModels.RecipeDetailsViewModel
 
 @Composable

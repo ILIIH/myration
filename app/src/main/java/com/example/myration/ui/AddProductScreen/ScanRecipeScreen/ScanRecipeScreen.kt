@@ -33,7 +33,7 @@ import com.example.core_ui.camera.CameraController
 import com.example.core_ui.camera.CameraPreviewView
 import com.example.myration.R
 import com.example.myration.state.ImageScanState
-import com.example.myration.ui.theme.SecondaryBackgroundColor
+import com.example.theme.SecondaryBackgroundColor
 import com.example.myration.viewModels.ScanRecipeViewModel
 
 @Composable

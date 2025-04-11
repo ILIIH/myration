@@ -25,9 +25,9 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import com.example.myration.R
 import com.example.myration.navigation.NavigationRoute
-import com.example.myration.ui.theme.PrimaryColor
-import com.example.myration.ui.theme.SecondaryBackgroundColor
-import com.example.myration.ui.theme.Typography
+import com.example.theme.PrimaryColor
+import com.example.theme.SecondaryBackgroundColor
+import com.example.theme.Typography
 import com.example.myration.viewModels.AddProductViewModel
 
 @Composable

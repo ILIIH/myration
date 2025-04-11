@@ -15,7 +15,7 @@ import androidx.health.connect.client.PermissionController
 import androidx.navigation.compose.rememberNavController
 import com.example.myration.navigation.AppNavHost
 import com.example.myration.navigation.BottomNavigationBar
-import com.example.myration.ui.theme.MyRationTheme
+import com.example.theme.MyRationTheme
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint

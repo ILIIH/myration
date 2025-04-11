@@ -27,7 +27,7 @@ import androidx.compose.ui.unit.dp
 import com.example.core_ui.camera.CameraController
 import com.example.core_ui.camera.CameraPreviewView
 import com.example.myration.R
-import com.example.myration.ui.theme.SecondaryBackgroundColor
+import com.example.theme.SecondaryBackgroundColor
 
 
 @Composable

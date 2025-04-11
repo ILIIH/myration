@@ -1,4 +1,4 @@
-package com.example.myration.ui.theme
+package com.example.theme
 
 import androidx.compose.ui.graphics.Color
 

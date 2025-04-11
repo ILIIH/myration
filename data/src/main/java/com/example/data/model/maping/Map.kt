@@ -20,12 +20,12 @@ fun ProductEntity.toDomain(): Product {
         "kg" -> MeasurementMetric.KILOGRAM
         else -> MeasurementMetric.PIECE
     }
-    return Product(this.id, this.weight, this.name, metric, this.expirationDate)
+    return Product(this.id?:0, this.weight, this.name, metric, this.expirationDate)
 }
 
 fun Product.toData(): ProductEntity {
     return ProductEntity(
-        null,
+        this.id,
         this.weight,
         this.name,
         this.measurementMetric.desc,

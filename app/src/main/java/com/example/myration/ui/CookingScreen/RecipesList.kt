@@ -30,9 +30,9 @@ import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 import com.example.domain.model.Recipe
 import com.example.myration.R
-import com.example.myration.ui.theme.SecondaryColor
-import com.example.myration.ui.theme.SecondaryHalfTransparentColor
-import com.example.myration.ui.theme.Typography
+import com.example.theme.SecondaryColor
+import com.example.theme.SecondaryHalfTransparentColor
+import com.example.theme.Typography
 
 @Composable
 fun RecipesList(recipeList: List<Recipe>, navigateToRecipeDetails: (recipeId: Int) -> Unit) {
