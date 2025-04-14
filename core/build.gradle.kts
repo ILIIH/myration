@@ -13,11 +13,6 @@ android {
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles("consumer-rules.pro")
-        externalNativeBuild {
-            cmake {
-                cppFlags += ""
-            }
-        }
     }
     buildTypes {
         release {
@@ -38,12 +33,6 @@ android {
     kotlinOptions {
         jvmTarget = "17"
     }
-    externalNativeBuild {
-        cmake {
-            path = file("../../../Desktop/DataSciense/whisper.cpp/CMakeLists.txt")
-            version = "3.22.1"
-        }
-    }
 }
 
 dependencies {
@@ -61,5 +50,5 @@ dependencies {
 
     // Text recognition AI
     implementation ("com.google.mlkit:text-recognition:16.0.1")
-
+    implementation(project(":lib"))
 }

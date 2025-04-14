@@ -17,6 +17,7 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import com.example.core_ui.calorie_counter.CalorieCounterWidget
+import com.example.core_ui.filter.FilterWidget
 import com.example.myration.navigation.NavigationRoute
 import com.example.theme.SecondaryBackgroundColor
 import com.example.myration.viewModels.CookingViewModel
@@ -35,7 +36,7 @@ fun CookingScreen(
             .padding(top=90.dp),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        FilterWidget()
+        FilterWidget(listOf())
         CalorieCounterWidget(modifier = Modifier
             .height(100.dp)
             .width(100.dp),
