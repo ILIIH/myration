@@ -1,9 +1,10 @@
+apply(from = "../build-const.gradle.kts")
+
 plugins {
     id("com.android.library")
     id("org.jetbrains.kotlin.android")
     id("kotlin-kapt")
 }
-
 android {
     namespace = "com.example.core"
     compileSdk = 34
@@ -37,20 +38,17 @@ android {
 
 dependencies {
 
-    implementation("androidx.core:core-ktx:1.15.0")
-    implementation("androidx.appcompat:appcompat:1.7.0")
-    implementation("com.google.android.material:material:1.12.0")
-    testImplementation("junit:junit:4.13.2")
-    androidTestImplementation("androidx.test.ext:junit:1.2.1")
-    androidTestImplementation("androidx.test.espresso:espresso-core:3.6.1")
+    implementation("androidx.core:core-ktx:${project.extra["kotlin_version"]}")
+    implementation("androidx.appcompat:appcompat:${project.extra["appcompat_version"]}")
+    implementation("com.google.android.material:material:${project.extra["material_version"]}")
 
     // DI
-    implementation("com.google.dagger:hilt-android:2.50")
-    kapt("com.google.dagger:hilt-compiler:2.50")
+    implementation("com.google.dagger:hilt-android:${project.extra["dagger_version"]}")
+    kapt("com.google.dagger:hilt-compiler:${project.extra["dagger_version"]}")
 
     // Text recognition AI
-    implementation ("com.google.mlkit:text-recognition:16.0.1")
-    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-play-services:1.6.4")
+    implementation ("com.google.mlkit:text-recognition:${project.extra["mlkit_version"]}")
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-play-services:${project.extra["coroutines_play_services_version"]}")
 
     // Voice recognition AI
     implementation(project(":lib"))

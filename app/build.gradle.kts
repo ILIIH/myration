@@ -1,3 +1,5 @@
+apply(from = "../build-const.gradle.kts")
+
 plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
@@ -52,7 +54,10 @@ android {
 }
 
 dependencies {
-    implementation("androidx.core:core-ktx:1.15.0")
+
+    implementation("androidx.core:core-ktx:${project.extra["kotlin_version"]}")
+    implementation("com.google.android.material:material:${project.extra["material_version"]}")
+
     implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.8.7")
     implementation("androidx.activity:activity-compose:1.10.0")
     implementation(platform("androidx.compose:compose-bom:2023.08.00"))
@@ -63,24 +68,16 @@ dependencies {
     implementation("androidx.navigation:navigation-compose:2.8.8")
     implementation("androidx.wear.compose:compose-material:1.4.1")
     implementation("androidx.exifinterface:exifinterface:1.4.0")
-    implementation("com.google.android.material:material:1.12.0")
-    testImplementation("junit:junit:4.13.2")
-    androidTestImplementation("androidx.test.ext:junit:1.2.1")
-    androidTestImplementation("androidx.test.espresso:espresso-core:3.6.1")
-    androidTestImplementation(platform("androidx.compose:compose-bom:2023.08.00"))
-    androidTestImplementation("androidx.compose.ui:ui-test-junit4")
-    debugImplementation("androidx.compose.ui:ui-tooling")
-    debugImplementation("androidx.compose.ui:ui-test-manifest")
 
     implementation("androidx.health.connect:connect-client:1.1.0-alpha11")
 
     // DI
-    implementation("com.google.dagger:hilt-android:2.50")
-    kapt("com.google.dagger:hilt-compiler:2.50")
-    implementation("androidx.hilt:hilt-navigation-compose:1.2.0")
+    implementation("com.google.dagger:hilt-android:${project.extra["dagger_version"]}")
+    kapt("com.google.dagger:hilt-compiler:${project.extra["dagger_version"]}")
+    implementation("androidx.hilt:hilt-navigation-compose:${project.extra["hilt_navigation_version"]}")
 
     // Image download
-    implementation("io.coil-kt:coil-compose:2.5.0")
+    implementation("io.coil-kt:coil-compose:${project.extra["koil_version"]}")
 
     // CameraX
     implementation("androidx.camera:camera-camera2:1.4.2")
