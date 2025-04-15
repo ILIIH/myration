@@ -64,7 +64,10 @@ fun ScanRecipeScreen(
         )
         is ImageScanState.ImageScanning ->ImageScanningWidget(
             bitmap  = state.bitmap,
-            cancelScanning = viewModel::cancelScanning
+            cancelScanning = viewModel::cancelScanning,
+        )
+        is ImageScanState.ImageScanned -> ImageScannedWidget(
+            scannedText = state.data
         )
         else -> {}
     }

@@ -66,7 +66,7 @@ fun AddProductManuallyScreenLoaded(viewModel: AddProductViewModel, loadingState:
     var productName by remember { mutableStateOf(TextFieldValue("")) }
     var productWeight by remember { mutableStateOf(TextFieldValue("")) }
     var productMeasurementMetric by remember { mutableStateOf(TextFieldValue("")) }
-    var productExpiration by remember { mutableStateOf(TextFieldValue("")) }
+    var productExpiration by remember { mutableStateOf("") }
     val context = LocalContext.current
 
     LaunchedEffect(loadingState) {
@@ -76,7 +76,7 @@ fun AddProductManuallyScreenLoaded(viewModel: AddProductViewModel, loadingState:
             productWeight = TextFieldValue("")
             productName = TextFieldValue("")
             productMeasurementMetric = TextFieldValue("")
-            productExpiration = TextFieldValue("")
+            productExpiration = ""
         }
     }
 
@@ -112,11 +112,18 @@ fun AddProductManuallyScreenLoaded(viewModel: AddProductViewModel, loadingState:
             Spacer(modifier = Modifier.height(20.dp))
             TextField(
                 value = productWeight,
-                onValueChange = { productWeight = it },
+                onValueChange = {
+                    if (it.text.all { char -> char.isDigit() || char == '.' || char == ',' }) {
+                        productWeight = it
+                    }
+                },
                 modifier = Modifier.fillMaxWidth(),
                 label = { Text("Product weight") },
                 singleLine = true,
-                colors = OutlinedTextFieldDefaults.colors(unfocusedContainerColor = Color.White, focusedContainerColor = Color.White)
+                colors = OutlinedTextFieldDefaults.colors(
+                    unfocusedContainerColor = Color.White,
+                    focusedContainerColor = Color.White
+                )
             )
             Spacer(modifier = Modifier.height(20.dp))
             TextField(
@@ -128,16 +135,7 @@ fun AddProductManuallyScreenLoaded(viewModel: AddProductViewModel, loadingState:
                 colors = OutlinedTextFieldDefaults.colors(unfocusedContainerColor = Color.White, focusedContainerColor = Color.White)
             )
             Spacer(modifier = Modifier.height(20.dp))
-            TextField(
-                value = productExpiration,
-                onValueChange = { productExpiration = it },
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .background(Color.White),
-                label = { Text("Product expiry date") },
-                singleLine = true,
-                colors = OutlinedTextFieldDefaults.colors(unfocusedContainerColor = Color.White, focusedContainerColor = Color.White)
-            )
+            DatePicker("Product expiry date") { date -> productExpiration = date }
             Spacer(modifier = Modifier.height(20.dp))
             Button(
                 onClick = {
@@ -145,7 +143,7 @@ fun AddProductManuallyScreenLoaded(viewModel: AddProductViewModel, loadingState:
                         productWeight.text.toFloat(),
                         productName.text,
                         productMeasurementMetric.text,
-                        productExpiration.text
+                        productExpiration
                     )
                 },
                 modifier = Modifier

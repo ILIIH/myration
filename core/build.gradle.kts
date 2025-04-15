@@ -50,5 +50,8 @@ dependencies {
 
     // Text recognition AI
     implementation ("com.google.mlkit:text-recognition:16.0.1")
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-play-services:1.6.4")
+
+    // Voice recognition AI
     implementation(project(":lib"))
 }

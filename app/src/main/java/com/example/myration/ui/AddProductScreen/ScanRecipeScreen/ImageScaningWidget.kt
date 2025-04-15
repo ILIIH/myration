@@ -19,6 +19,7 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.LinearProgressIndicator
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.mutableFloatStateOf
 import androidx.compose.runtime.mutableStateOf
@@ -36,14 +37,15 @@ import com.example.core_ui.camera.CameraController
 import com.example.core_ui.camera.CameraPreviewView
 import com.example.myration.R
 import com.example.myration.navigation.NavigationRoute
+import com.example.myration.viewModels.ScanRecipeViewModel
 import com.example.theme.PrimaryColor
 import com.example.theme.SecondaryBackgroundColor
 import com.example.theme.Typography
 
 
 @Composable
-fun ImageScanningWidget(bitmap: Bitmap?, cancelScanning: () -> Unit){
-    val scanningProgress = remember{ mutableFloatStateOf(0.3f) }
+fun ImageScanningWidget(bitmap: Bitmap, cancelScanning: () -> Unit){
+    val scanningProgress = remember { mutableFloatStateOf(0f)   }
 
     Column(
         modifier = Modifier
@@ -54,7 +56,7 @@ fun ImageScanningWidget(bitmap: Bitmap?, cancelScanning: () -> Unit){
         verticalArrangement = Arrangement.spacedBy(16.dp, Alignment.CenterVertically)
     ) {
         Text(
-            text = "Scanning progress ${scanningProgress.floatValue*100} %, you can minimize app while scanning",
+            text = "Scanning progress ${(scanningProgress.floatValue*100).toInt()} %",
             style = Typography.labelSmall,
             color = Color.Black,
             modifier =  Modifier.fillMaxWidth().padding(horizontal = 50.dp, vertical = 10.dp)
@@ -71,7 +73,8 @@ fun ImageScanningWidget(bitmap: Bitmap?, cancelScanning: () -> Unit){
             modifier = Modifier
                 .fillMaxWidth()
                 .height(500.dp)
-                .padding(horizontal = 20.dp, vertical = 30.dp)
+                .padding(horizontal = 5.dp, vertical = 30.dp),
+            timerTick = {scanningProgress.floatValue += 1.0f }
         )
 
         Image(

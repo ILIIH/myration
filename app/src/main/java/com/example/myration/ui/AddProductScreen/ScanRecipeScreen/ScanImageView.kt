@@ -16,7 +16,7 @@ import com.example.myration.ui.AddProductScreen.AddProductVoice.TimerManager
 
 
 @Composable
-fun ScanImageView(bitmap: Bitmap?, modifier: Modifier = Modifier) {
+fun ScanImageView(bitmap: Bitmap?, modifier: Modifier = Modifier, timerTick: () -> Unit) {
     val scanLineY = remember { mutableFloatStateOf(0f)   }
     val scanForward = remember{ mutableStateOf(false) }
 
@@ -30,6 +30,8 @@ fun ScanImageView(bitmap: Bitmap?, modifier: Modifier = Modifier) {
         TimerManager.start(
             intervalMillis = 100L,
             onTick = {
+                timerTick()
+
                 if (scanLineY.floatValue >=  height || scanLineY.floatValue<=0) {
                     scanForward.value = !scanForward.value
                 }
