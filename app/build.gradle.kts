@@ -68,6 +68,7 @@ dependencies {
     implementation("androidx.navigation:navigation-compose:2.8.8")
     implementation("androidx.wear.compose:compose-material:1.4.1")
     implementation("androidx.exifinterface:exifinterface:1.4.0")
+    implementation("androidx.lifecycle:lifecycle-runtime-compose:2.8.7")
 
     implementation("androidx.health.connect:connect-client:1.1.0-alpha11")
 

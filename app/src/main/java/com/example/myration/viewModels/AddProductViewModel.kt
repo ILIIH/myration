@@ -29,7 +29,7 @@ class AddProductViewModel @Inject constructor(
                 _addProductState.value = ResultState.Loading
                 repository.addProduct(
                     Product(
-                        weight = weight,
+                        quantity = weight,
                         name = name,
                         measurementMetric = when (measurementMetric) {
                             "kg" -> MeasurementMetric.KILOGRAM

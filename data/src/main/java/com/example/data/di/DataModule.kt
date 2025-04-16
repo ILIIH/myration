@@ -1,6 +1,7 @@
 package com.example.data.di
 
 import android.content.SharedPreferences
+import com.example.core.media.image.ImageGroceryAnalyzer
 import com.example.data.repository.ProductsRepositoryImp
 import com.example.data.repository.RecipeRepositoryImp
 import com.example.data.source.ProductDataSource
@@ -17,8 +18,11 @@ import dagger.hilt.components.SingletonComponent
 @InstallIn(SingletonComponent::class)
 object DataModule {
     @Provides
-    fun provideProductRepository(dataSource: ProductDataSource): ProductsRepository {
-        return ProductsRepositoryImp(dataSource)
+    fun provideProductRepository(
+        dataSource: ProductDataSource,
+        imageGroceryAnalyzer: ImageGroceryAnalyzer
+    ): ProductsRepository {
+        return ProductsRepositoryImp(dataSource, imageGroceryAnalyzer)
     }
 
     @Provides

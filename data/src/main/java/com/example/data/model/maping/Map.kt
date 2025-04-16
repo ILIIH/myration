@@ -26,7 +26,7 @@ fun ProductEntity.toDomain(): Product {
 fun Product.toData(): ProductEntity {
     return ProductEntity(
         this.id,
-        this.weight,
+        this.quantity,
         this.name,
         this.measurementMetric.desc,
         this.expirationDate

@@ -5,7 +5,8 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.core.media.image.BitmapProvider
 import com.example.core.media.image.ImageGroceryAnalyzer
-import com.example.myration.state.ImageScanState
+import com.example.domain.repository.ProductsRepository
+import com.example.myration.mvi.state.ImageScanState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -15,7 +16,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class ScanRecipeViewModel @Inject constructor(
-    private val imageAnalyzer: ImageGroceryAnalyzer,
+    private val productsRepository: ProductsRepository,
     private val bitmapProvider: BitmapProvider
 ) : ViewModel() {
 
@@ -23,16 +24,15 @@ class ScanRecipeViewModel @Inject constructor(
     val scanImageState: StateFlow<ImageScanState> = _scanImageState.asStateFlow()
 
     fun submitPhoto(photoUri : Uri) {
-        val bitmap = bitmapProvider.getBitmapFromUri(photoUri, 600, 700)
-        if(bitmap != null) {
-            _scanImageState.value = ImageScanState.ImageScanning(bitmap)
-            viewModelScope.launch {
-                val scannedText = imageAnalyzer.getTextFromImageUri(bitmap)
-                _scanImageState.value = ImageScanState.ImageScanned(data = scannedText?:"")
+        viewModelScope.launch {
+            val bitmap = bitmapProvider.getBitmapFromUri(photoUri, 600, 700)
+            if(bitmap!= null){
+                _scanImageState.value = ImageScanState.ImageScanning(bitmap)
+                productsRepository.getAllProductFromRecipe(photoUri.toString())
             }
-        }
-        else{
-            _scanImageState.value = ImageScanState.ImageScanningError(message = "Image scanning error")
+            else {
+                _scanImageState.value = ImageScanState.ImageScanningError(message = "Image reading error")
+            }
         }
     }
     fun pickingImageError(error: String ) {

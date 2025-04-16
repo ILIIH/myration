@@ -28,11 +28,8 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
-import coil.compose.AsyncImage
 import com.example.domain.model.Product
-import com.example.domain.model.Recipe
 import com.example.myration.R
-import com.example.myration.ui.CookingScreen.RecipeItemShort
 import com.example.theme.SecondaryColor
 import com.example.theme.SecondaryHalfTransparentColor
 import com.example.theme.Typography
@@ -87,7 +84,7 @@ fun ProductItem(product: Product, onDelete: (id: Int) -> Unit) {
             verticalArrangement = Arrangement.Center
         ) {
             Text(
-                text = "${product.weight.toInt()}  ${product.measurementMetric.desc}",
+                text = "${product.quantity.toInt()}  ${product.measurementMetric.desc}",
                 style = Typography.displaySmall,
                 color = SecondaryColor
             )

@@ -1,4 +1,4 @@
-package com.example.myration.state
+package com.example.myration.mvi.state
 
 import com.example.core.mvi.Reducer
 import com.example.domain.model.CookingDifficulty

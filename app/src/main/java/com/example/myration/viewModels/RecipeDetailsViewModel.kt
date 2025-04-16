@@ -5,7 +5,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.core.mvi.ResultState
 import com.example.domain.repository.RecipeRepository
-import com.example.myration.state.RecipeDetailViewState
+import com.example.myration.mvi.state.RecipeDetailViewState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow

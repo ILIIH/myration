@@ -43,7 +43,7 @@ import coil.compose.AsyncImage
 import com.example.core.mvi.ResultState
 import com.example.domain.model.RecipeIngredient
 import com.example.myration.R
-import com.example.myration.state.RecipeDetailViewState
+import com.example.myration.mvi.state.RecipeDetailViewState
 import com.example.theme.PrimaryColor
 import com.example.theme.PrimaryTransparentColor
 import com.example.theme.SecondaryColor

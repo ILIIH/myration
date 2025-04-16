@@ -7,7 +7,7 @@ enum class MeasurementMetric(val desc: String) {
 }
 data class Product(
     val id: Int,
-    val weight: Float,
+    val quantity: Float,
     val name: String,
     val measurementMetric: MeasurementMetric,
     val expirationDate: String

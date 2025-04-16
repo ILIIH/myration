@@ -5,4 +5,6 @@ interface ProductsRepository {
     suspend fun addProduct(product: Product)
     suspend fun removeProductById(id: Int)
     suspend fun getAllProduct(): List<Product>
+    suspend fun getAllProductFromRecipe(uri: String): List<Product>
+
 }

@@ -4,7 +4,7 @@ val dagger_version by extra("2.50")
 val hilt_navigation_version by extra("1.2.0")
 
 // Core
-val kotlin_version by extra("1.16.0")
+val kotlin_version by extra("1.15.0")
 val appcompat_version by extra("1.7.0")
 val material_version by extra("1.12.0")
 

@@ -50,6 +50,7 @@ dependencies {
 
     // Room components
     implementation("androidx.room:room-runtime:2.6.1")
+    implementation(project(":core"))
     annotationProcessor("androidx.room:room-compiler:2.6.1")
     kapt("androidx.room:room-compiler:2.6.1")
 

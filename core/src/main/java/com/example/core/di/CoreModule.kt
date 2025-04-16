@@ -23,11 +23,9 @@ object CoreModule {
         return AudioDecoder(context)
     }
     @Provides
-    fun provideImageAnalyzer(@ApplicationContext context: Context):ImageGroceryAnalyzer {
-        return ImageGroceryAnalyzer(context)
+    fun provideImageAnalyzer(bitmapProvider: BitmapProvider):ImageGroceryAnalyzer {
+        return ImageGroceryAnalyzer(bitmapProvider)
     }
-
-
     @Provides
     fun provideBitmap(@ApplicationContext context: Context):BitmapProvider {
         return BitmapProvider(context)
