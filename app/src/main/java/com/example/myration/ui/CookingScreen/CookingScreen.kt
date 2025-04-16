@@ -33,7 +33,7 @@ fun CookingScreen(
         modifier = Modifier
             .fillMaxSize()
             .background(SecondaryBackgroundColor)
-            .padding(top=90.dp),
+            .padding(bottom=80.dp, top = 30.dp),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         FilterWidget(listOf())

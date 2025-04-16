@@ -1,5 +1,6 @@
 package com.example.domain.model
 
+import java.awt.Color
 import java.time.Duration
 
 enum class CookingDifficulty(val difficultyLevel: Int) {
@@ -24,7 +25,6 @@ enum class RecipeType(val desc: String) {
     SOUP("Soup"),
     OTHER("Other"),
     HIGH_PROTEIN("High protein");
-
     companion object {
         fun fromString(value: String): RecipeType {
             return entries.find { it.desc.equals(value, ignoreCase = true) } ?: MAIN // Default to MAIN

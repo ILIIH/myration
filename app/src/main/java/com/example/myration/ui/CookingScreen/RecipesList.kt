@@ -11,6 +11,7 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
@@ -44,8 +45,13 @@ fun RecipesList(recipeList: List<Recipe>, navigateToRecipeDetails: (recipeId: In
             ) {
                 if (index % 2 == 0) {
                     chunk.take(2).forEach { recipe ->
-                        Box(modifier = Modifier.weight(1f).clickable { navigateToRecipeDetails(recipe.id) }) {
+                        Box(modifier = Modifier
+                            .weight(1f)
+                            .clickable { navigateToRecipeDetails(recipe.id) }) {
                             RecipeItemShort(recipe)
+                            recipe.getBadgesDesc()?.let {
+                                BadgeWidget(it, Modifier.align(Alignment.TopEnd))
+                            }
                         }
                     }
                 } else {
@@ -57,73 +63,101 @@ fun RecipesList(recipeList: List<Recipe>, navigateToRecipeDetails: (recipeId: In
 }
 
 @Composable
-fun RecipeItemLong(recipe: Recipe, modified: Modifier) {
-    Row(
-        modifier = modified
-            .fillMaxWidth()
-            .padding(horizontal = 10.dp, vertical = 30.dp)
-            .height(200.dp)
-            .shadow(elevation = 8.dp, shape = RoundedCornerShape(12.dp))
+fun BadgeWidget(badgeDesc: Pair<String,Color>, modifier: Modifier){
+    Box(
+        modifier = modifier
+            .background(badgeDesc.second, shape = RoundedCornerShape(8.dp))
             .border(
                 width = 1.dp,
                 color = SecondaryHalfTransparentColor,
-                shape = RoundedCornerShape(12.dp)
+                shape = RoundedCornerShape(8.dp)
             )
-            .background(color = Color.White, shape = RoundedCornerShape(12.dp))
-            .padding(vertical = 8.dp, horizontal = 12.dp),
-        verticalAlignment = Alignment.CenterVertically,
-        horizontalArrangement = Arrangement.spacedBy(16.dp, Alignment.CenterHorizontally)
-    ) {
-        Column(
-            horizontalAlignment = Alignment.CenterHorizontally,
-            verticalArrangement = Arrangement.Center
-        ) {
-            Text(
-                text = recipe.type.desc,
-                style = Typography.displaySmall,
-                color = SecondaryColor
-            )
-            Spacer(modifier = Modifier.height(20.dp))
-            AsyncImage(
-                model = recipe.thumbnail,
-                contentDescription = "recipe image",
-                placeholder = painterResource(R.drawable.ic_baseline_file_download_24),
-                error = painterResource(R.drawable.ic_baseline_error_outline_24),
-                modifier = Modifier
-                    .width(120.dp)
-                    .height(120.dp)
-                    .clip(CircleShape)
-                    .border(2.dp, SecondaryHalfTransparentColor, CircleShape)
-            )
-        }
-        Spacer(modifier = Modifier.width(20.dp))
-        Column(
-            horizontalAlignment = Alignment.CenterHorizontally,
-            verticalArrangement = Arrangement.Center
-        ) {
-            Text(
-                text = recipe.name,
-                style = Typography.titleLarge,
-                color = SecondaryColor,
-                modifier = Modifier.width(130.dp),
-                maxLines = 2,
-                overflow = TextOverflow.Ellipsis,
-                textAlign = TextAlign.Center
-            )
-            Spacer(modifier = Modifier.height(15.dp))
-            Text(
-                text = recipe.kcal.toString() + " kcal",
-                style = Typography.displaySmall,
-                color = SecondaryColor
-            )
-        }
+            .padding(horizontal = 8.dp, vertical = 13.dp)
+            .shadow(elevation = 8.dp, shape = RoundedCornerShape(8.dp))
+
+    ){
+        Text(
+            text = badgeDesc.first,
+            style = Typography.displaySmall,
+            color = Color.White
+        )
     }
+}
+@Composable
+fun RecipeItemLong(recipe: Recipe, modified: Modifier) {
+    Box(
+        modifier = modified.fillMaxWidth().padding(top = 15.dp)
+        ){
+        Row(
+            modifier = Modifier
+                .padding(horizontal = 10.dp, vertical = 25.dp)
+                .height(200.dp)
+                .shadow(elevation = 8.dp, shape = RoundedCornerShape(12.dp))
+                .border(
+                    width = 1.dp,
+                    color = SecondaryHalfTransparentColor,
+                    shape = RoundedCornerShape(12.dp)
+                )
+                .background(color = Color.White, shape = RoundedCornerShape(12.dp))
+                .padding(vertical = 8.dp, horizontal = 12.dp),
+            verticalAlignment = Alignment.CenterVertically,
+            horizontalArrangement = Arrangement.spacedBy(16.dp, Alignment.CenterHorizontally)
+        ) {
+            Column(
+                horizontalAlignment = Alignment.CenterHorizontally,
+                verticalArrangement = Arrangement.Center
+            ) {
+                Text(
+                    text = recipe.type.desc,
+                    style = Typography.displaySmall,
+                    color = SecondaryColor
+                )
+                Spacer(modifier = Modifier.height(20.dp))
+                AsyncImage(
+                    model = recipe.thumbnail,
+                    contentDescription = "recipe image",
+                    placeholder = painterResource(R.drawable.ic_baseline_file_download_24),
+                    error = painterResource(R.drawable.ic_baseline_error_outline_24),
+                    modifier = Modifier
+                        .width(120.dp)
+                        .height(120.dp)
+                        .clip(CircleShape)
+                        .border(2.dp, SecondaryHalfTransparentColor, CircleShape)
+                )
+            }
+            Spacer(modifier = Modifier.width(20.dp))
+            Column(
+                horizontalAlignment = Alignment.CenterHorizontally,
+                verticalArrangement = Arrangement.Center
+            ) {
+                Text(
+                    text = recipe.name,
+                    style = Typography.titleLarge,
+                    color = SecondaryColor,
+                    modifier = Modifier.width(130.dp),
+                    maxLines = 2,
+                    overflow = TextOverflow.Ellipsis,
+                    textAlign = TextAlign.Center
+                )
+                Spacer(modifier = Modifier.height(15.dp))
+                Text(
+                    text = recipe.kcal.toString() + " kcal",
+                    style = Typography.displaySmall,
+                    color = SecondaryColor
+                )
+            }
+        }
+        recipe.getBadgesDesc()?.let { BadgeWidget(it, Modifier.align(Alignment.TopEnd)) }
+
+    }
+
 }
 
 @Composable
 fun RecipeItemShort(recipe: Recipe) {
     Column(
         modifier = Modifier
+            .padding(top = 20.dp)
             .padding(horizontal = 10.dp)
             .fillMaxWidth()
             .height(250.dp)
