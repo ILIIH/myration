@@ -11,7 +11,6 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
@@ -31,6 +30,7 @@ import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 import com.example.domain.model.Recipe
 import com.example.myration.R
+import com.example.myration.ui.DataMap.getBadgesDesc
 import com.example.theme.SecondaryColor
 import com.example.theme.SecondaryHalfTransparentColor
 import com.example.theme.Typography
@@ -59,28 +59,6 @@ fun RecipesList(recipeList: List<Recipe>, navigateToRecipeDetails: (recipeId: In
                 }
             }
         }
-    }
-}
-
-@Composable
-fun BadgeWidget(badgeDesc: Pair<String,Color>, modifier: Modifier){
-    Box(
-        modifier = modifier
-            .background(badgeDesc.second, shape = RoundedCornerShape(8.dp))
-            .border(
-                width = 1.dp,
-                color = SecondaryHalfTransparentColor,
-                shape = RoundedCornerShape(8.dp)
-            )
-            .padding(horizontal = 8.dp, vertical = 13.dp)
-            .shadow(elevation = 8.dp, shape = RoundedCornerShape(8.dp))
-
-    ){
-        Text(
-            text = badgeDesc.first,
-            style = Typography.displaySmall,
-            color = Color.White
-        )
     }
 }
 @Composable

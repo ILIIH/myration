@@ -12,6 +12,7 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
@@ -30,6 +31,8 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import com.example.domain.model.Product
 import com.example.myration.R
+import com.example.myration.ui.CookingScreen.BadgeWidget
+import com.example.myration.ui.DataMap.getBadgesDesc
 import com.example.theme.SecondaryColor
 import com.example.theme.SecondaryHalfTransparentColor
 import com.example.theme.Typography
@@ -43,9 +46,7 @@ fun GroceriesList(productsList: List<Product>, removeProduct: (productId: Int) -
                     horizontalArrangement = Arrangement.spacedBy(20.dp)
                 ) {
                     chunk.take(2).forEach { recipe ->
-                        Box(modifier = Modifier.weight(1f)) {
-                            ProductItem(productsList[index], removeProduct)
-                        }
+                        ProductItem(productsList[index], removeProduct, modifier = Modifier.weight(1f))
                     }
                 }
             }
@@ -53,50 +54,48 @@ fun GroceriesList(productsList: List<Product>, removeProduct: (productId: Int) -
 }
 
 @Composable
-fun ProductItem(product: Product, onDelete: (id: Int) -> Unit) {
-    Row(
-        modifier = Modifier
+fun ProductItem(product: Product, onDelete: (id: Int) -> Unit, modifier: Modifier) {
+    Box(
+        modifier = modifier
             .fillMaxWidth()
             .padding(horizontal = 10.dp, vertical = 30.dp)
-            .height(200.dp)
-            .shadow(elevation = 8.dp, shape = RoundedCornerShape(12.dp))
-            .border(
-                width = 1.dp,
-                color = SecondaryHalfTransparentColor,
-                shape = RoundedCornerShape(12.dp)
-            )
-            .background(color = Color.White, shape = RoundedCornerShape(12.dp))
-            .padding(vertical = 8.dp, horizontal = 12.dp),
-        horizontalArrangement = Arrangement.spacedBy(16.dp, Alignment.CenterHorizontally)
+            .height(240.dp)
     ) {
-        Image(
-            painter = painterResource(id = R.drawable.ic_baseline_close),
-            contentDescription = "remove product button",
-            modifier = Modifier
-                .width(20.dp)
-                .height(20.dp)
-                .clip(CircleShape)
-                .border(2.dp, SecondaryHalfTransparentColor, CircleShape)
-                .clickable { onDelete(product.id) }
-        )
+        // 1. Product info card (centered)
         Column(
+            modifier = Modifier
+                .align(Alignment.Center)
+                .shadow(elevation = 8.dp, shape = RoundedCornerShape(12.dp))
+                .border(
+                    width = 1.dp,
+                    color = SecondaryHalfTransparentColor,
+                    shape = RoundedCornerShape(12.dp)
+                )
+                .background(color = Color.White, shape = RoundedCornerShape(12.dp))
+                .padding(vertical = 8.dp, horizontal = 12.dp)
+                .height(190.dp),
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.Center
         ) {
+            Spacer(modifier = Modifier.height(20.dp))
+
             Text(
                 text = "${product.quantity.toInt()}  ${product.measurementMetric.desc}",
                 style = Typography.displaySmall,
                 color = SecondaryColor
             )
+
             Spacer(modifier = Modifier.height(20.dp))
+
             Image(
                 painter = painterResource(id = R.drawable.ic_my_groceries_selected_tab),
                 contentDescription = "product image",
                 modifier = Modifier
-                    .width(60.dp)
-                    .height(60.dp)
+                    .size(60.dp)
             )
+
             Spacer(modifier = Modifier.height(10.dp))
+
             Text(
                 text = product.name,
                 style = Typography.titleLarge,
@@ -106,13 +105,36 @@ fun ProductItem(product: Product, onDelete: (id: Int) -> Unit) {
                 overflow = TextOverflow.Ellipsis,
                 textAlign = TextAlign.Center
             )
+
             Spacer(modifier = Modifier.height(10.dp))
+
             Text(
-                text = "exp ${product.expirationDate} ",
+                text = "exp ${product.expirationDate}",
                 style = Typography.displaySmall,
                 color = SecondaryColor
             )
         }
-        Spacer(modifier = Modifier.width(20.dp))
+
+        // 2. Delete icon (top-left corner, over everything)
+        Image(
+            painter = painterResource(id = R.drawable.ic_baseline_close),
+            contentDescription = "remove product button",
+            modifier = Modifier
+                .padding(top = 40.dp, start = 10.dp)
+                .size(24.dp)
+                .align(Alignment.TopStart)
+                .clip(CircleShape)
+                .border(2.dp, SecondaryHalfTransparentColor, CircleShape)
+                .clickable { onDelete(product.id) }
+                .padding(2.dp)
+        )
+
+        // 3. Product badge (top-right corner)
+        product.getBadgesDesc()?.let {
+            BadgeWidget(
+                badgeDesc = it,
+                modifier = Modifier.align(Alignment.TopEnd)
+            )
+        }
     }
 }
