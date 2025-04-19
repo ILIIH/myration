@@ -32,9 +32,8 @@ fun FilterWidget(
     onRemoveFilter:(id: Int)->Unit
 ) {
     val isExpanded = remember { mutableStateOf(false) }
-
     val shape = RoundedCornerShape(if (isExpanded.value) 10 else 30)
-    val height = if (isExpanded.value) 300.dp else 40.dp
+    val height = if (isExpanded.value) (40*(filters.size-3)).dp else 40.dp
     val verticalAlignment = if (isExpanded.value) Alignment.Top else Alignment.CenterVertically
     val expandIcon = if (isExpanded.value) R.drawable.ic_minimaze_24 else R.drawable.ic_expand_more_24
 
@@ -60,7 +59,7 @@ fun FilterWidget(
 
             AnimatedVisibility(visible = isExpanded.value) {
                 FilterExpandableContent(
-                    filters = filters,
+                    filters = filters.drop(3), // TODO: Refactor this logic
                     onApplyFilter = onApplyFilter,
                     onRemoveFilter = onRemoveFilter
                 )
@@ -91,10 +90,10 @@ private fun FilterHeaderRow(
 
         Row(
             modifier = Modifier.weight(1f),
-            horizontalArrangement = Start,
-            verticalAlignment = Alignment.CenterVertically
+            verticalAlignment = Alignment.CenterVertically,
+            horizontalArrangement = SpaceBetween
         ) {
-            filters.take(3).forEach { filter ->
+            filters.take(3).forEach { filter -> // TODO: Refactor this logic
                 FilterItem(filter, onApplyFilter, onRemoveFilter)
             }
         }
