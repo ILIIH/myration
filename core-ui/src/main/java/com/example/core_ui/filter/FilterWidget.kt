@@ -1,86 +1,167 @@
 package com.example.core_ui.filter
 
+import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Arrangement.SpaceBetween
+import androidx.compose.foundation.layout.Arrangement.Start
+import androidx.compose.foundation.layout.Arrangement.spacedBy
+import androidx.compose.foundation.layout.FlowRow
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.KeyboardArrowDown
-import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
-import androidx.compose.runtime.Composable
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import com.example.core_ui.R
-import com.example.theme.PrimaryTransparentColor
+import com.example.domain.model.Filter
 import com.example.theme.SecondaryBackgroundColor
 import com.example.theme.SecondaryColor
 import com.example.theme.Typography
 
 @Composable
-fun FilterWidget(filters: List<String>) {
+fun FilterWidget(
+    filters: List<Filter>,
+    onApplyFilter: (id: Int)-> Unit,
+    onRemoveFilter:(id: Int)->Unit
+) {
+    val isExpanded = remember { mutableStateOf(false) }
+
+    val shape = RoundedCornerShape(if (isExpanded.value) 10 else 30)
+    val height = if (isExpanded.value) 300.dp else 40.dp
+    val verticalAlignment = if (isExpanded.value) Alignment.Top else Alignment.CenterVertically
+    val expandIcon = if (isExpanded.value) R.drawable.ic_minimaze_24 else R.drawable.ic_expand_more_24
+
     Row(
         modifier = Modifier
             .fillMaxWidth()
             .padding(20.dp)
-            .background(
-                color = Color.White,
-                shape = RoundedCornerShape(50)
-            )
-            .border(
-                width = 2.dp,
-                color = SecondaryColor,
-                shape = RoundedCornerShape(50)
-            )
-            .padding(horizontal = 16.dp, vertical = 12.dp),
-        verticalAlignment = Alignment.CenterVertically,
-        horizontalArrangement = Arrangement.SpaceBetween
+            .background(color = Color.White, shape = shape)
+            .border(width = 2.dp, color = SecondaryColor, shape = shape)
+            .padding(horizontal = 16.dp, vertical = 12.dp)
+            .height(height),
+        verticalAlignment = verticalAlignment,
+        horizontalArrangement = SpaceBetween
     ) {
-        Row(verticalAlignment = Alignment.CenterVertically) {
-            Image(
-                painter =  painterResource(id = R.drawable.ic_filters),
-                contentDescription = "Filter icon",
-                modifier = Modifier.size(24.dp)
+        Column(modifier = Modifier.fillMaxWidth()) {
+            FilterHeaderRow(
+                filters = filters,
+                expandIcon = expandIcon,
+                onExpandClicked = { isExpanded.value = !isExpanded.value },
+                onApplyFilter = onApplyFilter,
+                onRemoveFilter = onRemoveFilter
             )
 
-            Spacer(modifier = Modifier.width(8.dp))
-
-            Text(
-                text = "Add Filters",
-                color = Color(0xFFB8876F),
-                style = Typography.displaySmall )
-
-            Spacer(modifier = Modifier.width(12.dp))
-
-            Box(
-                modifier = Modifier
-                    .background(Color.Transparent, RoundedCornerShape(50))
-                    .border(1.5.dp, SecondaryColor, RoundedCornerShape(50))
-                    .padding(horizontal = 12.dp, vertical = 4.dp)
-            ) {
-                Text(
-                    text = "500kcal <",
-                    color = Color(0xFFB8876F),
-                    style = Typography.displayLarge,
+            AnimatedVisibility(visible = isExpanded.value) {
+                FilterExpandableContent(
+                    filters = filters,
+                    onApplyFilter = onApplyFilter,
+                    onRemoveFilter = onRemoveFilter
                 )
             }
         }
+    }
+}
+
+@Composable
+private fun FilterHeaderRow(
+    filters: List<Filter>,
+    expandIcon: Int,
+    onExpandClicked: () -> Unit,
+    onApplyFilter: (id: Int)-> Unit,
+    onRemoveFilter:(id: Int)->Unit
+) {
+    Row(
+        verticalAlignment = Alignment.CenterVertically,
+        modifier = Modifier.fillMaxWidth()
+    ) {
+        Image(
+            painter = painterResource(id = R.drawable.ic_filters),
+            contentDescription = "Filter icon",
+            modifier = Modifier.size(24.dp)
+        )
+
+        Spacer(modifier = Modifier.width(12.dp))
+
+        Row(
+            modifier = Modifier.weight(1f),
+            horizontalArrangement = Start,
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            filters.take(3).forEach { filter ->
+                FilterItem(filter, onApplyFilter, onRemoveFilter)
+            }
+        }
+
+        Spacer(modifier = Modifier.width(12.dp))
 
         Image(
-            painter =  painterResource(id = R.drawable.ic_expand_more_24),
+            painter = painterResource(id = expandIcon),
             contentDescription = "Expand",
-            modifier = Modifier.size(28.dp)
+            modifier = Modifier
+                .size(28.dp)
+                .clickable { onExpandClicked() }
         )
+    }
+}
+
+@OptIn(ExperimentalLayoutApi::class)
+@Composable
+private fun FilterExpandableContent(
+    filters: List<Filter>,
+    onApplyFilter: (id: Int)-> Unit,
+    onRemoveFilter:(id: Int)->Unit) {
+    FlowRow(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(top = 12.dp),
+        horizontalArrangement = spacedBy(8.dp),
+        verticalArrangement = spacedBy(8.dp)
+    ) {
+        filters.forEach { filter ->
+            FilterItem(filter,onApplyFilter,onRemoveFilter)
+        }
+    }
+}
+
+@Composable
+fun FilterItem(filter: Filter, onApply: (id: Int)-> Unit, onRemove:(id: Int)->Unit) {
+    Box(
+        modifier = Modifier
+            .clickable { onApply(filter.id) }
+            .background(
+                if(filter.isApplied) SecondaryBackgroundColor
+                else Color.White, RoundedCornerShape(50))
+            .border(1.5.dp, SecondaryColor, RoundedCornerShape(50))
+            .padding(horizontal = 12.dp, vertical = 4.dp)
+            .height(30.dp)
+    ) {
+        Row(
+            modifier = Modifier.height(30.dp),
+            verticalAlignment = Alignment.CenterVertically
+        ){
+            Text(
+                text = filter.name,
+                color = Color(0xFFB8876F),
+                style = Typography.displayLarge,
+                maxLines = 1,
+                overflow = TextOverflow.Ellipsis
+            )
+            if(filter.isApplied){
+                Image(
+                    painter = painterResource(R.drawable.ic_remove_filter_24),
+                    contentDescription = "Remove filter icon",
+                    modifier = Modifier
+                        .size(28.dp)
+                        .clickable { onRemove(filter.id) }
+                )
+            }
+        }
     }
 }

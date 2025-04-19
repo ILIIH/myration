@@ -29,9 +29,9 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
+import com.example.core_ui.list_modifiers.BadgeWidget
 import com.example.domain.model.Product
 import com.example.myration.R
-import com.example.myration.ui.CookingScreen.BadgeWidget
 import com.example.myration.ui.DataMap.getBadgesDesc
 import com.example.theme.SecondaryColor
 import com.example.theme.SecondaryHalfTransparentColor

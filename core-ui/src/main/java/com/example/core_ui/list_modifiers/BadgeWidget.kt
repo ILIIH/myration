@@ -1,4 +1,4 @@
-package com.example.myration.ui.CookingScreen
+package com.example.core_ui.list_modifiers
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border

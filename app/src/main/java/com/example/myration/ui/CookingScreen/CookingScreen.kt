@@ -1,9 +1,7 @@
 package com.example.myration.ui.CookingScreen
 
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -21,13 +19,13 @@ import com.example.core_ui.filter.FilterWidget
 import com.example.myration.navigation.NavigationRoute
 import com.example.theme.SecondaryBackgroundColor
 import com.example.myration.viewModels.CookingViewModel
-
 @Composable
 fun CookingScreen(
     viewModel: CookingViewModel = hiltViewModel(),
     navController: NavHostController
 ) {
     val recipeList by viewModel.recipesList.collectAsState()
+    val filtersList by viewModel.filtersList.collectAsState()
 
     Column(
         modifier = Modifier
@@ -36,7 +34,11 @@ fun CookingScreen(
             .padding(bottom=80.dp, top = 30.dp),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        FilterWidget(listOf())
+        FilterWidget(
+            filters = filtersList,
+            onApplyFilter = viewModel::applyFilter,
+            onRemoveFilter = viewModel::removeFilter
+        )
         CalorieCounterWidget(modifier = Modifier
             .height(100.dp)
             .width(100.dp),
