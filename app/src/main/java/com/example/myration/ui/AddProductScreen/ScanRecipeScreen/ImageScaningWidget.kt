@@ -78,7 +78,7 @@ fun ImageScanningWidget(bitmap: Bitmap, cancelScanning: () -> Unit){
         )
 
         Image(
-            painter = painterResource(id = R.drawable.ic_baseline_close),
+            painter = painterResource(id = com.example.core_ui.R.drawable.ic_baseline_close),
             contentDescription = "Make a photo",
             modifier = Modifier
                 .size(60.dp)

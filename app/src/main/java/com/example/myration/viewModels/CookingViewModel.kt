@@ -3,8 +3,10 @@ package com.example.myration.viewModels
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.domain.model.CalorieCounter
 import com.example.domain.model.Filter
 import com.example.domain.model.Recipe
+import com.example.domain.repository.CalorieRepository
 import com.example.domain.repository.RecipeRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -35,7 +37,7 @@ class CookingViewModel @Inject constructor(
     private val _filters: MutableStateFlow<List<Filter>> = MutableStateFlow(emptyList())
     val filtersList: StateFlow<List<Filter>> = _filters.asStateFlow()
 
-    init {
+     init {
         getAllRecipes()
         getAllFilters()
     }
@@ -51,7 +53,7 @@ class CookingViewModel @Inject constructor(
         }.sortedByDescending { it.isApplied }
     }
     private fun getAllFilters() {
-        // mocked data
+        // TODO = change from mocked data
         _filters.value = filterList
     }
 

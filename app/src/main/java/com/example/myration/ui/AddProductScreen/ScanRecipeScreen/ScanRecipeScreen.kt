@@ -31,6 +31,7 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.core_ui.camera.CameraController
 import com.example.core_ui.camera.CameraPreviewView
+import com.example.core_ui.custom_windows.ErrorMessage
 import com.example.myration.R
 import com.example.myration.mvi.state.ImageScanState
 import com.example.theme.SecondaryBackgroundColor
@@ -69,6 +70,9 @@ fun ScanRecipeScreen(
         is ImageScanState.ImageScanned -> ImageScannedWidget(
             scannedText = state.data
         )
-        else -> {}
+        is ImageScanState.ImageScanningError -> ErrorMessage(
+            message = state.message,
+            onDismiss = {viewModel.returnToPickingImage()}
+        )
     }
 }

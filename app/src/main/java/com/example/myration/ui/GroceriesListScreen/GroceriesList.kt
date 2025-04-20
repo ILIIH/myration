@@ -117,7 +117,7 @@ fun ProductItem(product: Product, onDelete: (id: Int) -> Unit, modifier: Modifie
 
         // 2. Delete icon (top-left corner, over everything)
         Image(
-            painter = painterResource(id = R.drawable.ic_baseline_close),
+            painter = painterResource(id = com.example.core_ui.R.drawable.ic_baseline_close),
             contentDescription = "remove product button",
             modifier = Modifier
                 .padding(top = 40.dp, start = 10.dp)

@@ -14,10 +14,10 @@ import com.example.theme.SecondaryColor
 import com.example.theme.SecondaryHalfTransparentColor
 
 @Composable
-fun CalorieCounterWidget(modifier: Modifier, currentCalorie: Float, maxCalorie: Int) {
+fun CalorieCounterWidget(modifier: Modifier, currentCalorie: Float, maxCalorie: Float) {
     val currentCaloriesAngle = remember{ mutableFloatStateOf((currentCalorie*180)/maxCalorie) }
 
-    Canvas(modifier = modifier.fillMaxWidth()) {
+    Canvas(modifier = modifier) {
         val arcStrokeWidth = size.width / 3
         val radius = size.width / 2
         val centerX = size.width / 2

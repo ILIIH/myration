@@ -22,7 +22,9 @@ class ScanRecipeViewModel @Inject constructor(
 
     private val _scanImageState: MutableStateFlow<ImageScanState> = MutableStateFlow(ImageScanState.PickingImage)
     val scanImageState: StateFlow<ImageScanState> = _scanImageState.asStateFlow()
-
+    fun returnToPickingImage() {
+        _scanImageState.value = ImageScanState.PickingImage
+    }
     fun submitPhoto(photoUri : Uri) {
         viewModelScope.launch {
             val bitmap = bitmapProvider.getBitmapFromUri(photoUri, 600, 700)
@@ -36,7 +38,7 @@ class ScanRecipeViewModel @Inject constructor(
         }
     }
     fun pickingImageError(error: String ) {
-        _scanImageState.value = ImageScanState.PickingImageError(error)
+        _scanImageState.value = ImageScanState.ImageScanningError(error)
     }
     fun cancelScanning() {
         _scanImageState.value = ImageScanState.PickingImage

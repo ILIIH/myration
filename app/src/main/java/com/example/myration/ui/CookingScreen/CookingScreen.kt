@@ -39,12 +39,6 @@ fun CookingScreen(
             onApplyFilter = viewModel::applyFilter,
             onRemoveFilter = viewModel::removeFilter
         )
-        CalorieCounterWidget(modifier = Modifier
-            .height(100.dp)
-            .width(100.dp),
-            currentCalorie = 1300f,
-            maxCalorie = 4000
-        )
         RecipesList(recipeList) { recipeId: Int ->
             navController.navigate(
                 NavigationRoute.RECIPE_DETAILS_SCREEN.withArgs(
