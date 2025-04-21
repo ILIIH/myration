@@ -1,9 +1,6 @@
 package com.example.myration.mvi.state
 
 import android.graphics.Bitmap
-import android.net.Uri
-
-
 sealed class ImageScanState {
     data object PickingImage : ImageScanState()
     data class ImageScanning(val bitmap: Bitmap) : ImageScanState()

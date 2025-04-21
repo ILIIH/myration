@@ -24,6 +24,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.text.TextRange
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.text.style.TextAlign
@@ -33,6 +34,9 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.wear.compose.material.Button
 import androidx.wear.compose.material.ButtonDefaults
 import com.example.core.mvi.ResultState
+import com.example.core_ui.custom_windows.ErrorMessage
+import com.example.core_ui.custom_windows.SuccessMessage
+import com.example.myration.mvi.state.AddProductManuallyViewState
 import com.example.theme.PrimaryColor
 import com.example.theme.SecondaryBackgroundColor
 import com.example.myration.viewModels.AddProductViewModel
@@ -41,44 +45,36 @@ import com.example.myration.viewModels.AddProductViewModel
 fun AddProductManuallyScreen(
     viewModel: AddProductViewModel = hiltViewModel()
 ) {
-    var uploadState = viewModel.addProductState.collectAsState()
+    var uploadState = viewModel.state.collectAsState()
 
     when (val state = uploadState.value) {
-        is ResultState.Success -> {
-            AddProductManuallyScreenLoaded(viewModel, state.data)
+        is AddProductManuallyViewState.Idle -> {
+            AddProductManuallyScreenLoaded(viewModel)
         }
-        is ResultState.Loading -> {
+        is AddProductManuallyViewState.Loading -> {
             CircularProgressIndicator()
         }
-        is ResultState.Error -> {
-            Text(
-                text = "Error: ${state.message}",
-                color = Color.Red,
-                textAlign = TextAlign.Center,
-                modifier = Modifier.fillMaxWidth()
+        is AddProductManuallyViewState.Error -> {
+            ErrorMessage(
+                message = state.message,
+                onDismiss = {viewModel.returnToAddingStage()}
+            )
+        }
+        is AddProductManuallyViewState.Loaded -> {
+            SuccessMessage(
+                message = "Successfully added a new product",
+                onDismiss = {viewModel.returnToAddingStage()}
             )
         }
     }
 }
 
 @Composable
-fun AddProductManuallyScreenLoaded(viewModel: AddProductViewModel, loadingState: Boolean) {
+fun AddProductManuallyScreenLoaded(viewModel: AddProductViewModel) {
     var productName by remember { mutableStateOf(TextFieldValue("")) }
     var productWeight by remember { mutableStateOf(TextFieldValue("")) }
-    var productMeasurementMetric by remember { mutableStateOf(TextFieldValue("")) }
+    var productMeasurementMetric by remember { mutableStateOf("") }
     var productExpiration by remember { mutableStateOf("") }
-    val context = LocalContext.current
-
-    LaunchedEffect(loadingState) {
-        if (loadingState) {
-            Toast.makeText(context, "Added product successfully", Toast.LENGTH_SHORT).show()
-
-            productWeight = TextFieldValue("")
-            productName = TextFieldValue("")
-            productMeasurementMetric = TextFieldValue("")
-            productExpiration = ""
-        }
-    }
 
     Column(
         modifier = Modifier
@@ -110,15 +106,20 @@ fun AddProductManuallyScreenLoaded(viewModel: AddProductViewModel, loadingState:
                 colors = OutlinedTextFieldDefaults.colors(unfocusedContainerColor = Color.White, focusedContainerColor = Color.White)
             )
             Spacer(modifier = Modifier.height(20.dp))
+            MeasurementMetricDropdown { productMeasurementMetric = it }
+            Spacer(modifier = Modifier.height(20.dp))
             TextField(
                 value = productWeight,
                 onValueChange = {
-                    if (it.text.all { char -> char.isDigit() || char == '.' || char == ',' }) {
-                        productWeight = it
-                    }
+                    val cleanInput = it.text.filter { char -> char.isDigit() || char == '.' || char == ',' }
+                    val newText = "$cleanInput $productMeasurementMetric"
+                    productWeight = TextFieldValue(
+                        text = newText,
+                        selection = TextRange(newText.length)
+                    )
                 },
                 modifier = Modifier.fillMaxWidth(),
-                label = { Text("Product weight") },
+                label = { Text("Product amount") },
                 singleLine = true,
                 colors = OutlinedTextFieldDefaults.colors(
                     unfocusedContainerColor = Color.White,
@@ -126,23 +127,14 @@ fun AddProductManuallyScreenLoaded(viewModel: AddProductViewModel, loadingState:
                 )
             )
             Spacer(modifier = Modifier.height(20.dp))
-            TextField(
-                value = productMeasurementMetric,
-                onValueChange = { productMeasurementMetric = it },
-                modifier = Modifier.fillMaxWidth(),
-                label = { Text("Measurement Metric (lt, kg,pcs)") },
-                singleLine = true,
-                colors = OutlinedTextFieldDefaults.colors(unfocusedContainerColor = Color.White, focusedContainerColor = Color.White)
-            )
-            Spacer(modifier = Modifier.height(20.dp))
-            DatePicker("Product expiry date") { date -> productExpiration = date }
+            DatePicker { date -> productExpiration = date }
             Spacer(modifier = Modifier.height(20.dp))
             Button(
                 onClick = {
                     viewModel.addProduct(
-                        productWeight.text.toFloat(),
+                        productWeight.text,
                         productName.text,
-                        productMeasurementMetric.text,
+                        productMeasurementMetric,
                         productExpiration
                     )
                 },
