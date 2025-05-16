@@ -1,0 +1,354 @@
+Spaghetti Aglio e Olio,20 minutes,1,550,Pasta,Italy,Classic Italian pasta with garlic, olive oil, and chili flakes.,Spaghetti, Garlic, Olive Oil, Chili Flakes, Parsley, Parmesan, Salt  
+Chicken Tikka Masala,45 minutes,2,600,Curry,India,Marinated chicken in a creamy tomato sauce.,Chicken, Yogurt, Lemon Juice, Garlic, Ginger, Garam Masala, Cumin, Coriander, Turmeric, Tomato Puree, Heavy Cream, Butter, Onion, Salt, Pepper  
+Beef Stroganoff,35 minutes,2,480,Stew,Russia,Beef strips in a sour cream and mushroom sauce.,Beef Sirloin, Mushrooms, Onion, Garlic, Sour Cream, Dijon Mustard, Beef Broth, Butter, Flour, Salt, Pepper, Egg Noodles  
+Pad Thai,30 minutes,2,500,Noodles,Thailand,Stir-fried rice noodles with shrimp, peanuts, and vegetables.,Rice Noodles, Shrimp, Eggs, Bean Sprouts, Peanuts, Green Onions, Garlic, Tamarind Paste, Fish Sauce, Brown Sugar, Lime, Chili Flakes, Vegetable Oil  
+French Onion Soup,60 minutes,2,300,Soup,France,Caramelized onions in a rich beef broth topped with cheese.,Onions, Beef Broth, Butter, Flour, White Wine, Baguette, Gruyère Cheese, Thyme, Bay Leaves, Salt, Pepper  
+Chocolate Chip Cookies,15 minutes,1,150,Dessert,USA,Classic American cookies with chocolate chips.,Flour, Sugar, Brown Sugar, Butter, Eggs, Vanilla Extract, Baking Soda, Salt, Chocolate Chips  
+Sushi Rolls,40 minutes,2,350,Seafood,Japan,Rice rolls with various fillings like fish and vegetables.,Sushi Rice, Rice Vinegar, Nori, Fresh Fish (Salmon/Tuna), Cucumber, Avocado, Soy Sauce, Wasabi, Pickled Ginger  
+Guacamole,10 minutes,1,200,Appetizer,Mexico,Avocado dip with onions, tomatoes, and cilantro.,Avocados, Onion, Tomato, Cilantro, Lime Juice, Garlic, Jalapeño, Salt, Pepper  
+Shepherd's Pie,60 minutes,2,550,Pie,UK,Ground lamb and vegetables topped with mashed potatoes.,Ground Lamb, Potatoes, Carrots, Peas, Onion, Garlic, Beef Broth, Worcestershire Sauce, Tomato Paste, Butter, Milk, Salt, Pepper  
+Moussaka,90 minutes,3,700,Casserole,Greece,Eggplant and meat casserole with béchamel sauce.,Eggplant, Ground Beef/Lamb, Onion, Garlic, Tomato Sauce, Red Wine, Cinnamon, Nutmeg, Béchamel Sauce (Milk, Butter, Flour, Nutmeg, Egg), Parmesan Cheese, Olive Oil, Salt, Pepper  
+Chicken Caesar Salad,20 minutes,1,400,Salad,USA,Romaine lettuce with grilled chicken, croutons, and Caesar dressing.,Romaine Lettuce, Chicken Breast, Croutons, Parmesan Cheese, Caesar Dressing (Mayonnaise, Anchovies, Garlic, Lemon Juice, Dijon Mustard, Olive Oil, Worcestershire Sauce, Salt, Pepper)  
+Lasagna,120 minutes,3,650,Pasta,Italy,Layered pasta with meat sauce, cheese, and béchamel.,Lasagna Noodles, Ground Beef, Onion, Garlic, Tomato Sauce, Tomato Paste, Italian Seasoning, Ricotta Cheese, Mozzarella Cheese, Parmesan Cheese, Eggs, Béchamel Sauce, Olive Oil, Salt, Pepper  
+Beef Bourguignon,180 minutes,3,800,Stew,France,Beef stewed in red wine with mushrooms and bacon.,Beef Chuck, Bacon, Carrots, Onion, Garlic, Red Wine, Beef Broth, Tomato Paste, Thyme, Bay Leaves, Mushrooms, Butter, Flour, Salt, Pepper  
+Chicken Fried Rice,25 minutes,2,450,Rice,China,Fried rice with chicken, vegetables, and eggs.,Cooked Rice, Chicken Breast, Eggs, Carrots, Peas, Green Onions, Garlic, Soy Sauce, Sesame Oil, Vegetable Oil, Salt, Pepper  
+Pancakes,15 minutes,1,250,Breakfast,USA,Fluffy pancakes served with syrup and butter.,Flour, Baking Powder, Sugar, Salt, Milk, Eggs, Butter, Vanilla Extract, Maple Syrup  
+Vegetable Curry,40 minutes,2,400,Curry,India,Mixed vegetables cooked in a flavorful curry sauce.,Potatoes, Carrots, Bell Peppers, Cauliflower, Green Beans, Onion, Garlic, Ginger, Coconut Milk, Curry Powder, Cumin, Coriander, Turmeric, Garam Masala, Tomato Paste, Salt, Pepper  
+Tacos,20 minutes,1,300,Mexican,Mexico,Corn or wheat tortillas filled with meat, vegetables, and salsa.,Corn/Wheat Tortillas, Ground Beef/Chicken, Onion, Garlic, Cumin, Chili Powder, Paprika, Tomato, Lettuce, Cheese, Sour Cream, Salsa, Lime, Cilantro  
+Apple Pie,90 minutes,2,350,Dessert,USA,Classic American pie with a flaky crust and apple filling.,Apples, Sugar, Cinnamon, Nutmeg, Lemon Juice, Butter, Flour, Salt, Pie Crust (Flour, Butter, Sugar, Water)  
+Ramen,30 minutes,2,400,Noodles,Japan,Noodle soup with broth, meat, and vegetables.,Ramen Noodles, Chicken/Pork Broth, Soy Sauce, Miso Paste, Garlic, Ginger, Green Onions, Soft-Boiled Egg, Mushrooms, Bok Choy, Nori, Sesame Seeds, Chili Oil  
+Hummus,15 minutes,1,150,Appetizer,Middle East,Chickpea dip with tahini, lemon juice, and garlic.,Chickpeas, Tahini, Lemon Juice, Garlic, Olive Oil, Cumin, Salt, Water, Paprika (optional), Parsley (optional)
+Paella,60 minutes,2,500,Rice,Spain,Rice dish with seafood, chicken, and vegetables.,Rice, Chicken, Shrimp, Mussels, Chorizo, Onion, Garlic, Bell Peppers, Tomatoes, Green Beans, Peas, Saffron, Paprika, Chicken Broth, Olive Oil, Salt, Pepper
+Chicken Noodle Soup,45 minutes,1,300,Soup,USA,Chicken broth with noodles, chicken, and vegetables.,Chicken, Egg Noodles, Carrots, Celery, Onion, Garlic, Chicken Broth, Bay Leaves, Thyme, Parsley, Salt, Pepper
+Pizza Margherita,30 minutes,1,400,Pizza,Italy,Pizza with tomato sauce, mozzarella cheese, and basil.,Pizza Dough, Tomato Sauce, Mozzarella Cheese, Fresh Basil, Olive Oil, Garlic, Salt, Oregano
+Fish and Chips,25 minutes,2,500,Seafood,UK,Battered and fried fish served with french fries.,White Fish (Cod/Haddock), Flour, Baking Powder, Beer or Water, Salt, Pepper, Potatoes, Vegetable Oil, Vinegar (optional)
+Lemon Bars,40 minutes,1,200,Dessert,USA,Shortbread crust topped with a tangy lemon custard.,Flour, Butter, Sugar, Eggs, Lemon Juice, Lemon Zest, Powdered Sugar, Baking Powder, Salt
+Kimchi Fried Rice,20 minutes,2,400,Rice,Korea,Fried rice with kimchi, vegetables, and meat.,Cooked Rice, Kimchi, Eggs, Green Onions, Garlic, Soy Sauce, Sesame Oil, Gochujang, Pork or Bacon (optional)
+Falafel,30 minutes,2,350,Appetizer,Middle East,Deep-fried chickpea patties served with pita bread.,Chickpeas, Onion, Garlic, Parsley, Cumin, Coriander, Baking Powder, Flour, Salt, Pepper, Vegetable Oil
+Chicken Pot Pie,75 minutes,2,600,Pie,USA,Chicken and vegetable filling in a creamy sauce topped with a flaky crust.,Chicken, Pie Crust, Carrots, Peas, Celery, Onion, Garlic, Chicken Broth, Heavy Cream, Butter, Flour, Salt, Pepper
+Miso Soup,15 minutes,1,50,Soup,Japan,Soybean paste soup with tofu and seaweed.,Dashi, Miso Paste, Tofu, Seaweed (Wakame), Green Onions, Soy Sauce
+Chicken Quesadilla,20 minutes,1,300,Mexican,Mexico,Tortilla filled with cheese, chicken, and vegetables.,Flour Tortilla, Chicken, Cheese (Cheddar/Monterey Jack), Onion, Bell Peppers, Butter, Salsa, Sour Cream
+Croque Monsieur,15 minutes,1,350,Sandwich,France,Ham and cheese sandwich topped with béchamel sauce and grilled.,Bread, Ham, Gruyère Cheese, Butter, Béchamel Sauce (Milk, Flour, Butter, Nutmeg), Dijon Mustard
+Chicken Satay,30 minutes,2,400,Appetizer,Thailand,Grilled chicken skewers served with peanut sauce.,Chicken, Coconut Milk, Curry Powder, Garlic, Ginger, Soy Sauce, Brown Sugar, Peanut Butter, Lime Juice, Chili Flakes
+Irish Stew,120 minutes,2,600,Stew,Ireland,Lamb stew with potatoes, carrots, and onions.,Lamb, Potatoes, Carrots, Onions, Celery, Garlic, Thyme, Bay Leaves, Beef Broth, Salt, Pepper
+Chocolate Cake,60 minutes,2,300,Dessert,USA,Moist chocolate cake with chocolate frosting.,Flour, Cocoa Powder, Sugar, Eggs, Butter, Baking Powder, Baking Soda, Milk, Vanilla Extract, Chocolate Chips, Heavy Cream
+Gyoza,30 minutes,2,350,Dumplings,Japan,Pan-fried dumplings filled with meat and vegetables.,Dumpling Wrappers, Ground Pork, Cabbage, Green Onions, Garlic, Ginger, Soy Sauce, Sesame Oil, Vinegar
+Bruschetta,15 minutes,1,150,Appetizer,Italy,Grilled bread topped with tomatoes, garlic, and basil.,Bread, Tomatoes, Garlic, Basil, Olive Oil, Balsamic Vinegar, Salt, Pepper
+Chicken Fajitas,30 minutes,2,450,Mexican,Mexico,Grilled chicken and vegetables served with tortillas.,Chicken, Bell Peppers, Onions, Garlic, Lime Juice, Cumin, Chili Powder, Tortillas, Sour Cream
+Clam Chowder,45 minutes,2,350,Soup,USA,Creamy soup with clams, potatoes, and onions.,Clams, Potatoes, Onion, Celery, Garlic, Bacon, Heavy Cream, Butter, Flour, Thyme, Salt, Pepper
+Panna Cotta,20 minutes,1,250,Dessert,Italy,Sweetened cream thickened with gelatin.,Heavy Cream, Sugar, Vanilla Extract, Gelatin, Milk, Berries (optional)
+Bibimbap,40 minutes,2,500,Rice,Korea,Rice bowl with vegetables, meat, and a fried egg.,Rice, Beef, Carrots, Spinach, Mushrooms, Bean Sprouts, Egg, Gochujang, Soy Sauce, Sesame Oil, Garlic, Green Onions
+Onion Bhaji,25 minutes,1,200,Appetizer,India,Deep-fried onion fritters.,Onions, Chickpea Flour, Cumin, Coriander, Turmeric, Baking Soda, Salt, Water, Vegetable Oil
+Chicken and Waffles,30 minutes,2,500,Breakfast,USA,Fried chicken served with waffles and syrup.,Chicken, Flour, Eggs, Milk, Baking Powder, Sugar, Butter, Waffle Mix, Maple Syrup
+Crème Brûlée,60 minutes,2,300,Dessert,France,Custard dessert with a caramelized sugar crust.,Heavy Cream, Sugar, Egg Yolks, Vanilla Bean, Salt
+Chicken Teriyaki,30 minutes,2,400,Japanese,Japan,Grilled chicken with teriyaki sauce.,Chicken, Soy Sauce, Brown Sugar, Garlic, Ginger, Mirin, Cornstarch
+Tiramisu,30 minutes,2,300,Dessert,Italy,Coffee-flavored dessert with ladyfingers and mascarpone cream.,Ladyfingers, Mascarpone Cheese, Espresso, Cocoa Powder, Sugar, Eggs, Rum (optional)
+Egg Fried Rice,20 minutes,1,350,Rice,China,Fried rice with eggs and vegetables.,Cooked Rice, Eggs, Carrots, Peas, Green Onions, Garlic, Soy Sauce, Sesame Oil
+Beef Empanadas,45 minutes,2,400,Pastry,Latin America,Pastry filled with ground beef, onions, and spices.,Pastry Dough, Ground Beef, Onion, Garlic, Cumin, Paprika, Salt, Pepper, Egg Wash
+Spinach and Artichoke Dip,30 minutes,1,250,Appetizer,USA,Creamy dip with spinach, artichokes, and cheese.,Spinach, Artichokes, Cream Cheese, Parmesan Cheese, Sour Cream, Garlic, Mozzarella Cheese, Salt, Pepper
+Chicken Caesar Wrap,15 minutes,1,350,Wrap,USA,Grilled chicken, lettuce, and Caesar dressing in a tortilla.,Chicken, Tortilla, Romaine Lettuce, Parmesan Cheese, Caesar Dressing, Croutons
+Beef Rendang,240 minutes,3,700,Stew,Indonesia,Beef stewed in coconut milk and spices.,Beef, Coconut Milk, Lemongrass, Galangal, Garlic, Ginger, Turmeric, Cinnamon, Star Anise, Chili Peppers, Kaffir Lime Leaves
+Gazpacho,15 minutes,1,150,Soup,Spain,Cold tomato soup with vegetables.,Tomatoes, Cucumber, Bell Peppers, Onion, Garlic, Olive Oil, Red Wine Vinegar, Salt, Pepper
+Chocolate Mousse,20 minutes,1,200,Dessert,France,Light and airy chocolate dessert.,Chocolate, Eggs, Heavy Cream, Sugar, Vanilla Extract
+Chicken Souvlaki,30 minutes,2,400,Greek,Greece,Grilled chicken skewers marinated in lemon and herbs.,Chicken, Lemon Juice, Olive Oil, Garlic, Oregano, Salt, Pepper, Yogurt (optional)
+Coconut Curry,40 minutes,2,450,Curry,Thailand,Curry with coconut milk, vegetables, and spices.
+Beef Tacos,20 minutes,1,300,Mexican,Mexico,Corn or wheat tortillas filled with ground beef, vegetables, and salsa.
+Key Lime Pie,60 minutes,2,300,Dessert,USA,Tart and sweet pie with a graham cracker crust.
+Pork Dumplings,30 minutes,2,350,Dumplings,China,Steamed or pan-fried dumplings filled with pork and vegetables.
+Caprese Salad,15 minutes,1,200,Salad,Italy,Tomatoes, mozzarella, and basil drizzled with olive oil.
+Chicken Enchiladas,60 minutes,2,500,Mexican,Mexico,Corn tortillas filled with chicken and cheese, topped with sauce.
+French Toast,20 minutes,1,300,Breakfast,USA,Bread soaked in eggs and milk, then fried.
+Beef Stir-Fry,25 minutes,2,400,Stir-Fry,China,Stir-fried beef with vegetables and sauce.
+Strawberry Shortcake,30 minutes,1,250,Dessert,USA,Sponge cake with strawberries and whipped cream.
+Chicken Korma,60 minutes,2,550,Curry,India,Chicken cooked in a creamy almond and yogurt sauce.
+Cornbread,40 minutes,1,200,Bread,USA,Sweet or savory bread made from cornmeal.
+Chicken Cacciatore,60 minutes,2,500,Stew,Italy,Chicken stewed with tomatoes, onions, and herbs.
+Chocolate Brownies,45 minutes,1,250,Dessert,USA,Dense and fudgy chocolate squares.
+Beef and Broccoli,30 minutes,2,400,Stir-Fry,China,Beef stir-fried with broccoli and sauce.
+Spaghetti Carbonara,20,2,600,Main Course,Italy,A classic Italian pasta dish made with eggs, cheese, pancetta, and pepper.
+Chicken Tikka Masala,40,2,500,Main Course,India,A flavorful curry made with grilled chicken, tomatoes, cream, and spices.
+Vegetable Stir-Fry,30,1,250,Side Dish,China,A quick and healthy dish of assorted vegetables stir-fried with soy sauce and ginger.
+Beef Stew,90,3,700,Main Course,USA,A hearty stew made with tender beef, potatoes, carrots, and rich broth.
+Fish Tacos,25,1,350,Main Course,Mexico,Tacos filled with grilled fish, slaw, and a tangy sauce.
+Caesar Salad,15,1,350,Salad,USA,A crisp salad with romaine lettuce, croutons, Parmesan cheese, and creamy dressing.
+Pad Thai,30,2,550,Main Course,Thailand,A stir-fried noodle dish with shrimp, tofu, peanuts, and a tangy tamarind sauce.
+Moussaka,60,3,650,Main Course,Greece,A baked casserole made with layers of eggplant, ground meat, and béchamel sauce.
+Chocolate Cake,45,2,400,Dessert,USA,A rich and moist chocolate cake, often topped with frosting or whipped cream.
+Tom Yum Soup,25,2,150,Soup,Thailand,A spicy and sour Thai soup made with shrimp, lemongrass, lime, and chili.
+Beef Wellington,120,3,800,Main Course,England,A luxurious beef roast wrapped in puff pastry with mushrooms and pate.
+Peking Duck,180,3,900,Main Course,China,A traditional Chinese dish featuring crispy duck skin and tender meat.
+Lasagna,90,2,700,Main Course,Italy,A layered pasta dish with meat, ricotta cheese, tomato sauce, and béchamel sauce.
+Paella,60,2,650,Main Course,Spain,A Spanish rice dish with seafood, chicken, and saffron.
+Hummus,15,1,250,Appetizer,Middle East,A creamy dip made from chickpeas, tahini, lemon, and garlic.
+Clam Chowder,40,2,400,Soup,USA,A creamy soup with clams, potatoes, celery, and onions.
+Shakshuka,25,2,300,Brunch,Middle East,A dish of poached eggs in a spicy tomato, onion, and pepper sauce.
+Falafel,30,2,350,Appetizer,Middle East,Deep-fried chickpea patties served with pita and tahini sauce.
+Tomato Basil Soup,30,2,250,Soup,USA,A smooth soup made with ripe tomatoes, basil, and cream.
+Goulash,70,2,600,Main Course,Hungary,A rich stew of beef, paprika, and vegetables.
+Eggplant Parmesan,60,2,500,Main Course,Italy,A baked dish of breaded eggplant slices with marinara sauce and melted cheese.
+Frittata,25,1,350,Brunch,Italy,A thick Italian omelette with vegetables, cheese, and meat or seafood.
+Sushi,40,2,300,Main Course,Japan,Delicate rolls of vinegared rice with seafood, vegetables, and sometimes fruit.
+Bangers and Mash,45,1,500,Main Course,England,Traditional English sausage and mashed potato dish, often served with gravy.
+Minestrone Soup,60,2,250,Soup,Italy,A hearty vegetable soup with pasta and beans in a tomato broth.
+Beef Tacos,20,1,400,Main Course,Mexico,Ground beef seasoned with spices, served in soft or 3 taco shells.
+Crab Cakes,30,2,350,Appetizer,USA,Pan-fried cakes made with crab meat, breadcrumbs, and seasoning.
+Pasta Primavera,30,1,400,Main Course,Italy,A pasta dish with fresh vegetables and a light garlic sauce.
+Cheeseburger,25,1,600,Main Course,USA,A classic hamburger with cheese, lettuce, tomato, and pickles.
+Lamb Tagine,120,3,700,Main Course,Morocco,A slow-cooked lamb stew with vegetables, dried fruits, and spices.
+Pasta Puttanesca,30,2,450,Main Course,Italy,Pasta with a tangy tomato sauce made with olives, capers, and anchovies.
+Ceviche,20,1,200,Appetizer,Peru,Fresh fish marinated in lime and mixed with onions, cilantro, and chilies.
+Chili Con Carne,60,2,500,Main Course,Mexico,Spicy stew made with ground beef, beans, tomatoes, and chili peppers.
+Beef Burritos,40,2,600,Main Course,Mexico,Tortillas filled with seasoned beef, beans, cheese, and sour cream.
+Jambalaya,70,2,650,Main Course,USA,A Louisiana Creole dish of rice, meat, and vegetables, seasoned with spices.
+Ratatouille,90,2,300,Side Dish,France,A vegetable medley stew made with tomatoes, eggplant, and zucchini.
+Currywurst,30,1,400,Main Course,Germany,Grilled sausage sliced and served with a spiced ketchup sauce.
+Crème Brûlée,45,2,350,Dessert,France,A creamy custard dessert topped with a layer of caramelized sugar.
+Pavlova,60,2,450,Dessert,New Zealand,Merengue-based dessert topped with whipped cream and fresh fruits.
+Maki Rolls,40,2,300,Main Course,Japan,Japanese sushi rolls with fish, vegetables, and seaweed.
+Lobster Roll,30,2,500,Main Course,USA,Fresh lobster meat served in a soft roll with mayonnaise and lemon.
+Focaccia,120,1,250,Bread,Italy,Italian flatbread flavored with rosemary, garlic, and olive oil.
+Grilled Cheese Sandwich,15,1,400,Main Course,USA,A simple sandwich made with melted cheese between two slices of bread.
+Bruschetta,20,1,150,Appetizer,Italy,Toasted bread topped with diced tomatoes, garlic, and basil.
+Pasta Alfredo,30,2,700,Main Course,Italy,A creamy pasta dish with butter, cream, and Parmesan cheese.
+Wiener Schnitzel,60,2,700,Main Course,Austria,A breaded and fried veal cutlet, often served with potatoes or salad.
+Baklava,60,2,400,Dessert,Turkey,A sweet pastry made with layers of filo dough, honey, and nuts.
+Sauerbraten,180,3,800,Main Course,Germany,A marinated pot roast, typically served with red cabbage and potatoes.
+Tandoori Chicken,60,2,450,Main Course,India,Chicken marinated in yogurt and spices, then grilled or baked.
+Sweet and Sour Pork,40,2,500,Main Course,China,Stir-fried pork with a tangy and sweet sauce made from vinegar and sugar.
+Chicken Shawarma,50,2,550,Main Course,Middle East,Grilled chicken served with pita and various toppings.
+Nasi Goreng,40,2,450,Main Course,Indonesia,A fried rice dish with shrimp, chicken, and vegetables, flavored with soy sauce.
+Cornbread,45,1,250,Bread,USA,Moist, slightly sweet bread made with cornmeal.
+Baked Ziti,60,2,600,Main Course,Italy,An Italian-American baked pasta dish with tomato sauce and melted cheese.
+Pulled Pork Sandwich,90,2,700,Main Course,USA,Slow-cooked pork shoulder shredded and served with BBQ sauce on a bun.
+Coconut Shrimp,30,2,400,Appetizer,USA,Shrimp dipped in coconut and fried until crispy.
+Pork Schnitzel,60,2,650,Main Course,Germany,A breaded and fried pork cutlet, served with lemon and potatoes.
+Empanadas,45,2,400,Appetizer,Argentina,Pastry filled with meat, cheese, or vegetables, then baked or fried.
+Steak Frites,60,2,700,Main Course,France,Grilled steak served with crispy French fries.
+Moussaka,90,2,600,Main Course,Greece,A layered dish made with eggplant, ground meat, and béchamel sauce.
+Coconut Curry,40,2,500,Main Course,India,Chicken or vegetables cooked in a coconut milk-based curry sauce.
+Crab Rangoon,30,2,350,Appetizer,USA,Deep-fried dumplings filled with cream cheese and crab meat.
+Salmon en Papillote,30,2,450,Main Course,France,Fish baked in parchment paper with herbs and vegetables.
+Churros,30,1,400,Dessert,Spain,Fried dough pastries coated with sugar and cinnamon.
+Fried Green Tomatoes,40,2,300,Appetizer,USA,Fried slices of unripe green tomatoes, served with dipping sauce.
+Bánh Mi,30,2,500,Main Course,Vietnam,A Vietnamese sandwich with a crispy baguette filled with meats, vegetables, and herbs.
+Beef Empanadas,40,2,450,Appetizer,Argentina,Pastry filled with seasoned beef, onions, and olives.
+Chicken Fried Rice,30,2,550,Main Course,China,A stir-fried rice dish with chicken, vegetables, and soy sauce.
+Fettuccine Alfredo,30,2,700,Main Course,Italy,A rich pasta dish made with butter, cream, and Parmesan cheese.
+Tuna Tartare,25,2,200,Appetizer,France,Fresh tuna served raw with herbs, lime, and olive oil.
+Roast Duck,120,3,750,Main Course,France,A whole duck roasted until golden and crispy, often served with fruit sauces.
+Bangers and Mash,40,1,500,Main Course,England,Sausage and mashed potatoes served with onion gravy.
+Apple Pie,60,2,350,Dessert,USA,A classic dessert with a buttery crust and spiced apple filling.
+Ramen,60,2,500,Main Course,Japan,Japanese noodle soup with broth, vegetables, and pork.
+Beef Fajitas,30,2,600,Main Course,Mexico,Sizzling beef served with onions, bell peppers, and tortillas.
+Moussaka,90,3,600,Main Course,Greece,A Greek dish of layers of eggplant, ground lamb, and béchamel sauce.
+Chicken Parmesan,60,2,700,Main Course,Italy,Breaded and fried chicken cutlets topped with marinara sauce and melted cheese.
+Brisket,180,3,800,Main Course,USA,A slow-cooked beef brisket served with BBQ sauce.
+Lobster Newberg,60,3,850,Main Course,USA,A luxurious lobster dish with eggs, brandy, and a rich sauce.
+Peking Duck,120,3,900,Main Course,China,A traditional dish with crispy duck skin and tender meat.
+Risotto,60,2,600,Main Course,Italy,A creamy rice dish cooked with stock and flavored with various ingredients.
+Duck à l'Orange,90,3,700,Main Course,France,A classic French dish with duck served in a sweet and tangy orange sauce.
+Chicken Cacciatore,70,2,500,Main Course,Italy,A chicken dish stewed with tomatoes, onions, peppers, and wine.
+Chili Crab,60,2,700,Main Course,Singapore,A spicy and savory crab dish cooked with a rich tomato-based sauce.
+Vegetable Samosas,45,2,300,Appetizer,India,Pastry pockets filled with spiced vegetables and fried until crispy.
+Pork Belly,120,3,850,Main Course,China,A tender and flavorful slow-roasted pork belly with a crispy skin.
+Tom Kha Gai,30,2,300,Soup,Thailand,A creamy and tangy Thai soup with chicken, coconut milk, mushrooms, and lemongrass.
+Moussaka,90,2,600,Main Course,Greece,A Greek dish with layers of eggplant, ground lamb, and a rich béchamel sauce.
+Taco Salad,20,1,400,Main Course,Mexico,A refreshing salad with lettuce, ground beef, beans, cheese, and tortilla chips.
+Prawn Scampi,30,2,500,Main Course,Italy,Sautéed shrimp in garlic butter sauce, often served with pasta.
+Beef Empanadas,45,2,450,Appetizer,Argentina,Deep-fried pastry filled with ground beef, onions, and olives.
+Stuffed Bell Peppers,60,2,500,Main Course,USA,Bell peppers filled with ground meat, rice, and tomato sauce, baked until tender.
+Bánh Xèo,50,2,600,Main Course,Vietnam,A crispy Vietnamese pancake filled with shrimp, pork, and bean sprouts.
+Ratatouille,90,2,350,Side Dish,France,A vegetable stew made with eggplant, zucchini, peppers, and tomatoes.
+Jerk Chicken,60,2,650,Main Course,Jamaica,Chicken marinated in a spicy blend of herbs and spices, then grilled.
+Pasta Carbonara,30,2,600,Main Course,Italy,A creamy pasta dish with pancetta, eggs, Parmesan cheese, and black pepper.
+Beef Tacos,30,1,500,Main Course,Mexico,Soft or 3 taco shells filled with seasoned ground beef, cheese, and salsa.
+Vegetarian Burritos,45,2,500,Main Course,Mexico,Burritos filled with beans, rice, vegetables, and cheese, topped with salsa.
+Chicken Caesar Wrap,25,1,400,Main Course,USA,A wrap filled with grilled chicken, romaine lettuce, croutons, and Caesar dressing.
+Salmon Sushi,40,2,300,Main Course,Japan,Fresh salmon served on vinegared rice with a touch of wasabi and soy sauce.
+Pulled Pork Tacos,60,2,600,Main Course,USA,Slow-cooked pork served in soft tortillas with tangy coleslaw and BBQ sauce.
+Pizza Margherita,30,2,700,Main Course,Italy,Thin crust pizza topped with tomato sauce, fresh mozzarella, and basil.
+Spicy Tuna Roll,40,2,350,Main Course,Japan,Spicy tuna wrapped in rice and nori, often topped with avocado.
+Peking Duck,120,3,900,Main Course,China,A famous Chinese dish made with crispy duck skin and flavorful meat.
+Croque Monsieur,30,2,600,Main Course,France,A French grilled ham and cheese sandwich, often topped with béchamel sauce.
+Chicken Biryani,90,2,750,Main Course,India,A fragrant rice dish made with chicken, spices, and saffron.
+Aloo Gobi,40,2,350,Side Dish,India,A spiced dish made with potatoes and cauliflower, often served with rice.
+Hushpuppies,30,1,300,Appetizer,USA,Deep-fried cornmeal fritters, often served with fried fish.
+Baklava,60,2,400,Dessert,Turkey,A flaky pastry filled with nuts and honey syrup, baked until golden.
+Katsu Curry,60,2,700,Main Course,Japan,A breaded and deep-fried cutlet served with a rich Japanese curry sauce.
+Bulgur Wheat Salad,30,1,300,Side Dish,Middle East,A healthy salad made with bulgur wheat, vegetables, and olive oil dressing.
+Oysters Rockefeller,40,2,350,Appetizer,USA,Oysters topped with spinach, butter, and breadcrumbs, then baked.
+Pineapple Fried Rice,40,2,500,Main Course,Thailand,Fried rice made with pineapple, vegetables, and a variety of seasonings.
+Steak Tartare,30,2,250,Main Course,France,Raw minced beef served with seasonings, capers, and egg yolk.
+Borscht,60,2,250,Soup,Ukraine,A beet-based soup served hot or cold with sour cream and dill.
+Pasta Primavera,30,1,450,Main Course,Italy,Pasta mixed with fresh, sautéed vegetables in olive oil and garlic.
+Vegetarian Lasagna,90,2,650,Main Course,Italy,Lasagna made with ricotta, spinach, and marinara sauce.
+Fried Chicken,60,2,800,Main Course,USA,Chicken coated in seasoned flour and fried until crispy and golden.
+Fish and Chips,40,1,700,Main Course,England,Fried battered fish served with crispy French fries and tartar sauce.
+Cucumber Sandwiches,20,1,150,Appetizer,England,Thinly sliced cucumbers on soft white bread with butter and seasoning.
+Lamb Kofta,40,2,500,Main Course,Middle East,Spiced lamb meatballs grilled on skewers and served with pita and yogurt sauce.
+Beef Ragu,90,2,600,Main Course,Italy,A slow-cooked beef stew served with pasta or polenta.
+Apple Crumble,45,2,350,Dessert,England,A warm dessert made with baked apples and a crumbly oat topping.
+Chicken Katsu,40,2,600,Main Course,Japan,Breaded and deep-fried chicken served with rice and tonkatsu sauce.
+Maki Rolls,40,2,300,Main Course,Japan,Japanese sushi rolls filled with fish, vegetables, and rice.
+Fettuccine Alfredo,30,2,700,Main Course,Italy,Pasta coated in a creamy sauce made with butter, cream, and Parmesan cheese.
+Crispy Tofu Stir-Fry,30,1,350,Main Course,China,Stir-fried tofu with vegetables and a savory soy-based sauce.
+Baked Alaska,90,2,800,Dessert,USA,A frozen dessert made of cake, meringue, and ice cream, then baked.
+Pork Belly Buns,50,2,600,Main Course,China,Soft steamed buns filled with tender pork belly, pickles, and hoisin sauce.
+Hushpuppies,40,1,300,Appetizer,USA,Deep-fried cornmeal fritters served with seafood or as a side dish.
+Tacos al Pastor,60,2,550,Main Course,Mexico,Marinated pork cooked on a vertical spit, served in tortillas with pineapple and cilantro.
+Zucchini Fritters,30,1,250,Side Dish,Greece,Shredded zucchini mixed with flour and fried until golden.
+Fried Green Tomatoes,40,1,350,Appetizer,USA,Unripe green tomatoes battered and fried, often served with dipping sauce.
+Grilled Shrimp Skewers,20,1,200,Main Course,USA,Shrimp marinated in lemon and herbs, then grilled on skewers.
+Frittata,30,1,350,Main Course,Italy,An Italian-style omelette filled with vegetables, cheese, and sometimes meat.
+Falafel,30,2,400,Appetizer,Middle East,Chickpea patties flavored with herbs and fried until crispy.
+Pad Thai,45,2,700,Main Course,Thailand,A stir-fried noodle dish with shrimp, tofu, peanuts, and a tangy tamarind sauce.
+Tiramisu,60,2,400,Dessert,Italy,A layered dessert made with coffee-soaked ladyfingers, mascarpone, and cocoa powder.
+Shakshuka,30,2,350,Main Course,Middle East,A dish made of poached eggs in a spicy tomato sauce with peppers and onions.
+Risotto alla Milanese,60,2,600,Main Course,Italy,A creamy risotto flavored with saffron and Parmesan cheese.
+Bulgur Pilaf,40,2,400,Side Dish,Turkey,A flavorful side dish made with bulgur wheat, onions, tomatoes, and spices.
+Vegetable Tempura,30,2,450,Appetizer,Japan,Vegetables like sweet potatoes and zucchini dipped in batter and fried until crispy.
+Goulash,90,2,700,Main Course,Hungary,A hearty stew made with beef, onions, paprika, and potatoes.
+Sauerbraten,120,3,800,Main Course,Germany,Marinated beef roast served with a rich gravy, typically with dumplings and red cabbage.
+Pasta Puttanesca,30,2,500,Main Course,Italy,A pasta dish made with tomatoes, olives, capers, garlic, and anchovies.
+Kimchi,30,1,50,Side Dish,Korea,A fermented vegetable dish, typically made with cabbage and radish, flavored with chili and garlic.
+Beef Wellington,180,3,950,Main Course,England,A beef fillet coated with mushrooms and wrapped in puff pastry before baking.
+Lobster Roll,30,2,600,Main Course,USA,A sandwich filled with tender lobster meat dressed in mayo and lemon.
+Ceviche,30,1,250,Appetizer,Peru,A dish made of raw fish marinated in citrus juice, served with onions and cilantro.
+Spaghetti Aglio e Olio,20,1,500,Main Course,Italy,A simple pasta dish with garlic, olive oil, chili flakes, and parsley.
+Churros,30,1,400,Dessert,Spain,Fried dough pastries coated with sugar and cinnamon, often served with chocolate sauce.
+Coq au Vin,120,2,700,Main Course,France,A chicken dish braised with red wine, mushrooms, onions, and bacon.
+Beef Stroganoff,60,2,750,Main Course,Russia,A creamy beef stew made with mushrooms, sour cream, and onions, served over noodles.
+Pavlova,90,2,350,Dessert,New Zealand,A meringue-based dessert topped with whipped cream and fresh fruits.
+Chicken Shawarma,60,2,650,Main Course,Middle East,Spiced and marinated chicken served in pita bread with veggies and tahini sauce.
+Ramen,60,2,650,Main Course,Japan,A Japanese noodle soup with a rich broth, noodles, and toppings like eggs and pork.
+Duck à l'Orange,90,3,800,Main Course,France,Roast duck served with a sweet and tangy orange sauce.
+Lasagna Bolognese,120,2,800,Main Course,Italy,Lasagna made with layers of pasta, rich beef ragù, and béchamel sauce.
+Mole Poblano,120,2,750,Main Course,Mexico,A complex sauce made with chili peppers, chocolate, and spices, served over chicken.
+Fish Tacos,30,2,400,Main Course,Mexico,Soft tortillas filled with battered fish, slaw, and a creamy sauce.
+Steak Frites,45,2,700,Main Course,France,Grilled steak served with crispy French fries and often accompanied by béarnaise sauce.
+Fettuccine Alfredo,30,2,700,Main Course,Italy,Rich and creamy pasta made with butter, cream, and Parmesan cheese.
+Carrot Cake,60,2,500,Dessert,USA,A moist cake made with grated carrots, nuts, and cream cheese frosting.
+Phở,60,2,550,Soup,Vietnam,A fragrant noodle soup with herbs, bean sprouts, and a clear beef or chicken broth.
+Eggplant Parmesan,90,2,600,Main Course,Italy,Layers of breaded and fried eggplant, marinara sauce, and melted cheese.
+Tomato Basil Soup,45,2,350,Soup,USA,A creamy soup made from fresh tomatoes and basil, often served with grilled cheese.
+Sushi Rolls,40,2,300,Main Course,Japan,Various types of sushi made with vinegared rice, fish, and vegetables wrapped in nori.
+Kebabs,50,2,600,Main Course,Middle East,Skewered and grilled meat, often served with vegetables or rice.
+Bangers and Mash,45,2,700,Main Course,England,Sausages served with mashed potatoes and onion gravy.
+Beetroot Salad,30,1,200,Side Dish,Ukraine,A simple salad made with boiled beets, onions, and a dressing of sour cream and dill.
+Bánh Mi,40,2,500,Main Course,Vietnam,A Vietnamese sandwich made with a crispy baguette, pickled vegetables, and grilled meats.
+Peking Duck Pancakes,90,3,750,Main Course,China,Thin pancakes filled with crispy duck, cucumber, and hoisin sauce.
+Huevos Rancheros,45,2,500,Main Course,Mexico,Fried eggs served on corn tortillas topped with a tomato-based sauce.
+Caesar Salad,30,1,350,Side Dish,USA,A classic salad with romaine lettuce, croutons, Parmesan, and Caesar dressing.
+Tarte Tatin,90,2,500,Dessert,France,An upside-down caramelized apple tart made with puff pastry.
+Banoffee Pie,60,2,450,Dessert,UK,A dessert made with bananas, toffee, and cream on a biscuit base.
+Crispy Chicken Tenders,30,1,600,Main Course,USA,Chicken strips coated in breadcrumbs and deep-fried until crispy.
+Moussaka,90,2,650,Main Course,Greece,A Greek dish made with layers of eggplant, minced lamb, and béchamel sauce.
+Arancini,60,2,500,Appetizer,Italy,Deep-fried rice balls stuffed with cheese, meat, or vegetables.
+Poutine,30,1,800,Main Course,Canada,Fries topped with cheese curds and covered with gravy.
+Frittata,30,1,350,Main Course,Italy,An Italian-style omelette filled with vegetables, cheese, and sometimes meat.
+Shrimp Po' Boy,30,2,600,Main Course,USA,A sandwich made with fried shrimp, lettuce, tomato, and remoulade sauce in a baguette.
+Sauerbraten,120,3,800,Main Course,Germany,A marinated beef roast, slow-cooked and served with potatoes and red cabbage.
+Ziti al Forno,60,2,700,Main Course,Italy,An oven-baked pasta dish with marinara sauce and melted cheese.
+Buttermilk Biscuits,40,1,300,Side Dish,USA,Fluffy, flaky biscuits made with buttermilk and served with butter or gravy.
+Pasta Primavera,40,2,550,Main Course,Italy,A pasta dish with fresh, sautéed vegetables in a light olive oil and garlic sauce.
+Taco Salad,20,1,450,Main Course,Mexico,A colorful salad with seasoned ground beef, lettuce, tomatoes, cheese, and tortilla chips.
+Fish Tacos,40,2,400,Main Course,Mexico,Tender fish fillets served in soft tortillas with a tangy slaw and a creamy sauce.
+Sweet and Sour Chicken,45,2,600,Main Course,China,A dish with crispy chicken chunks in a tangy sauce made from vinegar, sugar, and soy sauce.
+Eggplant Rollatini,60,2,550,Main Course,Italy,Thin slices of eggplant filled with ricotta cheese, marinara sauce, and baked until golden.
+Fried Rice,30,1,500,Main Course,China,Stir-fried rice with vegetables, eggs, and soy sauce, often with added meat or shrimp.
+Beef Empanadas,60,2,450,Appetizer,Argentina,Pastry pockets filled with ground beef, onions, and spices, then deep-fried or baked.
+Gnocchi,60,2,500,Main Course,Italy,Soft potato dumplings served with a variety of sauces such as pesto or marinara.
+Cauliflower Buffalo Wings,40,2,350,Appetizer,USA,Vegetarian buffalo wings made from crispy battered cauliflower tossed in spicy buffalo sauce.
+Pavlova,90,2,350,Dessert,New Zealand,A meringue dessert topped with whipped cream and fresh fruits like berries and kiwi.
+Bangers and Mash,50,2,700,Main Course,England,Classic British dish of sausages served with mashed potatoes and rich onion gravy.
+Baklava,60,2,400,Dessert,Turkey,A rich pastry made with layers of filo dough, nuts, and honey syrup, baked until golden.
+Chicken Parmesan,60,2,700,Main Course,Italy,Breaded and fried chicken topped with marinara sauce and melted mozzarella cheese.
+Jambalaya,90,2,750,Main Course,USA,A flavorful rice dish with chicken, sausage, shrimp, and a variety of spices.
+Chicken Marsala,60,2,650,Main Course,Italy,Chicken breast cooked in a savory mushroom and Marsala wine sauce.
+Fettuccine Alfredo,40,2,700,Main Course,Italy,A creamy pasta dish made with butter, heavy cream, and Parmesan cheese.
+Fried Green Tomatoes,40,1,350,Appetizer,USA,Slices of green tomatoes dipped in cornmeal batter and fried until crispy.
+Clam Chowder,60,2,500,Soup,USA,A creamy soup made with clams, potatoes, onions, and celery, often served in a bread bowl.
+Crepes Suzette,45,2,450,Dessert,France,Thin crepes served with an orange-flavored liqueur sauce and flambéed.
+Chili Con Carne,90,2,700,Main Course,USA,A hearty stew made with beef, beans, tomatoes, and chili peppers.
+Lamb Rogan Josh,90,2,700,Main Course,India,A flavorful lamb curry made with a blend of spices, yogurt, and tomatoes.
+Goulash,90,2,750,Main Course,Hungary,A rich beef stew made with onions, paprika, and vegetables, served with bread or potatoes.
+Focaccia,60,2,400,Bread,Italy,Italian flatbread flavored with olive oil, rosemary, and sea salt.
+Moussaka,120,2,700,Main Course,Greece,Layers of eggplant, minced meat, and béchamel sauce, baked until golden.
+Katsu Curry,60,2,750,Main Course,Japan,A breaded and fried chicken cutlet served with a rich Japanese curry sauce.
+Lobster Bisque,90,2,600,Soup,France,A creamy, rich soup made with lobster and flavored with brandy and cream.
+Ratatouille,90,2,350,Side Dish,France,A vegetable stew made with eggplant, zucchini, peppers, onions, and tomatoes.
+Chicken Tikka Masala,60,2,700,Main Course,India,Grilled chicken cooked in a creamy tomato sauce spiced with garam masala.
+Ceviche,30,1,250,Appetizer,Peru,Fresh seafood, typically fish or shrimp, marinated in lime juice with onions and cilantro.
+Shakshuka,30,2,350,Main Course,Middle East,A dish of poached eggs in a tomato-based sauce with peppers, onions, and spices.
+Hoisin Beef Stir-Fry,30,2,500,Main Course,China,Beef and vegetables stir-fried in a sweet and savory hoisin sauce.
+Paella,90,2,700,Main Course,Spain,A traditional Spanish rice dish made with seafood, chicken, saffron, and vegetables.
+Banoffee Pie,60,2,450,Dessert,UK,A dessert made with bananas, caramel, and cream over a biscuit crust.
+Pork Schnitzel,60,2,700,Main Course,Germany,A breaded and fried pork cutlet, often served with potato salad and lemon wedges.
+Chicken Fajitas,45,2,650,Main Course,Mexico,Grilled chicken strips served with sautéed bell peppers and onions in soft tortillas.
+Sushi Rolls,40,2,350,Main Course,Japan,Various types of sushi made with vinegared rice, fish, and vegetables wrapped in nori.
+Tiramisu,90,2,400,Dessert,Italy,A coffee-flavored dessert made with layers of ladyfingers, mascarpone, and cocoa powder.
+Crispy Tofu Stir-Fry,30,1,350,Main Course,China,Tender tofu cubes stir-fried with vegetables and a savory soy-based sauce.
+Lamb Shank,120,2,800,Main Course,Middle East,Slow-cooked lamb shanks in a spiced tomato-based sauce, served with rice or couscous.
+Pork Belly Bao Buns,50,2,600,Main Course,China,Soft steamed buns filled with braised pork belly, pickled cucumbers, and hoisin sauce.
+Fish and Chips,45,1,700,Main Course,England,Deep-fried battered fish served with crispy fries and tartar sauce.
+Grilled Cheese Sandwich,20,1,400,Main Course,USA,Classic sandwich made with melted cheese between two slices of toasted bread.
+Lobster Roll,30,2,650,Main Course,USA,A sandwich made with lobster meat dressed in mayo and lemon, served in a toasted roll.
+Vegetarian Chili,60,2,500,Main Course,USA,A spicy stew made with beans, vegetables, and spices, served with cornbread.
+Pasta Carbonara,30,2,600,Main Course,Italy,Spaghetti tossed with pancetta, eggs, Parmesan cheese, and black pepper.
+Fried Mozzarella Sticks,30,1,450,Appetizer,Italy,Cheese sticks coated in breadcrumbs, deep-fried and served with marinara sauce.
+Taco Bowls,30,1,550,Main Course,Mexico,Ground beef or chicken served over rice with fresh veggies, guacamole, and sour cream.
+Pasta Puttanesca,30,2,500,Main Course,Italy,A pasta dish made with tomatoes, olives, capers, garlic, and anchovies.
+Jerk Chicken,60,2,700,Main Course,Jamaica,Spicy and smoky grilled chicken marinated in a flavorful jerk seasoning.
+Shrimp Scampi,40,2,550,Main Course,Italy,Shrimp sautéed in garlic, butter, and white wine, served with pasta.
+Pulled Pork Sandwich,60,2,700,Main Course,USA,Slow-cooked pork shoulder served in a bun with BBQ sauce and coleslaw.
+Steak and Fries,45,2,800,Main Course,France,A grilled steak served with crispy fries and often accompanied by a rich sauce.
+Baked Ziti,60,2,700,Main Course,Italy,An oven-baked pasta dish with marinara sauce, mozzarella, and Parmesan cheese.
+Zucchini Fritters,30,1,250,Side Dish,Greece,Shredded zucchini mixed with flour and fried until golden.
+Carrot Cake,60,2,500,Dessert,USA,A moist cake made with grated carrots, walnuts, and topped with cream cheese frosting.
+Crispy Duck Confit,180,3,950,Main Course,France,Slow-cooked duck leg in its own fat, crisped to perfection and served with potatoes.
+Maki Rolls,40,2,300,Main Course,Japan,Small rolls of sushi with vinegared rice, fish, and vegetables wrapped in seaweed.
+Moussaka,120,2,750,Main Course,Greece,A rich layered dish made with eggplant, ground lamb, and a creamy béchamel sauce.
+Peking Duck,150,3,850,Main Course,China,Roast duck with crispy skin, served with pancakes, hoisin sauce, and vegetables.
+Chicken Korma,60,2,700,Main Course,India,A creamy and mildly spiced chicken curry made with yogurt, almonds, and coconut.
+Saltimbocca,45,2,650,Main Course,Italy,Thin slices of veal topped with prosciutto and sage, pan-fried in white wine.
+Cheese Fondue,60,2,600,Dessert,Switzerland,Soft melted cheese served with bread cubes, vegetables, and fruit for dipping.
+Crispy Pork Belly,120,2,850,Main Course,China,Slow-roasted pork belly with crispy skin and tender meat, often served with pancakes and hoisin sauce.
+Lamb Kofta,60,2,650,Main Course,Middle East,Spiced lamb meatballs grilled or fried, often served with pita bread and tahini sauce.
+Paella Valenciana,90,2,750,Main Course,Spain,A traditional Valencian paella with chicken, rabbit, beans, and saffron rice.
+Baked Alaska,90,2,700,Dessert,USA,A dessert consisting of ice cream on a sponge cake base, topped with meringue and baked.
+Ratatouille,90,2,350,Side Dish,France,A vegetable medley of eggplant, zucchini, peppers, onions, and tomatoes, often stewed.
+Chicken Cacciatore,90,2,700,Main Course,Italy,Chicken slow-cooked in a tomato-based sauce with onions, garlic, and herbs.
+Samosas,60,2,400,Appetizer,India,Fried pastry filled with spiced potatoes, peas, and sometimes meat, served with chutney.
+Tarte Tatin,90,2,500,Dessert,France,An upside-down caramelized apple tart, served with a dollop of cream.
+Risotto ai Funghi,75,2,650,Main Course,Italy,A creamy rice dish made with mushrooms, butter, Parmesan, and white wine.
+Banh Xeo,60,2,500,Main Course,Vietnam,Delicious savory Vietnamese pancakes filled with shrimp, pork, bean sprouts, and herbs.
+Beef Wellington,180,3,950,Main Course,England,Beef fillet wrapped in a mushroom duxelles and puff pastry, then baked to perfection.
+Ramen Noodles,60,2,600,Main Course,Japan,Traditional Japanese noodle soup with a rich broth, noodles, and various toppings.
+Crispy Fish Tacos,40,2,450,Main Course,Mexico,Fried fish fillets served in soft tortillas with slaw and a tangy sauce.
+Fettuccine Alfredo,40,2,700,Main Course,Italy,Rich pasta coated in a creamy butter and Parmesan sauce, often served with chicken.
+Pho,90,2,550,Soup,Vietnam,A fragrant noodle soup with beef or chicken, herbs, and a flavorful broth.
+Churros,30,1,400,Dessert,Spain,Fried dough pastries dusted with sugar and cinnamon, typically served with chocolate sauce.
+Gnocchi,60,2,500,Main Course,Italy,Soft dumplings made from potatoes, often served with a variety of sauces like pesto or tomato.
+Moussaka,120,2,750,Main Course,Greece,A layered casserole made with eggplant, lamb, and béchamel sauce.
+Chicken Satay,40,2,500,Appetizer,Indonesia,Grilled chicken skewers served with a peanut dipping sauce.
+Lasagna,90,2,800,Main Course,Italy,A classic Italian dish made with layers of pasta, meat sauce, béchamel, and cheese.
+Tempura,30,2,450,Appetizer,Japan,Fried battered vegetables and seafood, often served with a dipping sauce.
+Spanakopita,60,2,400,Main Course,Greece,A flaky pastry filled with spinach and feta cheese, often served as a savory pie.
+Shawarma,60,2,650,Main Course,Middle East,Marinated and grilled meat, often served in pita bread with vegetables and garlic sauce.
+Minestrone Soup,90,2,350,Soup,Italy,A hearty vegetable soup with beans, pasta, and tomato, often served with bread.
+Lobster Roll,30,2,600,Main Course,USA,Sweet lobster meat mixed with mayonnaise, lemon, and herbs, served in a soft roll.
+Quiche Lorraine,60,2,500,Main Course,France,A savory pie made with eggs, cream, bacon, and cheese in a flaky crust.
+Pasta Puttanesca,30,2,500,Main Course,Italy,A flavorful pasta dish made with tomatoes, olives, capers, garlic, and anchovies.
+Crispy Duck,90,2,700,Main Course,France,Roast duck with crispy skin, often served with fruit sauces like orange or cherry.
+Burritos,40,2,650,Main Course,Mexico,Flour tortillas filled with seasoned meat, rice, beans, cheese, and salsa.
+Rogan Josh,90,2,750,Main Course,India,A flavorful lamb curry made with yogurt, onions, garlic, and a blend of spices.
+Jambalaya,90,2,750,Main Course,USA,A Creole rice dish made with shrimp, sausage, chicken, and a variety of spices.
+Carne Asada,60,2,700,Main Course,Mexico,Grilled beef marinated in lime and spices, often served with tortillas and salsa.
+Pasta Carbonara,30,2,600,Main Course,Italy,Spaghetti with a creamy sauce made from eggs, cheese, pancetta, and black pepper.
+Ceviche,30,1,250,Appetizer,Peru,Fish or shrimp marinated in lime juice, served with onions, cilantro, and chili.
+Beef Empanadas,60,2,450,Appetizer,Argentina,Golden-brown pastry filled with seasoned beef, onions, and spices.
+Steak Frites,45,2,700,Main Course,France,Grilled steak served with crispy fries and a variety of sauces like béarnaise.
+Vegetarian Lasagna,90,2,650,Main Course,Italy,A meat-free lasagna with layers of pasta, ricotta, spinach, and marinara sauce.
+Pork Schnitzel,60,2,700,Main Course,Germany,A breaded and fried pork cutlet served with a tangy lemon wedge and potato salad.
+Baked Ziti,60,2,700,Main Course,Italy,An oven-baked pasta dish with marinara sauce, ricotta, mozzarella, and Parmesan cheese.
+Pulled Pork Sandwich,60,2,700,Main Course,USA,Slow-cooked pulled pork served on a bun with BBQ sauce and coleslaw.
