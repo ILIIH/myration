@@ -1,7 +1,6 @@
 package com.example.data.repository
 
 import com.example.core.media.image.ImageGroceryAnalyzer
-import java.net.URI
 import com.example.data.model.maping.toData
 import com.example.data.model.maping.toDomain
 import com.example.data.source.ProductDataSource
@@ -15,7 +14,7 @@ class ProductsRepositoryImp @Inject constructor(
     private val imageGroceryAnalyzer: ImageGroceryAnalyzer
 ) : ProductsRepository {
     override suspend fun addProduct(product: Product) {
-        dataSource.addProduct(product.toData())
+        dataSource.addProduct(product.toData(withId = false))
     }
     override suspend fun removeProductById(id: Int) {
         dataSource.deleteProductById(id)
@@ -31,11 +30,9 @@ class ProductsRepositoryImp @Inject constructor(
     }
 
     override suspend fun getAllProductFromRecipe(uri: String): List<Product> {
-        val textFromPhoto = imageGroceryAnalyzer.getTextFromImageUri(uri)
-        return listOf()
+        return imageGroceryAnalyzer.getProductsFromReceiptImage(uri)
     }
 
-    
     val knownUnits = listOf(
         "cup", "cups", "tbsp", "tablespoon", "tsp", "teaspoon", "g", "gram", "grams", "kg", "ml", "l", "oz", "pinch", "clove", "cloves", "slice", "slices", "piece", "pieces", "can", "cans", "egg", "eggs"
     )

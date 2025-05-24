@@ -26,7 +26,7 @@ class RecipeRepositoryImp @Inject constructor(
 
     override suspend fun getAllRecipe(): List<Recipe> {
         if (!preferences.getBoolean(IS_DATA_FETCHED, false)) initRecipes()
-        return localDataSource.getAllAvailableRecipes().map { it.toDomain() }
+        return localDataSource.getAllRecipes().map { it.toDomain() }
     }
     override suspend fun getRecipesForProduct(product: Product): List<Recipe> {
         val ingredients = localDataSource.getAllIngredients()

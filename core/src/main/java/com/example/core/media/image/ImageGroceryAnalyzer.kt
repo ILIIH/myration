@@ -2,14 +2,13 @@ package com.example.core.media.image
 
 import ai.onnxruntime.OnnxTensor
 import ai.onnxruntime.OrtEnvironment
-import ai.onnxruntime.OrtSession
 import android.content.Context
 import android.graphics.Rect
 import android.net.Uri
 import android.util.Log
 import com.example.core.GPT.CoreTokenizer
-import com.example.core.GPT.padAndFlattenBBoxes
-import com.example.core.GPT.padToLength
+import com.example.domain.model.MeasurementMetric
+import com.example.domain.model.Product
 import com.example.domain.repository.TokenizationRepository
 import com.google.mlkit.vision.common.InputImage
 import com.google.mlkit.vision.text.TextRecognition
@@ -18,7 +17,6 @@ import kotlinx.coroutines.tasks.await
 import java.io.File
 import javax.inject.Inject
 
-data class TokenWithBox(val tokenId: Int, val bbox: List<Int>)
 class ImageGroceryAnalyzer @Inject constructor(
     private val context: Context,
     private val bitmapProvider: BitmapProvider,
@@ -27,7 +25,7 @@ class ImageGroceryAnalyzer @Inject constructor(
 
     private val recognizer = TextRecognition.getClient(TextRecognizerOptions.DEFAULT_OPTIONS)
     val modelFile = File(context.cacheDir, "layout_ml.onnx")
-    suspend fun getTextFromImageUri(photoUri: String): String? {
+    suspend fun getProductsFromReceiptImage(photoUri: String): List<Product> {
         return try {
             val imageWidth = 600
             val imageHeight = 700
@@ -52,17 +50,17 @@ class ImageGroceryAnalyzer @Inject constructor(
                 }
             }
 
-            analyzeText(words, builder.toString(), boxes)
 
             Log.d("OCR", "Detected Text: $resultText")
-            resultText
+            analyzeText(words, builder.toString(), boxes)
+
         } catch (e: Exception) {
             Log.e("OCR", "Error: ${e.message}")
-            null
+            listOf()
         }
     }
 
-    suspend fun analyzeText(words:List<String>, text: String, inputBBoxes: List<List<Int>>) {
+    suspend fun analyzeText(words:List<String>, text: String, inputBBoxes: List<List<Int>>) : List<Product>{
         if (!modelFile.exists()) {
             copyAssetToFile(context, "layout_ml.onnx", modelFile)
         }
@@ -105,22 +103,26 @@ class ImageGroceryAnalyzer @Inject constructor(
         )
 
         // Group tokens into (food, price) pairs based on labels
-        val pairs = mutableListOf<Pair<String, String>>()
+        val products = mutableListOf<Product>()
         var currentFood = ""
         var currentPrice = ""
 
-        val limit = minOf(predictedLabels.size, text.length)
+        val limit = minOf(predictedLabels.size, text.length, words.size)
         for (i in 0 until limit) {
             val label = labelMap[predictedLabels[i]]
             val word = words[i]
 
             when {
                 label.startsWith("B-FOOD") -> {
-                    if (currentFood.isNotEmpty() && currentPrice.isNotEmpty()) {
-                        pairs.add(currentFood to currentPrice)
-                    }
-                    currentFood = word
-                    currentPrice = ""
+                    products.add(
+                        Product(
+                            id = i,
+                            quantity = 0f,
+                            name = word,
+                            measurementMetric = MeasurementMetric.KILOGRAM,
+                            expirationDate = String()
+                        )
+                    )
                 }
                 label.startsWith("I-FOOD") -> currentFood += " $word"
                 label.startsWith("B-PRICE") -> currentPrice = word
@@ -128,10 +130,7 @@ class ImageGroceryAnalyzer @Inject constructor(
             }
         }
 
-        if (currentFood.isNotEmpty() && currentPrice.isNotEmpty()) {
-            pairs.add(currentFood to currentPrice)
-        }
-        Log.d("image_scanning", "Extracted pairs: $pairs")
+        return products
     }
 
     fun loadTokenizerFromAssets(): CoreTokenizer {

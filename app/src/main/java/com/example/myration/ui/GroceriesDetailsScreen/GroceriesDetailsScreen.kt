@@ -68,8 +68,6 @@ fun GroceriesDetailsScreen(
 
     LaunchedEffect(Unit) {
         viewModel.effect.collect { effect ->
-            Log.i("reducing_logging", "effect collected -> $effect")
-
             when (effect) {
                 is ProductDetailsEffect.NavigateToRecipeDetails -> {
                     navController.navigate(

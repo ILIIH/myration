@@ -22,7 +22,7 @@ import javax.inject.Singleton
 object RemoteModule {
 
     private const val MEAL_BASE_URL = "https://www.themealdb.com"
-    private const val TOKENIZATION_BASE_URL = "https://73a4-212-129-80-203.ngrok-free.app"     //TODO: replace with actual base url
+    private const val TOKENIZATION_BASE_URL = "https://20ad-212-129-84-94.ngrok-free.app"     //TODO: replace with actual base url
 
     @Provides
     @Singleton

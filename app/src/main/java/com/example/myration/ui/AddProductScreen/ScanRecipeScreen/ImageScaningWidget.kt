@@ -30,15 +30,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.unit.dp
-import coil.compose.AsyncImage
-import com.example.core_ui.camera.CameraController
-import com.example.core_ui.camera.CameraPreviewView
-import com.example.myration.R
-import com.example.myration.navigation.NavigationRoute
-import com.example.myration.viewModels.ScanRecipeViewModel
-import com.example.theme.PrimaryColor
 import com.example.theme.SecondaryBackgroundColor
 import com.example.theme.Typography
 

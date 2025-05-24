@@ -7,7 +7,6 @@ import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.layout.Arrangement.SpaceBetween
-import androidx.compose.foundation.layout.Arrangement.Start
 import androidx.compose.foundation.layout.Arrangement.spacedBy
 import androidx.compose.foundation.layout.FlowRow
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -146,7 +145,7 @@ fun FilterItem(filter: Filter, onApply: (id: Int)-> Unit, onRemove:(id: Int)->Un
             verticalAlignment = Alignment.CenterVertically
         ){
             Text(
-                text = filter.name,
+                text = filter.type.label,
                 color = Color(0xFFB8876F),
                 style = Typography.displayLarge,
                 maxLines = 1,

@@ -23,9 +23,9 @@ fun ProductEntity.toDomain(): Product {
     return Product(this.id, this.weight, this.name, metric, this.expirationDate)
 }
 
-fun Product.toData(): ProductEntity {
+fun Product.toData(withId: Boolean = true): ProductEntity {
     return ProductEntity(
-        id = this.id,
+        id = if(withId)this.id else null,
         this.quantity,
         this.name,
         this.measurementMetric.desc,
