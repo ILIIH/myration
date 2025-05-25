@@ -29,7 +29,6 @@ class ProductDetailsReducer : Reducer<ResultState<ProductDetailViewState>, Produ
                 ResultState.Success(event.product) to null
             }
             is ProductDetailsEvents.OnReceiptClicked -> {
-                Log.i("reducing_logging", "event -> ${event.receiptId}")
                 previousState to ProductDetailsEffect.NavigateToRecipeDetails(event.receiptId)
             }
             is ProductDetailsEvents.ProductDeleted -> {
@@ -37,7 +36,6 @@ class ProductDetailsReducer : Reducer<ResultState<ProductDetailViewState>, Produ
             }
             is ProductDetailsEvents.ProductUpdated -> {
                 val recipes = if(previousState is ResultState.Success) previousState.data.recipes  else listOf<Recipe>()
-                Log.i("reducing_logging", "event -> $event")
                 ResultState.Success(
                     ProductDetailViewState(
                         product = event.product,

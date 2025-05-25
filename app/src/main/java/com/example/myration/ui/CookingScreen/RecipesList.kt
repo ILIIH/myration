@@ -56,7 +56,7 @@ fun RecipesList(recipeList: List<Recipe>, navigateToRecipeDetails: (recipeId: In
                         }
                     }
                 } else {
-                    RecipeItemLong(chunk.first(), modified = Modifier.clickable { navigateToRecipeDetails(chunk.first().id) })
+                    RecipeItemLong(chunk.first(), modified = Modifier.fillMaxWidth().clickable { navigateToRecipeDetails(chunk.first().id) })
                 }
             }
         }
@@ -65,10 +65,10 @@ fun RecipesList(recipeList: List<Recipe>, navigateToRecipeDetails: (recipeId: In
 @Composable
 fun RecipeItemLong(recipe: Recipe, modified: Modifier) {
     Box(
-        modifier = modified.fillMaxWidth().padding(top = 15.dp)
+        modifier = modified.padding(top = 15.dp)
         ){
         Row(
-            modifier = Modifier
+            modifier = modified
                 .padding(horizontal = 10.dp, vertical = 25.dp)
                 .height(200.dp)
                 .shadow(elevation = 8.dp, shape = RoundedCornerShape(12.dp))

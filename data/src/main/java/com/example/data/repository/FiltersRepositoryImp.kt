@@ -15,60 +15,6 @@ class FiltersRepositoryImp : FiltersRepository {
             Filter(id = index, type = filter, isApplied = false)
         }
     }
-
-    // TODO("Change implementation to flow API")
-    override fun getFilteredItems(recipes: List<Recipe>, filter: Filter): List<Recipe> {
-        return when (filter.type) {
-            RecipeFilter.HIGH_PROTEIN -> {
-                recipes.filter { it.type == RecipeType.HIGH_PROTEIN }
-            }
-            RecipeFilter.EASY -> {
-                recipes.filter { it.cookingDifficulty == CookingDifficulty.EASY }
-            }
-            RecipeFilter.HARD -> {
-                recipes.filter { it.cookingDifficulty == CookingDifficulty.HARD } // FIXED
-            }
-            RecipeFilter.FAST -> {
-                recipes.filter { it.cookingTime.seconds < 1000 }
-            }
-            RecipeFilter.LESS_THAN_300_KCAL -> {
-                recipes.filter { it.kcal < 300 }
-            }
-            RecipeFilter.LESS_THAN_500_KCAL -> {
-                recipes.filter { it.kcal < 500 }
-            }
-            RecipeFilter.MORE_THAN_500_KCAL -> {
-                recipes.filter { it.kcal > 500 }
-            }
-        }
-    }
-
-    override fun getNegationSetFilteredItems(recipes: List<Recipe>, filter: Filter) : List<Recipe> {
-        return when (filter.type) {
-            RecipeFilter.HIGH_PROTEIN -> {
-                recipes.filter { it.type == RecipeType.HIGH_PROTEIN }
-            }
-            RecipeFilter.EASY -> {
-                recipes.filter { it.cookingDifficulty == CookingDifficulty.EASY }
-            }
-            RecipeFilter.HARD -> {
-                recipes.filter { it.cookingDifficulty == CookingDifficulty.HARD } // FIXED
-            }
-            RecipeFilter.FAST -> {
-                recipes.filter { it.cookingTime.seconds < 1000 }
-            }
-            RecipeFilter.LESS_THAN_300_KCAL -> {
-                recipes.filter { it.kcal < 300 }
-            }
-            RecipeFilter.LESS_THAN_500_KCAL -> {
-                recipes.filter { it.kcal < 500 }
-            }
-            RecipeFilter.MORE_THAN_500_KCAL -> {
-                recipes.filter { it.kcal > 500 }
-            }
-        }
-    }
-
     companion object {
         private val filterList = listOf(
             RecipeFilter.HIGH_PROTEIN,
