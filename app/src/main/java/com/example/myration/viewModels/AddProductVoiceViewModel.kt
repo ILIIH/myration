@@ -4,6 +4,8 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.core.media.audio.AudioDecoder
 import com.example.core.media.audio.AudioRecorder
+import com.example.core.media.audio.engine.WhisperEngine
+import com.example.core.media.audio.engine.WhisperEngineNative
 import com.example.myration.ui.AddProductScreen.AddProductVoice.TimerManager
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -15,7 +17,7 @@ import javax.inject.Inject
 @HiltViewModel
 class AddProductVoiceViewModel @Inject constructor(
     private val audioRecorder: AudioRecorder,
-    private val audioDecoder: AudioDecoder
+    private val audioDecoder: WhisperEngine
 ) : ViewModel() {
 
     val maxRecordLength = 5000f
@@ -43,7 +45,7 @@ class AddProductVoiceViewModel @Inject constructor(
     fun stopRecorder() {
         viewModelScope.launch {
             audioRecorder.stopRecording()
-            audioDecoder.transcribeAudio(AudioRecorder.AUDIO_FILE_NAME)
+        audioDecoder.transcribeFile(AudioRecorder.AUDIO_FILE_NAME)
             _isRecording.value = false
             _recordingProgress.value = 0f
             TimerManager.stop()
