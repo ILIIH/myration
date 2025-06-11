@@ -42,9 +42,6 @@ class Whisper(context: Context) {
 
     init {
         // Start thread for file transcription for file transcription
-        val threadTranscbFile = Thread { this.transcribeFileLoop() }
-        threadTranscbFile.start()
-
         // Start thread for buffer transcription for live mic feed transcription
         val threadTranscbBuffer = Thread { this.transcribeBufferLoop() }
         threadTranscbBuffer.start()
@@ -100,58 +97,6 @@ class Whisper(context: Context) {
     val isInProgress: Boolean
         get() = mInProgress.get()
 
-    private fun transcribeFileLoop() {
-        while (!Thread.currentThread().isInterrupted) {
-            taskLock.lock()
-            try {
-                while (!taskAvailable) {
-                    hasTask.await()
-                }
-                transcribeFile()
-                taskAvailable = false
-            } catch (e: InterruptedException) {
-                Thread.currentThread().interrupt()
-            } finally {
-                taskLock.unlock()
-            }
-        }
-    }
-
-    private fun transcribeFile() {
-        try {
-            if (mWhisperEngine.isInitialized && mWavFilePath != null) {
-                val waveFile = File(mWavFilePath)
-                if (waveFile.exists()) {
-                    val startTime = System.currentTimeMillis()
-                    sendUpdate(MSG_PROCESSING)
-
-                    var result: String? = null
-                    synchronized(mWhisperEngine) {
-                        if (mAction == Action.TRANSCRIBE) {
-                            result = mWhisperEngine.transcribeFile(mWavFilePath)
-                        } else {
-//                            result = mWhisperEngine.getTranslation(mWavFilePath);
-                            Log.d(TAG, "TRANSLATE feature is not implemented")
-                        }
-                    }
-                    sendResult(result)
-
-                    val timeTaken = System.currentTimeMillis() - startTime
-                    Log.d(TAG, "Time Taken for transcription: " + timeTaken + "ms")
-                    sendUpdate(MSG_PROCESSING_DONE)
-                } else {
-                    sendUpdate(MSG_FILE_NOT_FOUND)
-                }
-            } else {
-                sendUpdate("Engine not initialized or file path not set")
-            }
-        } catch (e: Exception) {
-            Log.e(TAG, "Error during transcription", e)
-            sendUpdate("Transcription failed: " + e.message)
-        } finally {
-            mInProgress.set(false)
-        }
-    }
 
     private fun sendUpdate(message: String) {
         if (mUpdateListener != null) {

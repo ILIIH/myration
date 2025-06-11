@@ -1,5 +1,6 @@
 package com.example.core.media.audio.engine
 
+import kotlinx.coroutines.Deferred
 import java.io.IOException
 
 
@@ -9,6 +10,6 @@ interface WhisperEngine {
     @Throws(IOException::class)
     fun initialize(modelPath: String?, vocabPath: String?, multilingual: Boolean): Boolean
     fun deinitialize()
-    fun transcribeFile(wavePath: String?): String?
+    suspend fun transcribeFile(wavePath: String?): Deferred<String?>
     fun transcribeBuffer(samples: FloatArray?): String?
 }

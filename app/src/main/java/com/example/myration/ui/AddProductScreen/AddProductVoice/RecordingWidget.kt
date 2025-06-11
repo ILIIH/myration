@@ -13,6 +13,8 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.LinearProgressIndicator
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -21,7 +23,13 @@ import androidx.compose.ui.unit.dp
 import com.example.myration.R
 
 @Composable
-fun RecordingWidget(isRecording: Boolean, recordingProgress: Float, maxRecordLength: Float, startRecording: () -> Unit, stopRecording: () -> Unit) {
+fun RecordingWidget(
+    isRecording: Boolean,
+    recordingProgress: Float,
+    maxRecordLength: Float,
+    startRecording: () -> Unit,
+    stopRecording: () -> Unit
+) {
     Row(
         modifier = Modifier
             .padding(horizontal = 20.dp, vertical = 40.dp)
@@ -39,10 +47,8 @@ fun RecordingWidget(isRecording: Boolean, recordingProgress: Float, maxRecordLen
                 .size(50.dp)
                 .clickable {
                     if (!isRecording) {
-                        Log.i("recording_loging", "start rerord")
                         startRecording()
                     } else {
-                        Log.i("recording_loging", "stop rerord")
                         stopRecording()
                     }
                 }

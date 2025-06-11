@@ -21,9 +21,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 
 @Composable
-fun TextFromAudioWidget() {
-    val textFromAudio by remember { mutableStateOf("...") }
-
+fun TextFromAudioWidget(recordResult: String) {
     Row(
         modifier = Modifier
             .padding(horizontal = 20.dp, vertical = 40.dp)
@@ -35,7 +33,7 @@ fun TextFromAudioWidget() {
         horizontalArrangement = Arrangement.spacedBy(16.dp, Alignment.CenterHorizontally)
     ) {
         Text(
-            text = textFromAudio,
+            text = recordResult,
             fontSize = 20.sp,
             fontWeight = FontWeight.Bold,
             color = Color.Black

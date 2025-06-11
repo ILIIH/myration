@@ -1,56 +1,52 @@
 package com.example.myration.viewModels
 
-import androidx.lifecycle.ViewModel
+import android.Manifest
+import androidx.annotation.RequiresPermission
 import androidx.lifecycle.viewModelScope
-import com.example.core.media.audio.AudioDecoder
-import com.example.core.media.audio.AudioRecorder
+import com.example.core.media.audio.WavAudioRecorder
 import com.example.core.media.audio.engine.WhisperEngine
-import com.example.core.media.audio.engine.WhisperEngineNative
+import com.example.core.mvi.BaseViewModel
+import com.example.myration.mvi.effects.AddProductVoiceEffect
+import com.example.myration.mvi.intent.AddProductVoiceEvents
+import com.example.myration.mvi.reducer.AddProductVoiceReducer
+import com.example.myration.mvi.state.AddProductVoiceViewState
 import com.example.myration.ui.AddProductScreen.AddProductVoice.TimerManager
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
 class AddProductVoiceViewModel @Inject constructor(
-    private val audioRecorder: AudioRecorder,
+    private val audioRecorder: WavAudioRecorder,
     private val audioDecoder: WhisperEngine
-) : ViewModel() {
+) :  BaseViewModel<AddProductVoiceViewState, AddProductVoiceEvents, AddProductVoiceEffect>(
+    initialState = AddProductVoiceViewState.initial(),
+    reducer = AddProductVoiceReducer()
+) {
 
-    val maxRecordLength = 5000f
+    val MAX_RECORD_LENGTH = 5000f
 
-    private val _recordingProgress : MutableStateFlow<Float> = MutableStateFlow(0f)
-    val recordingProgress : StateFlow<Float> = _recordingProgress.asStateFlow()
-
-    private val _isRecording : MutableStateFlow<Boolean> = MutableStateFlow(false)
-    val isRecording : StateFlow<Boolean> = _isRecording.asStateFlow()
-
+    @RequiresPermission(Manifest.permission.RECORD_AUDIO)
     fun startRecording() {
+        sendEvent(AddProductVoiceEvents.RecordingInProgress)
         audioRecorder.startRecording()
-        _isRecording.value = true
-
         TimerManager.start(
             intervalMillis = 100L,
             onTick = {
-                if (_recordingProgress.value < maxRecordLength) {
-                    _recordingProgress.value += 10f
+                if (state.value.recordingProgress < MAX_RECORD_LENGTH) {
+                    sendEvent(AddProductVoiceEvents.RecordingProgressUpdate(10f))
                 }
             }
         )
     }
 
     fun stopRecorder() {
+        TimerManager.stop()
+        sendEvent(AddProductVoiceEvents.StopRecording)
         viewModelScope.launch {
-            audioRecorder.stopRecording()
-        audioDecoder.transcribeFile(AudioRecorder.AUDIO_FILE_NAME)
-            _isRecording.value = false
-            _recordingProgress.value = 0f
-            TimerManager.stop()
+            val filePath =  audioRecorder.stopRecording()
+            val result = audioDecoder.transcribeFile(filePath).await().toString()
+            sendEvent(AddProductVoiceEvents.Recorded(result))
         }
     }
-
-
 }

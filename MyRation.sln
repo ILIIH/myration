@@ -1,0 +1,81 @@
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.5.2.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "core", "core", "{FBF56CC3-7AE6-AD2D-3F14-7F97FD322CD6}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{580459B1-2454-B1D6-7C9B-FACCBBFF1222}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "main", "main", "{D50EFDAB-2D39-2B1F-EED5-1B0301886174}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "cpp", "cpp", "{969E2565-EE54-25FB-B832-8D9935DA1D0D}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tf-lite-api", "tf-lite-api", "{901B0299-3791-E88F-632A-1814BCBEB831}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "include", "include", "{716CF694-DFD7-45A4-2386-C6526EC567A6}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "flatbuffers", "flatbuffers", "{62F5969E-4C50-C66B-5209-D69F3827955A}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "net", "net", "{D0E5714A-EC5C-7CF0-06A3-4222B034CD8A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FlatBuffers.net35", "core\src\main\cpp\tf-lite-api\include\flatbuffers\net\FlatBuffers\FlatBuffers.net35.csproj", "{F95502D5-CFC2-D2F7-7AA6-64FD6DE134AC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Google.FlatBuffers", "core\src\main\cpp\tf-lite-api\include\flatbuffers\net\FlatBuffers\Google.FlatBuffers.csproj", "{AAC8C727-F6A5-F7B2-4299-B4BC4E09640C}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{22735659-63C6-DA51-1F42-D46920399526}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FlatBuffers.Core.Test", "core\src\main\cpp\tf-lite-api\include\flatbuffers\tests\FlatBuffers.Test\FlatBuffers.Core.Test.csproj", "{94FBC067-33E9-8148-E08C-7E0B1C62CFCB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FlatBuffers.Test", "core\src\main\cpp\tf-lite-api\include\flatbuffers\tests\FlatBuffers.Test\FlatBuffers.Test.csproj", "{5F83D290-A985-F970-E5B1-0A5EC807F45C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FlatBuffers.Benchmarks", "core\src\main\cpp\tf-lite-api\include\flatbuffers\tests\FlatBuffers.Benchmarks\FlatBuffers.Benchmarks.csproj", "{A6ADAA84-620E-6BBA-FD78-91A9C97886C7}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{F95502D5-CFC2-D2F7-7AA6-64FD6DE134AC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F95502D5-CFC2-D2F7-7AA6-64FD6DE134AC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F95502D5-CFC2-D2F7-7AA6-64FD6DE134AC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F95502D5-CFC2-D2F7-7AA6-64FD6DE134AC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AAC8C727-F6A5-F7B2-4299-B4BC4E09640C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AAC8C727-F6A5-F7B2-4299-B4BC4E09640C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AAC8C727-F6A5-F7B2-4299-B4BC4E09640C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AAC8C727-F6A5-F7B2-4299-B4BC4E09640C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{94FBC067-33E9-8148-E08C-7E0B1C62CFCB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{94FBC067-33E9-8148-E08C-7E0B1C62CFCB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{94FBC067-33E9-8148-E08C-7E0B1C62CFCB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{94FBC067-33E9-8148-E08C-7E0B1C62CFCB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5F83D290-A985-F970-E5B1-0A5EC807F45C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5F83D290-A985-F970-E5B1-0A5EC807F45C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5F83D290-A985-F970-E5B1-0A5EC807F45C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5F83D290-A985-F970-E5B1-0A5EC807F45C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A6ADAA84-620E-6BBA-FD78-91A9C97886C7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A6ADAA84-620E-6BBA-FD78-91A9C97886C7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A6ADAA84-620E-6BBA-FD78-91A9C97886C7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A6ADAA84-620E-6BBA-FD78-91A9C97886C7}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{580459B1-2454-B1D6-7C9B-FACCBBFF1222} = {FBF56CC3-7AE6-AD2D-3F14-7F97FD322CD6}
+		{D50EFDAB-2D39-2B1F-EED5-1B0301886174} = {580459B1-2454-B1D6-7C9B-FACCBBFF1222}
+		{969E2565-EE54-25FB-B832-8D9935DA1D0D} = {D50EFDAB-2D39-2B1F-EED5-1B0301886174}
+		{901B0299-3791-E88F-632A-1814BCBEB831} = {969E2565-EE54-25FB-B832-8D9935DA1D0D}
+		{716CF694-DFD7-45A4-2386-C6526EC567A6} = {901B0299-3791-E88F-632A-1814BCBEB831}
+		{62F5969E-4C50-C66B-5209-D69F3827955A} = {716CF694-DFD7-45A4-2386-C6526EC567A6}
+		{D0E5714A-EC5C-7CF0-06A3-4222B034CD8A} = {62F5969E-4C50-C66B-5209-D69F3827955A}
+		{F95502D5-CFC2-D2F7-7AA6-64FD6DE134AC} = {D0E5714A-EC5C-7CF0-06A3-4222B034CD8A}
+		{AAC8C727-F6A5-F7B2-4299-B4BC4E09640C} = {D0E5714A-EC5C-7CF0-06A3-4222B034CD8A}
+		{22735659-63C6-DA51-1F42-D46920399526} = {62F5969E-4C50-C66B-5209-D69F3827955A}
+		{94FBC067-33E9-8148-E08C-7E0B1C62CFCB} = {22735659-63C6-DA51-1F42-D46920399526}
+		{5F83D290-A985-F970-E5B1-0A5EC807F45C} = {22735659-63C6-DA51-1F42-D46920399526}
+		{A6ADAA84-620E-6BBA-FD78-91A9C97886C7} = {22735659-63C6-DA51-1F42-D46920399526}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {4A85CC4E-BD5D-43C3-A6FB-BA78BF005B1A}
+	EndGlobalSection
+EndGlobal

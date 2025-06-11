@@ -14,3 +14,6 @@
 .cxx
 local.properties
 *.onnx
+*.bin
+*.whisper-tiny.tflite
+*tokenizer.json

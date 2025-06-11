@@ -24,8 +24,7 @@ import com.example.myration.viewModels.AddProductVoiceViewModel
 fun AddProductVoiceScreen(
     viewModel: AddProductVoiceViewModel = hiltViewModel()
 ) {
-    val isRecording = viewModel.isRecording.collectAsState()
-    val recordingProgress = viewModel.recordingProgress.collectAsState()
+    val screenState = viewModel.state.collectAsState()
     val context = LocalContext.current
 
     val permissions = arrayOf(
@@ -47,17 +46,17 @@ fun AddProductVoiceScreen(
             .background(SecondaryBackgroundColor)
     ) {
         RecordingWidget(
-            isRecording.value,
-            recordingProgress.value,
-            viewModel.maxRecordLength,
+            screenState.value.isRecording ,
+            screenState.value.recordingProgress,
+            viewModel.MAX_RECORD_LENGTH,
             viewModel::startRecording,
             viewModel::stopRecorder
         )
-        TextFromAudioWidget()
+        TextFromAudioWidget(screenState.value.recordingResult)
     }
 
-    LaunchedEffect(recordingProgress.value) {
-        if (recordingProgress.value >= viewModel.maxRecordLength) {
+    LaunchedEffect(screenState.value.recordingProgress) {
+        if (screenState.value.recordingProgress >= viewModel.MAX_RECORD_LENGTH) {
             viewModel.stopRecorder()
         }
     }

@@ -2,9 +2,24 @@ package com.example.core.media.audio.engine
 
 import android.content.Context
 import android.util.Log
+import kotlinx.coroutines.CoroutineDispatcher
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Deferred
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.async
+import kotlinx.coroutines.withContext
+import java.io.File
+import kotlin.coroutines.CoroutineContext
 
 
 class WhisperEngineNative(private val mContext: Context) : WhisperEngine {
+
+    init {
+        val model = getFileFromAssets(mContext, "whisper-tiny.en.tflite")
+        val vocab = getFileFromAssets(mContext, "filters_vocab_en.bin")
+        initialize(model.absolutePath, vocab.absolutePath, false )
+    }
+
     private val TAG = "WhisperEngineNative"
     private val nativePtr: Long // Native pointer to the TFLiteEngine instance
 
@@ -31,8 +46,10 @@ class WhisperEngineNative(private val mContext: Context) : WhisperEngine {
         return transcribeBuffer(nativePtr, samples)
     }
 
-    override fun transcribeFile(waveFile: String?): String? {
-        return transcribeFile(nativePtr, waveFile)
+    override suspend fun transcribeFile(waveFile: String?): Deferred<String?>{
+        return CoroutineScope(Dispatchers.IO).async {
+            transcribeFile(nativePtr, waveFile)
+        }
     }
 
     private fun loadModel(modelPath: String?, isMultilingual: Boolean): Int {
@@ -41,6 +58,20 @@ class WhisperEngineNative(private val mContext: Context) : WhisperEngine {
 
     init {
         nativePtr = createTFLiteEngine()
+    }
+
+    fun getFileFromAssets(context: Context, fileName: String): File {
+        val assetManager = context.assets
+        val inputStream = assetManager.open(fileName)
+
+        val outFile = File(context.cacheDir, fileName)
+        inputStream.use { input ->
+            outFile.outputStream().use { output ->
+                input.copyTo(output)
+            }
+        }
+
+        return outFile
     }
 
     // Native methods

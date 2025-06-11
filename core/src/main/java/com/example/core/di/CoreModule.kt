@@ -2,7 +2,7 @@ package com.example.core.di
 
 import android.content.Context
 import com.example.core.media.audio.AudioDecoder
-import com.example.core.media.audio.AudioRecorder
+import com.example.core.media.audio.WavAudioRecorder
 import com.example.core.media.audio.engine.WhisperEngine
 import com.example.core.media.audio.engine.WhisperEngineNative
 import com.example.core.media.image.BitmapProvider
@@ -18,8 +18,8 @@ import dagger.hilt.components.SingletonComponent
 @InstallIn(SingletonComponent::class)
 object CoreModule {
     @Provides
-    fun provideAudioRecorder(@ApplicationContext context: Context): AudioRecorder {
-        return AudioRecorder(context)
+    fun provideAudioRecorder(@ApplicationContext context: Context): WavAudioRecorder {
+        return WavAudioRecorder(context)
     }
     @Provides
     fun provideAudioDecoder(@ApplicationContext context: Context):AudioDecoder {
