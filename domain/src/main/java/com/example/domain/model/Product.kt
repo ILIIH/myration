@@ -1,7 +1,9 @@
 package com.example.domain.model
 
 enum class MeasurementMetric(val desc: String) {
-    LITERS("lt"),
+    LITERS("l"),
+    MILE_LITERS("ml"),
+    GRAM("gramm"),
     KILOGRAM("kg"),
     PIECE("pcs");
     companion object {

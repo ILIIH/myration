@@ -1,44 +1,21 @@
 package com.example.myration.ui.AddProductScreen.ScanRecipeScreen
 
 import android.Manifest
-import android.util.Log
 import android.widget.Toast
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
-import androidx.compose.foundation.Image
-import androidx.compose.foundation.background
-import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.ui.Alignment
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
-import com.example.core_ui.camera.CameraController
-import com.example.core_ui.camera.CameraPreviewView
 import com.example.core_ui.custom_windows.EditProductDialogue
 import com.example.core_ui.custom_windows.ErrorMessage
 import com.example.domain.model.MeasurementMetric
 import com.example.domain.model.Product
-import com.example.myration.R
 import com.example.myration.mvi.state.ImageScanState
-import com.example.theme.SecondaryBackgroundColor
 import com.example.myration.viewModels.ScanRecipeViewModel
 
 @Composable
@@ -73,7 +50,7 @@ fun ScanRecipeScreen(
             cancelScanning = viewModel::cancelScanning,
         )
         is ImageScanState.ImageScanned -> {
-            ImageScannedWidget(
+            ProductListFromTextWidget(
                 products = state.data,
                 editProduct = {product -> productToEdit.value = product},
                 removeProduct = viewModel::removeProduct,

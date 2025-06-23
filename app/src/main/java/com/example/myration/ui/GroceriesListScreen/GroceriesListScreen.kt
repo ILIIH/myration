@@ -15,6 +15,7 @@ import androidx.lifecycle.compose.LocalLifecycleOwner
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.flowWithLifecycle
 import androidx.navigation.NavHostController
+import androidx.paging.compose.collectAsLazyPagingItems
 import com.example.myration.mvi.effects.GroceriesEffect
 import com.example.myration.navigation.NavigationRoute
 import com.example.theme.SecondaryBackgroundColor
@@ -25,7 +26,7 @@ fun GroceriesListScreen(
     viewModel: GroceriesViewModel = hiltViewModel(),
     navController: NavHostController
 ) {
-    val productList by viewModel.productList.collectAsState()
+    val productList = viewModel.productList.collectAsLazyPagingItems()
     val screenState = viewModel.state.collectAsStateWithLifecycle()
     val lifecycleOwner = LocalLifecycleOwner.current
     val effectFlow = remember(viewModel.effect, lifecycleOwner) {

@@ -3,7 +3,7 @@ package com.example.data.di
 import android.content.Context
 import androidx.room.Room
 import com.example.data.model.LocalDataBase
-import com.example.data.source.ProductDataSource
+import com.example.data.source.ProductLocalDataSource
 import com.example.data.source.RecipeDataSource
 import dagger.Module
 import dagger.Provides
@@ -27,7 +27,7 @@ object LocalDatabaseModule {
     }
 
     @Provides
-    fun provideProductsDao(database: LocalDataBase): ProductDataSource {
+    fun provideProductsDao(database: LocalDataBase): ProductLocalDataSource {
         return database.productDao()
     }
 

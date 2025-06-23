@@ -10,7 +10,11 @@ sealed class AddProductVoiceEvents : Reducer.ViewEvent {
     data class RecordingProgressUpdate(val progressToAdd: Float) : AddProductVoiceEvents()
     data object RecordingInProgress : AddProductVoiceEvents()
     data object StopRecording : AddProductVoiceEvents()
+    data object ProductsSubmitted : AddProductVoiceEvents()
     data class Recorded(val recordResult: String) : AddProductVoiceEvents()
     data class VoiceParsingError(val error: String) : AddProductVoiceEvents()
     data class VoiceParsingResult(val result: List<Product>) : AddProductVoiceEvents()
+    data class RemoveProduct(val id: Int) : AddProductVoiceEvents()
+    data class EditProduct(val product: Product) : AddProductVoiceEvents()
+
 }

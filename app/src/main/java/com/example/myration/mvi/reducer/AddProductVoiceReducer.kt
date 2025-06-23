@@ -1,9 +1,11 @@
 package com.example.myration.mvi.reducer
 
 import com.example.core.mvi.Reducer
+import com.example.domain.model.Product
 import com.example.myration.mvi.effects.AddProductVoiceEffect
 import com.example.myration.mvi.intent.AddProductVoiceEvents
 import com.example.myration.mvi.state.AddProductVoiceViewState
+import com.example.myration.mvi.state.ImageScanState
 
 class AddProductVoiceReducer : Reducer<AddProductVoiceViewState, AddProductVoiceEvents, AddProductVoiceEffect> {
     override fun reduce(
@@ -31,6 +33,17 @@ class AddProductVoiceReducer : Reducer<AddProductVoiceViewState, AddProductVoice
             }
             is AddProductVoiceEvents.RecordingProgressUpdate -> {
                 previousState.copy(recordingProgress = previousState.recordingProgress + event.progressToAdd) to null
+            }
+            is AddProductVoiceEvents.RemoveProduct -> {
+                val newProductList: List<Product> = previousState.productList.filter { it.id != event.id }
+                previousState.copy(productList = newProductList) to null
+            }
+            is AddProductVoiceEvents.EditProduct -> {
+                val newProductList: List<Product> = previousState.productList.filter { it.id != event.product.id} + event.product
+                previousState.copy(productList = newProductList) to null
+            }
+            is AddProductVoiceEvents.ProductsSubmitted -> {
+                AddProductVoiceViewState.initial() to AddProductVoiceEffect.ShowProductListSubmittedToast
             }
         }
     }

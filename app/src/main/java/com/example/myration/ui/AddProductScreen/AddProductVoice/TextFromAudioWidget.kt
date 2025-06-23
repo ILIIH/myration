@@ -22,6 +22,12 @@ import androidx.compose.ui.unit.sp
 
 @Composable
 fun TextFromAudioWidget(recordResult: String) {
+    Text(
+        text = " For best recognition keep structure : \"product name\" -> \"amount (g|gramm|kg|pcs)\" -> \"exp date\"\n",
+        fontSize = 10.sp,
+        fontWeight = FontWeight.Light,
+        color = Color.Black
+    )
     Row(
         modifier = Modifier
             .padding(horizontal = 20.dp, vertical = 40.dp)

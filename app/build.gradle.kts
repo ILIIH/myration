@@ -89,6 +89,10 @@ dependencies {
     implementation("androidx.camera:camera-view:1.4.2")
     implementation("androidx.camera:camera-extensions:1.4.2")
 
+    // Paging
+    implementation ("androidx.paging:paging-runtime:3.3.6")
+    implementation ("androidx.paging:paging-compose:3.3.6")
+
     implementation(project(":data"))
     implementation(project(":domain"))
     implementation(project(":core"))

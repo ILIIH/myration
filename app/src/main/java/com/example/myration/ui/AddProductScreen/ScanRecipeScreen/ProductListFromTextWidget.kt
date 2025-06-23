@@ -32,15 +32,12 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import com.example.domain.model.Product
 import com.example.myration.R
-import com.example.myration.navigation.NavigationRoute
-import com.example.theme.PrimaryColor
-import com.example.theme.SecondaryBackgroundColor
 import com.example.theme.SecondaryColor
 import com.example.theme.SecondaryHalfTransparentColor
 import com.example.theme.Typography
 
 @Composable
-fun ImageScannedWidget(
+fun ProductListFromTextWidget(
     products: List<Product>,
     removeProduct: (id: Int)-> Unit,
     editProduct: (product: Product)-> Unit,

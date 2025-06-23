@@ -6,10 +6,13 @@ import androidx.lifecycle.viewModelScope
 import com.example.core.media.audio.WavAudioRecorder
 import com.example.core.media.audio.engine.WhisperEngine
 import com.example.core.mvi.BaseViewModel
+import com.example.domain.model.Product
+import com.example.domain.repository.ProductsRepository
 import com.example.myration.mvi.effects.AddProductVoiceEffect
 import com.example.myration.mvi.intent.AddProductVoiceEvents
 import com.example.myration.mvi.reducer.AddProductVoiceReducer
 import com.example.myration.mvi.state.AddProductVoiceViewState
+import com.example.myration.mvi.state.ImageScanState
 import com.example.myration.ui.AddProductScreen.AddProductVoice.TimerManager
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
@@ -18,7 +21,8 @@ import javax.inject.Inject
 @HiltViewModel
 class AddProductVoiceViewModel @Inject constructor(
     private val audioRecorder: WavAudioRecorder,
-    private val audioDecoder: WhisperEngine
+    private val audioDecoder: WhisperEngine,
+    private val productsRepository: ProductsRepository
 ) :  BaseViewModel<AddProductVoiceViewState, AddProductVoiceEvents, AddProductVoiceEffect>(
     initialState = AddProductVoiceViewState.initial(),
     reducer = AddProductVoiceReducer()
@@ -45,8 +49,27 @@ class AddProductVoiceViewModel @Inject constructor(
         sendEvent(AddProductVoiceEvents.StopRecording)
         viewModelScope.launch {
             val filePath =  audioRecorder.stopRecording()
-            val result = audioDecoder.transcribeFile(filePath).await().toString()
-            sendEvent(AddProductVoiceEvents.Recorded(result))
+            val recordResult = audioDecoder.transcribeFile(filePath).await().toString()
+            sendEvent(AddProductVoiceEvents.Recorded(recordResult))
+            val productsResult = audioDecoder.transcribeString(recordResult).await()
+            sendEvent(AddProductVoiceEvents.VoiceParsingResult(productsResult))
+        }
+    }
+
+    fun removeProduct(id: Int) {
+        sendEvent(AddProductVoiceEvents.RemoveProduct(id))
+    }
+
+    fun editProduct(product: Product) {
+        sendEvent(AddProductVoiceEvents.EditProduct(product))
+    }
+
+    fun submitProducts() {
+        viewModelScope.launch {
+            for (product in state.value.productList){
+                productsRepository.addProduct(product)
+            }
+            sendEvent(AddProductVoiceEvents.ProductsSubmitted)
         }
     }
 }

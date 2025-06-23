@@ -1,16 +1,22 @@
 package com.example.data.repository
 
+import androidx.paging.Pager
+import androidx.paging.PagingConfig
+import androidx.paging.PagingData
+import androidx.paging.map
 import com.example.core.media.image.ImageGroceryAnalyzer
 import com.example.data.model.maping.toData
 import com.example.data.model.maping.toDomain
-import com.example.data.source.ProductDataSource
+import com.example.data.source.ProductLocalDataSource
 import com.example.domain.model.MeasurementMetric
 import com.example.domain.model.Product
 import com.example.domain.repository.ProductsRepository
+import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
 class ProductsRepositoryImp @Inject constructor(
-    private val dataSource: ProductDataSource,
+    private val dataSource: ProductLocalDataSource,
     private val imageGroceryAnalyzer: ImageGroceryAnalyzer
 ) : ProductsRepository {
     override suspend fun addProduct(product: Product) {
@@ -22,11 +28,18 @@ class ProductsRepositoryImp @Inject constructor(
     override suspend fun updateProduct(product: Product){
         dataSource.updateProduct(product.toData())
     }
-    override suspend fun getAllProduct(): List<Product> {
-        return dataSource.getAllProduct().map { it.toDomain() }
+    override fun getAllProducts(): Flow<PagingData<Product>> {
+        return Pager(
+            config = PagingConfig(pageSize = 20),
+            pagingSourceFactory = { dataSource.getAllProduct() }
+        ).flow
+            .map { pagingData ->
+                pagingData.map { it.toDomain() }
+            }
     }
+
     override suspend fun getProductById(id: Int): Product {
-        return dataSource.getAllProduct().first { it.id == id }.toDomain()
+        return dataSource.getProductById(id).toDomain()
     }
 
     override suspend fun getAllProductFromRecipe(uri: String): List<Product> {

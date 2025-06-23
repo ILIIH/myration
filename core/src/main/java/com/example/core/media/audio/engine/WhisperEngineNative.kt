@@ -2,6 +2,8 @@ package com.example.core.media.audio.engine
 
 import android.content.Context
 import android.util.Log
+import com.example.domain.model.MeasurementMetric
+import com.example.domain.model.Product
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Deferred
@@ -10,6 +12,7 @@ import kotlinx.coroutines.async
 import kotlinx.coroutines.withContext
 import java.io.File
 import kotlin.coroutines.CoroutineContext
+import kotlin.math.abs
 
 
 class WhisperEngineNative(private val mContext: Context) : WhisperEngine {
@@ -49,6 +52,41 @@ class WhisperEngineNative(private val mContext: Context) : WhisperEngine {
     override suspend fun transcribeFile(waveFile: String?): Deferred<String?>{
         return CoroutineScope(Dispatchers.IO).async {
             transcribeFile(nativePtr, waveFile)
+        }
+    }
+
+    override suspend fun transcribeString(recordResult: String): Deferred<List<Product>>{
+        return CoroutineScope(Dispatchers.IO).async {
+            val lowerText = recordResult.lowercase()
+
+            val dateMatches = Regex("""(\d{2}/\d{2}/\d{4})""").findAll(lowerText).toList()
+            val qtyMatches = Regex("""(\d+(?:[\.,]\d+)?)\s*(g|gramm|kg|pcs|ml|l)\b""").findAll(lowerText).toList()
+            val wordTokens = lowerText.split(Regex("""[^a-zA-Z0-9/]+""")).filter { it.isNotBlank() }
+
+            val results = mutableListOf<Product>()
+
+            for (dateMatch in dateMatches) {
+                val date = dateMatch.value
+                val dateIndex = dateMatch.range.first
+
+                // find closest quantity before the date
+                val qty = qtyMatches.minByOrNull { abs(it.range.first - dateIndex) }
+                val qtyValue = qty?.groupValues?.get(1)?.replace(",", ".")?.toFloatOrNull() ?: continue
+                val metric = qty.groupValues[2]
+
+                // find potential product name before quantity or date
+                val productNameStart = maxOf(0, minOf(qty.range.first, dateIndex) - 30)
+                val nameSub = lowerText.substring(productNameStart, minOf(lowerText.length, dateIndex))
+                val name = Regex("""([a-z]{2,}(?:\s+[a-z]{2,}){0,2})""").find(nameSub)?.value?.trim() ?: "unknown"
+
+                results.add(Product(
+                    name = name,
+                    quantity = qtyValue,
+                    measurementMetric = MeasurementMetric.valueOf(metric),
+                    expirationDate = date))
+            }
+            Log.i("product_loggig",results.toString())
+            results
         }
     }
 

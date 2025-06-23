@@ -1,6 +1,10 @@
 package com.example.myration.viewModels
 
+import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
+import androidx.paging.PagingData
+import androidx.paging.cachedIn
+import androidx.paging.filter
 import com.example.core.mvi.BaseViewModel
 import com.example.data.repository.ProductsRepositoryImp
 import com.example.domain.model.Product
@@ -9,9 +13,13 @@ import com.example.myration.mvi.effects.GroceriesEffect
 import com.example.myration.mvi.reducer.GroceriesReducer
 import com.example.myration.mvi.state.GroceriesViewState
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -22,25 +30,20 @@ class GroceriesViewModel @Inject constructor(
     initialState = GroceriesViewState.initial(),
     reducer = GroceriesReducer()
 )  {
-
-    private val _products: MutableStateFlow<List<Product>> = MutableStateFlow(emptyList())
-    val productList: StateFlow<List<Product>> = _products.asStateFlow()
-
-    init {
-        getAllProduct()
-    }
-
-    private fun getAllProduct() {
-        viewModelScope.launch {
-            _products.value = repository.getAllProduct()
-        }
-    }
+    private val _productList = repository.getAllProducts()
+        .cachedIn(viewModelScope)
+        .stateIn(
+            scope = viewModelScope,
+            started = SharingStarted.WhileSubscribed(5000),
+            initialValue = PagingData.empty()
+        )
+    val productList: Flow<PagingData<Product>> = _productList
 
     fun removeProduct(id: Int?) {
         viewModelScope.launch {
             if (id != null) {
                 repository.removeProductById(id)
-                _products.value = _products.value.filter { it.id != id }
+                _productList.value.filter { it.id != id }
             }
         }
     }

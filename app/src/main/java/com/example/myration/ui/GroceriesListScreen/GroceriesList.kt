@@ -15,9 +15,11 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -29,6 +31,8 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
+import androidx.paging.LoadState
+import androidx.paging.compose.LazyPagingItems
 import com.example.core_ui.list_modifiers.BadgeWidget
 import com.example.domain.model.Product
 import com.example.myration.R
@@ -38,23 +42,54 @@ import com.example.theme.SecondaryHalfTransparentColor
 import com.example.theme.Typography
 
 @Composable
-fun GroceriesList(productsList: List<Product>, removeProduct: (productId: Int) -> Unit, navigateToDetailsScreen : (id: Int) -> Unit) {
-    LazyColumn(modifier = Modifier.padding(top = 50.dp, start = 20.dp, end = 20.dp)) {
-        itemsIndexed(productsList.chunked(2)) { index, chunk ->
-                Row(
-                    modifier = Modifier.fillMaxWidth(),
-                    horizontalArrangement = Arrangement.spacedBy(20.dp),
-                ) {
-                    chunk.take(2).forEach { recipe ->
-                        ProductItem(recipe, removeProduct,
-                            modifier = Modifier.weight(1f).clickable {
-                                navigateToDetailsScreen(recipe.id?:0)
+fun GroceriesList(productsList: LazyPagingItems<Product>, removeProduct: (productId: Int) -> Unit, navigateToDetailsScreen : (id: Int) -> Unit) {
+    val productItems = productsList.itemSnapshotList.items.chunked(2)
+    LazyColumn(
+        modifier = Modifier.padding(top = 50.dp, start = 20.dp, end = 20.dp)
+    ) {
+        items(
+            items = productItems,
+            key = { chunk -> chunk.firstOrNull()?.id ?: chunk.hashCode() } // unique key per row
+        ) { chunk ->
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.spacedBy(20.dp)
+            ) {
+                chunk.forEach { product ->
+                    ProductItem(
+                        product,
+                        removeProduct,
+                        modifier = Modifier
+                            .weight(1f)
+                            .clickable {
+                                navigateToDetailsScreen(product.id ?: 0)
                             }
-                        )
+                    )
+                }
+                if (chunk.size == 1) {
+                    Spacer(modifier = Modifier.weight(1f))
+                }
+            }
+        }
+
+
+        productsList.apply {
+            when {
+                loadState.append is LoadState.Loading -> {
+                    item {
+                        CircularProgressIndicator(Modifier.padding(16.dp))
+                    }
+                }
+                loadState.append is LoadState.Error -> {
+                    val error = loadState.append as LoadState.Error
+                    item {
+                        Text("Error: ${error.error.localizedMessage}")
                     }
                 }
             }
+        }
     }
+
 }
 
 @Composable
