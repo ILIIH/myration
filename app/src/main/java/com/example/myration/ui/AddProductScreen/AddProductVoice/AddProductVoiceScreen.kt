@@ -3,6 +3,10 @@ package com.example.myration.ui.AddProductScreen.AddProductVoice
 import android.Manifest.permission.READ_EXTERNAL_STORAGE
 import android.Manifest.permission.RECORD_AUDIO
 import android.Manifest.permission.WRITE_EXTERNAL_STORAGE
+import android.os.Handler
+import android.os.Looper
+import android.os.Message
+import android.util.Log
 import android.widget.Toast
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
@@ -32,6 +36,7 @@ fun AddProductVoiceScreen(
 ) {
     val screenState = viewModel.state.collectAsState()
     val context = LocalContext.current
+
     val productToEdit = remember{ mutableStateOf<Product?>(null) }
 
     val permissions = arrayOf(
@@ -46,6 +51,7 @@ fun AddProductVoiceScreen(
             Toast.makeText(context, "Permissions required to record audio!", Toast.LENGTH_SHORT).show()
         }
     }
+
     Column(
         modifier = Modifier
             .fillMaxSize()

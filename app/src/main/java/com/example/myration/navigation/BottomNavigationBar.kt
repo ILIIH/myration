@@ -117,6 +117,32 @@ fun BottomNavigationBar(navController: NavHostController) {
                     color = if (selectedTab.value == NavigationRoute.COOKING_TAB) PrimaryColor else SecondaryBackgroundColor
                 )
             }
+            Column(
+                modifier = Modifier.weight(1f)
+                    .clickable {
+                        selectedTab.value = NavigationRoute.PROFILE_TAB
+                        navController.navigate(NavigationRoute.PROFILE_TAB.route)
+                    },
+                horizontalAlignment = Alignment.CenterHorizontally,
+                verticalArrangement = Arrangement.SpaceBetween
+            ) {
+                Image(
+                    painter = painterResource(
+                        id = if (selectedTab.value == NavigationRoute.PROFILE_TAB) {
+                            R.drawable.ic_profile_selected_24
+                        } else {
+                            R.drawable.ic_profile_not_selected_24
+                        }
+                    ),
+                    contentDescription = "Profile tab",
+                    modifier = Modifier.size(25.dp)
+                )
+                Text(
+                    text = "Profile",
+                    style = Typography.labelSmall,
+                    color = if (selectedTab.value == NavigationRoute.COOKING_TAB) PrimaryColor else SecondaryBackgroundColor
+                )
+            }
         }
     }
 }

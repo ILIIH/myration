@@ -93,6 +93,9 @@ dependencies {
     implementation ("androidx.paging:paging-runtime:3.3.6")
     implementation ("androidx.paging:paging-compose:3.3.6")
 
+    // Optimization
+    debugImplementation("com.squareup.leakcanary:leakcanary-android:2.12")
+
     implementation(project(":data"))
     implementation(project(":domain"))
     implementation(project(":core"))

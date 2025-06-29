@@ -75,6 +75,7 @@ fun loadedCookingScreen(
             .padding(bottom=80.dp, top = 30.dp),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
+
         FilterWidget(
             filters = screenState.filtersList,
             onApplyFilter = applyFilter,

@@ -7,6 +7,7 @@ import androidx.compose.runtime.mutableFloatStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.Offset
+import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.graphics.nativeCanvas
 import androidx.compose.ui.graphics.toArgb
@@ -14,11 +15,15 @@ import com.example.theme.SecondaryColor
 import com.example.theme.SecondaryHalfTransparentColor
 
 @Composable
-fun CalorieCounterWidget(modifier: Modifier, currentCalorie: Float, maxCalorie: Float) {
-    val currentCaloriesAngle = remember{ mutableFloatStateOf((currentCalorie*180)/maxCalorie) }
-
-    Canvas(modifier = modifier) {
+fun CalorieCounterWidget(
+    modifier: Modifier,
+    currentCalorie: Float,
+    maxCalorie: Float,
+) {
+    val currentCaloriesAngle = ((currentCalorie * 180) / maxCalorie)
+    Canvas(modifier = modifier.fillMaxWidth()) {
         val arcStrokeWidth = size.width / 3
+        val arcSize = Size(width = size.width, height = size.height)
         val radius = size.width / 2
         val centerX = size.width / 2
         val centerY = size.height / 2
@@ -26,20 +31,20 @@ fun CalorieCounterWidget(modifier: Modifier, currentCalorie: Float, maxCalorie: 
         drawArc(
             color = SecondaryColor,
             startAngle = 180f,
-            sweepAngle = currentCaloriesAngle.floatValue,
+            sweepAngle = currentCaloriesAngle,
             useCenter = false,
-            topLeft = Offset(0f, 0f),
-            size = size,
+            topLeft =  Offset.Zero,
+            size = arcSize,
             style = Stroke(width = arcStrokeWidth)
         )
 
         drawArc(
             color = SecondaryHalfTransparentColor,
-            startAngle = 180f + currentCaloriesAngle.floatValue,
-            sweepAngle = 180f - currentCaloriesAngle.floatValue,
+            startAngle = 180f + currentCaloriesAngle,
+            sweepAngle = 180f - currentCaloriesAngle,
             useCenter = false,
-            topLeft = Offset(0f, 0f),
-            size = size,
+            topLeft =  Offset.Zero,
+            size = arcSize,
             style = Stroke(width = arcStrokeWidth)
         )
 
@@ -50,7 +55,10 @@ fun CalorieCounterWidget(modifier: Modifier, currentCalorie: Float, maxCalorie: 
                 textSize = 65f
                 textAlign = android.graphics.Paint.Align.CENTER
                 isAntiAlias = true
-                typeface = android.graphics.Typeface.create(android.graphics.Typeface.DEFAULT, android.graphics.Typeface.BOLD)
+                typeface = android.graphics.Typeface.create(
+                    android.graphics.Typeface.DEFAULT,
+                    android.graphics.Typeface.BOLD
+                )
             }
 
             drawText(
@@ -61,5 +69,4 @@ fun CalorieCounterWidget(modifier: Modifier, currentCalorie: Float, maxCalorie: 
             )
         }
     }
-
 }

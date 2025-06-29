@@ -10,7 +10,6 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -43,7 +42,7 @@ import androidx.wear.compose.material.Button
 import androidx.wear.compose.material.ButtonDefaults
 import coil.compose.AsyncImage
 import com.example.core.mvi.ResultState
-import com.example.core_ui.calorie_counter.CalorieCounterWidget
+import com.example.core_ui.calorie_counter.CalorieCounter
 import com.example.domain.model.CalorieCounter
 import com.example.domain.model.RecipeIngredient
 import com.example.myration.R
@@ -102,48 +101,6 @@ fun RecipeDetailsLoaded(state: RecipeDetailViewState, calorieInfo: CalorieCounte
         RecipeDescription(state.instructions)
         BlocksDivider()
         VideoRecipe(state.videoId)
-    }
-}
-
-@Composable
-fun CalorieCounter(
-    currentCalorie: Float,
-    maxCalorie: Float,
-    productCalorie: Int
-) {
-    Row (
-        modifier = Modifier.fillMaxWidth()
-            .height(120.dp)
-            .padding(start = 30.dp),
-        verticalAlignment = Alignment.CenterVertically,
-        horizontalArrangement = Arrangement.Center
-    ){
-        CalorieCounterWidget(modifier = Modifier
-            .height(100.dp)
-            .width(100.dp),
-            currentCalorie = currentCalorie,
-            maxCalorie = maxCalorie
-        )
-        Column (
-            modifier = Modifier.fillMaxHeight().padding(30.dp),
-            verticalArrangement = Arrangement.Center,
-            horizontalAlignment = Alignment.CenterHorizontally
-        ){
-            Text(
-                text = "$currentCalorie kcal + $productCalorie kcal" ,
-                style = Typography.displayMedium,
-                color = SecondaryColor,
-                modifier = Modifier.padding(horizontal = 20.dp),
-                textAlign = TextAlign.Justify
-            )
-            Text(
-                text = "${maxCalorie - currentCalorie} kcal left for today" ,
-                style = Typography.displayMedium,
-                color = SecondaryColor,
-                modifier = Modifier.padding(horizontal = 20.dp, vertical = 10.dp),
-                textAlign = TextAlign.Justify
-            )
-        }
     }
 }
 

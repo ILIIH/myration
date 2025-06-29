@@ -3,6 +3,7 @@ package com.example.data.di
 import android.content.Context
 import androidx.room.Room
 import com.example.data.model.LocalDataBase
+import com.example.data.source.FoodHistoryDataSource
 import com.example.data.source.ProductLocalDataSource
 import com.example.data.source.RecipeDataSource
 import dagger.Module
@@ -23,7 +24,7 @@ object LocalDatabaseModule {
             context,
             LocalDataBase::class.java,
             "database"
-        ).build()
+        ).fallbackToDestructiveMigration().build()
     }
 
     @Provides
@@ -34,5 +35,10 @@ object LocalDatabaseModule {
     @Provides
     fun provideRecipeDao(database: LocalDataBase, @ApplicationContext context: Context): RecipeDataSource {
         return database.recipeDao()
+    }
+
+    @Provides
+    fun provideFoodHistoryDataSourceDao(database: LocalDataBase, @ApplicationContext context: Context): FoodHistoryDataSource {
+        return database.foodHistoryDao()
     }
 }

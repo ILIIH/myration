@@ -6,5 +6,6 @@ interface CalorieRepository {
     suspend fun setCalorie(cal: Float)
     suspend fun setMaxCalorie(cal: Float)
     suspend fun getCalorieInfo(): CalorieCounter
-    suspend fun addToCurrentCalorie(cal: Float)
+    suspend fun addToCurrentCalorie(cal: Float, productName: String)
+    fun resetCalorie()
 }

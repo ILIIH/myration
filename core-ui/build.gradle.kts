@@ -63,5 +63,8 @@ dependencies {
     implementation("androidx.compose.runtime:runtime")
     implementation("androidx.navigation:navigation-compose:2.8.8")
 
+    // Widgets
+    api("androidx.glance:glance-appwidget:1.1.1")
+
     implementation(project(":domain"))
 }

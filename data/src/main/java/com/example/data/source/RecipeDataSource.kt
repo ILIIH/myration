@@ -24,6 +24,7 @@ interface RecipeDataSource {
             ");\n"
     )
     suspend fun getAllAvailableRecipes(): List<RecipeEntity>
+
     @Query("SELECT * FROM recipe")
     suspend fun getAllRecipes(): List<RecipeEntity>
 
