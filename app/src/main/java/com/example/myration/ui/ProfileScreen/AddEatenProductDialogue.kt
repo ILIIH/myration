@@ -41,10 +41,13 @@ import com.example.theme.PrimaryColor
 @Composable
 fun AddEatenProductDialogue(
     onDismiss: () -> Unit,
-    onAdd: (productCalorie :Float, productName: String) -> Unit
+    onAdd: (productCalorie :Float, productName: String,p: Int, f: Int, c: Int) -> Unit
 ) {
     var productName by remember { mutableStateOf(TextFieldValue()) }
     var productCalorie by remember { mutableStateOf(TextFieldValue()) }
+    var productProtein by remember { mutableStateOf(TextFieldValue()) }
+    var productFats by remember { mutableStateOf(TextFieldValue()) }
+    var productCarbohydrates by remember { mutableStateOf(TextFieldValue()) }
 
     Box(
         modifier = Modifier
@@ -104,12 +107,45 @@ fun AddEatenProductDialogue(
                         keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
                         colors = OutlinedTextFieldDefaults.colors(unfocusedContainerColor = Color.White, focusedContainerColor = Color.White)
                     )
-                    Spacer(modifier = Modifier.height(70.dp))
+                    Spacer(modifier = Modifier.height(20.dp))
+                    TextField(
+                        value = productProtein,
+                        onValueChange = { productProtein = it },
+                        modifier = Modifier.fillMaxWidth(),
+                        label = { Text("Product protein (g)") },
+                        singleLine = true,
+                        keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
+                        colors = OutlinedTextFieldDefaults.colors(unfocusedContainerColor = Color.White, focusedContainerColor = Color.White)
+                    )
+                    Spacer(modifier = Modifier.height(20.dp))
+                    TextField(
+                        value = productFats,
+                        onValueChange = { productFats = it },
+                        modifier = Modifier.fillMaxWidth(),
+                        label = { Text("Product fats (g)") },
+                        singleLine = true,
+                        keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
+                        colors = OutlinedTextFieldDefaults.colors(unfocusedContainerColor = Color.White, focusedContainerColor = Color.White)
+                    )
+                    Spacer(modifier = Modifier.height(20.dp))
+                    TextField(
+                        value = productCarbohydrates,
+                        onValueChange = { productCarbohydrates = it },
+                        modifier = Modifier.fillMaxWidth(),
+                        label = { Text("Product carbohydrates (g)") },
+                        singleLine = true,
+                        keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
+                        colors = OutlinedTextFieldDefaults.colors(unfocusedContainerColor = Color.White, focusedContainerColor = Color.White)
+                    )
+                    Spacer(modifier = Modifier.height(40.dp))
                     Button(
                         onClick = {
                             onAdd(
                                 productCalorie.text.toFloat(),
                                 productName.text,
+                                productProtein.text.toInt(),
+                                productFats.text.toInt(),
+                                productCarbohydrates.text.toInt()
                             )
                         },
                         modifier = Modifier
