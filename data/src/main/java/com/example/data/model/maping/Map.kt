@@ -18,7 +18,7 @@ fun ProductEntity.toDomain(): Product {
     val metric = when (this.measurementMetric) {
         "lt" -> MeasurementMetric.LITERS
         "kg" -> MeasurementMetric.KILOGRAM
-        else -> MeasurementMetric.PIECE
+        else -> MeasurementMetric.PIECES
     }
     return Product(this.id, this.weight, this.name, metric, this.expirationDate)
 }

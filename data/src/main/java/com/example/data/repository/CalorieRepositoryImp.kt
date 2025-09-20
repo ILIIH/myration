@@ -21,6 +21,9 @@ class CalorieRepositoryImp  @Inject constructor(
         if(prevCalDate != SimpleDateFormat(DATE_FORMAT, Locale.getDefault()).format(Date())){
             preferences.edit {
                 putFloat(CURRENT_CALORIE, 0f)
+                putInt(CURRENT_PROTEIN, 0)
+                putInt(CURRENT_FATS, 0)
+                putInt(CURRENT_CARB, 0)
             }
         }
     }

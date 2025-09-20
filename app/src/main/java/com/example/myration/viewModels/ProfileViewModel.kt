@@ -55,9 +55,9 @@ class ProfileViewModel @Inject constructor(
             _calorie.value = CalorieCounter(
                 maxCalorie =  _calorie.value.maxCalorie,
                 currentCalorie = _calorie.value.currentCalorie + calorie ,
-                protein = p,
-                fats = f,
-                carbohydrates = c
+                protein = _calorie.value.protein + p,
+                fats = _calorie.value.fats + f,
+                carbohydrates = _calorie.value.carbohydrates + c
             )
             updateCalories()
         }

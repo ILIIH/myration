@@ -1,24 +1,15 @@
 package com.example.myration.viewModels
 
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.core.mvi.BaseViewModel
-import com.example.core.mvi.ResultState
 import com.example.data.repository.ProductsRepositoryImp
 import com.example.domain.model.MeasurementMetric
 import com.example.domain.model.Product
 import com.example.myration.mvi.effects.AddProductManuallyEffect
-import com.example.myration.mvi.effects.GroceriesEffect
 import com.example.myration.mvi.intent.AddProductManuallyEvents
-import com.example.myration.mvi.intent.GroceriesEvents
 import com.example.myration.mvi.reducer.AddProductManuallyReducer
-import com.example.myration.mvi.reducer.GroceriesReducer
 import com.example.myration.mvi.state.AddProductManuallyViewState
-import com.example.myration.mvi.state.GroceriesViewState
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -44,7 +35,7 @@ class AddProductViewModel @Inject constructor(
                         measurementMetric = when (measurementMetric) {
                             "kg" -> MeasurementMetric.KILOGRAM
                             "lt" -> MeasurementMetric.LITERS
-                            else -> MeasurementMetric.PIECE
+                            else -> MeasurementMetric.PIECES
                         },
                         expirationDate = expirationDate,
                     )

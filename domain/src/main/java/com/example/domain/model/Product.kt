@@ -5,7 +5,9 @@ enum class MeasurementMetric(val desc: String) {
     MILE_LITERS("ml"),
     GRAM("gramm"),
     KILOGRAM("kg"),
-    PIECE("pcs");
+    CUPS("cups"),
+    PINCH("pinch"),
+    PIECES("pcs");
     companion object {
         fun fromDesc(desc: String): MeasurementMetric {
             return entries.first { it.desc == desc }
