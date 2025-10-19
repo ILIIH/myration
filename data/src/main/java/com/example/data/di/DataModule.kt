@@ -1,7 +1,8 @@
 package com.example.data.di
 
 import android.content.SharedPreferences
-import com.example.core.media.image.ImageGroceryAnalyzer
+import com.example.core.media.image.ImageAnalyzedFactory
+import com.example.core.media.image.ImageReceiptAnalyzer
 import com.example.data.repository.CalorieRepositoryImp
 import com.example.data.repository.FiltersRepositoryImp
 import com.example.data.repository.ProductsRepositoryImp
@@ -28,9 +29,9 @@ object DataModule {
     @Provides
     fun provideProductRepository(
         dataSource: ProductLocalDataSource,
-        imageGroceryAnalyzer: ImageGroceryAnalyzer
+        imageAnalyzedFactory: ImageAnalyzedFactory
     ): ProductsRepository {
-        return ProductsRepositoryImp(dataSource, imageGroceryAnalyzer)
+        return ProductsRepositoryImp(dataSource, imageAnalyzedFactory)
     }
 
     @Provides

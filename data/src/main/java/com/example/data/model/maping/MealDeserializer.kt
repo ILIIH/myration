@@ -11,7 +11,7 @@ class MealDeserializer : JsonDeserializer<RecipeAPIEntity> {
     override fun deserialize(json: JsonElement, typeOfT: Type, context: JsonDeserializationContext): RecipeAPIEntity {
         val jsonObject = json.asJsonObject
         val name = jsonObject.get("strMeal")?.takeIf { it !is JsonNull }?.asString ?: ""
-        val id = jsonObject.get("idMeal")?.takeIf { it !is JsonNull }?.asString
+        val id = jsonObject.get("idMeal")?.takeIf { it !is JsonNull }?.asInt ?: 0
         val alternateName = jsonObject.get("strMealAlternate")?.takeIf { it !is JsonNull }?.asString
         val category = jsonObject.get("strCategory")?.takeIf { it !is JsonNull }?.asString
         val area = jsonObject.get("strArea")?.takeIf { it !is JsonNull }?.asString

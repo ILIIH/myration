@@ -8,7 +8,7 @@ import androidx.navigation.navArgument
 import com.example.myration.ui.AddProductScreen.AddProductManuallyScreen.AddProductManuallyScreen
 import com.example.myration.ui.AddProductScreen.AddProductScreen
 import com.example.myration.ui.AddProductScreen.AddProductVoice.AddProductVoiceScreen
-import com.example.myration.ui.AddProductScreen.ScanRecipeScreen.ScanRecipeScreen
+import com.example.myration.ui.AddProductScreen.ScanFoodScreen.ScanFoodScreen
 import com.example.myration.ui.CookingScreen.CookingScreen
 import com.example.myration.ui.GroceriesDetailsScreen.GroceriesDetailsScreen
 import com.example.myration.ui.GroceriesListScreen.GroceriesListScreen
@@ -28,7 +28,7 @@ fun AppNavHost(navController: NavHostController) {
             ProfileScreen()
         }
         composable(NavigationRoute.SCAN_PRODUCTS_SCREEN.route) {
-            ScanRecipeScreen()
+            ScanFoodScreen()
         }
         composable(NavigationRoute.COOKING_TAB.route) {
             CookingScreen(navController = navController)

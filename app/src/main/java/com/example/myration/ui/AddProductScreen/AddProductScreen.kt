@@ -31,10 +31,7 @@ import com.example.theme.Typography
 import com.example.myration.viewModels.AddProductViewModel
 
 @Composable
-fun AddProductScreen(
-    viewModel: AddProductViewModel = hiltViewModel(),
-    navController: NavHostController
-) {
+fun AddProductScreen( navController: NavHostController) {
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -45,7 +42,7 @@ fun AddProductScreen(
     ) {
         AddProductOption(
             iconRes = R.drawable.ic_add_products_selected_tab,
-            text = "Scan recipe",
+            text = "Scan products",
             modifier = Modifier.clickable {
                 navController.navigate(NavigationRoute.SCAN_PRODUCTS_SCREEN.route)
             }

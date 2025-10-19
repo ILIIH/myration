@@ -4,7 +4,7 @@ import android.net.Uri
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.core.media.image.BitmapProvider
-import com.example.core.media.image.ImageGroceryAnalyzer
+import com.example.domain.model.ScanningType
 import com.example.domain.model.Product
 import com.example.domain.repository.ProductsRepository
 import com.example.myration.mvi.state.ImageScanState
@@ -16,22 +16,26 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class ScanRecipeViewModel @Inject constructor(
+class ScanFoodViewModel @Inject constructor(
     private val productsRepository: ProductsRepository,
     private val bitmapProvider: BitmapProvider
 ) : ViewModel() {
 
-    private val _scanImageState: MutableStateFlow<ImageScanState> = MutableStateFlow(ImageScanState.PickingImage)
+    private val _scanImageState: MutableStateFlow<ImageScanState> = MutableStateFlow(ImageScanState.PickingScanningType)
     val scanImageState: StateFlow<ImageScanState> = _scanImageState.asStateFlow()
     fun returnToPickingImage() {
-        _scanImageState.value = ImageScanState.PickingImage
+        _scanImageState.value = ImageScanState.PickingScanningType
+    }
+
+    fun submitScanType(scanType: ScanningType) {
+        _scanImageState.value = ImageScanState.PickingImage(scanType)
     }
     fun submitPhoto(photoUri : Uri) {
         viewModelScope.launch {
             val bitmap = bitmapProvider.getBitmapFromUri(photoUri, 600, 700)
             if(bitmap!= null){
+                val products = productsRepository.getAllProductFromPhoto(photoUri.toString(), (_scanImageState.value as ImageScanState.PickingImage).type)
                 _scanImageState.value = ImageScanState.ImageScanning(bitmap)
-                val products = productsRepository.getAllProductFromRecipe(photoUri.toString())
                 _scanImageState.value = ImageScanState.ImageScanned(products)
             }
             else {
@@ -43,7 +47,7 @@ class ScanRecipeViewModel @Inject constructor(
         _scanImageState.value = ImageScanState.ImageScanningError(error)
     }
     fun cancelScanning() {
-        _scanImageState.value = ImageScanState.PickingImage
+        _scanImageState.value = ImageScanState.PickingScanningType
     }
     fun removeProduct(id: Int) {
         if(scanImageState.value  is ImageScanState.ImageScanned){

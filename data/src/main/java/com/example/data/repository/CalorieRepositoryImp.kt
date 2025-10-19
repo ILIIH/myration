@@ -41,6 +41,10 @@ class CalorieRepositoryImp  @Inject constructor(
         }
     }
 
+    override suspend fun checkMaxCalorieSetUp(): Boolean {
+       return preferences.contains(MAX_CALORIE)
+    }
+
     override suspend fun getCalorieInfo(): CalorieCounter {
         val maxCalorie = preferences.getFloat(MAX_CALORIE, DEFAULT_MAX_CALORIE)
         val currentCalorie = preferences.getFloat(CURRENT_CALORIE, DEFAULT_CURRENT_CALORIE)

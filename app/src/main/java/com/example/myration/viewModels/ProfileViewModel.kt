@@ -24,6 +24,7 @@ class ProfileViewModel @Inject constructor(
 
     private fun getCalorieInfo(){
         viewModelScope.launch {
+            calorieRepository.checkMaxCalorieSetUp()
             _calorie.value = calorieRepository.getCalorieInfo()
         }
     }

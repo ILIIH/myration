@@ -1,5 +1,6 @@
 package com.example.data.repository
 
+import android.annotation.SuppressLint
 import android.content.SharedPreferences
 import com.example.data.model.RecipeIngredientEntity
 import com.example.data.model.maping.toData
@@ -13,6 +14,7 @@ import com.example.domain.repository.RecipeRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
+import androidx.core.content.edit
 
 class RecipeRepositoryImp @Inject constructor(
     private val localDataSource: RecipeDataSource,
@@ -25,7 +27,7 @@ class RecipeRepositoryImp @Inject constructor(
     }
 
     override suspend fun getAllRecipe(): List<Recipe> {
-        if (!preferences.getBoolean(IS_DATA_FETCHED, false)) initRecipes()
+        if (!preferences.getBoolean(IS_DATA_FETCHED, false)) fetchRecipes()
         return localDataSource.getAllRecipes().map { it.toDomain() }
     }
     override suspend fun getRecipesForProduct(product: Product): List<Recipe> {
@@ -56,20 +58,19 @@ class RecipeRepositoryImp @Inject constructor(
         private const val IS_DATA_FETCHED = "is_data_fetched"
     }
 
-    private suspend fun initRecipes() {
+    @SuppressLint("UseKtx")
+    private suspend fun fetchRecipes() {
         withContext(Dispatchers.IO) {
             for (ch in 'a'..'z') {
                 val meals = remoteDataSource.getRecipeStartedWith(ch)
-                var mealId = 0
                 if (meals.meals != null) {
                     for (recipe in meals.meals) {
-                        localDataSource.addRecipe(recipe.toData(mealId))
-                        mealId++;
+                        localDataSource.addRecipe(recipe.toData(recipe.id.toInt()))
                         for ((index, ingredient) in recipe.ingredients.withIndex()) {
                             val ingredientAmount = if (index < recipe.measures.size) recipe.measures[index] ?: "" else ""
                             localDataSource.addRecipeIngredient(
                                 RecipeIngredientEntity(
-                                    recipeID = mealId,
+                                    recipeID = recipe.id.toInt(),
                                     productName = ingredient ?: "",
                                     productAmount = ingredientAmount
                                 )
@@ -77,7 +78,7 @@ class RecipeRepositoryImp @Inject constructor(
                         }
                     }
                 }
-                preferences.edit().putBoolean(IS_DATA_FETCHED, true).apply()
+                preferences.edit { putBoolean(IS_DATA_FETCHED, true) }
             }
         }
     }

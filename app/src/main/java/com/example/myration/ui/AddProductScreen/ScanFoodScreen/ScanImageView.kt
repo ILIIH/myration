@@ -1,4 +1,4 @@
-package com.example.myration.ui.AddProductScreen.ScanRecipeScreen
+package com.example.myration.ui.AddProductScreen.ScanFoodScreen
 
 import android.graphics.Bitmap
 import androidx.compose.foundation.Canvas

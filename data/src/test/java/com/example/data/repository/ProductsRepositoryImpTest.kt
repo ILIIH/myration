@@ -1,10 +1,9 @@
 package com.example.data.repository
-import com.example.core.media.image.ImageGroceryAnalyzer
+import com.example.core.media.image.ImageReceiptAnalyzer
 import com.example.data.source.ProductLocalDataSource
 import com.example.domain.model.Product
 import com.example.domain.model.MeasurementMetric
 import io.mockk.*
-import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.runTest
 import org.junit.Before
 import org.junit.Test
@@ -13,7 +12,7 @@ class ProductsRepositoryImpTest {
 
     private lateinit var repository: ProductsRepositoryImp
     private lateinit var localDataSource: ProductLocalDataSource
-    private lateinit var imageAnalyzer: ImageGroceryAnalyzer
+    private lateinit var imageAnalyzer: ImageReceiptAnalyzer
 
     @Before
     fun setUp() {
@@ -59,7 +58,7 @@ class ProductsRepositoryImpTest {
 
         coEvery { imageAnalyzer.getProductsFromReceiptImage(uri) } returns expectedProducts
 
-        val result = repository.getAllProductFromRecipe(uri)
+        val result = repository.getAllProductFromPhoto(uri)
 
         assert(result == expectedProducts)
     }

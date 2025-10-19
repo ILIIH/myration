@@ -4,12 +4,15 @@ import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
 import androidx.paging.map
-import com.example.core.media.image.ImageGroceryAnalyzer
+import com.example.core.media.image.ImageAnalyzedFactory
+import com.example.core.media.image.ImageFoodAnalyzer
+import com.example.core.media.image.ImageReceiptAnalyzer
 import com.example.data.model.maping.toData
 import com.example.data.model.maping.toDomain
 import com.example.data.source.ProductLocalDataSource
 import com.example.domain.model.MeasurementMetric
 import com.example.domain.model.Product
+import com.example.domain.model.ScanningType
 import com.example.domain.repository.ProductsRepository
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.Flow
@@ -17,7 +20,7 @@ import javax.inject.Inject
 
 class ProductsRepositoryImp @Inject constructor(
     private val dataSource: ProductLocalDataSource,
-    private val imageGroceryAnalyzer: ImageGroceryAnalyzer
+    private val imageGroceryAnalyzer: ImageAnalyzedFactory
 ) : ProductsRepository {
     override suspend fun addProduct(product: Product) {
         dataSource.addProduct(product.toData(withId = false))
@@ -42,8 +45,8 @@ class ProductsRepositoryImp @Inject constructor(
         return dataSource.getProductById(id).toDomain()
     }
 
-    override suspend fun getAllProductFromRecipe(uri: String): List<Product> {
-        return imageGroceryAnalyzer.getProductsFromReceiptImage(uri)
+    override suspend fun getAllProductFromPhoto(uri: String,  type: ScanningType): List<Product> {
+        return imageGroceryAnalyzer.getImageAnalyzer(type).getProductsFromReceiptImage(uri)
     }
 
     val knownUnits = listOf(

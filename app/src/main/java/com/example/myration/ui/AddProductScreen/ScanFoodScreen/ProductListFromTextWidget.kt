@@ -1,4 +1,4 @@
-package com.example.myration.ui.AddProductScreen.ScanRecipeScreen
+package com.example.myration.ui.AddProductScreen.ScanFoodScreen
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background

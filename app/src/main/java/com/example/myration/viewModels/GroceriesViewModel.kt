@@ -24,9 +24,8 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class GroceriesViewModel @Inject constructor(
-    private val repository: ProductsRepositoryImp
-) : BaseViewModel<GroceriesViewState, GroceriesEvents, GroceriesEffect>(
+class GroceriesViewModel @Inject constructor( private val repository: ProductsRepositoryImp)
+    : BaseViewModel<GroceriesViewState, GroceriesEvents, GroceriesEffect>(
     initialState = GroceriesViewState.initial(),
     reducer = GroceriesReducer()
 )  {

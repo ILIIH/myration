@@ -4,7 +4,7 @@ data class MealsResponse(
     val meals: List<RecipeAPIEntity>?
 )
 data class RecipeAPIEntity(
-    val id: String?,
+    val id: Int,
     val name: String?,
     val alternateName: String? = null,
     val category: String?,

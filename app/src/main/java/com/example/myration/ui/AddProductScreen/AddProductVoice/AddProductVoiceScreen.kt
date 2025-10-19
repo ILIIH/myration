@@ -3,10 +3,6 @@ package com.example.myration.ui.AddProductScreen.AddProductVoice
 import android.Manifest.permission.READ_EXTERNAL_STORAGE
 import android.Manifest.permission.RECORD_AUDIO
 import android.Manifest.permission.WRITE_EXTERNAL_STORAGE
-import android.os.Handler
-import android.os.Looper
-import android.os.Message
-import android.util.Log
 import android.widget.Toast
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
@@ -26,7 +22,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.core_ui.custom_windows.EditProductDialogue
 import com.example.domain.model.MeasurementMetric
 import com.example.domain.model.Product
-import com.example.myration.ui.AddProductScreen.ScanRecipeScreen.ProductListFromTextWidget
+import com.example.myration.ui.AddProductScreen.ScanFoodScreen.ProductListFromTextWidget
 import com.example.theme.SecondaryBackgroundColor
 import com.example.myration.viewModels.AddProductVoiceViewModel
 

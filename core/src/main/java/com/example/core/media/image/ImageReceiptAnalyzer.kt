@@ -17,15 +17,15 @@ import kotlinx.coroutines.tasks.await
 import java.io.File
 import javax.inject.Inject
 
-class ImageGroceryAnalyzer @Inject constructor(
+class ImageReceiptAnalyzer @Inject constructor(
     private val context: Context,
     private val bitmapProvider: BitmapProvider,
     private val tokenizationRepository: TokenizationRepository
-) {
+) : ImageFoodAnalyzer {
 
     private val recognizer = TextRecognition.getClient(TextRecognizerOptions.DEFAULT_OPTIONS)
     val modelFile = File(context.cacheDir, "layout_ml.onnx")
-    suspend fun getProductsFromReceiptImage(photoUri: String): List<Product> {
+    override suspend fun getProductsFromReceiptImage(photoUri: String): List<Product> {
         return try {
             val imageWidth = 600
             val imageHeight = 700

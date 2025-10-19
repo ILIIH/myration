@@ -1,4 +1,4 @@
-package com.example.myration.ui.AddProductScreen.ScanRecipeScreen
+package com.example.myration.ui.AddProductScreen.ScanFoodScreen
 
 import android.Manifest
 import android.widget.Toast
@@ -16,11 +16,11 @@ import com.example.core_ui.custom_windows.ErrorMessage
 import com.example.domain.model.MeasurementMetric
 import com.example.domain.model.Product
 import com.example.myration.mvi.state.ImageScanState
-import com.example.myration.viewModels.ScanRecipeViewModel
+import com.example.myration.viewModels.ScanFoodViewModel
 
 @Composable
-fun ScanRecipeScreen(
-    viewModel: ScanRecipeViewModel = hiltViewModel()
+fun ScanFoodScreen(
+    viewModel: ScanFoodViewModel = hiltViewModel()
 ) {
     val context = LocalContext.current
     val screenState = viewModel.scanImageState.collectAsState()
@@ -40,7 +40,8 @@ fun ScanRecipeScreen(
     }
 
     when(val state = screenState.value)  {
-        ImageScanState.PickingImage -> PickingImageWidget(
+        is ImageScanState.PickingScanningType -> PickingScanningType (pickScanningType = viewModel::submitScanType)
+        is ImageScanState.PickingImage -> PickingImageWidget(
             context = context,
             submitImage = viewModel::submitPhoto,
             errorPickingImage = viewModel::pickingImageError
