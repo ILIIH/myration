@@ -14,6 +14,7 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -30,6 +31,9 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.wear.compose.material.Button
 import androidx.wear.compose.material.ButtonDefaults
 import com.example.core_ui.calorie_counter.CalorieCounter
+import com.example.domain.model.CalorieCounter
+import com.example.myration.mvi.effects.ProfileEffect
+import com.example.myration.mvi.state.ProfileViewState
 import com.example.myration.viewModels.ProfileViewModel
 import com.example.myration.widgets.CalorieScreenWidget
 import com.example.theme.PrimaryColor
@@ -40,11 +44,80 @@ import com.example.theme.Typography
 fun ProfileScreen(
     viewModel: ProfileViewModel = hiltViewModel()
 ) {
-    val calorieInfo by viewModel.calorie.collectAsState()
-    val showChangeMaxCalorieDialogue = remember { mutableStateOf(false) }
+    val profileState by viewModel.state.collectAsState()
+    val showChangeMaxCalorieDialogue = remember { mutableStateOf<Float?>(null) }
     val showAddEatenProductDialogue = remember { mutableStateOf(false) }
     val context = LocalContext.current
 
+    LaunchedEffect(Unit) {
+        viewModel.effect.collect { effect ->
+            when (effect) {
+                is ProfileEffect.ShowProfileLoading -> {
+
+                }
+                is ProfileEffect.ShowProfileChangeMaxCalorieWidget -> {
+                    showChangeMaxCalorieDialogue.value = effect.maxCal
+                }
+                is ProfileEffect.ShowProfileSetUpWidget -> {
+
+                }
+                is ProfileEffect.ShowProfileAddEatenProductWidget -> {
+                    showAddEatenProductDialogue.value = true
+                }
+            }
+        }
+    }
+
+    when (val state = profileState) {
+        is ProfileViewState.ProfileLoaded -> {
+            ProfileScreenLoaded(
+                calorieInfo = state.info!!,
+                showChangeMaxCalorieDialogue = viewModel::showChangeMaxCalorie,
+                showAddEatenProductDialogue = viewModel::showAddEatenProduct
+            )
+        }
+        is ProfileViewState.ProfileInfoSetUp -> {
+            SetUpProfileDialogue(viewModel::setNewMaxCalories, viewModel::calculateMaxCalories)
+        }
+        is ProfileViewState.ProfileInfoError -> {
+
+        }
+    }
+
+    // Dialogues
+    // TODO("Fix the logic when have time")
+    if (showChangeMaxCalorieDialogue.value != null){
+        ChangeMaxCalorieDialogue(
+            maxCal = showChangeMaxCalorieDialogue.value!!,
+            onDismiss = {showChangeMaxCalorieDialogue.value = null},
+            onChange = { newCalorie ->
+                viewModel.setNewMaxCalories(newCalorie){
+                    CalorieScreenWidget().updateAll(context)
+                }
+                showChangeMaxCalorieDialogue.value = null
+            }
+        )
+    }
+    if(showAddEatenProductDialogue.value){
+        AddEatenProductDialogue (
+            onDismiss = {showAddEatenProductDialogue.value = false},
+            onAdd = { productCalorie, productName, p, f, c ->
+                viewModel.addEatenProduct(
+                    productName = productName,
+                    calorie = productCalorie, p = p, f = f, c =c
+                ){
+                    CalorieScreenWidget().updateAll(context)
+                }
+                showAddEatenProductDialogue.value = false
+            }
+        )
+    }
+
+
+
+}
+@Composable
+fun ProfileScreenLoaded(calorieInfo : CalorieCounter, showChangeMaxCalorieDialogue: () -> Unit, showAddEatenProductDialogue : () -> Unit) {
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -102,9 +175,7 @@ fun ProfileScreen(
             )
         }
         Button(
-            onClick = {
-                showChangeMaxCalorieDialogue.value = true
-            },
+            onClick = showChangeMaxCalorieDialogue,
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(horizontal = 30.dp)
@@ -132,9 +203,7 @@ fun ProfileScreen(
             }
         }
         Button(
-            onClick = {
-                showAddEatenProductDialogue.value = true
-            },
+            onClick = showAddEatenProductDialogue,
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(horizontal = 30.dp)
@@ -163,31 +232,5 @@ fun ProfileScreen(
         }
     }
 
-    if(showChangeMaxCalorieDialogue.value){
-        ChangeMaxCalorieDialogue(
-            maxCal = calorieInfo.maxCalorie,
-            onDismiss = {showChangeMaxCalorieDialogue.value = false},
-            onChange = { newCalorie ->
-                viewModel.setNewMaxCalories(newCalorie){
-                    CalorieScreenWidget().updateAll(context)
-                }
-                showChangeMaxCalorieDialogue.value = false
-            }
-        )
-    }
-    if(showAddEatenProductDialogue.value){
-        AddEatenProductDialogue (
-            onDismiss = {showAddEatenProductDialogue.value = false},
-            onAdd = { productCalorie, productName, p, f, c ->
-                viewModel.addEatenProduct(
-                    productName = productName,
-                    calorie = productCalorie, p = p, f = f, c =c
-                ){
-                    CalorieScreenWidget().updateAll(context)
-                }
-                showAddEatenProductDialogue.value = false
-            }
-        )
-    }
 }
 

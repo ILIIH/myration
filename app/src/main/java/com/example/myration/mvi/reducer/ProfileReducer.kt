@@ -2,43 +2,64 @@ package com.example.myration.mvi.reducer
 
 import android.util.Log
 import com.example.core.mvi.Reducer
-import com.example.core.mvi.ResultState
-import com.example.domain.model.Recipe
-import com.example.myration.mvi.effects.AddProductManuallyEffect
-import com.example.myration.mvi.effects.ProductDetailsEffect
+import com.example.domain.model.CalorieCounter
 import com.example.myration.mvi.effects.ProfileEffect
-import com.example.myration.mvi.intent.AddProductManuallyEvents
-import com.example.myration.mvi.intent.ProductDetailsEvents
 import com.example.myration.mvi.intent.ProfileEvents
-import com.example.myration.mvi.state.AddProductManuallyViewState
-import com.example.myration.mvi.state.ProductDetailViewState
 import com.example.myration.mvi.state.ProfileViewState
 
-class ProfileReducer : Reducer<ResultState<ProfileViewState>, ProfileEvents, ProfileEffect> {
+class ProfileReducer : Reducer<ProfileViewState, ProfileEvents, ProfileEffect> {
     override fun reduce(
-        previousState: ResultState<ProfileViewState>,
+        previousState: ProfileViewState,
         event: ProfileEvents
-    ): Pair<ResultState<ProfileViewState>, ProfileEffect?> {
+    ): Pair<ProfileViewState, ProfileEffect?> {
         Log.i("reducing_logging", "event reduced -> ${event.javaClass}")
         return when(event){
             is ProfileEvents.ProfileLoading -> {
-                ResultState.Loading to null
+                previousState to ProfileEffect.ShowProfileLoading
             }
             is ProfileEvents.ProfileError -> {
-                ResultState.Error(event.errorMessage) to null
+                ProfileViewState.ProfileInfoError(event.errorMessage) to null
             }
             is ProfileEvents.ProfileLoaded -> {
-                ResultState.Success(ProfileViewState.ProfileInfoDisplay(info = event.profileInfo)) to null
+                ProfileViewState.ProfileLoaded(info = event.profileInfo) to null
             }
-            is ProfileEvents.ProfileUpdate -> {
-                ResultState.Success(ProfileViewState.ProfileInfoChange(info = event.profileInfo)) to null
+            is ProfileEvents.ProfileUpdateCalories -> {
+                ProfileViewState.ProfileLoaded(info = CalorieCounter(
+                    maxCalorie = event.newMaxCalories,
+                    currentCalorie = previousState.info?.currentCalorie ?: 0f,
+                    protein = previousState.info?.protein ?: 0,
+                    fats = previousState.info?.fats ?: 0,
+                    carbohydrates = previousState.info?.carbohydrates ?: 0
+                )) to null
+            }
+            is ProfileEvents.ProfileUpdateCalorieCounter -> {
+                ProfileViewState.ProfileLoaded(info = CalorieCounter(
+                    maxCalorie = previousState.info?.maxCalorie ?: 0f,
+                    currentCalorie = previousState.info?.currentCalorie
+                        ?: (0f + event.currentCalorie),
+                    protein =  previousState.info?.protein
+                        ?: (0 + event.protein),
+                    fats = previousState.info?.fats
+                        ?: (0 + event.fats) ,
+                    carbohydrates = previousState.info?.carbohydrates
+                        ?: (0 + event.carbohydrates)
+                )) to null
             }
             is ProfileEvents.GetProfileSetUpStatus -> {
-                if (event.setUpStatus) {
-                    ResultState.Loading to null
+                if (event.status) {
+                    previousState to ProfileEffect.ShowProfileLoading
                 } else {
-                    ResultState.Success(ProfileViewState.ProfileInfoSetUp) to ProfileEffect.ShowProfileSetUpDialogue
+                    ProfileViewState.ProfileInfoSetUp to ProfileEffect.ShowProfileSetUpWidget
                 }
+            }
+            is ProfileEvents.ProfileShowAddEatenProductWidget -> {
+                previousState to ProfileEffect.ShowProfileAddEatenProductWidget
+            }
+            is ProfileEvents.ProfileShowChangeMaxCalorieWidget -> {
+                previousState to ProfileEffect.ShowProfileChangeMaxCalorieWidget(previousState.info?.maxCalorie ?: 0f)
+            }
+            is ProfileEvents.ProfileShowSetUpWidget -> {
+                previousState to ProfileEffect.ShowProfileSetUpWidget
             }
         }
     }
