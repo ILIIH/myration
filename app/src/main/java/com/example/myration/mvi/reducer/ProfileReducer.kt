@@ -34,14 +34,10 @@ class ProfileReducer : Reducer<ProfileViewState, ProfileEvents, ProfileEffect> {
             is ProfileEvents.ProfileUpdateCalorieCounter -> {
                 ProfileViewState.ProfileLoaded(info = CalorieCounter(
                     maxCalorie = previousState.info?.maxCalorie ?: 0f,
-                    currentCalorie = previousState.info?.currentCalorie
-                        ?: (0f + event.currentCalorie),
-                    protein =  previousState.info?.protein
-                        ?: (0 + event.protein),
-                    fats = previousState.info?.fats
-                        ?: (0 + event.fats) ,
-                    carbohydrates = previousState.info?.carbohydrates
-                        ?: (0 + event.carbohydrates)
+                    currentCalorie = (previousState.info?.currentCalorie?: 0f) + event.currentCalorie,
+                    protein =  (previousState.info?.protein?: 0) + event.protein,
+                    fats = (previousState.info?.fats?: 0) + event.fats,
+                    carbohydrates = (previousState.info?.carbohydrates ?: 0 )+ event.carbohydrates
                 )) to null
             }
             is ProfileEvents.GetProfileSetUpStatus -> {

@@ -1,5 +1,6 @@
 package com.example.myration.ui.ProfileScreen
 
+import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -115,6 +116,7 @@ fun ProfileScreen(
 }
 @Composable
 fun ProfileScreenLoaded(calorieInfo : CalorieCounter, showChangeMaxCalorieDialogue: () -> Unit, showAddEatenProductDialogue : () -> Unit) {
+    Log.i("base_event_tag", "calorieInfo Update -> ${calorieInfo.currentCalorie}")
     Column(
         modifier = Modifier
             .fillMaxSize()

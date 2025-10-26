@@ -42,7 +42,7 @@ abstract class BaseViewModel<State : Reducer.ViewState, Event : Reducer.ViewEven
         val (newState, effect) = reducer.reduce(_state.value, event)
 
         val success = _state.tryEmit(newState)
-        Log.i(EVENT_TAG, "event sent -> ${event.javaClass} success -> $success")
+        Log.i(EVENT_TAG, "event sent -> ${event.javaClass} success -> $success effect -> $effect")
 
         if (success) {
             effect?.let { sendEffect(it) }
