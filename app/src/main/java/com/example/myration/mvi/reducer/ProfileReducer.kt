@@ -12,7 +12,6 @@ class ProfileReducer : Reducer<ProfileViewState, ProfileEvents, ProfileEffect> {
         previousState: ProfileViewState,
         event: ProfileEvents
     ): Pair<ProfileViewState, ProfileEffect?> {
-        Log.i("reducing_logging", "event reduced -> ${event.javaClass}")
         return when(event){
             is ProfileEvents.ProfileLoading -> {
                 previousState to ProfileEffect.ShowProfileLoading
@@ -49,7 +48,7 @@ class ProfileReducer : Reducer<ProfileViewState, ProfileEvents, ProfileEffect> {
                 if (event.status) {
                     previousState to ProfileEffect.ShowProfileLoading
                 } else {
-                    ProfileViewState.ProfileInfoSetUp to ProfileEffect.ShowProfileSetUpWidget
+                    ProfileViewState.ProfileInfoSetUp to null
                 }
             }
             is ProfileEvents.ProfileShowAddEatenProductWidget -> {
@@ -59,7 +58,7 @@ class ProfileReducer : Reducer<ProfileViewState, ProfileEvents, ProfileEffect> {
                 previousState to ProfileEffect.ShowProfileChangeMaxCalorieWidget(previousState.info?.maxCalorie ?: 0f)
             }
             is ProfileEvents.ProfileShowSetUpWidget -> {
-                previousState to ProfileEffect.ShowProfileSetUpWidget
+                previousState to null
             }
         }
     }

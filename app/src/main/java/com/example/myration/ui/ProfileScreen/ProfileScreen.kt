@@ -58,9 +58,6 @@ fun ProfileScreen(
                 is ProfileEffect.ShowProfileChangeMaxCalorieWidget -> {
                     showChangeMaxCalorieDialogue.value = effect.maxCal
                 }
-                is ProfileEffect.ShowProfileSetUpWidget -> {
-
-                }
                 is ProfileEffect.ShowProfileAddEatenProductWidget -> {
                     showAddEatenProductDialogue.value = true
                 }
@@ -132,13 +129,7 @@ fun ProfileScreenLoaded(calorieInfo : CalorieCounter, showChangeMaxCalorieDialog
         ){
             Text(
                 modifier = Modifier.padding(10.dp),
-                text = "ILLIA",
-                style = Typography.displayLarge,
-                color = SecondaryColor
-            )
-            Text(
-                modifier = Modifier.padding(10.dp),
-                text = "BRANCHUK",
+                text = "Profile :",
                 style = Typography.displayLarge,
                 color = SecondaryColor
             )

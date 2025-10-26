@@ -1,5 +1,6 @@
 package com.example.core.mvi
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.MutableSharedFlow
@@ -33,6 +34,7 @@ abstract class BaseViewModel<State : Reducer.ViewState, Event : Reducer.ViewEven
         timeCapsule.saveState(initialState)
     }
     fun sendEffect(effect: Effect) {
+        Log.i(EFFECT_TAG, "effect sent -> ${effect.javaClass}")
         _effects.trySend(effect)
     }
 
@@ -40,10 +42,16 @@ abstract class BaseViewModel<State : Reducer.ViewState, Event : Reducer.ViewEven
         val (newState, effect) = reducer.reduce(_state.value, event)
 
         val success = _state.tryEmit(newState)
+        Log.i(EVENT_TAG, "event sent -> ${event.javaClass} success -> $success")
 
         if (success) {
             effect?.let { sendEffect(it) }
             timeCapsule.saveState(newState)
         }
+    }
+
+    companion object {
+        private const val EVENT_TAG = "base_event_tag"
+        private const val EFFECT_TAG = "base_effect_tag"
     }
 }

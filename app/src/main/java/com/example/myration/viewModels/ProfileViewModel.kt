@@ -94,7 +94,9 @@ class ProfileViewModel @Inject constructor(
                 fats = f,
                 carbohydrates = c
             ))
-            updateCaloriesUI()
+            withContext(Dispatchers.Main) {
+                updateCaloriesUI()
+            }
         }
     }
 }

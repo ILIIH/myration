@@ -9,5 +9,4 @@ sealed class ProfileEffect : Reducer.ViewEffect {
     data object ShowProfileLoading: ProfileEffect()
     data class ShowProfileChangeMaxCalorieWidget(val maxCal: Float) : ProfileEffect()
     data object ShowProfileAddEatenProductWidget : ProfileEffect()
-    data object ShowProfileSetUpWidget : ProfileEffect()
 }
