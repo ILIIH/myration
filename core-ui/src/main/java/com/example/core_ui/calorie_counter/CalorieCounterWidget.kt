@@ -40,7 +40,7 @@ fun CalorieCounterWidget(
             easing = LinearOutSlowInEasing
         )
     )
-    val caloriesToEatAngle = ((caloriesToEat * 180) / maxCalorie)
+    val caloriesToEatAngle = if(caloriesToEat +currentCalorie >= maxCalorie ) 170f - currentCaloriesAngle else ((caloriesToEat * 180) / maxCalorie)
     val animatedCaloriesToEatAngle by animateFloatAsState(
         targetValue = caloriesToEatAngle,
         animationSpec = tween(
@@ -81,7 +81,7 @@ fun CalorieCounterWidget(
             drawArc(
                 color = caloriesToEatColor,
                 startAngle = 180f + animatedCurrentCalorieAngle + if(currentCaloriesAngle == 0f) 0f else 6f,
-                sweepAngle = animatedCurrentCalorieAngle + animatedCaloriesToEatAngle + if(currentCaloriesAngle == 0f) 0f else 6f,
+                sweepAngle = animatedCaloriesToEatAngle,
                 useCenter = false,
                 topLeft =  Offset.Zero,
                 size = arcSize,

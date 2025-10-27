@@ -12,9 +12,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.semantics.contentDescription
-import androidx.compose.ui.semantics.role
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.buildAnnotatedString
@@ -45,7 +43,7 @@ fun CalorieCounter(
                 .semantics{ contentDescription = "Calorie widget, shows currentCalorie = $currentCalorie and maxCalorie = $maxCalorie and productCalorie = $productCalorie" },
             currentCalorie = if(currentCalorie > maxCalorie) maxCalorie else currentCalorie,
             maxCalorie = maxCalorie,
-            caloriesToEat = productCalorie
+            caloriesToEat = if(currentCalorie > maxCalorie) 0 else productCalorie
         )
         Column (
             modifier = Modifier.fillMaxHeight().padding(start = 30.dp),
