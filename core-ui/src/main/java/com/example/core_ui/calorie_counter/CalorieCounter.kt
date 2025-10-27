@@ -29,7 +29,7 @@ import com.example.theme.Typography
 fun CalorieCounter(
     currentCalorie: Float,
     maxCalorie: Float,
-    productCalorie: Int?
+    productCalorie: Int  = 0
 ) {
     Row (
         modifier = Modifier.fillMaxWidth()
@@ -44,7 +44,8 @@ fun CalorieCounter(
                 .width(100.dp)
                 .semantics{ contentDescription = "Calorie widget, shows currentCalorie = $currentCalorie and maxCalorie = $maxCalorie and productCalorie = $productCalorie" },
             currentCalorie = if(currentCalorie > maxCalorie) maxCalorie else currentCalorie,
-            maxCalorie = maxCalorie
+            maxCalorie = maxCalorie,
+            caloriesToEat = productCalorie
         )
         Column (
             modifier = Modifier.fillMaxHeight().padding(start = 30.dp),
@@ -66,7 +67,7 @@ fun CalorieCounter(
             )
             Text(
                 text = buildAnnotatedString {
-                    if(productCalorie!=null){
+                    if(productCalorie!=0){
                         withStyle(style = SpanStyle(fontWeight = FontWeight.ExtraBold)) {
                             append("$currentCalorie : ")
                         }

@@ -139,7 +139,6 @@ fun ProfileScreenLoaded(calorieInfo : CalorieCounter, showChangeMaxCalorieDialog
         CalorieCounter(
             currentCalorie = calorieInfo.currentCalorie,
             maxCalorie = calorieInfo.maxCalorie,
-            productCalorie = null
         )
         Row(
             modifier = Modifier

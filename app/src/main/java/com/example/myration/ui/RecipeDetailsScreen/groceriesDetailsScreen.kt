@@ -93,7 +93,7 @@ fun RecipeDetailsLoaded(state: RecipeDetailViewState, calorieInfo: CalorieCounte
         CalorieCounter(
             currentCalorie = calorieInfo.currentCalorie,
             maxCalorie = calorieInfo.maxCalorie,
-            productCalorie = state.kcal
+            productCalorie = state.kcal,
         )
         BlocksDivider()
         IngredientsList(state.ingredients)

@@ -10,4 +10,4 @@ val PrimaryTransparentColor = Color(0x0D499F68)
 val PrimaryLightColor = Color(0xFFF1F7F3)
 
 val PositiveBadgesColor = Color(0xFF499F68)
-val NegativeBadgesColor = Color(0xFFFA3538)
+val NegativeNegativeColor = Color(0xFFFA3538)
