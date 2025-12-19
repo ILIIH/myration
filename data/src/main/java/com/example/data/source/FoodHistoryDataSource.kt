@@ -12,13 +12,14 @@ import com.example.data.model.ProductEntity
 interface FoodHistoryDataSource {
     @Insert
     suspend fun addFoodProduct(foodProduct: FoodHistoryEntity)
-
     @Query("DELETE FROM food_history WHERE id = :id")
     suspend fun deleteFoodProductById(id: Int)
 
     @Query("SELECT * FROM food_history")
-    fun getAllFoodProducts(): PagingSource<Int, FoodHistoryEntity
-            >
+    suspend fun getAllFoodProducts(): List<FoodHistoryEntity>
+
+    @Query("SELECT * FROM food_history LIMIT :amount")
+    suspend fun getFirstFoodProducts(amount: Int): List<FoodHistoryEntity>
 
     @Query("SELECT * FROM food_history WHERE id = :id")
     suspend fun getFoodHistoryById(id: Int): FoodHistoryEntity

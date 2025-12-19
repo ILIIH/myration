@@ -9,6 +9,8 @@ enum class NavigationRoute(val route: String) {
     SCAN_PRODUCTS_SCREEN("scan_products_screen"),
     RECIPE_DETAILS_SCREEN("recipe_details_screen/{recipeId}"),
     PROFILE_TAB("profile_tab"),
+
+    RATION_HISTORY_SCREEN("ration_history_screen"),
     PRODUCT_DETAILS_SCREEN("product_details_screen/{productId}");
 
     fun withArgsRecipieID(recipeId: Int): String {

@@ -1,21 +1,15 @@
 package com.example.myration.viewModels
 
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.core.mvi.BaseViewModel
-import com.example.domain.model.CalorieCounter
 import com.example.domain.repository.CalorieRepository
 import com.example.myration.mvi.effects.ProfileEffect
-import com.example.myration.mvi.intent.ProductDetailsEvents
 import com.example.myration.mvi.intent.ProfileEvents
 import com.example.myration.mvi.reducer.ProfileReducer
-import com.example.myration.mvi.state.ProductDetailViewState
 import com.example.myration.mvi.state.ProfileViewState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
@@ -24,23 +18,22 @@ import javax.inject.Inject
 class ProfileViewModel @Inject constructor(
     private val calorieRepository: CalorieRepository
 ) : BaseViewModel<ProfileViewState, ProfileEvents, ProfileEffect>(
-    initialState = ProfileViewState.ProfileInfoSetUp,
+    initialState = ProfileViewState.ProfileLoading,
     reducer = ProfileReducer()
 ) {
     init {
-        getCalorieInfo()
-    }
-
-    private fun getCalorieInfo(){
         viewModelScope.launch {
             if (calorieRepository.checkMaxCalorieSetUp()){
-                sendEvent(ProfileEvents.ProfileLoaded(calorieRepository.getCalorieInfo()))
+                val calorieInfo = async{calorieRepository.getCalorieInfo()}
+                val foodHistory = async{calorieRepository.getFoodHistory(3)}
+                sendEvent(ProfileEvents.ProfileLoaded(profileInfo = calorieInfo.await(), foodHistory = foodHistory.await()))
             }
             else {
                 sendEvent(ProfileEvents.GetProfileSetUpStatus(false))
             }
         }
     }
+
     fun showChangeMaxCalorie(){
         sendEvent(ProfileEvents.ProfileShowChangeMaxCalorieWidget)
     }

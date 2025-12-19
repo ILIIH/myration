@@ -13,6 +13,19 @@ android {
         minSdk = 24
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles("consumer-rules.pro")
+
+        ndk {
+            abiFilters += listOf("arm64-v8a")
+        }
+    }
+    flavorDimensions += listOf("version")
+    productFlavors {
+        create("withAudioRecognition") {
+            dimension = "version"
+        }
+        create("withoutAudioRecognition") {
+            dimension = "version"
+        }
     }
     buildTypes {
         release {
@@ -56,8 +69,9 @@ dependencies {
     implementation ("ai.djl.huggingface:tokenizers:0.23.0")
 
     // Voice recognition AI
-    implementation(project(":lib"))
+    "withAudioRecognitionImplementation"(project(":lib"))
 
     implementation(project(":domain"))
+    testImplementation(kotlin("test"))
 
 }

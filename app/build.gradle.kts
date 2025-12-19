@@ -24,6 +24,21 @@ android {
         }
     }
 
+    flavorDimensions += "version"
+
+    productFlavors {
+        create("withAudioRecognition") {
+            dimension = "version"
+            applicationIdSuffix = ".withaudio"
+            versionNameSuffix = "-withaudio"
+        }
+        create("withoutAudioRecognition") {
+            dimension = "version"
+            applicationIdSuffix = ".withoutaudio"
+            versionNameSuffix = "-withoutaudio"
+        }
+    }
+
     buildTypes {
         release {
             isMinifyEnabled = false
@@ -62,6 +77,8 @@ dependencies {
     implementation("com.google.android.material:material:${project.extra["material_version"]}")
 
     implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.8.7")
+
+    // Compose
     implementation("androidx.activity:activity-compose:1.10.0")
     implementation(platform("androidx.compose:compose-bom:2023.08.00"))
     implementation("androidx.compose.ui:ui")
@@ -72,6 +89,8 @@ dependencies {
     implementation("androidx.wear.compose:compose-material:1.4.1")
     implementation("androidx.exifinterface:exifinterface:1.4.0")
     implementation("androidx.lifecycle:lifecycle-runtime-compose:2.8.7")
+    debugImplementation("androidx.compose.ui:ui-tooling:1.7.4")
+    debugImplementation("androidx.compose.ui:ui-tooling-preview:1.7.4")
 
     implementation("androidx.health.connect:connect-client:1.1.0-alpha11")
 
