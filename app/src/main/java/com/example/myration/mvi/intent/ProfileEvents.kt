@@ -3,6 +3,7 @@ package com.example.myration.mvi.intent
 import androidx.compose.runtime.Immutable
 import com.example.core.mvi.Reducer
 import com.example.domain.model.CalorieCounter
+import com.example.domain.model.FoodHistory
 import com.example.domain.model.Product
 import com.example.myration.mvi.state.ProductDetailViewState
 
@@ -13,7 +14,7 @@ sealed class ProfileEvents : Reducer.ViewEvent {
     data class ProfileError(val errorMessage: String) : ProfileEvents()
     data class ProfileUpdateCalories(val newMaxCalories: Float) : ProfileEvents()
     data class ProfileUpdateCalorieCounter(val currentCalorie: Float, val protein: Int, val fats: Int, val carbohydrates: Int) : ProfileEvents()
-    data class ProfileLoaded(val profileInfo: CalorieCounter) : ProfileEvents()
+    data class ProfileLoaded(val profileInfo: CalorieCounter, val foodHistory: List<FoodHistory>) : ProfileEvents()
     data object ProfileShowChangeMaxCalorieWidget : ProfileEvents()
     data object ProfileShowAddEatenProductWidget : ProfileEvents()
     data object ProfileShowSetUpWidget : ProfileEvents()

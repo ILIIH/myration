@@ -13,11 +13,15 @@ import com.example.myration.ui.CookingScreen.CookingScreen
 import com.example.myration.ui.GroceriesDetailsScreen.GroceriesDetailsScreen
 import com.example.myration.ui.GroceriesListScreen.GroceriesListScreen
 import com.example.myration.ui.ProfileScreen.ProfileScreen
+import com.example.myration.ui.RationHistory.RationHistoryScreen
 import com.example.myration.ui.RecipeDetailsScreen.RecipeDetailsScreen
 
 @Composable
 fun AppNavHost(navController: NavHostController) {
     NavHost(navController = navController, startDestination = NavigationRoute.PROFILE_TAB.route) {
+        composable(NavigationRoute.RATION_HISTORY_SCREEN.route) {
+            RationHistoryScreen()
+        }
         composable(NavigationRoute.ADD_PRODUCT_MANUALLY.route) {
             AddProductManuallyScreen()
         }
@@ -25,7 +29,7 @@ fun AppNavHost(navController: NavHostController) {
             AddProductVoiceScreen()
         }
         composable(NavigationRoute.PROFILE_TAB.route) {
-            ProfileScreen()
+            ProfileScreen(navController = navController)
         }
         composable(NavigationRoute.SCAN_PRODUCTS_SCREEN.route) {
             ScanFoodScreen()

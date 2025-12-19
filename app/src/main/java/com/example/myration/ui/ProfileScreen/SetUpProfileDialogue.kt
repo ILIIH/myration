@@ -9,6 +9,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.Card
@@ -29,6 +30,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.TextFieldValue
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.wear.compose.material.Button
@@ -54,28 +56,27 @@ fun SetUpProfileDialogue(
         contentAlignment = Alignment.Center
     ) {
         Card(
-            modifier = Modifier.fillMaxWidth().padding(horizontal = 20.dp),
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(horizontal = 20.dp),
             shape = RoundedCornerShape(12.dp),
             elevation = CardDefaults.cardElevation(8.dp)
         ) {
             Column(
                 modifier = Modifier
-                    .background(Color.White),
+                    .background(Color.White)
+                    .padding(16.dp)
+                    .fillMaxWidth(),
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
-                Column(
-                    modifier = Modifier
-                        .padding(16.dp)
-                        .fillMaxWidth(),
-                    horizontalAlignment = Alignment.CenterHorizontally
-                ) {
-                    Text(
-                        text = "Lets calculate how much calories you can eat per day to lose weight",
-                        fontSize = 20.sp,
-                        fontWeight = FontWeight.Bold,
-                        color = Color.Black
-                    )
-                    Spacer(modifier = Modifier.height(60.dp))
+                Text(
+                    text = "Lets calculate how much calories you can eat per day to lose weight",
+                    fontSize = 20.sp,
+                    fontWeight = FontWeight.Bold,
+                    color = Color.Black
+                )
+                Spacer(modifier = Modifier.height(40.dp))
+                Row {
                     TextField(
                         value = heightTextView,
                         onValueChange = {
@@ -87,13 +88,13 @@ fun SetUpProfileDialogue(
                                 ageTextView.text,
                                 isMaleCheckBox
                             )},
-                        modifier = Modifier.fillMaxWidth(),
+                        modifier = Modifier.weight(0.5f),
                         label = { Text("Height (cm)") },
                         singleLine = true,
                         keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
                         colors = OutlinedTextFieldDefaults.colors(unfocusedContainerColor = Color.White, focusedContainerColor = Color.White)
                     )
-                    Spacer(modifier = Modifier.height(20.dp))
+                    Spacer(modifier = Modifier.width(20.dp))
                     TextField(
                         value = ageTextView,
                         onValueChange = {
@@ -105,93 +106,103 @@ fun SetUpProfileDialogue(
                                 ageTextView.text,
                                 isMaleCheckBox
                             )},
-                        modifier = Modifier.fillMaxWidth(),
+                        modifier = Modifier.weight(0.5f),
                         label = { Text("Age (years)") },
                         singleLine = true,
                         keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
                         colors = OutlinedTextFieldDefaults.colors(unfocusedContainerColor = Color.White, focusedContainerColor = Color.White)
                     )
-                    Spacer(modifier = Modifier.height(20.dp))
-                    Row(
-                        verticalAlignment = Alignment.CenterVertically,
-                        modifier = Modifier.fillMaxWidth()
-                    ) {
-                        Checkbox(
-                            checked = isMaleCheckBox,
-                            onCheckedChange = { isMaleCheckBox = it }
-                        )
-                        Text(
-                            text = "Is male gender",
-                            modifier = Modifier.padding(start = 8.dp)
-                        )
-                    }
-                    Spacer(modifier = Modifier.height(20.dp))
-                    TextField(
-                        value = currentWeightTextView,
-                        onValueChange = {
-                            currentWeightTextView = it
-                            maxCalorie = calculateMaxCalories(
-                                heightTextView.text,
-                                currentWeightTextView.text,
-                                goalWeightTextView.text,
-                                ageTextView.text,
-                                isMaleCheckBox
-                            )},
-                        modifier = Modifier.fillMaxWidth(),
-                        label = { Text("Current weight (kg)") },
-                        singleLine = true,
-                        keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
-                        colors = OutlinedTextFieldDefaults.colors(unfocusedContainerColor = Color.White, focusedContainerColor = Color.White)
+                }
+
+                Spacer(modifier = Modifier.height(20.dp))
+                Row(
+                    verticalAlignment = Alignment.CenterVertically,
+                    modifier = Modifier.fillMaxWidth()
+                ) {
+                    Checkbox(
+                        checked = isMaleCheckBox,
+                        onCheckedChange = { isMaleCheckBox = it }
                     )
-                    Spacer(modifier = Modifier.height(20.dp))
-                    TextField(
-                        value = goalWeightTextView,
-                        onValueChange = {
-                            goalWeightTextView = it
-                            maxCalorie = calculateMaxCalories(
-                                heightTextView.text,
-                                currentWeightTextView.text,
-                                goalWeightTextView.text,
-                                ageTextView.text,
-                                isMaleCheckBox
-                            )},
-                        modifier = Modifier.fillMaxWidth(),
-                        label = { Text("Goal weight (kg)") },
-                        singleLine = true,
-                        keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
-                        colors = OutlinedTextFieldDefaults.colors(unfocusedContainerColor = Color.White, focusedContainerColor = Color.White)
+                    Text(
+                        text = "Is male gender",
+                        modifier = Modifier.padding(start = 8.dp)
                     )
-                    Spacer(modifier = Modifier.height(20.dp))
-                    TextField(
-                        value = maxCalorie,
-                        onValueChange = { maxCalorie = it },
-                        modifier = Modifier.fillMaxWidth(),
-                        label = { Text("Max calorie/day (kcal)") },
-                        singleLine = true,
-                        enabled = false,
-                        keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
-                        colors = OutlinedTextFieldDefaults.colors(unfocusedContainerColor = Color.White, focusedContainerColor = Color.White)
+                }
+                Spacer(modifier = Modifier.height(20.dp))
+                TextField(
+                    value = currentWeightTextView,
+                    onValueChange = {
+                        currentWeightTextView = it
+                        maxCalorie = calculateMaxCalories(
+                            heightTextView.text,
+                            currentWeightTextView.text,
+                            goalWeightTextView.text,
+                            ageTextView.text,
+                            isMaleCheckBox
+                        )},
+                    modifier = Modifier.fillMaxWidth(),
+                    label = { Text("Current weight (kg)") },
+                    singleLine = true,
+                    keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
+                    colors = OutlinedTextFieldDefaults.colors(unfocusedContainerColor = Color.White, focusedContainerColor = Color.White)
+                )
+                Spacer(modifier = Modifier.height(20.dp))
+                TextField(
+                    value = goalWeightTextView,
+                    onValueChange = {
+                        goalWeightTextView = it
+                        maxCalorie = calculateMaxCalories(
+                            heightTextView.text,
+                            currentWeightTextView.text,
+                            goalWeightTextView.text,
+                            ageTextView.text,
+                            isMaleCheckBox
+                        )},
+                    modifier = Modifier.fillMaxWidth(),
+                    label = { Text("Goal weight (kg)") },
+                    singleLine = true,
+                    keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
+                    colors = OutlinedTextFieldDefaults.colors(unfocusedContainerColor = Color.White, focusedContainerColor = Color.White)
+                )
+                Spacer(modifier = Modifier.height(20.dp))
+                TextField(
+                    value = maxCalorie,
+                    onValueChange = { maxCalorie = it },
+                    modifier = Modifier.fillMaxWidth(),
+                    label = { Text("Max calorie/day (kcal)") },
+                    singleLine = true,
+                    enabled = false,
+                    keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
+                    colors = OutlinedTextFieldDefaults.colors(unfocusedContainerColor = Color.White, focusedContainerColor = Color.White)
+                )
+                Spacer(modifier = Modifier.height(20.dp))
+                Button(
+                    onClick = {
+                        onChange(maxCalorie.toFloat())
+                    },
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .align(Alignment.CenterHorizontally)
+                        .padding(top = 10.dp)
+                        .shadow(elevation = 8.dp, shape = RoundedCornerShape(12.dp))
+                        .background(color = PrimaryColor, shape = RoundedCornerShape(4.dp)),
+                    colors = ButtonDefaults.buttonColors(
+                        backgroundColor = PrimaryColor,
+                        contentColor = Color.White
                     )
-                    Spacer(modifier = Modifier.height(20.dp))
-                    Button(
-                        onClick = {
-                            onChange(maxCalorie.toFloat())
-                        },
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .align(Alignment.CenterHorizontally)
-                            .padding(top = 10.dp)
-                            .shadow(elevation = 8.dp, shape = RoundedCornerShape(12.dp))
-                            .background(color = PrimaryColor, shape = RoundedCornerShape(4.dp)),
-                        colors = ButtonDefaults.buttonColors(
-                            backgroundColor = PrimaryColor,
-                            contentColor = Color.White
-                        )
-                    ) {
-                        Text(text = "Submit", color = Color.White)
-                    }
+                ) {
+                    Text(text = "Submit", color = Color.White)
                 }
             }
         }
     }
+}
+
+@Preview
+@Composable
+fun previewSetUpDialogue() {
+    SetUpProfileDialogue(
+        { } ,
+        {a,b,c,d,g ->  "" }
+    )
 }

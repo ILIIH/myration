@@ -5,6 +5,7 @@ import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -16,6 +17,7 @@ import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.graphics.nativeCanvas
 import androidx.compose.ui.graphics.toArgb
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.theme.NegativeNegativeColor
 import com.example.theme.PrimaryColor
@@ -49,13 +51,10 @@ fun CalorieCounterWidget(
         )
     )
 
-    Canvas(modifier = modifier.fillMaxWidth()) {
+    Canvas(modifier = modifier) {
         val arcStrokeWidth = size.width / 3
         val secondaryArcStrokeWidth = size.width / 4
         val arcSize = Size(width = size.width, height = size.height)
-        val radius = size.width / 2
-        val centerX = size.width / 2
-        val centerY = size.height / 2
 
         drawArc(
             color = SecondaryHalfTransparentColor,
@@ -88,27 +87,11 @@ fun CalorieCounterWidget(
                 style = Stroke(width = secondaryArcStrokeWidth)
             )
         }
-
-        drawContext.canvas.nativeCanvas.apply {
-            val text = "$currentCalorie KCAL"
-            val paint = android.graphics.Paint().apply {
-                color = SecondaryColor.toArgb()
-                textSize = 65f
-                textAlign = android.graphics.Paint.Align.CENTER
-                isAntiAlias = true
-                typeface = android.graphics.Typeface.create(
-                    android.graphics.Typeface.DEFAULT,
-                    android.graphics.Typeface.BOLD
-                )
-            }
-
-            drawText(
-                text,
-                centerX,
-                centerY + radius / 1.5f,
-                paint
-            )
-        }
     }
 }
 
+@Preview(showBackground = true)
+@Composable
+fun CalorieCounterWidgetPreview(){
+    CalorieCounterWidget(Modifier.padding(0.dp),2000f,4000f, 200)
+}

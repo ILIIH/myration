@@ -19,7 +19,15 @@ android {
         buildConfig = true
         androidResources = false
     }
-
+    flavorDimensions += listOf("version")
+    productFlavors {
+        create("withAudioRecognition") {
+            dimension = "version"
+        }
+        create("withoutAudioRecognition") {
+            dimension = "version"
+        }
+    }
     buildTypes {
         release {
             isMinifyEnabled = false
@@ -27,6 +35,9 @@ android {
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
             )
+        }
+        debug {
+            matchingFallbacks += listOf("withAudioRecognition", "withoutAudioRecognition")
         }
     }
     compileOptions {

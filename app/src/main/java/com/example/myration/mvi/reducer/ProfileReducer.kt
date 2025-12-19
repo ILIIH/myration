@@ -20,25 +20,31 @@ class ProfileReducer : Reducer<ProfileViewState, ProfileEvents, ProfileEffect> {
                 ProfileViewState.ProfileInfoError(event.errorMessage) to null
             }
             is ProfileEvents.ProfileLoaded -> {
-                ProfileViewState.ProfileLoaded(info = event.profileInfo) to null
+                ProfileViewState.ProfileLoaded(info = event.profileInfo, foodHistory = event.foodHistory) to null
             }
             is ProfileEvents.ProfileUpdateCalories -> {
-                ProfileViewState.ProfileLoaded(info = CalorieCounter(
-                    maxCalorie = event.newMaxCalories,
-                    currentCalorie = previousState.info?.currentCalorie ?: 0f,
-                    protein = previousState.info?.protein ?: 0,
-                    fats = previousState.info?.fats ?: 0,
-                    carbohydrates = previousState.info?.carbohydrates ?: 0
-                )) to null
+                ProfileViewState.ProfileLoaded(
+                    info = CalorieCounter(
+                        maxCalorie = event.newMaxCalories,
+                        currentCalorie = previousState.info?.currentCalorie ?: 0f,
+                        protein = previousState.info?.protein ?: 0,
+                        fats = previousState.info?.fats ?: 0,
+                        carbohydrates = previousState.info?.carbohydrates ?: 0
+                    ),
+                    foodHistory = previousState.foodHistory
+                ) to null
             }
             is ProfileEvents.ProfileUpdateCalorieCounter -> {
-                ProfileViewState.ProfileLoaded(info = CalorieCounter(
-                    maxCalorie = previousState.info?.maxCalorie ?: 0f,
-                    currentCalorie = (previousState.info?.currentCalorie?: 0f) + event.currentCalorie,
-                    protein =  (previousState.info?.protein?: 0) + event.protein,
-                    fats = (previousState.info?.fats?: 0) + event.fats,
-                    carbohydrates = (previousState.info?.carbohydrates ?: 0 )+ event.carbohydrates
-                )) to null
+                ProfileViewState.ProfileLoaded(
+                    info = CalorieCounter(
+                        maxCalorie = previousState.info?.maxCalorie ?: 0f,
+                        currentCalorie = (previousState.info?.currentCalorie?: 0f) + event.currentCalorie,
+                        protein =  (previousState.info?.protein?: 0) + event.protein,
+                        fats = (previousState.info?.fats?: 0) + event.fats,
+                        carbohydrates = (previousState.info?.carbohydrates ?: 0 )+ event.carbohydrates
+                    ),
+                    foodHistory = previousState.foodHistory
+                ) to null
             }
             is ProfileEvents.GetProfileSetUpStatus -> {
                 if (event.status) {

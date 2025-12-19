@@ -1,7 +1,6 @@
 package com.example.core.di
 
 import android.content.Context
-import com.example.core.media.audio.AudioDecoder
 import com.example.core.media.audio.WavAudioRecorder
 import com.example.core.media.audio.engine.WhisperEngine
 import com.example.core.media.audio.engine.WhisperEngineNative
@@ -23,10 +22,6 @@ object CoreModule {
     @Provides
     fun provideAudioRecorder(@ApplicationContext context: Context): WavAudioRecorder {
         return WavAudioRecorder(context)
-    }
-    @Provides
-    fun provideAudioDecoder(@ApplicationContext context: Context):AudioDecoder {
-        return AudioDecoder(context)
     }
     @Provides
     fun provideImageReceiptAnalyzer(@ApplicationContext context: Context, bitmapProvider: BitmapProvider, tokenizationRepository: TokenizationRepository):ImageReceiptAnalyzer {

@@ -22,6 +22,9 @@ android {
                 "proguard-rules.pro"
             )
         }
+        debug {
+            matchingFallbacks += listOf("withAudioRecognition", "withoutAudioRecognition")
+        }
     }
     buildFeatures {
         compose = true
@@ -62,7 +65,8 @@ dependencies {
     implementation("androidx.lifecycle:lifecycle-runtime-compose:2.8.7")
     implementation("androidx.compose.runtime:runtime")
     implementation("androidx.navigation:navigation-compose:2.8.8")
-
+    debugImplementation("androidx.compose.ui:ui-tooling:1.7.4")
+    debugImplementation("androidx.compose.ui:ui-tooling-preview:1.7.4")
     // Widgets
     api("androidx.glance:glance-appwidget:1.1.1")
 
