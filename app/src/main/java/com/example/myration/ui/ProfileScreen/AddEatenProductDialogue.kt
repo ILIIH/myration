@@ -56,8 +56,7 @@ fun AddEatenProductDialogue(
     Box(
         modifier = Modifier
             .fillMaxSize()
-            .background(Color.Black.copy(alpha = 0.8f))
-            .clickable(onClick = onDismiss),
+            .background(Color.Black.copy(alpha = 0.8f)),
         contentAlignment = Alignment.Center
     ) {
         Card(
@@ -73,7 +72,7 @@ fun AddEatenProductDialogue(
                 Image(
                     painter = painterResource(id = R.drawable.ic_baseline_close),
                     contentDescription = "close window button",
-                    modifier = Modifier
+                    modifier = Modifier.clickable(onClick = onDismiss)
                         .padding(top = 20.dp, start = 20.dp, end = 20.dp)
                         .size(32.dp)
                         .align(Alignment.End)

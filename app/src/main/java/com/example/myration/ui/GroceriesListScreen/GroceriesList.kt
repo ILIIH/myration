@@ -16,7 +16,6 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
-import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.CircularProgressIndicator
@@ -39,7 +38,7 @@ import com.example.myration.R
 import com.example.myration.ui.DataMap.getBadgesDesc
 import com.example.theme.SecondaryColor
 import com.example.theme.SecondaryHalfTransparentColor
-import com.example.theme.Typography
+import com.example.theme.MyRationTypography
 
 @Composable
 fun GroceriesList(productsList: LazyPagingItems<Product>, removeProduct: (productId: Int) -> Unit, navigateToDetailsScreen : (id: Int) -> Unit) {
@@ -100,7 +99,7 @@ fun ProductItem(product: Product, onDelete: (id: Int) -> Unit, modifier: Modifie
             .padding(horizontal = 10.dp, vertical = 15.dp)
             .height(260.dp)
     ) {
-        // 1. Product info card (centered)
+        // 1. Product info card
         Column(
             modifier = Modifier
                 .padding(top = 20.dp)
@@ -120,7 +119,7 @@ fun ProductItem(product: Product, onDelete: (id: Int) -> Unit, modifier: Modifie
 
             Text(
                 text = "${product.quantity.toInt()}  ${product.measurementMetric.desc}",
-                style = Typography.displaySmall,
+                style = MyRationTypography.displaySmall,
                 color = SecondaryColor
             )
             Spacer(modifier = Modifier.height(20.dp))
@@ -135,7 +134,7 @@ fun ProductItem(product: Product, onDelete: (id: Int) -> Unit, modifier: Modifie
 
             Text(
                 text = product.name,
-                style = Typography.titleLarge,
+                style = MyRationTypography.titleLarge,
                 color = SecondaryColor,
                 modifier = Modifier.width(130.dp),
                 maxLines = 2,
@@ -147,7 +146,7 @@ fun ProductItem(product: Product, onDelete: (id: Int) -> Unit, modifier: Modifie
 
             Text(
                 text = "exp ${product.expirationDate}",
-                style = Typography.displaySmall,
+                style = MyRationTypography.displaySmall,
                 color = SecondaryColor
             )
         }

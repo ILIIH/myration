@@ -45,6 +45,7 @@ import com.example.myration.mvi.state.AddProductManuallyViewState
 import com.example.theme.PrimaryColor
 import com.example.theme.SecondaryBackgroundColor
 import com.example.myration.viewModels.AddProductViewModel
+import com.example.theme.MyRationTypography
 
 @Composable
 fun AddProductManuallyScreen(
@@ -99,14 +100,15 @@ fun AddProductManuallyScreenLoaded(viewModel: AddProductViewModel) {
                 text = "Add product",
                 fontSize = 20.sp,
                 fontWeight = FontWeight.Bold,
-                color = Color.Black
+                color = Color.Black,
+                style = MyRationTypography.displayMedium
             )
             Spacer(modifier = Modifier.height(60.dp))
             TextField(
                 value = productName,
                 onValueChange = { productName = it },
                 modifier = Modifier.fillMaxWidth(),
-                label = { Text("Product name") },
+                label = { Text(text = "Product name", style = MyRationTypography.displayMedium) },
                 singleLine = true,
                 colors = OutlinedTextFieldDefaults.colors(unfocusedContainerColor = Color.White, focusedContainerColor = Color.White)
             )
@@ -124,12 +126,13 @@ fun AddProductManuallyScreenLoaded(viewModel: AddProductViewModel) {
                         )
                     },
                     modifier = Modifier.fillMaxWidth(),
-                    label = { Text("Product amount") },
+                    label = { Text(text = "Product amount", style = MyRationTypography.displayMedium) },
                     singleLine = true,
                     trailingIcon = {
                         Text(
                             text = productMeasurementMetric, // e.g., "kg"
-                            color = Color.Gray
+                            color = Color.Gray,
+                            style = MyRationTypography.displayMedium
                         )
                     },
                     colors = OutlinedTextFieldDefaults.colors(
@@ -161,7 +164,7 @@ fun AddProductManuallyScreenLoaded(viewModel: AddProductViewModel) {
                     contentColor = Color.White
                 )
             ) {
-                Text(text = "Submit", color = Color.White)
+                Text(text = "Submit", color = Color.White, style = MyRationTypography.displaySmall)
             }
         }
     }

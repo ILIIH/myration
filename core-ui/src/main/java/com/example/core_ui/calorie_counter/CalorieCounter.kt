@@ -1,11 +1,8 @@
 package com.example.core_ui.calorie_counter
 
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -24,8 +21,9 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.example.annotations.DevicePreviews
 import com.example.theme.SecondaryColor
-import com.example.theme.Typography
+import com.example.theme.MyRationTypography
 
 @Composable
 fun CalorieCounter(
@@ -55,13 +53,13 @@ fun CalorieCounter(
             )
             Text(
                 text = "${currentCalorie.toInt()} KCAL",
-                style = Typography.displayLarge,
+                style = MyRationTypography.displayLarge,
                 color = SecondaryColor,
             )
         }
 
         Column (
-            modifier = Modifier.fillMaxHeight().padding(start = 30.dp),
+            modifier = Modifier.fillMaxWidth().padding(all = 10.dp),
             verticalArrangement = Arrangement.Center,
             horizontalAlignment = Alignment.CenterHorizontally
         ){
@@ -73,7 +71,7 @@ fun CalorieCounter(
                     }
                     append("kcal")
                 },
-                style = Typography.displaySmall,
+                style = MyRationTypography.displaySmall,
                 color = SecondaryColor,
                 modifier = Modifier.padding(horizontal = 20.dp).semantics{ contentDescription = "Max calories for day text" },
                 textAlign = TextAlign.Justify
@@ -97,7 +95,7 @@ fun CalorieCounter(
                         append(" kcal ")
                     }
                 },
-                style = Typography.displaySmall,
+                style = MyRationTypography.displaySmall,
                 color = SecondaryColor,
                 modifier = Modifier.padding(horizontal = 20.dp, vertical = 10.dp),
                 textAlign = TextAlign.Justify
@@ -109,7 +107,7 @@ fun CalorieCounter(
                     }
                     append("kcal left for today")
                 },
-                style = Typography.displaySmall,
+                style = MyRationTypography.displaySmall,
                 color = SecondaryColor,
                 modifier = Modifier.padding(horizontal = 20.dp),
                 textAlign = TextAlign.Justify
@@ -117,8 +115,7 @@ fun CalorieCounter(
         }
     }
 }
-
-@Preview(showBackground = true)
+@DevicePreviews
 @Composable
 fun CalorieCounterPreview(){
     CalorieCounter(2000f,4000f, 200)

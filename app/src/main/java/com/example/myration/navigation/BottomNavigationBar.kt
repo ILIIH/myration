@@ -24,11 +24,11 @@ import androidx.navigation.NavHostController
 import com.example.myration.R
 import com.example.theme.PrimaryColor
 import com.example.theme.SecondaryBackgroundColor
-import com.example.theme.Typography
+import com.example.theme.MyRationTypography
 
 @Composable
 fun BottomNavigationBar(navController: NavHostController) {
-    val selectedTab = remember { mutableStateOf(NavigationRoute.GROCERIES_LIST_TAB) }
+    val selectedTab = remember { mutableStateOf(NavigationRoute.PROFILE_TAB) }
     Box(
         modifier = Modifier
             .fillMaxWidth()
@@ -62,7 +62,7 @@ fun BottomNavigationBar(navController: NavHostController) {
                 )
                 Text(
                     text = "Add products",
-                    style = Typography.labelSmall,
+                    style = MyRationTypography.headlineLarge,
                     color = if (selectedTab.value == NavigationRoute.ADD_PRODUCTS_TAB) PrimaryColor else SecondaryBackgroundColor
                 )
             }
@@ -87,7 +87,7 @@ fun BottomNavigationBar(navController: NavHostController) {
                 )
                 Text(
                     text = "My groceries",
-                    style = Typography.labelSmall,
+                    style = MyRationTypography.headlineLarge,
                     color = if (selectedTab.value == NavigationRoute.GROCERIES_LIST_TAB) PrimaryColor else SecondaryBackgroundColor
                 )
             }
@@ -113,7 +113,7 @@ fun BottomNavigationBar(navController: NavHostController) {
                 )
                 Text(
                     text = "Cooking",
-                    style = Typography.labelSmall,
+                    style = MyRationTypography.headlineLarge,
                     color = if (selectedTab.value == NavigationRoute.COOKING_TAB) PrimaryColor else SecondaryBackgroundColor
                 )
             }
@@ -139,7 +139,7 @@ fun BottomNavigationBar(navController: NavHostController) {
                 )
                 Text(
                     text = "Profile",
-                    style = Typography.labelSmall,
+                    style = MyRationTypography.headlineLarge,
                     color = if (selectedTab.value == NavigationRoute.COOKING_TAB) PrimaryColor else SecondaryBackgroundColor
                 )
             }

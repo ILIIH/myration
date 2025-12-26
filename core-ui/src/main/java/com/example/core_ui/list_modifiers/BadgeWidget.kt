@@ -11,8 +11,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
+import com.example.annotations.DevicePreviews
 import com.example.theme.SecondaryHalfTransparentColor
-import com.example.theme.Typography
+import com.example.theme.MyRationTypography
 
 @Composable
 fun BadgeWidget(badgeDesc: Pair<String, Color>, modifier: Modifier = Modifier){
@@ -31,8 +32,14 @@ fun BadgeWidget(badgeDesc: Pair<String, Color>, modifier: Modifier = Modifier){
     ){
         Text(
             text = badgeDesc.first,
-            style = Typography.displaySmall,
+            style = MyRationTypography.displaySmall,
             color = Color.White
         )
     }
+}
+
+@DevicePreviews
+@Composable
+fun ProfileBages() {
+    BadgeWidget(Pair("Test bages", Color.Red))
 }

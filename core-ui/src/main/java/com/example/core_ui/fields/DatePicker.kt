@@ -1,28 +1,21 @@
 package com.example.core_ui.fields
 
-import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
-import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material3.Button
 import androidx.compose.material3.DatePickerDialog
-import androidx.compose.material3.DatePickerState
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.material3.rememberDatePickerState
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
@@ -32,7 +25,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import com.example.core_ui.R
-import com.example.theme.Typography
+import com.example.theme.MyRationTypography
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
@@ -90,14 +83,14 @@ fun DatePicker(onDateSelected: (date: String) -> Unit) {
             Text(
                 modifier = Modifier.padding(start = 20.dp),
                 text = "Pick an expiry date",
-                style = Typography.displayMedium,
+                style = MyRationTypography.displayMedium,
             )
         }
         Spacer(modifier = Modifier.height(8.dp))
         Text(
             modifier = Modifier.padding(start = 20.dp),
             text = formattedDate,
-            style = Typography.displayMedium,
+            style = MyRationTypography.displayMedium,
         )
     }
 }
