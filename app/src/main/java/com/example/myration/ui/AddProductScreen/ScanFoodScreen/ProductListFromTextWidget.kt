@@ -34,7 +34,7 @@ import com.example.domain.model.Product
 import com.example.myration.R
 import com.example.theme.SecondaryColor
 import com.example.theme.SecondaryHalfTransparentColor
-import com.example.theme.Typography
+import com.example.theme.MyRationTypography
 
 @Composable
 fun ProductListFromTextWidget(
@@ -99,7 +99,7 @@ fun SubmitBtn(onSubmit: () -> Unit) {
     ){
         Text(
             text = "Submit products",
-            style = Typography.labelSmall,
+            style = MyRationTypography.labelSmall,
             color = Color.White
         )
     }
@@ -137,7 +137,7 @@ fun ScannedProductItem(
 
             Text(
                 text = "${product.quantity.toInt()}  ${product.measurementMetric.desc}",
-                style = Typography.displaySmall,
+                style = MyRationTypography.displaySmall,
                 color = SecondaryColor
             )
             Spacer(modifier = Modifier.height(20.dp))
@@ -152,7 +152,7 @@ fun ScannedProductItem(
 
             Text(
                 text = product.name,
-                style = Typography.titleLarge,
+                style = MyRationTypography.titleLarge,
                 color = SecondaryColor,
                 modifier = Modifier.width(130.dp),
                 maxLines = 2,
@@ -164,7 +164,7 @@ fun ScannedProductItem(
 
             Text(
                 text = "exp ${product.expirationDate}",
-                style = Typography.displaySmall,
+                style = MyRationTypography.displaySmall,
                 color = SecondaryColor
             )
         }

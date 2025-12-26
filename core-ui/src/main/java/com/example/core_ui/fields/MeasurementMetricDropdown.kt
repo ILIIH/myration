@@ -13,6 +13,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import com.example.theme.MyRationTypography
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -31,7 +32,7 @@ fun MeasurementMetricDropdown( setMetric: (metric: String) -> Unit) {
             modifier = Modifier
                 .fillMaxWidth()
                 .menuAnchor(),
-            label = { Text("Measurement Metric (lt, kg, pcs)") },
+            label = { Text("Measurement Metric (lt, kg, pcs)", style = MyRationTypography.displayMedium) },
             readOnly = true,
             trailingIcon = {
                 ExposedDropdownMenuDefaults.TrailingIcon(expanded.value)

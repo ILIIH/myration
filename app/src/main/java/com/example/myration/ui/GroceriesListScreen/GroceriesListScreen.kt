@@ -9,17 +9,25 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.compose.LocalLifecycleOwner
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.flowWithLifecycle
 import androidx.navigation.NavHostController
+import androidx.paging.PagingData
+import androidx.paging.compose.LazyPagingItems
 import androidx.paging.compose.collectAsLazyPagingItems
+import com.example.annotations.DevicePreviews
+import com.example.core_ui.list_modifiers.BadgeWidget
+import com.example.domain.model.MeasurementMetric
+import com.example.domain.model.Product
 import com.example.myration.mvi.effects.GroceriesEffect
 import com.example.myration.navigation.NavigationRoute
 import com.example.theme.SecondaryBackgroundColor
 import com.example.myration.viewModels.GroceriesViewModel
+import kotlinx.coroutines.flow.flowOf
 
 @Composable
 fun GroceriesListScreen(
@@ -33,24 +41,11 @@ fun GroceriesListScreen(
         viewModel.effect.flowWithLifecycle(lifecycleOwner.lifecycle, Lifecycle.State.STARTED)
     }
 
-    Column(
-        modifier = Modifier
-            .fillMaxSize()
-            .background(SecondaryBackgroundColor)
-    ) {
-        SearchWidget()
-        GroceriesList(
-            productsList = productList,
-            removeProduct =  {id -> viewModel.removeProduct(id)},
-            navigateToDetailsScreen = { productId ->
-                navController.navigate(
-                    NavigationRoute.PRODUCT_DETAILS_SCREEN.withArgsProductID(
-                        productId
-                    )
-                )
-            }
-        )
-    }
+    GroceriesLoaded(productList = productList,
+            removeItem = viewModel::removeProduct,
+            navigateToDetailsScreen = { id -> navController.navigate(
+        NavigationRoute.PRODUCT_DETAILS_SCREEN.withArgsProductID(id))}
+    )
 
     LaunchedEffect(Unit) {
         effectFlow.collect { action ->
@@ -64,3 +59,43 @@ fun GroceriesListScreen(
 
 }
 
+@Composable
+fun GroceriesLoaded(productList: LazyPagingItems<Product>,
+                    removeItem: (id:Int) -> Unit,
+                    navigateToDetailsScreen: (id:Int) -> Unit) {
+    Column(
+        modifier = Modifier
+            .fillMaxSize()
+            .background(SecondaryBackgroundColor)
+    ) {
+        SearchWidget()
+        GroceriesList(
+            productsList = productList,
+            removeProduct =  {id -> removeItem(id)},
+            navigateToDetailsScreen = { productId ->
+                navigateToDetailsScreen(productId)
+            }
+        )
+    }
+}
+
+@DevicePreviews
+@Composable
+fun PreviewGroceriesListScreen() {
+    // 1. Create a list of mock data
+    val mockItems = listOf(
+        Product(id = 1, name = "Apples", quantity = 20f, measurementMetric = MeasurementMetric.CUPS, expirationDate = "20/07/2000"),
+        Product(id = 2, name = "Banana", quantity = 20f, measurementMetric = MeasurementMetric.CUPS, expirationDate = "20/07/2000"),
+    )
+
+    // 2. Convert that list into a Flow of PagingData
+    val fakeDataFlow = flowOf(PagingData.from(mockItems))
+
+    // 3. Collect it as LazyPagingItems
+    val lazyPagingItems = fakeDataFlow.collectAsLazyPagingItems()
+
+    GroceriesLoaded(productList = lazyPagingItems,
+        removeItem = { },
+        navigateToDetailsScreen = { }
+    )
+}

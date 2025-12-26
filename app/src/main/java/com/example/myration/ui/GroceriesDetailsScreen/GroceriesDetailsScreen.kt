@@ -1,6 +1,5 @@
 package com.example.myration.ui.GroceriesDetailsScreen
 
-import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -55,7 +54,7 @@ import com.example.myration.viewModels.GroceriesDetailsViewModel
 import com.example.theme.PrimaryTransparentColor
 import com.example.theme.SecondaryColor
 import com.example.theme.SecondaryHalfTransparentColor
-import com.example.theme.Typography
+import com.example.theme.MyRationTypography
 
 @Composable
 fun GroceriesDetailsScreen(
@@ -161,7 +160,7 @@ fun DishesList(recipes: List<Recipe>, onDishClick: (recipeId: Int) -> Unit){
             .padding(top = 20.dp)
             .fillMaxWidth(),
         text =  "${recipes.size} recipes found",
-        style = Typography.labelLarge,
+        style = MyRationTypography.labelLarge,
         color = SecondaryColor,
         textAlign = TextAlign.Center
     )
@@ -203,7 +202,7 @@ fun DishesListItem(modifier: Modifier,recipe: Recipe){
     ) {
         Text(
             text = recipe.type.desc,
-            style = Typography.displaySmall,
+            style = MyRationTypography.displaySmall,
             color = SecondaryColor
         )
         Spacer(modifier = Modifier.height(20.dp))
@@ -221,14 +220,14 @@ fun DishesListItem(modifier: Modifier,recipe: Recipe){
         Spacer(modifier = Modifier.height(20.dp))
         Text(
             text = recipe.name,
-            style = Typography.displayLarge,
+            style = MyRationTypography.displayLarge,
             color = SecondaryColor,
             textAlign = TextAlign.Center
         )
         Spacer(modifier = Modifier.height(10.dp))
         Text(
             text = recipe.kcal.toString() + " kcal",
-            style = Typography.displaySmall,
+            style = MyRationTypography.displaySmall,
             color = SecondaryColor
         )
     }
@@ -269,7 +268,7 @@ fun ActionsButton(editProduct: () -> Unit, deleteProduct: () -> Unit) {
                 Text(
                     modifier = Modifier.padding(end = 10.dp),
                     text = "Edit",
-                    style = Typography.displaySmall,
+                    style = MyRationTypography.displaySmall,
                     color = SecondaryColor
                 )
                 Image(
@@ -301,7 +300,7 @@ fun ActionsButton(editProduct: () -> Unit, deleteProduct: () -> Unit) {
                 Text(
                     modifier = Modifier.padding(end = 10.dp),
                     text = "Delete",
-                    style = Typography.displaySmall,
+                    style = MyRationTypography.displaySmall,
                     color = SecondaryColor
                 )
                 Image(
@@ -334,7 +333,7 @@ fun ProductTopBar(product: Product) {
             Spacer(modifier = Modifier.height(15.dp))
             Text(
                 text = product.name,
-                style = Typography.titleLarge,
+                style = MyRationTypography.titleLarge,
                 color = SecondaryColor,
                 modifier = Modifier.width(130.dp),
                 maxLines = 4,
@@ -344,7 +343,7 @@ fun ProductTopBar(product: Product) {
             Spacer(modifier = Modifier.height(15.dp))
             Text(
                 text = product.name,
-                style = Typography.labelSmall,
+                style = MyRationTypography.labelSmall,
                 color = SecondaryColor,
                 modifier = Modifier.width(130.dp),
                 maxLines = 4,

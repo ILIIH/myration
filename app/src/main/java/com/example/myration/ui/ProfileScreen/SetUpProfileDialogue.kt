@@ -35,6 +35,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.wear.compose.material.Button
 import androidx.wear.compose.material.ButtonDefaults
+import com.example.theme.MyRationTypography
 import com.example.theme.PrimaryColor
 
 @Composable
@@ -89,7 +90,7 @@ fun SetUpProfileDialogue(
                                 isMaleCheckBox
                             )},
                         modifier = Modifier.weight(0.5f),
-                        label = { Text("Height (cm)") },
+                        label = { Text(text = "Height (cm)", style = MyRationTypography.displayLarge) },
                         singleLine = true,
                         keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
                         colors = OutlinedTextFieldDefaults.colors(unfocusedContainerColor = Color.White, focusedContainerColor = Color.White)
@@ -107,7 +108,7 @@ fun SetUpProfileDialogue(
                                 isMaleCheckBox
                             )},
                         modifier = Modifier.weight(0.5f),
-                        label = { Text("Age (years)") },
+                        label = { Text(text = "Age (years)", style = MyRationTypography.displayLarge) },
                         singleLine = true,
                         keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
                         colors = OutlinedTextFieldDefaults.colors(unfocusedContainerColor = Color.White, focusedContainerColor = Color.White)
@@ -125,7 +126,8 @@ fun SetUpProfileDialogue(
                     )
                     Text(
                         text = "Is male gender",
-                        modifier = Modifier.padding(start = 8.dp)
+                        modifier = Modifier.padding(start = 8.dp),
+                        style = MyRationTypography.displayLarge
                     )
                 }
                 Spacer(modifier = Modifier.height(20.dp))
@@ -141,7 +143,7 @@ fun SetUpProfileDialogue(
                             isMaleCheckBox
                         )},
                     modifier = Modifier.fillMaxWidth(),
-                    label = { Text("Current weight (kg)") },
+                    label = { Text(text = "Current weight (kg)", style = MyRationTypography.displayLarge) },
                     singleLine = true,
                     keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
                     colors = OutlinedTextFieldDefaults.colors(unfocusedContainerColor = Color.White, focusedContainerColor = Color.White)
@@ -159,7 +161,7 @@ fun SetUpProfileDialogue(
                             isMaleCheckBox
                         )},
                     modifier = Modifier.fillMaxWidth(),
-                    label = { Text("Goal weight (kg)") },
+                    label = { Text(text = "Goal weight (kg)", style = MyRationTypography.displayLarge) },
                     singleLine = true,
                     keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
                     colors = OutlinedTextFieldDefaults.colors(unfocusedContainerColor = Color.White, focusedContainerColor = Color.White)
@@ -169,7 +171,7 @@ fun SetUpProfileDialogue(
                     value = maxCalorie,
                     onValueChange = { maxCalorie = it },
                     modifier = Modifier.fillMaxWidth(),
-                    label = { Text("Max calorie/day (kcal)") },
+                    label = { Text(text = "Max calorie/day (kcal)", style = MyRationTypography.displayLarge) },
                     singleLine = true,
                     enabled = false,
                     keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
@@ -191,7 +193,7 @@ fun SetUpProfileDialogue(
                         contentColor = Color.White
                     )
                 ) {
-                    Text(text = "Submit", color = Color.White)
+                    Text(text = "Submit", color = Color.White, style = MyRationTypography.displayLarge)
                 }
             }
         }

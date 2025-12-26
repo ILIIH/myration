@@ -27,7 +27,6 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clipToBounds
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
@@ -41,6 +40,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import androidx.wear.compose.material.Button
 import androidx.wear.compose.material.ButtonDefaults
+import com.example.annotations.DevicePreviews
 import com.example.core_ui.calorie_counter.CalorieCounter
 import com.example.data.model.maping.SDF
 import com.example.domain.model.CalorieCounter
@@ -55,7 +55,7 @@ import com.example.theme.PrimaryColor
 import com.example.theme.PrimaryLightColor
 import com.example.theme.SecondaryColor
 import com.example.theme.SecondaryHalfTransparentColor
-import com.example.theme.Typography
+import com.example.theme.MyRationTypography
 
 @Composable
 fun ProfileScreen(
@@ -199,7 +199,7 @@ fun FoodHistorySection(showAddEatenProductDialogue: () -> Unit, foodHistory: Lis
                 Text(
                     modifier = Modifier.fillMaxWidth().padding(10.dp),
                     text = "My ration history :",
-                    style = Typography.displayLarge,
+                    style = MyRationTypography.displayLarge,
                     textAlign = TextAlign.Center
                 )
             }
@@ -212,7 +212,7 @@ fun FoodHistorySection(showAddEatenProductDialogue: () -> Unit, foodHistory: Lis
             item{
                 Text(
                     text = ". . .",
-                    style = Typography.displayLarge,
+                    style = MyRationTypography.displayLarge,
                     modifier = Modifier.fillMaxWidth().clickable{
                         navigateToFoodHistory()
                     },
@@ -253,27 +253,25 @@ fun PFCSection(protein: Int,fats: Int, carbohydrates: Int ) {
         Text(
             modifier = Modifier.padding(10.dp),
             text = "P : $protein",
-            style = Typography.displayLarge,
+            style = MyRationTypography.displayLarge,
             color = SecondaryColor
         )
         Text(
             modifier = Modifier.padding(10.dp),
             text = "F :  $fats",
-            style = Typography.displayLarge,
+            style = MyRationTypography.displayLarge,
             color = SecondaryColor
         )
         Text(
             modifier = Modifier.padding(10.dp),
             text = "C :  $carbohydrates",
-            style = Typography.displayLarge,
+            style = MyRationTypography.displayLarge,
             color = SecondaryColor
         )
     }
 }
 
-
-
-
+@DevicePreviews
 @Preview(showBackground = true)
 @Composable
 fun ProfileScreenLoadedPreview() {
@@ -299,6 +297,12 @@ fun ProfileScreenLoadedPreview() {
                 productName = "test2",
                 productCalorie = 300f,
                 date = SDF.parse("2000-02-02")
+            ),
+            FoodHistory(
+                id = 3,
+                productName = "test4",
+                productCalorie = 330f,
+                date = SDF.parse("2012-02-02")
             )
         ),
         navigateToFoodHistory = {}

@@ -34,7 +34,7 @@ import com.example.myration.R
 import com.example.myration.ui.DataMap.getBadgesDesc
 import com.example.theme.SecondaryColor
 import com.example.theme.SecondaryHalfTransparentColor
-import com.example.theme.Typography
+import com.example.theme.MyRationTypography
 
 @Composable
 fun RecipesList(recipeList: List<Recipe>, navigateToRecipeDetails: (recipeId: Int) -> Unit) {
@@ -88,7 +88,7 @@ fun RecipeItemLong(recipe: Recipe, modified: Modifier) {
             ) {
                 Text(
                     text = recipe.type.desc,
-                    style = Typography.displaySmall,
+                    style = MyRationTypography.displaySmall,
                     color = SecondaryColor
                 )
                 Spacer(modifier = Modifier.height(20.dp))
@@ -111,7 +111,7 @@ fun RecipeItemLong(recipe: Recipe, modified: Modifier) {
             ) {
                 Text(
                     text = recipe.name,
-                    style = Typography.titleLarge,
+                    style = MyRationTypography.titleLarge,
                     color = SecondaryColor,
                     modifier = Modifier.width(130.dp),
                     maxLines = 2,
@@ -121,7 +121,7 @@ fun RecipeItemLong(recipe: Recipe, modified: Modifier) {
                 Spacer(modifier = Modifier.height(15.dp))
                 Text(
                     text = recipe.kcal.toString() + " kcal",
-                    style = Typography.displaySmall,
+                    style = MyRationTypography.displaySmall,
                     color = SecondaryColor
                 )
             }
@@ -153,7 +153,7 @@ fun RecipeItemShort(recipe: Recipe) {
     ) {
         Text(
             text = recipe.type.desc,
-            style = Typography.displaySmall,
+            style = MyRationTypography.displaySmall,
             color = SecondaryColor
         )
         Spacer(modifier = Modifier.height(20.dp))
@@ -171,14 +171,14 @@ fun RecipeItemShort(recipe: Recipe) {
         Spacer(modifier = Modifier.height(20.dp))
         Text(
             text = recipe.name,
-            style = Typography.displayLarge,
+            style = MyRationTypography.displayLarge,
             color = SecondaryColor,
             textAlign = TextAlign.Center
         )
         Spacer(modifier = Modifier.height(10.dp))
         Text(
             text = recipe.kcal.toString() + " kcal",
-            style = Typography.displaySmall,
+            style = MyRationTypography.displaySmall,
             color = SecondaryColor
         )
     }

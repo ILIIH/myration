@@ -22,7 +22,7 @@ import com.example.core_ui.R
 import com.example.domain.model.Filter
 import com.example.theme.SecondaryBackgroundColor
 import com.example.theme.SecondaryColor
-import com.example.theme.Typography
+import com.example.theme.MyRationTypography
 
 @Composable
 fun FilterWidget(
@@ -147,7 +147,7 @@ fun FilterItem(filter: Filter, onApply: (id: Int)-> Unit, onRemove:(id: Int)->Un
             Text(
                 text = filter.type.label,
                 color = Color(0xFFB8876F),
-                style = Typography.displayLarge,
+                style = MyRationTypography.displayLarge,
                 maxLines = 1,
                 overflow = TextOverflow.Ellipsis
             )

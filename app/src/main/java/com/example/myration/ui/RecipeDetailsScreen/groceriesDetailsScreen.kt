@@ -51,7 +51,7 @@ import com.example.theme.PrimaryColor
 import com.example.theme.PrimaryTransparentColor
 import com.example.theme.SecondaryColor
 import com.example.theme.SecondaryHalfTransparentColor
-import com.example.theme.Typography
+import com.example.theme.MyRationTypography
 import com.example.myration.viewModels.RecipeDetailsViewModel
 
 @Composable
@@ -150,7 +150,7 @@ fun VideoRecipe(videoId: String) {
 fun RecipeDescription(recipe: String) {
     Text(
         text = "Recipe",
-        style = Typography.titleLarge,
+        style = MyRationTypography.titleLarge,
         color = SecondaryColor,
         modifier = Modifier
             .fillMaxWidth()
@@ -162,7 +162,7 @@ fun RecipeDescription(recipe: String) {
 
     Text(
         text = recipe,
-        style = Typography.displaySmall,
+        style = MyRationTypography.displaySmall,
         color = SecondaryColor,
         modifier = Modifier
             .fillMaxWidth()
@@ -190,7 +190,7 @@ fun RecipeDescription(recipe: String) {
 fun IngredientsList(ingredients: List<RecipeIngredient>) {
     Text(
         text = "Ingredients",
-        style = Typography.titleLarge,
+        style = MyRationTypography.titleLarge,
         color = SecondaryColor,
         modifier = Modifier
             .fillMaxWidth()
@@ -211,7 +211,7 @@ fun IngredientsList(ingredients: List<RecipeIngredient>) {
             itemContent = { index ->
                 Text(
                     text = "• " + ingredients[index].productName + " " + ingredients[index].productAmount,
-                    style = Typography.displaySmall,
+                    style = MyRationTypography.displaySmall,
                     color = SecondaryColor
                 )
             }
@@ -236,13 +236,13 @@ fun RecipeTopBar(state: RecipeDetailViewState) {
         ) {
             Text(
                 text = state.type.desc,
-                style = Typography.displaySmall,
+                style = MyRationTypography.displaySmall,
                 color = SecondaryColor
             )
             Spacer(modifier = Modifier.height(15.dp))
             Text(
                 text = state.name,
-                style = Typography.titleLarge,
+                style = MyRationTypography.titleLarge,
                 color = SecondaryColor,
                 modifier = Modifier.width(130.dp),
                 maxLines = 4,
@@ -252,7 +252,7 @@ fun RecipeTopBar(state: RecipeDetailViewState) {
             Spacer(modifier = Modifier.height(15.dp))
             Text(
                 text = state.kcal.toString() + " kcal",
-                style = Typography.displaySmall,
+                style = MyRationTypography.displaySmall,
                 color = SecondaryColor
             )
         }

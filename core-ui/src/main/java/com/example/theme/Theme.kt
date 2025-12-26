@@ -53,7 +53,7 @@ fun MyRationTheme(
 
     MaterialTheme(
         colorScheme = colorScheme,
-        typography = Typography,
+        typography = MyRationTypography,
         content = content
     )
 }

@@ -11,13 +11,9 @@ import androidx.core.content.edit
 import com.example.data.model.maping.SDF
 import com.example.data.model.maping.toDomain
 import com.example.domain.model.FoodHistory
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.withContext
-import java.text.SimpleDateFormat
 import java.time.Instant
 import java.time.ZoneId
 import java.util.Date
-import java.util.Locale
 
 class CalorieRepositoryImp  @Inject constructor(
     private val preferences: SharedPreferences,

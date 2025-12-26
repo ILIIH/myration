@@ -25,7 +25,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import com.example.theme.SecondaryBackgroundColor
-import com.example.theme.Typography
+import com.example.theme.MyRationTypography
 
 
 @Composable
@@ -42,7 +42,7 @@ fun ImageScanningWidget(bitmap: Bitmap, cancelScanning: () -> Unit){
     ) {
         Text(
             text = "Scanning progress ${(scanningProgress.floatValue*100).toInt()} %",
-            style = Typography.labelSmall,
+            style = MyRationTypography.labelSmall,
             color = Color.Black,
             modifier =  Modifier.fillMaxWidth().padding(horizontal = 50.dp, vertical = 10.dp)
 

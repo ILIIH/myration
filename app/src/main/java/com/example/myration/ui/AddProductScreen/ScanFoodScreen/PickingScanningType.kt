@@ -23,9 +23,7 @@ import androidx.compose.ui.unit.dp
 import com.example.domain.model.ScanningType
 import com.example.myration.R
 import com.example.theme.PrimaryColor
-import com.example.theme.SecondaryBackgroundColor
-import com.example.theme.SecondaryColor
-import com.example.theme.Typography
+import com.example.theme.MyRationTypography
 
 
 @Composable
@@ -64,7 +62,7 @@ fun PickingScanningType(pickScanningType: (type: ScanningType) -> Unit){
                 Text(
                     modifier = Modifier.padding(top = 20.dp, bottom = 20.dp),
                     text = "Scan food",
-                    style = Typography.displayLarge,
+                    style = MyRationTypography.displayLarge,
                     color = Color.White
                 )
             }
@@ -89,7 +87,7 @@ fun PickingScanningType(pickScanningType: (type: ScanningType) -> Unit){
                 Text(
                     modifier = Modifier.padding(top = 20.dp, bottom = 20.dp),
                     text = "Scan receipt",
-                    style = Typography.displayLarge,
+                    style = MyRationTypography.displayLarge,
                     color = Color.White
                 )
             }
