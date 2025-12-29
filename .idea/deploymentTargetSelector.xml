@@ -19,6 +19,9 @@
       <SelectionState runConfigName="previewSetUpDialogue">
         <option name="selectionMode" value="DROPDOWN" />
       </SelectionState>
+      <SelectionState runConfigName="CalorieCounterWidgetPreview">
+        <option name="selectionMode" value="DROPDOWN" />
+      </SelectionState>
     </selectionStates>
   </component>
 </project>

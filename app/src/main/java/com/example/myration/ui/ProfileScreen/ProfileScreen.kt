@@ -41,7 +41,7 @@ import androidx.navigation.NavHostController
 import androidx.wear.compose.material.Button
 import androidx.wear.compose.material.ButtonDefaults
 import com.example.annotations.DevicePreviews
-import com.example.core_ui.calorie_counter.CalorieCounter
+import com.example.core_ui.custom_views.CalorieCounter
 import com.example.data.model.maping.SDF
 import com.example.domain.model.CalorieCounter
 import com.example.domain.model.FoodHistory

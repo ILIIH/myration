@@ -1,6 +1,7 @@
 package com.example.myration.ui.RationHistory
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -13,37 +14,66 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import com.example.annotations.DevicePreviews
 import com.example.data.model.maping.SDF
 import com.example.data.model.maping.getString
 import com.example.domain.model.FoodHistory
+import com.example.domain.model.PieChartItem
+import com.example.myration.mvi.effects.ProfileEffect
+import com.example.myration.mvi.effects.RationHistoryEffect
+import com.example.myration.mvi.intent.RationHistoryEvents
+import com.example.myration.mvi.state.ProfileViewState
+import com.example.myration.mvi.state.RationHistoryState
 import com.example.myration.viewModels.RationHistoryViewModel
 import com.example.theme.PrimaryLightColor
-import com.example.theme.SecondaryColor
 import com.example.theme.MyRationTypography
+import java.util.Date
 
 @Composable
 fun RationHistoryScreen(
     viewModel: RationHistoryViewModel = hiltViewModel()
 ) {
-    val foodHistory by viewModel.foodHistoryList.collectAsState()
-    FoodHistoryList(foodHistory)
+    val state by viewModel.state.collectAsState()
+
+    LaunchedEffect(Unit) {
+        viewModel.effect.collect { effect ->
+            when (effect) {
+                is RationHistoryEffect.RationHistoryLoading -> {
+
+                }
+            }
+        }
+    }
+    when (val state = state) {
+        is RationHistoryState.RationHistoryLoaded -> {
+            FoodHistoryList(state.foodHistoryList, state.foodMonthSummary)
+        }
+        is RationHistoryState.RationHistoryLoading -> {
+
+        }
+        is RationHistoryState.RationHistoryError -> {
+
+        }
+    }
 }
 
 @Composable
 fun FoodHistoryItem(item: FoodHistory){
     Box(
         modifier = Modifier
-            .height(60.dp)
-            .padding(10.dp) ,
+            .height(70.dp)
+            .padding(10.dp)
     ){
         Row(
             modifier = Modifier.fillMaxWidth(),
@@ -67,11 +97,9 @@ fun FoodHistoryItem(item: FoodHistory){
     }
 }
 @Composable
-fun FoodHistoryList(foodHistory: List<List<FoodHistory>>) {
+fun FoodHistoryList(foodHistory: List<List<FoodHistory>>, monthSummary: HashMap<Int,List<PieChartItem>>) {
     Box(
-        modifier = Modifier
-            .fillMaxWidth()
-            .background(color = SecondaryColor, shape = RoundedCornerShape(4.dp))
+        modifier = Modifier.fillMaxWidth()
     ) {
         LazyColumn(
             modifier = Modifier
@@ -89,22 +117,30 @@ fun FoodHistoryList(foodHistory: List<List<FoodHistory>>) {
                     color = Color.White
                 )
             }
-
+            var currentMonthIndex = if(foodHistory.isNotEmpty() && foodHistory[0].isNotEmpty()) foodHistory[0][0].date.month else 0
             items(
                 count = foodHistory.size,
                 itemContent = { index ->
+                    if(index == 0 || currentMonthIndex != foodHistory[index][0].date.month){
+                        currentMonthIndex = foodHistory[index][0].date.month
+                        MonthSummaryInfo(
+                            monthSummary[currentMonthIndex]?:listOf(),
+                            foodHistory[index][0].date
+                        )
+                    }
                     Box(
                         modifier = Modifier
                             .fillMaxWidth()
                             .padding(20.dp)
+                            .border(width = 1.dp, color = Color.Black, shape = RoundedCornerShape(12.dp))
+                            .shadow(elevation = 8.dp, shape = RoundedCornerShape(8.dp))
                             .background(
                                 color = PrimaryLightColor,
-                                shape = RoundedCornerShape(4.dp)
+                                shape = RoundedCornerShape(12.dp)
                             )
+
                     ) {
-                        Column(
-                            modifier = Modifier.padding(10.dp)
-                        ) {
+                        Column(modifier = Modifier.padding(10.dp)                         ) {
                             foodHistory[index].forEachIndexed { index2, item ->
                                 if (index2 == 0) {
                                     Text(
@@ -126,7 +162,7 @@ fun FoodHistoryList(foodHistory: List<List<FoodHistory>>) {
     }
 }
 
-@Preview(showBackground = true)
+@DevicePreviews
 @Composable
 fun RationHistoryScreenPreview() {
     FoodHistoryList(
@@ -160,6 +196,7 @@ fun RationHistoryScreenPreview() {
                 )
             )
 
-        )
+        ),
+        monthSummary = hashMapOf()
     )
 }

@@ -1,13 +1,9 @@
 package com.example.data.source
 
-import androidx.paging.PagingSource
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.Query
-import androidx.room.Update
 import com.example.data.model.FoodHistoryEntity
-import com.example.data.model.ProductEntity
-
 @Dao
 interface FoodHistoryDataSource {
     @Insert
