@@ -14,7 +14,7 @@ class ProfileReducer : Reducer<ProfileViewState, ProfileEvents, ProfileEffect> {
     ): Pair<ProfileViewState, ProfileEffect?> {
         return when(event){
             is ProfileEvents.ProfileLoading -> {
-                previousState to ProfileEffect.ShowProfileLoading
+                previousState to null
             }
             is ProfileEvents.ProfileError -> {
                 ProfileViewState.ProfileInfoError(event.errorMessage) to null
@@ -48,7 +48,7 @@ class ProfileReducer : Reducer<ProfileViewState, ProfileEvents, ProfileEffect> {
             }
             is ProfileEvents.GetProfileSetUpStatus -> {
                 if (event.status) {
-                    previousState to ProfileEffect.ShowProfileLoading
+                    previousState to null
                 } else {
                     ProfileViewState.ProfileInfoSetUp to null
                 }

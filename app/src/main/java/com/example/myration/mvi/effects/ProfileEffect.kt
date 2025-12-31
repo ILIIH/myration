@@ -6,7 +6,6 @@ import com.example.myration.mvi.intent.ProfileEvents
 
 @Immutable
 sealed class ProfileEffect : Reducer.ViewEffect {
-    data object ShowProfileLoading: ProfileEffect()
     data class ShowProfileChangeMaxCalorieWidget(val maxCal: Float) : ProfileEffect()
     data object ShowProfileAddEatenProductWidget : ProfileEffect()
 }

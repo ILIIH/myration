@@ -49,6 +49,7 @@ import com.example.myration.mvi.effects.ProfileEffect
 import com.example.myration.mvi.state.ProfileViewState
 import com.example.myration.navigation.NavigationRoute
 import com.example.myration.ui.RationHistory.FoodHistoryItem
+import com.example.myration.viewModels.MainViewModel
 import com.example.myration.viewModels.ProfileViewModel
 import com.example.myration.widgets.CalorieScreenWidget
 import com.example.theme.PrimaryColor
@@ -60,7 +61,8 @@ import com.example.theme.MyRationTypography
 @Composable
 fun ProfileScreen(
     viewModel: ProfileViewModel = hiltViewModel(),
-    navController: NavHostController
+    navController: NavHostController,
+    mainViewModel: MainViewModel
 ) {
     val profileState by viewModel.state.collectAsState()
     val showChangeMaxCalorieDialogue = remember { mutableStateOf<Float?>(null) }
@@ -70,9 +72,6 @@ fun ProfileScreen(
     LaunchedEffect(Unit) {
         viewModel.effect.collect { effect ->
             when (effect) {
-                is ProfileEffect.ShowProfileLoading -> {
-
-                }
                 is ProfileEffect.ShowProfileChangeMaxCalorieWidget -> {
                     showChangeMaxCalorieDialogue.value = effect.maxCal
                 }
@@ -85,6 +84,7 @@ fun ProfileScreen(
 
     when (val state = profileState) {
         is ProfileViewState.ProfileLoaded -> {
+            mainViewModel.setLoading(false)
             ProfileScreenLoaded(
                 calorieInfo = state.info!!,
                 foodHistory = state.foodHistory,
@@ -97,10 +97,10 @@ fun ProfileScreen(
             SetUpProfileDialogue(viewModel::setNewMaxCalories, viewModel::calculateMaxCalories)
         }
         is ProfileViewState.ProfileInfoError -> {
-
+            mainViewModel.showError(message = state.message)
         }
         is ProfileViewState.ProfileLoading -> {
-
+            mainViewModel.setLoading(true)
         }
     }
 

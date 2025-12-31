@@ -27,6 +27,7 @@ import com.example.myration.mvi.effects.GroceriesEffect
 import com.example.myration.navigation.NavigationRoute
 import com.example.theme.SecondaryBackgroundColor
 import com.example.myration.viewModels.GroceriesViewModel
+import com.example.myration.viewModels.MainViewModel
 import kotlinx.coroutines.flow.flowOf
 
 @Composable
@@ -35,7 +36,6 @@ fun GroceriesListScreen(
     navController: NavHostController
 ) {
     val productList = viewModel.productList.collectAsLazyPagingItems()
-    val screenState = viewModel.state.collectAsStateWithLifecycle()
     val lifecycleOwner = LocalLifecycleOwner.current
     val effectFlow = remember(viewModel.effect, lifecycleOwner) {
         viewModel.effect.flowWithLifecycle(lifecycleOwner.lifecycle, Lifecycle.State.STARTED)

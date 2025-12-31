@@ -1,4 +1,4 @@
-package com.example.myration.ui.DataMap
+package com.example.myration.maping
 
 import androidx.compose.ui.graphics.Color
 import com.example.domain.model.CookingDifficulty

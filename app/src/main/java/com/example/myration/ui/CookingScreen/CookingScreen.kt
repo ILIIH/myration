@@ -23,10 +23,13 @@ import com.example.myration.mvi.state.CookingViewState
 import com.example.myration.navigation.NavigationRoute
 import com.example.theme.SecondaryBackgroundColor
 import com.example.myration.viewModels.CookingViewModel
+import com.example.myration.viewModels.MainViewModel
+
 @Composable
 fun CookingScreen(
     viewModel: CookingViewModel = hiltViewModel(),
-    navController: NavHostController
+    navController: NavHostController,
+    mainViewModel: MainViewModel
 ) {
     val screenState = viewModel.state.collectAsState()
 
@@ -46,17 +49,17 @@ fun CookingScreen(
     }
 
     when (val state = screenState.value) {
-        is ResultState.Success -> loadedCookingScreen(
-            screenState = state.data,
-            applyFilter = viewModel::applyFilter,
-            removeFilter = viewModel::removeFilter,
-            navigateToRecipe = viewModel::navigateToRecipe
-        )
-        is ResultState.Loading -> CircularProgressIndicator()
-        is ResultState.Error -> ErrorMessage(
-            message = state.message,
-            onDismiss = {viewModel.loadData()}
-        )
+        is ResultState.Success -> {
+            mainViewModel.setLoading(false)
+            loadedCookingScreen(
+                screenState = state.data,
+                applyFilter = viewModel::applyFilter,
+                removeFilter = viewModel::removeFilter,
+                navigateToRecipe = viewModel::navigateToRecipe
+            )
+        }
+        is ResultState.Loading -> mainViewModel.setLoading(true)
+        is ResultState.Error -> mainViewModel.showError(message = state.message)
     }
 
 }

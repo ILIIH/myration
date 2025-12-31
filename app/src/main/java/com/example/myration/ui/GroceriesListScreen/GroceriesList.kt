@@ -35,7 +35,7 @@ import androidx.paging.compose.LazyPagingItems
 import com.example.core_ui.list_modifiers.BadgeWidget
 import com.example.domain.model.Product
 import com.example.myration.R
-import com.example.myration.ui.DataMap.getBadgesDesc
+import com.example.myration.maping.getBadgesDesc
 import com.example.theme.SecondaryColor
 import com.example.theme.SecondaryHalfTransparentColor
 import com.example.theme.MyRationTypography

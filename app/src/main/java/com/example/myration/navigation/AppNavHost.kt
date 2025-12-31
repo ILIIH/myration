@@ -15,27 +15,28 @@ import com.example.myration.ui.GroceriesListScreen.GroceriesListScreen
 import com.example.myration.ui.ProfileScreen.ProfileScreen
 import com.example.myration.ui.RationHistory.RationHistoryScreen
 import com.example.myration.ui.RecipeDetailsScreen.RecipeDetailsScreen
+import com.example.myration.viewModels.MainViewModel
 
 @Composable
-fun AppNavHost(navController: NavHostController) {
+fun AppNavHost(navController: NavHostController, mainViewModel: MainViewModel) {
     NavHost(navController = navController, startDestination = NavigationRoute.PROFILE_TAB.route) {
         composable(NavigationRoute.RATION_HISTORY_SCREEN.route) {
-            RationHistoryScreen()
+            RationHistoryScreen(mainViewModel = mainViewModel)
         }
         composable(NavigationRoute.ADD_PRODUCT_MANUALLY.route) {
-            AddProductManuallyScreen()
+            AddProductManuallyScreen(mainViewModel = mainViewModel)
         }
         composable(NavigationRoute.ADD_PRODUCT_VOICE.route) {
-            AddProductVoiceScreen()
+            AddProductVoiceScreen(mainViewModel = mainViewModel)
         }
         composable(NavigationRoute.PROFILE_TAB.route) {
-            ProfileScreen(navController = navController)
+            ProfileScreen(navController = navController, mainViewModel = mainViewModel)
         }
         composable(NavigationRoute.SCAN_PRODUCTS_SCREEN.route) {
-            ScanFoodScreen()
+            ScanFoodScreen(mainViewModel = mainViewModel)
         }
         composable(NavigationRoute.COOKING_TAB.route) {
-            CookingScreen(navController = navController)
+            CookingScreen(navController = navController, mainViewModel = mainViewModel)
         }
         composable(
             route = NavigationRoute.RECIPE_DETAILS_SCREEN.route,
@@ -47,7 +48,7 @@ fun AppNavHost(navController: NavHostController) {
             route = NavigationRoute.PRODUCT_DETAILS_SCREEN.route,
             arguments = listOf(navArgument("productId") { type = NavType.IntType })
         ) { _ ->
-            GroceriesDetailsScreen(navController = navController)
+            GroceriesDetailsScreen(navController = navController, mainViewModel = mainViewModel)
         }
         composable(NavigationRoute.ADD_PRODUCTS_TAB.route) {
             AddProductScreen(navController = navController)
