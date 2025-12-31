@@ -1,5 +1,6 @@
 package com.example.myration.ui.RationHistory
 
+import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
@@ -22,7 +23,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.annotations.DevicePreviews
@@ -30,40 +30,30 @@ import com.example.data.model.maping.SDF
 import com.example.data.model.maping.getString
 import com.example.domain.model.FoodHistory
 import com.example.domain.model.PieChartItem
-import com.example.myration.mvi.effects.ProfileEffect
 import com.example.myration.mvi.effects.RationHistoryEffect
-import com.example.myration.mvi.intent.RationHistoryEvents
-import com.example.myration.mvi.state.ProfileViewState
 import com.example.myration.mvi.state.RationHistoryState
+import com.example.myration.viewModels.MainViewModel
 import com.example.myration.viewModels.RationHistoryViewModel
 import com.example.theme.PrimaryLightColor
 import com.example.theme.MyRationTypography
-import java.util.Date
 
 @Composable
 fun RationHistoryScreen(
-    viewModel: RationHistoryViewModel = hiltViewModel()
+    viewModel: RationHistoryViewModel = hiltViewModel(),
+    mainViewModel: MainViewModel
 ) {
     val state by viewModel.state.collectAsState()
 
-    LaunchedEffect(Unit) {
-        viewModel.effect.collect { effect ->
-            when (effect) {
-                is RationHistoryEffect.RationHistoryLoading -> {
-
-                }
-            }
-        }
-    }
     when (val state = state) {
         is RationHistoryState.RationHistoryLoaded -> {
+            mainViewModel.setLoading(false)
             FoodHistoryList(state.foodHistoryList, state.foodMonthSummary)
         }
         is RationHistoryState.RationHistoryLoading -> {
-
+            mainViewModel.setLoading(true)
         }
         is RationHistoryState.RationHistoryError -> {
-
+            mainViewModel.showError(state.message)
         }
     }
 }

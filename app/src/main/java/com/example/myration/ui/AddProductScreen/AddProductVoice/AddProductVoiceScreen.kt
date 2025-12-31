@@ -25,10 +25,12 @@ import com.example.domain.model.Product
 import com.example.myration.ui.AddProductScreen.ScanFoodScreen.ProductListFromTextWidget
 import com.example.theme.SecondaryBackgroundColor
 import com.example.myration.viewModels.AddProductVoiceViewModel
+import com.example.myration.viewModels.MainViewModel
 
 @Composable
 fun AddProductVoiceScreen(
-    viewModel: AddProductVoiceViewModel = hiltViewModel()
+    viewModel: AddProductVoiceViewModel = hiltViewModel(),
+    mainViewModel: MainViewModel
 ) {
     val screenState = viewModel.state.collectAsState()
     val context = LocalContext.current

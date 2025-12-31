@@ -16,11 +16,13 @@ import com.example.core_ui.custom_windows.ErrorMessage
 import com.example.domain.model.MeasurementMetric
 import com.example.domain.model.Product
 import com.example.myration.mvi.state.ImageScanState
+import com.example.myration.viewModels.MainViewModel
 import com.example.myration.viewModels.ScanFoodViewModel
 
 @Composable
 fun ScanFoodScreen(
-    viewModel: ScanFoodViewModel = hiltViewModel()
+    viewModel: ScanFoodViewModel = hiltViewModel(),
+    mainViewModel: MainViewModel
 ) {
     val context = LocalContext.current
     val screenState = viewModel.scanImageState.collectAsState()
@@ -77,9 +79,6 @@ fun ScanFoodScreen(
                 )
             }
         }
-        is ImageScanState.ImageScanningError -> ErrorMessage(
-            message = state.message,
-            onDismiss = {viewModel.returnToPickingImage()}
-        )
+        is ImageScanState.ImageScanningError -> mainViewModel.showError(message = state.message)
     }
 }

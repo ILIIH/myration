@@ -6,5 +6,4 @@ import com.example.myration.mvi.intent.ProfileEvents
 
 @Immutable
 sealed class RationHistoryEffect : Reducer.ViewEffect {
-    data object RationHistoryLoading: RationHistoryEffect()
 }

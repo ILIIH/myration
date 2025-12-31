@@ -45,28 +45,25 @@ import com.example.myration.mvi.state.AddProductManuallyViewState
 import com.example.theme.PrimaryColor
 import com.example.theme.SecondaryBackgroundColor
 import com.example.myration.viewModels.AddProductViewModel
+import com.example.myration.viewModels.MainViewModel
 import com.example.theme.MyRationTypography
 
 @Composable
 fun AddProductManuallyScreen(
-    viewModel: AddProductViewModel = hiltViewModel()
+    viewModel: AddProductViewModel = hiltViewModel(),
+    mainViewModel: MainViewModel
 ) {
-    var uploadState = viewModel.state.collectAsState()
+    val uploadState = viewModel.state.collectAsState()
 
     when (val state = uploadState.value) {
         is AddProductManuallyViewState.Idle -> {
+            mainViewModel.setLoading(false)
             AddProductManuallyScreenLoaded(viewModel)
         }
-        is AddProductManuallyViewState.Loading -> {
-            CircularProgressIndicator()
-        }
-        is AddProductManuallyViewState.Error -> {
-            ErrorMessage(
-                message = state.message,
-                onDismiss = {viewModel.returnToAddingStage()}
-            )
-        }
+        is AddProductManuallyViewState.Loading -> mainViewModel.setLoading(true)
+        is AddProductManuallyViewState.Error -> mainViewModel.showError(message = state.message)
         is AddProductManuallyViewState.Loaded -> {
+            mainViewModel.setLoading(false)
             SuccessMessage(
                 message = "Successfully added a new product",
                 onDismiss = {viewModel.returnToAddingStage()}

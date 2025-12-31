@@ -20,7 +20,6 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -49,8 +48,9 @@ import com.example.myration.R
 import com.example.myration.mvi.effects.ProductDetailsEffect
 import com.example.myration.mvi.state.ProductDetailViewState
 import com.example.myration.navigation.NavigationRoute
-import com.example.myration.ui.DataMap.getBadgesDesc
+import com.example.myration.maping.getBadgesDesc
 import com.example.myration.viewModels.GroceriesDetailsViewModel
+import com.example.myration.viewModels.MainViewModel
 import com.example.theme.PrimaryTransparentColor
 import com.example.theme.SecondaryColor
 import com.example.theme.SecondaryHalfTransparentColor
@@ -59,7 +59,8 @@ import com.example.theme.MyRationTypography
 @Composable
 fun GroceriesDetailsScreen(
     viewModel: GroceriesDetailsViewModel = hiltViewModel(),
-    navController: NavHostController
+    navController: NavHostController,
+    mainViewModel: MainViewModel
 ) {
     val productUpload = viewModel.state.collectAsState()
     val showDeleteDialogue = remember{ mutableStateOf(false) }
@@ -85,6 +86,7 @@ fun GroceriesDetailsScreen(
 
     when (val state = productUpload.value) {
         is ResultState.Success -> {
+            mainViewModel.setLoading(false)
             ProductDetailsLoaded(
                 state.data,
                 onDeleteProduct = { showDeleteDialogue.value = true},
@@ -119,15 +121,10 @@ fun GroceriesDetailsScreen(
             }
         }
         is ResultState.Loading -> {
-            CircularProgressIndicator()
+            mainViewModel.setLoading(true)
         }
         is ResultState.Error -> {
-            Text(
-                text = "Error: ${state.message}",
-                color = Color.Red,
-                textAlign = TextAlign.Center,
-                modifier = Modifier.fillMaxWidth()
-            )
+            mainViewModel.showError(message = state.message)
         }
     }
 }

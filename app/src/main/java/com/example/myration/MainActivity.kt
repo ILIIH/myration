@@ -2,24 +2,31 @@ package com.example.myration
 
 import android.annotation.SuppressLint
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.result.contract.ActivityResultContract
 import androidx.activity.viewModels
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
-import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
 import androidx.health.connect.client.HealthConnectClient
 import androidx.health.connect.client.PermissionController
 import androidx.navigation.compose.rememberNavController
+import com.example.core_ui.custom_windows.ErrorMessage
+import com.example.core_ui.custom_windows.LoadingWindow
 import com.example.myration.navigation.AppNavHost
 import com.example.myration.navigation.BottomNavigationBar
 import com.example.myration.viewModels.MainViewModel
 import com.example.theme.MyRationTheme
 import dagger.hilt.android.AndroidEntryPoint
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
@@ -32,39 +39,35 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         hideSystemNavBar()
         setContent {
+            val uiState by mainViewModel.uiState.collectAsStateWithLifecycle()
+
             MyRationTheme {
-                val uiState = mainViewModel.uiState.collectAsState()
-
-                Surface(
-                    modifier = Modifier.fillMaxSize()
-                ) {
-                    val navController = rememberNavController()
-                    Scaffold(
-                        bottomBar = {
-                            BottomNavigationBar(navController)
+                Box(modifier = Modifier.fillMaxSize()) {
+                    Surface(modifier = Modifier.fillMaxSize()) {
+                        val navController = rememberNavController()
+                        Scaffold(
+                            bottomBar = { BottomNavigationBar(navController) }
+                        ) { paddingValues ->
+                            Box(modifier = Modifier.padding(paddingValues)) {
+                                AppNavHost(
+                                    navController = navController,
+                                    mainViewModel = mainViewModel
+                                )
+                            }
                         }
-                    ) {
-                        AppNavHost(
-                            navController = navController
-                        )
                     }
 
-                    if (uiState.value.isLoading) {
-                        LoadingOverlay()
+                    if (uiState.isLoading) {
+                        LoadingWindow()
                     }
 
-                    // Layer 2: Error (Shows on top of everything)
-                    uiState.value.errorMessage?.let { message ->
-                        ErrorDialog(
+                    uiState.errorMessage?.let { message ->
+                        ErrorMessage(
                             message = message,
                             onDismiss = { mainViewModel.clearError() }
                         )
                     }
-
                 }
-
-
-
             }
         }
     }
