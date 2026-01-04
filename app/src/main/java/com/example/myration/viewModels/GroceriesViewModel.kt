@@ -1,6 +1,5 @@
 package com.example.myration.viewModels
 
-import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
 import androidx.paging.PagingData
 import androidx.paging.cachedIn
@@ -14,11 +13,7 @@ import com.example.myration.mvi.reducer.GroceriesReducer
 import com.example.myration.mvi.state.GroceriesViewState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
-import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.asStateFlow
-import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -29,7 +24,7 @@ class GroceriesViewModel @Inject constructor( private val repository: ProductsRe
     initialState = GroceriesViewState.initial(),
     reducer = GroceriesReducer()
 )  {
-    private val _productList = repository.getAllProducts()
+    private val _productList = repository.getAllProductsPaging()
         .cachedIn(viewModelScope)
         .stateIn(
             scope = viewModelScope,

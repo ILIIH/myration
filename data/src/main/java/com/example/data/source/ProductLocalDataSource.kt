@@ -18,8 +18,10 @@ interface ProductLocalDataSource {
     suspend fun deleteProductById(id: Int)
 
     @Query("SELECT * FROM products")
-    fun getAllProduct(): PagingSource<Int, ProductEntity>
+    fun getAllProductPaging(): PagingSource<Int, ProductEntity>
 
+    @Query("SELECT * FROM products")
+    fun getAllProduct(): List<ProductEntity>
     @Query("SELECT * FROM products WHERE id = :id")
     suspend fun getProductById(id: Int): ProductEntity
 }
