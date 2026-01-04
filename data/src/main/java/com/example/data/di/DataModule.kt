@@ -13,6 +13,7 @@ import com.example.data.source.TokenizationApi
 import com.example.data.source.ProductLocalDataSource
 import com.example.data.source.RecipeApiService
 import com.example.data.source.RecipeDataSource
+import com.example.data.usecase.GetSoonExpiredProductsImp
 import com.example.domain.repository.CalorieRepository
 import com.example.domain.repository.FiltersRepository
 import com.example.domain.repository.ProductsRepository
@@ -34,6 +35,10 @@ object DataModule {
         return ProductsRepositoryImp(dataSource, imageAnalyzedFactory)
     }
 
+    @Provides
+    fun provideGetSoonExpUseCase(repository: ProductsRepository): GetSoonExpiredProductsImp {
+        return GetSoonExpiredProductsImp(repository)
+    }
     @Provides
     fun provideTokenizationRepository(
         huggingFaceApi: TokenizationApi

@@ -5,8 +5,6 @@ import androidx.paging.PagingConfig
 import androidx.paging.PagingData
 import androidx.paging.map
 import com.example.core.media.image.ImageAnalyzedFactory
-import com.example.core.media.image.ImageFoodAnalyzer
-import com.example.core.media.image.ImageReceiptAnalyzer
 import com.example.data.model.maping.toData
 import com.example.data.model.maping.toDomain
 import com.example.data.source.ProductLocalDataSource
@@ -31,14 +29,18 @@ class ProductsRepositoryImp @Inject constructor(
     override suspend fun updateProduct(product: Product){
         dataSource.updateProduct(product.toData())
     }
-    override fun getAllProducts(): Flow<PagingData<Product>> {
+    override fun getAllProductsPaging(): Flow<PagingData<Product>> {
         return Pager(
             config = PagingConfig(pageSize = 20),
-            pagingSourceFactory = { dataSource.getAllProduct() }
+            pagingSourceFactory = { dataSource.getAllProductPaging() }
         ).flow
             .map { pagingData ->
                 pagingData.map { it.toDomain() }
             }
+    }
+
+    override suspend fun getAllProducts(): List<Product>{
+        return dataSource.getAllProduct().map { it.toDomain() }
     }
 
     override suspend fun getProductById(id: Int): Product {
