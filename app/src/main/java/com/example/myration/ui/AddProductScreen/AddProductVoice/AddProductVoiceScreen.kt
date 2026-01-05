@@ -19,13 +19,13 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.hilt.navigation.compose.hiltViewModel
-import com.example.core_ui.custom_windows.EditProductDialogue
+import com.example.coreUi.customWindows.EditProductDialogue
 import com.example.domain.model.MeasurementMetric
 import com.example.domain.model.Product
 import com.example.myration.ui.AddProductScreen.ScanFoodScreen.ProductListFromTextWidget
-import com.example.theme.SecondaryBackgroundColor
 import com.example.myration.viewModels.AddProductVoiceViewModel
 import com.example.myration.viewModels.MainViewModel
+import com.example.theme.SecondaryBackgroundColor
 
 @Composable
 fun AddProductVoiceScreen(
@@ -35,7 +35,7 @@ fun AddProductVoiceScreen(
     val screenState = viewModel.state.collectAsState()
     val context = LocalContext.current
 
-    val productToEdit = remember{ mutableStateOf<Product?>(null) }
+    val productToEdit = remember { mutableStateOf<Product?>(null) }
 
     val permissions = arrayOf(
         RECORD_AUDIO,
@@ -57,27 +57,26 @@ fun AddProductVoiceScreen(
             .background(SecondaryBackgroundColor)
     ) {
         RecordingWidget(
-            screenState.value.isRecording ,
+            screenState.value.isRecording,
             screenState.value.recordingProgress,
             viewModel.MAX_RECORD_LENGTH,
             viewModel::startRecording,
             viewModel::stopRecorder
         )
-        if(screenState.value.productList.isEmpty()){
+        if (screenState.value.productList.isEmpty()) {
             TextFromAudioWidget(screenState.value.recordingResult)
-        }
-        else {
+        } else {
             ProductListFromTextWidget(
                 products = screenState.value.productList,
-                editProduct = {product -> productToEdit.value = product},
+                editProduct = { product -> productToEdit.value = product },
                 removeProduct = viewModel::removeProduct,
                 submitProduct = viewModel::submitProducts
             )
-            if(productToEdit.value!= null){
+            if (productToEdit.value != null) {
                 EditProductDialogue(
                     product = productToEdit.value!!,
                     message = "Edit your product",
-                    onDismiss = {productToEdit.value = null},
+                    onDismiss = { productToEdit.value = null },
                     onEdit = { productWeight, productName, productMeasurementMetric, productExpiration ->
                         viewModel.editProduct(
                             Product(
@@ -85,7 +84,7 @@ fun AddProductVoiceScreen(
                                 quantity = productWeight.toFloat(),
                                 name = productName,
                                 measurementMetric = MeasurementMetric.fromDesc(productMeasurementMetric),
-                                expirationDate =  productExpiration
+                                expirationDate = productExpiration
                             )
                         )
                         productToEdit.value = null

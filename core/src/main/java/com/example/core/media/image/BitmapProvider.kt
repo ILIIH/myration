@@ -9,7 +9,7 @@ import android.net.Uri
 import java.io.InputStream
 
 class BitmapProvider(private val context: Context) {
-    fun getBitmapFromUri(uri: Uri, width : Int, height: Int ): Bitmap?{
+    fun getBitmapFromUri(uri: Uri, width: Int, height: Int): Bitmap? {
         try {
             val originalBitmap = decodeSampledBitmapFromStream(
                 inputStreamProvider = { context.contentResolver.openInputStream(uri)!! },
@@ -38,7 +38,8 @@ class BitmapProvider(private val context: Context) {
 
             return Bitmap.createBitmap(
                 originalBitmap,
-                0, 0,
+                0,
+                0,
                 originalBitmap.width,
                 originalBitmap.height,
                 matrix,
@@ -90,6 +91,4 @@ class BitmapProvider(private val context: Context) {
 
         return inSampleSize
     }
-
-
 }

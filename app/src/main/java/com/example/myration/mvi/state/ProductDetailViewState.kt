@@ -5,5 +5,5 @@ import com.example.domain.model.Recipe
 
 data class ProductDetailViewState(
     val product: Product,
-    val recipes : List<Recipe>
+    val recipes: List<Recipe>
 )

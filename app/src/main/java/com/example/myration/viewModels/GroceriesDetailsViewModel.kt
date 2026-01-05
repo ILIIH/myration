@@ -1,29 +1,18 @@
 package com.example.myration.viewModels
 
 import androidx.lifecycle.SavedStateHandle
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.core.mvi.BaseViewModel
 import com.example.core.mvi.ResultState
-import com.example.domain.model.CalorieCounter
 import com.example.domain.model.MeasurementMetric
 import com.example.domain.model.Product
-import com.example.domain.repository.CalorieRepository
 import com.example.domain.repository.ProductsRepository
 import com.example.domain.repository.RecipeRepository
-import com.example.myration.mvi.effects.GroceriesEffect
 import com.example.myration.mvi.effects.ProductDetailsEffect
-import com.example.myration.mvi.intent.GroceriesEvents
 import com.example.myration.mvi.intent.ProductDetailsEvents
-import com.example.myration.mvi.reducer.GroceriesReducer
 import com.example.myration.mvi.reducer.ProductDetailsReducer
-import com.example.myration.mvi.state.GroceriesViewState
 import com.example.myration.mvi.state.ProductDetailViewState
-import com.example.myration.mvi.state.RecipeDetailViewState
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -35,23 +24,26 @@ class GroceriesDetailsViewModel @Inject constructor(
 ) : BaseViewModel<ResultState<ProductDetailViewState>, ProductDetailsEvents, ProductDetailsEffect>(
     initialState = ResultState.Loading,
     reducer = ProductDetailsReducer()
-)   {
+) {
 
     private val productId: Int? = savedStateHandle["productId"]
 
     init {
         viewModelScope.launch {
             try {
-                val product = productRepository.getProductById(productId?:0)
+                val product = productRepository.getProductById(productId ?: 0)
                 val recipes = recipeRepository.getRecipesForProduct(product)
 
-                sendEvent(ProductDetailsEvents.ProductLoaded(ProductDetailViewState(
-                    product = product,
-                    recipes = recipes
-                )))
-            }
-            catch (e: Exception) {
-                sendEvent(ProductDetailsEvents.ProductDetailsError(e.message?:String()))
+                sendEvent(
+                    ProductDetailsEvents.ProductLoaded(
+                        ProductDetailViewState(
+                            product = product,
+                            recipes = recipes
+                        )
+                    )
+                )
+            } catch (e: Exception) {
+                sendEvent(ProductDetailsEvents.ProductDetailsError(e.message ?: String()))
             }
         }
     }
@@ -63,13 +55,12 @@ class GroceriesDetailsViewModel @Inject constructor(
     fun deleteProduct() {
         viewModelScope.launch {
             try {
-                if(productId!=null){
+                if (productId != null) {
                     productRepository.removeProductById(productId)
                     sendEvent(ProductDetailsEvents.ProductDeleted)
                 }
-            }
-            catch (e: Exception) {
-                sendEvent(ProductDetailsEvents.ProductDetailsError(e.message?:String()))
+            } catch (e: Exception) {
+                sendEvent(ProductDetailsEvents.ProductDetailsError(e.message ?: String()))
             }
         }
     }
@@ -77,7 +68,7 @@ class GroceriesDetailsViewModel @Inject constructor(
         newProductWeight: String,
         newProductName: String,
         newProductMeasurementMetric: String,
-        newProductExpiration : String
+        newProductExpiration: String
     ) {
         viewModelScope.launch {
             try {
@@ -91,9 +82,8 @@ class GroceriesDetailsViewModel @Inject constructor(
                 productRepository.updateProduct(newProduct)
                 sendEvent(ProductDetailsEvents.ProductUpdated(newProduct))
             } catch (e: Exception) {
-                sendEvent(ProductDetailsEvents.ProductDetailsError(e.message?:String()))
+                sendEvent(ProductDetailsEvents.ProductDetailsError(e.message ?: String()))
             }
         }
     }
-
 }

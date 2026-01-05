@@ -4,23 +4,19 @@ import android.content.Context
 import android.util.Log
 import com.example.domain.model.MeasurementMetric
 import com.example.domain.model.Product
-import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Deferred
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
-import kotlinx.coroutines.withContext
 import java.io.File
-import kotlin.coroutines.CoroutineContext
 import kotlin.math.abs
-
 
 class WhisperEngineNative(private val mContext: Context) : WhisperEngine {
 
     init {
         val model = getFileFromAssets(mContext, "whisper-tiny.en.tflite")
         val vocab = getFileFromAssets(mContext, "filters_vocab_en.bin")
-        initialize(model.absolutePath, vocab.absolutePath, false )
+        initialize(model.absolutePath, vocab.absolutePath, false)
     }
 
     private val TAG = "WhisperEngineNative"
@@ -49,13 +45,13 @@ class WhisperEngineNative(private val mContext: Context) : WhisperEngine {
         return transcribeBuffer(nativePtr, samples)
     }
 
-    override suspend fun transcribeFile(waveFile: String?): Deferred<String?>{
+    override suspend fun transcribeFile(waveFile: String?): Deferred<String?> {
         return CoroutineScope(Dispatchers.IO).async {
             transcribeFile(nativePtr, waveFile)
         }
     }
 
-    override suspend fun transcribeString(recordResult: String): Deferred<List<Product>>{
+    override suspend fun transcribeString(recordResult: String): Deferred<List<Product>> {
         return CoroutineScope(Dispatchers.IO).async {
             val lowerText = recordResult.lowercase()
 
@@ -79,13 +75,16 @@ class WhisperEngineNative(private val mContext: Context) : WhisperEngine {
                 val nameSub = lowerText.substring(productNameStart, minOf(lowerText.length, dateIndex))
                 val name = Regex("""([a-z]{2,}(?:\s+[a-z]{2,}){0,2})""").find(nameSub)?.value?.trim() ?: "unknown"
 
-                results.add(Product(
-                    name = name,
-                    quantity = qtyValue,
-                    measurementMetric = MeasurementMetric.valueOf(metric),
-                    expirationDate = date))
+                results.add(
+                    Product(
+                        name = name,
+                        quantity = qtyValue,
+                        measurementMetric = MeasurementMetric.valueOf(metric),
+                        expirationDate = date
+                    )
+                )
             }
-            Log.i("product_loggig",results.toString())
+            Log.i("product_loggig", results.toString())
             results
         }
     }

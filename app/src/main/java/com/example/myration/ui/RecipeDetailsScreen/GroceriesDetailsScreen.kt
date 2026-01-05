@@ -42,17 +42,17 @@ import androidx.wear.compose.material.Button
 import androidx.wear.compose.material.ButtonDefaults
 import coil.compose.AsyncImage
 import com.example.core.mvi.ResultState
-import com.example.core_ui.custom_views.CalorieCounter
+import com.example.coreUi.customViews.CalorieCounter
 import com.example.domain.model.CalorieCounter
 import com.example.domain.model.RecipeIngredient
 import com.example.myration.R
 import com.example.myration.mvi.state.RecipeDetailViewState
+import com.example.myration.viewModels.RecipeDetailsViewModel
+import com.example.theme.MyRationTypography
 import com.example.theme.PrimaryColor
 import com.example.theme.PrimaryTransparentColor
 import com.example.theme.SecondaryColor
 import com.example.theme.SecondaryHalfTransparentColor
-import com.example.theme.MyRationTypography
-import com.example.myration.viewModels.RecipeDetailsViewModel
 
 @Composable
 fun RecipeDetailsScreen(
@@ -79,7 +79,6 @@ fun RecipeDetailsScreen(
     }
 }
 
-
 @Composable
 fun RecipeDetailsLoaded(state: RecipeDetailViewState, calorieInfo: CalorieCounter) {
     Column(
@@ -93,7 +92,7 @@ fun RecipeDetailsLoaded(state: RecipeDetailViewState, calorieInfo: CalorieCounte
         CalorieCounter(
             currentCalorie = calorieInfo.currentCalorie,
             maxCalorie = calorieInfo.maxCalorie,
-            productCalorie = state.kcal,
+            productCalorie = state.kcal
         )
         BlocksDivider()
         IngredientsList(state.ingredients)

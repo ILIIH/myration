@@ -1,4 +1,4 @@
-package com.example.core_ui.custom_views
+package com.example.coreUi.customViews
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -20,47 +20,47 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.unit.dp
 import com.example.annotations.DevicePreviews
-import com.example.theme.SecondaryColor
 import com.example.theme.MyRationTypography
+import com.example.theme.SecondaryColor
 
 @Composable
 fun CalorieCounter(
     currentCalorie: Float,
     maxCalorie: Float,
-    productCalorie: Int  = 0,
+    productCalorie: Int = 0
 ) {
-    Row (
+    Row(
         modifier = Modifier.fillMaxWidth()
             .padding(30.dp)
             .height(140.dp),
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.Center
-    ){
-        Column (
+    ) {
+        Column(
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.Center
-        ){
+        ) {
             CalorieCounterWidget(
                 modifier = Modifier
                     .height(80.dp)
                     .width(80.dp)
-                    .semantics{ contentDescription = "Calorie widget, shows currentCalorie = $currentCalorie and maxCalorie = $maxCalorie and productCalorie = $productCalorie" },
-                currentCalorie = if(currentCalorie > maxCalorie) maxCalorie else currentCalorie,
+                    .semantics { contentDescription = "Calorie widget, shows currentCalorie = $currentCalorie and maxCalorie = $maxCalorie and productCalorie = $productCalorie" },
+                currentCalorie = if (currentCalorie > maxCalorie) maxCalorie else currentCalorie,
                 maxCalorie = maxCalorie,
-                caloriesToEat = if(currentCalorie > maxCalorie) 0 else productCalorie
+                caloriesToEat = if (currentCalorie > maxCalorie) 0 else productCalorie
             )
             Text(
                 text = "${currentCalorie.toInt()} KCAL",
                 style = MyRationTypography.displayLarge,
-                color = SecondaryColor,
+                color = SecondaryColor
             )
         }
 
-        Column (
+        Column(
             modifier = Modifier.fillMaxWidth().padding(all = 10.dp),
             verticalArrangement = Arrangement.Center,
             horizontalAlignment = Alignment.CenterHorizontally
-        ){
+        ) {
             Text(
                 text = buildAnnotatedString {
                     append("Max calories : ")
@@ -71,12 +71,12 @@ fun CalorieCounter(
                 },
                 style = MyRationTypography.displaySmall,
                 color = SecondaryColor,
-                modifier = Modifier.padding(horizontal = 20.dp).semantics{ contentDescription = "Max calories for day text" },
+                modifier = Modifier.padding(horizontal = 20.dp).semantics { contentDescription = "Max calories for day text" },
                 textAlign = TextAlign.Justify
             )
             Text(
                 text = buildAnnotatedString {
-                    if(productCalorie!=0){
+                    if (productCalorie != 0) {
                         withStyle(style = SpanStyle(fontWeight = FontWeight.ExtraBold)) {
                             append("${currentCalorie.toInt()} : ")
                         }
@@ -113,8 +113,9 @@ fun CalorieCounter(
         }
     }
 }
+
 @DevicePreviews
 @Composable
-fun CalorieCounterPreview(){
-    CalorieCounter(2000f,4000f, 200)
+fun CalorieCounterPreview() {
+    CalorieCounter(2000f, 4000f, 200)
 }

@@ -3,7 +3,6 @@ package com.whispercpp.whisper
 import android.content.res.AssetManager
 import android.os.Build
 import android.util.Log
-import kotlinx.coroutines.*
 import java.io.File
 import java.io.InputStream
 import java.util.concurrent.Executors

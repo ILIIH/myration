@@ -4,11 +4,8 @@ import android.util.Log
 import com.example.core.mvi.Reducer
 import com.example.core.mvi.ResultState
 import com.example.domain.model.Recipe
-import com.example.myration.mvi.effects.AddProductManuallyEffect
 import com.example.myration.mvi.effects.ProductDetailsEffect
-import com.example.myration.mvi.intent.AddProductManuallyEvents
 import com.example.myration.mvi.intent.ProductDetailsEvents
-import com.example.myration.mvi.state.AddProductManuallyViewState
 import com.example.myration.mvi.state.ProductDetailViewState
 
 class ProductDetailsReducer : Reducer<ResultState<ProductDetailViewState>, ProductDetailsEvents, ProductDetailsEffect> {
@@ -18,7 +15,7 @@ class ProductDetailsReducer : Reducer<ResultState<ProductDetailViewState>, Produ
     ): Pair<ResultState<ProductDetailViewState>, ProductDetailsEffect?> {
         Log.i("reducing_logging", "event reduced -> ${event.javaClass}")
 
-        return when(event){
+        return when (event) {
             is ProductDetailsEvents.ProductDetailsLoading -> {
                 ResultState.Loading to null
             }
@@ -35,7 +32,7 @@ class ProductDetailsReducer : Reducer<ResultState<ProductDetailViewState>, Produ
                 previousState to ProductDetailsEffect.NavigateToGroceriesList
             }
             is ProductDetailsEvents.ProductUpdated -> {
-                val recipes = if(previousState is ResultState.Success) previousState.data.recipes  else listOf<Recipe>()
+                val recipes = if (previousState is ResultState.Success) previousState.data.recipes else listOf<Recipe>()
                 ResultState.Success(
                     ProductDetailViewState(
                         product = event.product,

@@ -28,13 +28,13 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
-import com.example.core_ui.list_modifiers.BadgeWidget
+import com.example.coreUi.listModifiers.BadgeWidget
 import com.example.domain.model.Recipe
 import com.example.myration.R
 import com.example.myration.maping.getBadgesDesc
+import com.example.theme.MyRationTypography
 import com.example.theme.SecondaryColor
 import com.example.theme.SecondaryHalfTransparentColor
-import com.example.theme.MyRationTypography
 
 @Composable
 fun RecipesList(recipeList: List<Recipe>, navigateToRecipeDetails: (recipeId: Int) -> Unit) {
@@ -46,9 +46,11 @@ fun RecipesList(recipeList: List<Recipe>, navigateToRecipeDetails: (recipeId: In
             ) {
                 if (index % 2 == 0) {
                     chunk.take(2).forEach { recipe ->
-                        Box(modifier = Modifier
-                            .weight(1f)
-                            .clickable { navigateToRecipeDetails(recipe.id) }) {
+                        Box(
+                            modifier = Modifier
+                                .weight(1f)
+                                .clickable { navigateToRecipeDetails(recipe.id) }
+                        ) {
                             RecipeItemShort(recipe)
                             recipe.getBadgesDesc()?.let {
                                 BadgeWidget(it)
@@ -62,11 +64,12 @@ fun RecipesList(recipeList: List<Recipe>, navigateToRecipeDetails: (recipeId: In
         }
     }
 }
+
 @Composable
 fun RecipeItemLong(recipe: Recipe, modified: Modifier) {
     Box(
         modifier = modified.padding(top = 15.dp)
-        ){
+    ) {
         Row(
             modifier = modified
                 .padding(horizontal = 10.dp, vertical = 25.dp)
@@ -127,9 +130,7 @@ fun RecipeItemLong(recipe: Recipe, modified: Modifier) {
             }
         }
         recipe.getBadgesDesc()?.let { BadgeWidget(it) }
-
     }
-
 }
 
 @Composable

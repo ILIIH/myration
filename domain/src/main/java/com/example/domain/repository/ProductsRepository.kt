@@ -12,5 +12,4 @@ interface ProductsRepository {
     suspend fun getAllProducts(): List<Product>
     suspend fun getProductById(id: Int): Product
     suspend fun getAllProductFromPhoto(uri: String, type: ScanningType): List<Product>
-
 }

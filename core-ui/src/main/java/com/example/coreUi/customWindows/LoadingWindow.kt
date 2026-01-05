@@ -1,4 +1,4 @@
-package com.example.core_ui.custom_windows
+package com.example.coreUi.customWindows
 
 import android.os.Build.VERSION.SDK_INT
 import androidx.compose.foundation.background
@@ -24,7 +24,7 @@ import coil3.ImageLoader
 import coil3.compose.AsyncImage
 import coil3.gif.AnimatedImageDecoder
 import coil3.gif.GifDecoder
-import com.example.core_ui.R
+import com.example.coreUi.R
 import com.example.theme.MyRationTypography
 
 @Composable
@@ -45,7 +45,7 @@ fun LoadingWindow() {
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
                 Text(
-                    modifier = Modifier.padding(top=20.dp),
+                    modifier = Modifier.padding(top = 20.dp),
                     text = "Loading ...",
                     style = MyRationTypography.displayLarge,
                     color = Color.Black

@@ -10,7 +10,7 @@ class AddProductManuallyReducer : Reducer<AddProductManuallyViewState, AddProduc
         previousState: AddProductManuallyViewState,
         event: AddProductManuallyEvents
     ): Pair<AddProductManuallyViewState, AddProductManuallyEffect?> {
-        return when(event){
+        return when (event) {
             is AddProductManuallyEvents.ProductAdded -> {
                 AddProductManuallyViewState.Loaded to null
             }

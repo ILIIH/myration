@@ -32,16 +32,16 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.paging.LoadState
 import androidx.paging.compose.LazyPagingItems
-import com.example.core_ui.list_modifiers.BadgeWidget
+import com.example.coreUi.listModifiers.BadgeWidget
 import com.example.domain.model.Product
 import com.example.myration.R
 import com.example.myration.maping.getBadgesDesc
+import com.example.theme.MyRationTypography
 import com.example.theme.SecondaryColor
 import com.example.theme.SecondaryHalfTransparentColor
-import com.example.theme.MyRationTypography
 
 @Composable
-fun GroceriesList(productsList: LazyPagingItems<Product>, removeProduct: (productId: Int) -> Unit, navigateToDetailsScreen : (id: Int) -> Unit) {
+fun GroceriesList(productsList: LazyPagingItems<Product>, removeProduct: (productId: Int) -> Unit, navigateToDetailsScreen: (id: Int) -> Unit) {
     val productItems = productsList.itemSnapshotList.items.chunked(2)
     LazyColumn(
         modifier = Modifier.padding(top = 50.dp, start = 20.dp, end = 20.dp)
@@ -71,7 +71,6 @@ fun GroceriesList(productsList: LazyPagingItems<Product>, removeProduct: (produc
             }
         }
 
-
         productsList.apply {
             when {
                 loadState.append is LoadState.Loading -> {
@@ -88,7 +87,6 @@ fun GroceriesList(productsList: LazyPagingItems<Product>, removeProduct: (produc
             }
         }
     }
-
 }
 
 @Composable
@@ -153,7 +151,7 @@ fun ProductItem(product: Product, onDelete: (id: Int) -> Unit, modifier: Modifie
 
         // 2. Delete icon (top-left corner, over everything)
         Image(
-            painter = painterResource(id = com.example.core_ui.R.drawable.ic_baseline_close),
+            painter = painterResource(id = com.example.coreUi.R.drawable.ic_baseline_close),
             contentDescription = "remove product button",
             modifier = Modifier
                 .padding(top = 30.dp, start = 10.dp)
@@ -161,7 +159,7 @@ fun ProductItem(product: Product, onDelete: (id: Int) -> Unit, modifier: Modifie
                 .align(Alignment.TopStart)
                 .clip(CircleShape)
                 .border(2.dp, SecondaryHalfTransparentColor, CircleShape)
-                .clickable { onDelete(product.id?:0) }
+                .clickable { onDelete(product.id ?: 0) }
                 .padding(2.dp)
         )
 

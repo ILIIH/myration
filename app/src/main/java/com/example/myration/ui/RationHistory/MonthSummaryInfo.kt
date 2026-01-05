@@ -5,7 +5,6 @@ import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -18,7 +17,7 @@ import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import com.example.core_ui.custom_views.PieChart
+import com.example.coreUi.customViews.PieChart
 import com.example.domain.model.PieChartItem
 import com.example.theme.MyRationTypography
 import com.example.theme.PrimaryLightColor
@@ -28,7 +27,7 @@ import java.util.Date
 import java.util.Locale
 
 @Composable
-fun MonthSummaryInfo(monthlyFailSuccessList: List<PieChartItem> , date: Date ){
+fun MonthSummaryInfo(monthlyFailSuccessList: List<PieChartItem>, date: Date) {
     val monthName = SimpleDateFormat("MMMM", Locale.getDefault()).format(date)
 
     Box(
@@ -40,9 +39,9 @@ fun MonthSummaryInfo(monthlyFailSuccessList: List<PieChartItem> , date: Date ){
             .background(
                 color = PrimaryLightColor,
                 shape = RoundedCornerShape(12.dp)
-            ))
-    {
-        Column{
+            )
+    ) {
+        Column {
             Text(
                 modifier = Modifier.fillMaxWidth().padding(top = 20.dp),
                 textAlign = TextAlign.Center,
@@ -56,11 +55,11 @@ fun MonthSummaryInfo(monthlyFailSuccessList: List<PieChartItem> , date: Date ){
                 isDonut = true
             )
             Column(
-                modifier =  Modifier.padding(bottom = 20.dp),
+                modifier = Modifier.padding(bottom = 20.dp),
                 horizontalAlignment = Alignment.CenterHorizontally,
                 verticalArrangement = Arrangement.Center
-            ){
-                for (monthlySummary in monthlyFailSuccessList){
+            ) {
+                for (monthlySummary in monthlyFailSuccessList) {
                     Text(
                         modifier = Modifier.fillMaxWidth().padding(top = 10.dp),
                         textAlign = TextAlign.Center,

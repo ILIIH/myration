@@ -16,12 +16,12 @@ class MainViewModel @Inject constructor() : ViewModel() {
     val uiState = _uiState.asStateFlow()
 
     fun setLoading(loading: Boolean) {
-        Log.i("ui_general_loading", "isLoading = $loading" )
+        Log.i("ui_general_loading", "isLoading = $loading")
         _uiState.update { it.copy(isLoading = loading) }
     }
 
     fun showError(message: String) {
-        Log.i("ui_general_loading", "showError = $message" )
+        Log.i("ui_general_loading", "showError = $message")
         _uiState.update { it.copy(errorMessage = message, isLoading = false) }
     }
 

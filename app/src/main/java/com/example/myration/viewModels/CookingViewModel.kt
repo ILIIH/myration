@@ -20,7 +20,7 @@ class CookingViewModel @Inject constructor(
 ) : BaseViewModel<ResultState<CookingViewState>, CookingEvents, CookingEffect>(
     initialState = ResultState.Loading,
     reducer = CookingReducer()
-)  {
+) {
     init {
         sendEvent(CookingEvents.CookingScreenLoading)
         loadData()
@@ -36,10 +36,10 @@ class CookingViewModel @Inject constructor(
     fun navigateToRecipe(id: Int) {
         sendEffect(CookingEffect.NavigateToRecipeDetails(id))
     }
-    fun applyFilter(id: Int){
+    fun applyFilter(id: Int) {
         sendEvent(CookingEvents.ApplyFilter(id))
     }
-    fun removeFilter(id: Int){
+    fun removeFilter(id: Int) {
         sendEvent(CookingEvents.RemoveFilter(id))
     }
 }

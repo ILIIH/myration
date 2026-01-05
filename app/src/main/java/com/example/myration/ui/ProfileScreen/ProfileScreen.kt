@@ -41,7 +41,7 @@ import androidx.navigation.NavHostController
 import androidx.wear.compose.material.Button
 import androidx.wear.compose.material.ButtonDefaults
 import com.example.annotations.DevicePreviews
-import com.example.core_ui.custom_views.CalorieCounter
+import com.example.coreUi.customViews.CalorieCounter
 import com.example.data.model.maping.SDF
 import com.example.domain.model.CalorieCounter
 import com.example.domain.model.FoodHistory
@@ -52,11 +52,11 @@ import com.example.myration.ui.RationHistory.FoodHistoryItem
 import com.example.myration.viewModels.MainViewModel
 import com.example.myration.viewModels.ProfileViewModel
 import com.example.myration.widgets.CalorieScreenWidget
+import com.example.theme.MyRationTypography
 import com.example.theme.PrimaryColor
 import com.example.theme.PrimaryLightColor
 import com.example.theme.SecondaryColor
 import com.example.theme.SecondaryHalfTransparentColor
-import com.example.theme.MyRationTypography
 
 @Composable
 fun ProfileScreen(
@@ -90,7 +90,7 @@ fun ProfileScreen(
                 foodHistory = state.foodHistory,
                 showChangeMaxCalorieDialogue = viewModel::showChangeMaxCalorie,
                 showAddEatenProductDialogue = viewModel::showAddEatenProduct,
-                navigateToFoodHistory = {  navController.navigate(NavigationRoute.RATION_HISTORY_SCREEN.route) }
+                navigateToFoodHistory = { navController.navigate(NavigationRoute.RATION_HISTORY_SCREEN.route) }
             )
         }
         is ProfileViewState.ProfileInfoSetUp -> {
@@ -106,26 +106,29 @@ fun ProfileScreen(
 
     // Dialogues
     // TODO("Fix the logic when have time")
-    if (showChangeMaxCalorieDialogue.value != null){
+    if (showChangeMaxCalorieDialogue.value != null) {
         ChangeMaxCalorieDialogue(
             maxCal = showChangeMaxCalorieDialogue.value!!,
-            onDismiss = {showChangeMaxCalorieDialogue.value = null},
+            onDismiss = { showChangeMaxCalorieDialogue.value = null },
             onChange = { newCalorie ->
-                viewModel.setNewMaxCalories(newCalorie){
+                viewModel.setNewMaxCalories(newCalorie) {
                     CalorieScreenWidget().updateAll(context)
                 }
                 showChangeMaxCalorieDialogue.value = null
             }
         )
     }
-    if(showAddEatenProductDialogue.value){
-        AddEatenProductDialogue (
-            onDismiss = {showAddEatenProductDialogue.value = false},
+    if (showAddEatenProductDialogue.value) {
+        AddEatenProductDialogue(
+            onDismiss = { showAddEatenProductDialogue.value = false },
             onAdd = { productCalorie, productName, p, f, c ->
                 viewModel.addEatenProduct(
                     productName = productName,
-                    calorie = productCalorie, p = p, f = f, c =c
-                ){
+                    calorie = productCalorie,
+                    p = p,
+                    f = f,
+                    c = c
+                ) {
                     CalorieScreenWidget().updateAll(context)
                 }
                 showAddEatenProductDialogue.value = false
@@ -133,8 +136,9 @@ fun ProfileScreen(
         )
     }
 }
+
 @Composable
-fun ProfileScreenLoaded(calorieInfo : CalorieCounter, foodHistory: List<FoodHistory>, showChangeMaxCalorieDialogue: () -> Unit, showAddEatenProductDialogue : () -> Unit, navigateToFoodHistory: () -> Unit) {
+fun ProfileScreenLoaded(calorieInfo: CalorieCounter, foodHistory: List<FoodHistory>, showChangeMaxCalorieDialogue: () -> Unit, showAddEatenProductDialogue: () -> Unit, navigateToFoodHistory: () -> Unit) {
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -142,29 +146,29 @@ fun ProfileScreenLoaded(calorieInfo : CalorieCounter, foodHistory: List<FoodHist
             .background(color = SecondaryHalfTransparentColor),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        CalorieInfoSection(calorieInfo,showChangeMaxCalorieDialogue )
+        CalorieInfoSection(calorieInfo, showChangeMaxCalorieDialogue)
         PFCSection(calorieInfo.protein, calorieInfo.fats, calorieInfo.carbohydrates)
         FoodHistorySection(showAddEatenProductDialogue, foodHistory, navigateToFoodHistory)
     }
 }
 
 @Composable
-fun CalorieInfoSection(calorieInfo: CalorieCounter, showChangeMaxCalorieDialogue: () -> Unit)
-{
-    Box ( modifier = Modifier
-        .fillMaxWidth()
-        .padding(top = 90.dp)
-        .padding(20.dp)
-        .background(color = PrimaryLightColor, shape = RoundedCornerShape(4.dp))
+fun CalorieInfoSection(calorieInfo: CalorieCounter, showChangeMaxCalorieDialogue: () -> Unit) {
+    Box(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(top = 90.dp)
+            .padding(20.dp)
+            .background(color = PrimaryLightColor, shape = RoundedCornerShape(4.dp))
     ) {
         CalorieCounter(
             currentCalorie = calorieInfo.currentCalorie,
-            maxCalorie = calorieInfo.maxCalorie,
+            maxCalorie = calorieInfo.maxCalorie
         )
         Button(
             onClick = showChangeMaxCalorieDialogue,
             modifier = Modifier
-                .align (Alignment.BottomEnd)
+                .align(Alignment.BottomEnd)
                 .offset(y = 20.dp, x = 20.dp)
                 .zIndex(1f)
                 .padding(10.dp)
@@ -187,15 +191,16 @@ fun CalorieInfoSection(calorieInfo: CalorieCounter, showChangeMaxCalorieDialogue
 
 @Composable
 fun FoodHistorySection(showAddEatenProductDialogue: () -> Unit, foodHistory: List<FoodHistory>, navigateToFoodHistory: () -> Unit) {
-    Box(modifier = Modifier.fillMaxWidth()
-        .padding(20.dp)
-        .padding(bottom = 90.dp)
-        .background(color = PrimaryLightColor, shape = RoundedCornerShape(4.dp))
+    Box(
+        modifier = Modifier.fillMaxWidth()
+            .padding(20.dp)
+            .padding(bottom = 90.dp)
+            .background(color = PrimaryLightColor, shape = RoundedCornerShape(4.dp))
     ) {
         LazyColumn(
             modifier = Modifier.padding(10.dp).height(240.dp)
         ) {
-            item{
+            item {
                 Text(
                     modifier = Modifier.fillMaxWidth().padding(10.dp),
                     text = "My ration history :",
@@ -209,11 +214,11 @@ fun FoodHistorySection(showAddEatenProductDialogue: () -> Unit, foodHistory: Lis
                     FoodHistoryItem(foodHistory[index])
                 }
             )
-            item{
+            item {
                 Text(
                     text = ". . .",
                     style = MyRationTypography.displayLarge,
-                    modifier = Modifier.fillMaxWidth().clickable{
+                    modifier = Modifier.fillMaxWidth().clickable {
                         navigateToFoodHistory()
                     },
                     textAlign = TextAlign.Center
@@ -223,14 +228,15 @@ fun FoodHistorySection(showAddEatenProductDialogue: () -> Unit, foodHistory: Lis
         Button(
             onClick = showAddEatenProductDialogue,
             modifier = Modifier
-                .align (Alignment.BottomEnd)
+                .align(Alignment.BottomEnd)
                 .offset(y = 20.dp, x = 20.dp)
                 .zIndex(1f)
                 .padding(top = 30.dp)
                 .shadow(elevation = 8.dp, shape = CircleShape),
-                colors = ButtonDefaults.buttonColors(
-                    backgroundColor = PrimaryColor,
-                    contentColor = Color.White )
+            colors = ButtonDefaults.buttonColors(
+                backgroundColor = PrimaryColor,
+                contentColor = Color.White
+            )
         ) {
             Image(
                 painter = painterResource(id = com.example.myration.R.drawable.ic_add_eaten_product),
@@ -240,16 +246,16 @@ fun FoodHistorySection(showAddEatenProductDialogue: () -> Unit, foodHistory: Lis
             )
         }
     }
-
 }
+
 @Composable
-fun PFCSection(protein: Int,fats: Int, carbohydrates: Int ) {
+fun PFCSection(protein: Int, fats: Int, carbohydrates: Int) {
     Row(
         modifier = Modifier
-            .background(color =  PrimaryLightColor, shape = RoundedCornerShape(4.dp)),
+            .background(color = PrimaryLightColor, shape = RoundedCornerShape(4.dp)),
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.Center
-    ){
+    ) {
         Text(
             modifier = Modifier.padding(10.dp),
             text = "P : $protein",

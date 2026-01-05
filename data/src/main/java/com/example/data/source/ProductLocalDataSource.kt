@@ -11,6 +11,7 @@ import com.example.data.model.ProductEntity
 interface ProductLocalDataSource {
     @Update
     suspend fun updateProduct(productEntity: ProductEntity)
+
     @Insert
     suspend fun addProduct(productEntity: ProductEntity)
 
@@ -22,6 +23,7 @@ interface ProductLocalDataSource {
 
     @Query("SELECT * FROM products")
     fun getAllProduct(): List<ProductEntity>
+
     @Query("SELECT * FROM products WHERE id = :id")
     suspend fun getProductById(id: Int): ProductEntity
 }

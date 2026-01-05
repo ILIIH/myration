@@ -1,4 +1,4 @@
-package com.example.core_ui.list_modifiers
+package com.example.coreUi.listModifiers
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -12,11 +12,11 @@ import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import com.example.annotations.DevicePreviews
-import com.example.theme.SecondaryHalfTransparentColor
 import com.example.theme.MyRationTypography
+import com.example.theme.SecondaryHalfTransparentColor
 
 @Composable
-fun BadgeWidget(badgeDesc: Pair<String, Color>, modifier: Modifier = Modifier){
+fun BadgeWidget(badgeDesc: Pair<String, Color>, modifier: Modifier = Modifier) {
     Box(
         modifier = modifier
             .padding(start = 45.dp)
@@ -29,7 +29,7 @@ fun BadgeWidget(badgeDesc: Pair<String, Color>, modifier: Modifier = Modifier){
             .padding(horizontal = 8.dp, vertical = 13.dp)
             .shadow(elevation = 8.dp, shape = RoundedCornerShape(8.dp))
 
-    ){
+    ) {
         Text(
             text = badgeDesc.first,
             style = MyRationTypography.displaySmall,

@@ -2,8 +2,6 @@ package com.example.myration.mvi.effects
 
 import androidx.compose.runtime.Immutable
 import com.example.core.mvi.Reducer
-import com.example.myration.mvi.intent.ProfileEvents
 
 @Immutable
-sealed class RationHistoryEffect : Reducer.ViewEffect {
-}
+sealed class RationHistoryEffect : Reducer.ViewEffect

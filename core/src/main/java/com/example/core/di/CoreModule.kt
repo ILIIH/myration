@@ -23,20 +23,23 @@ object CoreModule {
     fun provideAudioRecorder(@ApplicationContext context: Context): WavAudioRecorder {
         return WavAudioRecorder(context)
     }
+
     @Provides
-    fun provideImageReceiptAnalyzer(@ApplicationContext context: Context, bitmapProvider: BitmapProvider, tokenizationRepository: TokenizationRepository):ImageReceiptAnalyzer {
+    fun provideImageReceiptAnalyzer(@ApplicationContext context: Context, bitmapProvider: BitmapProvider, tokenizationRepository: TokenizationRepository): ImageReceiptAnalyzer {
         return ImageReceiptAnalyzer(
             context = context,
             bitmapProvider = bitmapProvider,
             tokenizationRepository = tokenizationRepository
         )
     }
+
     @Provides
     fun provideImageGroceryAnalyzed(): ImageGroceryAnalyzed {
         return ImageGroceryAnalyzed()
     }
+
     @Provides
-    fun provideImageAnalyzedFactory(imageGroceryAnalyzed : ImageGroceryAnalyzed, imageFoodAnalyzer: ImageFoodAnalyzer): ImageAnalyzedFactory {
+    fun provideImageAnalyzedFactory(imageGroceryAnalyzed: ImageGroceryAnalyzed, imageFoodAnalyzer: ImageFoodAnalyzer): ImageAnalyzedFactory {
         return ImageAnalyzedFactory(imageGroceryAnalyzed, imageFoodAnalyzer)
     }
 
@@ -44,8 +47,9 @@ object CoreModule {
     fun provideImageFoodAnalyzer(): ImageFoodAnalyzer {
         return ImageGroceryAnalyzed()
     }
+
     @Provides
-    fun provideBitmap(@ApplicationContext context: Context):BitmapProvider {
+    fun provideBitmap(@ApplicationContext context: Context): BitmapProvider {
         return BitmapProvider(context)
     }
 

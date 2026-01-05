@@ -7,8 +7,8 @@ import androidx.paging.filter
 import com.example.core.mvi.BaseViewModel
 import com.example.data.repository.ProductsRepositoryImp
 import com.example.domain.model.Product
-import com.example.myration.mvi.intent.GroceriesEvents
 import com.example.myration.mvi.effects.GroceriesEffect
+import com.example.myration.mvi.intent.GroceriesEvents
 import com.example.myration.mvi.reducer.GroceriesReducer
 import com.example.myration.mvi.state.GroceriesViewState
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -19,11 +19,11 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class GroceriesViewModel @Inject constructor( private val repository: ProductsRepositoryImp)
-    : BaseViewModel<GroceriesViewState, GroceriesEvents, GroceriesEffect>(
-    initialState = GroceriesViewState.initial(),
-    reducer = GroceriesReducer()
-)  {
+class GroceriesViewModel @Inject constructor(private val repository: ProductsRepositoryImp) :
+    BaseViewModel<GroceriesViewState, GroceriesEvents, GroceriesEffect>(
+        initialState = GroceriesViewState.initial(),
+        reducer = GroceriesReducer()
+    ) {
     private val _productList = repository.getAllProductsPaging()
         .cachedIn(viewModelScope)
         .stateIn(

@@ -1,6 +1,5 @@
-package com.example.core_ui.camera
+package com.example.coreUi.camera
 
-import android.util.Log
 import androidx.camera.core.CameraSelector
 import androidx.camera.core.ImageCapture
 import androidx.camera.core.Preview
@@ -53,4 +52,3 @@ fun CameraPreviewView(
         modifier = modifier
     )
 }
-

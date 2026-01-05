@@ -1,6 +1,5 @@
 package com.example.myration.ui.AddProductScreen.AddProductManuallyScreen
 
-import android.widget.Toast
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -11,12 +10,10 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.OutlinedTextFieldDefaults
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -26,27 +23,23 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.TextRange
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.TextFieldValue
-import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.wear.compose.material.Button
 import androidx.wear.compose.material.ButtonDefaults
-import com.example.core.mvi.ResultState
-import com.example.core_ui.custom_windows.ErrorMessage
-import com.example.core_ui.custom_windows.SuccessMessage
-import com.example.core_ui.fields.DatePicker
-import com.example.core_ui.fields.MeasurementMetricDropdown
+import com.example.coreUi.customWindows.SuccessMessage
+import com.example.coreUi.fields.DatePicker
+import com.example.coreUi.fields.MeasurementMetricDropdown
 import com.example.myration.mvi.state.AddProductManuallyViewState
-import com.example.theme.PrimaryColor
-import com.example.theme.SecondaryBackgroundColor
 import com.example.myration.viewModels.AddProductViewModel
 import com.example.myration.viewModels.MainViewModel
 import com.example.theme.MyRationTypography
+import com.example.theme.PrimaryColor
+import com.example.theme.SecondaryBackgroundColor
 
 @Composable
 fun AddProductManuallyScreen(
@@ -66,7 +59,7 @@ fun AddProductManuallyScreen(
             mainViewModel.setLoading(false)
             SuccessMessage(
                 message = "Successfully added a new product",
-                onDismiss = {viewModel.returnToAddingStage()}
+                onDismiss = { viewModel.returnToAddingStage() }
             )
         }
     }

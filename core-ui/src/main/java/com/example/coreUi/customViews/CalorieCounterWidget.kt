@@ -1,4 +1,4 @@
-package com.example.core_ui.custom_views
+package com.example.coreUi.customViews
 
 import androidx.compose.animation.core.LinearOutSlowInEasing
 import androidx.compose.animation.core.animateFloatAsState
@@ -25,8 +25,8 @@ fun CalorieCounterWidget(
     maxCalorie: Float,
     caloriesToEat: Int
 ) {
-    val currentCalorieColor = if(currentCalorie < maxCalorie ) SecondaryColor else NegativeNegativeColor
-    val caloriesToEatColor = if(currentCalorie + caloriesToEat < maxCalorie ) PrimaryColor else NegativeNegativeColor
+    val currentCalorieColor = if (currentCalorie < maxCalorie) SecondaryColor else NegativeNegativeColor
+    val caloriesToEatColor = if (currentCalorie + caloriesToEat < maxCalorie) PrimaryColor else NegativeNegativeColor
 
     val currentCaloriesAngle = ((currentCalorie * 180) / maxCalorie)
     val animatedCurrentCalorieAngle by animateFloatAsState(
@@ -36,7 +36,7 @@ fun CalorieCounterWidget(
             easing = LinearOutSlowInEasing
         )
     )
-    val caloriesToEatAngle = if(caloriesToEat +currentCalorie >= maxCalorie ) 170f - currentCaloriesAngle else ((caloriesToEat * 180) / maxCalorie)
+    val caloriesToEatAngle = if (caloriesToEat + currentCalorie >= maxCalorie) 170f - currentCaloriesAngle else ((caloriesToEat * 180) / maxCalorie)
     val animatedCaloriesToEatAngle by animateFloatAsState(
         targetValue = caloriesToEatAngle,
         animationSpec = tween(
@@ -55,7 +55,7 @@ fun CalorieCounterWidget(
             startAngle = 180f,
             sweepAngle = 180f,
             useCenter = false,
-            topLeft =  Offset.Zero,
+            topLeft = Offset.Zero,
             size = arcSize,
             style = Stroke(width = arcStrokeWidth)
         )
@@ -65,18 +65,18 @@ fun CalorieCounterWidget(
             startAngle = 180f,
             sweepAngle = animatedCurrentCalorieAngle,
             useCenter = false,
-            topLeft =  Offset.Zero,
+            topLeft = Offset.Zero,
             size = arcSize,
             style = Stroke(width = secondaryArcStrokeWidth)
         )
 
-        if(caloriesToEat > 0){
+        if (caloriesToEat > 0) {
             drawArc(
                 color = caloriesToEatColor,
-                startAngle = 180f + animatedCurrentCalorieAngle + if(currentCaloriesAngle == 0f) 0f else 6f,
+                startAngle = 180f + animatedCurrentCalorieAngle + if (currentCaloriesAngle == 0f) 0f else 6f,
                 sweepAngle = animatedCaloriesToEatAngle,
                 useCenter = false,
-                topLeft =  Offset.Zero,
+                topLeft = Offset.Zero,
                 size = arcSize,
                 style = Stroke(width = secondaryArcStrokeWidth)
             )
@@ -86,6 +86,6 @@ fun CalorieCounterWidget(
 
 @Preview(showBackground = true)
 @Composable
-fun CalorieCounterWidgetPreview(){
-    CalorieCounterWidget(Modifier.padding(0.dp),2000f,4000f, 200)
+fun CalorieCounterWidgetPreview() {
+    CalorieCounterWidget(Modifier.padding(0.dp), 2000f, 4000f, 200)
 }

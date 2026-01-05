@@ -1,6 +1,5 @@
 package com.example.myration.mvi.reducer
 
-import android.util.Log
 import com.example.core.mvi.Reducer
 import com.example.domain.model.CalorieCounter
 import com.example.myration.mvi.effects.ProfileEffect
@@ -12,7 +11,7 @@ class ProfileReducer : Reducer<ProfileViewState, ProfileEvents, ProfileEffect> {
         previousState: ProfileViewState,
         event: ProfileEvents
     ): Pair<ProfileViewState, ProfileEffect?> {
-        return when(event){
+        return when (event) {
             is ProfileEvents.ProfileLoading -> {
                 previousState to null
             }
@@ -38,10 +37,10 @@ class ProfileReducer : Reducer<ProfileViewState, ProfileEvents, ProfileEffect> {
                 ProfileViewState.ProfileLoaded(
                     info = CalorieCounter(
                         maxCalorie = previousState.info?.maxCalorie ?: 0f,
-                        currentCalorie = (previousState.info?.currentCalorie?: 0f) + event.currentCalorie,
-                        protein =  (previousState.info?.protein?: 0) + event.protein,
-                        fats = (previousState.info?.fats?: 0) + event.fats,
-                        carbohydrates = (previousState.info?.carbohydrates ?: 0 )+ event.carbohydrates
+                        currentCalorie = (previousState.info?.currentCalorie ?: 0f) + event.currentCalorie,
+                        protein = (previousState.info?.protein ?: 0) + event.protein,
+                        fats = (previousState.info?.fats ?: 0) + event.fats,
+                        carbohydrates = (previousState.info?.carbohydrates ?: 0) + event.carbohydrates
                     ),
                     foodHistory = previousState.foodHistory
                 ) to null

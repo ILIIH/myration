@@ -11,12 +11,12 @@ import androidx.core.app.NotificationManagerCompat
 import androidx.hilt.work.HiltWorker
 import androidx.work.CoroutineWorker
 import androidx.work.WorkerParameters
-import com.example.core_ui.R
+import com.example.coreUi.R
 import com.example.domain.usecase.GetSoonExpiredProductsUseCase
-import kotlin.jvm.java
 import com.example.myration.MainActivity
 import dagger.assisted.Assisted
 import dagger.assisted.AssistedInject
+import kotlin.jvm.java
 
 @HiltWorker
 class ProductExpiryCheckWorker @AssistedInject constructor(
@@ -42,7 +42,7 @@ class ProductExpiryCheckWorker @AssistedInject constructor(
             flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
         }
 
-         val pendingIntent: PendingIntent = PendingIntent.getActivity(
+        val pendingIntent: PendingIntent = PendingIntent.getActivity(
             applicationContext,
             0,
             intent,
@@ -61,7 +61,8 @@ class ProductExpiryCheckWorker @AssistedInject constructor(
             if (ActivityCompat.checkSelfPermission(
                     applicationContext,
                     Manifest.permission.POST_NOTIFICATIONS
-                ) != PackageManager.PERMISSION_GRANTED ) { return }
+                ) != PackageManager.PERMISSION_GRANTED
+            ) { return }
             notify(1, builder.build())
         }
     }

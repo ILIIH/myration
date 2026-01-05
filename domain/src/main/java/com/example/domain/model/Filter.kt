@@ -3,7 +3,7 @@ package com.example.domain.model
 data class Filter(
     val id: Int,
     val type: RecipeFilter,
-    val isApplied: Boolean,
+    val isApplied: Boolean
 )
 
 enum class RecipeFilter(val label: String) {

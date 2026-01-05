@@ -1,29 +1,28 @@
 package com.example.data.repository
 
-import android.annotation.SuppressLint
 import android.content.SharedPreferences
-import com.example.data.model.FoodHistoryEntity
-import com.example.data.source.FoodHistoryDataSource
-import com.example.domain.model.CalorieCounter
-import com.example.domain.repository.CalorieRepository
-import javax.inject.Inject
 import androidx.core.content.edit
+import com.example.data.model.FoodHistoryEntity
 import com.example.data.model.maping.SDF
 import com.example.data.model.maping.toDomain
+import com.example.data.source.FoodHistoryDataSource
+import com.example.domain.model.CalorieCounter
 import com.example.domain.model.FoodHistory
 import com.example.domain.model.PieChartItem
+import com.example.domain.repository.CalorieRepository
 import java.time.Instant
 import java.time.ZoneId
 import java.util.Date
+import javax.inject.Inject
 
-class CalorieRepositoryImp  @Inject constructor(
+class CalorieRepositoryImp @Inject constructor(
     private val preferences: SharedPreferences,
     private val foodHistoryDAO: FoodHistoryDataSource
-): CalorieRepository {
+) : CalorieRepository {
 
     override fun resetCalorie() {
         val prevCalDate = preferences.getString(CALORIE_DATE, "")
-        if(prevCalDate != SDF.format(Date())){
+        if (prevCalDate != SDF.format(Date())) {
             preferences.edit {
                 putFloat(CURRENT_CALORIE, 0f)
                 putInt(CURRENT_PROTEIN, 0)
@@ -47,7 +46,7 @@ class CalorieRepositoryImp  @Inject constructor(
     }
 
     override suspend fun checkMaxCalorieSetUp(): Boolean {
-       return preferences.contains(MAX_CALORIE)
+        return preferences.contains(MAX_CALORIE)
     }
 
     override suspend fun getCalorieInfo(): CalorieCounter {
@@ -67,22 +66,23 @@ class CalorieRepositoryImp  @Inject constructor(
     }
 
     override suspend fun getFoodHistory(amount: Int): List<FoodHistory> {
-        return foodHistoryDAO.getFirstFoodProducts(amount).map{ it.toDomain()}
+        return foodHistoryDAO.getFirstFoodProducts(amount).map { it.toDomain() }
     }
 
     override suspend fun getFullFoodHistory(): List<List<FoodHistory>> {
-        return foodHistoryDAO.getAllFoodProducts().map{ it.toDomain()}
+        return foodHistoryDAO.getAllFoodProducts().map { it.toDomain() }
             .groupBy { event ->
                 Instant.ofEpochMilli(event.date.time)
                     .atZone(ZoneId.systemDefault())
-                    .toLocalDate() }.values.toList()
+                    .toLocalDate()
+            }.values.toList()
     }
 
-    override suspend fun getMonthSummary(): HashMap<Int,List<PieChartItem>> {
+    override suspend fun getMonthSummary(): HashMap<Int, List<PieChartItem>> {
         val maxCalorie = preferences.getFloat(MAX_CALORIE, DEFAULT_MAX_CALORIE)
-        val hashMap = HashMap<Int,List<PieChartItem>>()
-        foodHistoryDAO.getAllFoodProducts().map{ it.toDomain()}
-            .groupBy { event -> event.date.month }. map { (key, value) ->
+        val hashMap = HashMap<Int, List<PieChartItem>>()
+        foodHistoryDAO.getAllFoodProducts().map { it.toDomain() }
+            .groupBy { event -> event.date.month }.map { (key, value) ->
                 val sumsByDate = value.groupingBy { it.date }
                     .fold(0f) { acc, item -> acc + item.productCalorie }
 
@@ -97,16 +97,16 @@ class CalorieRepositoryImp  @Inject constructor(
                         color = 0xFFFA3538.toInt()
                     ),
                     PieChartItem(
-                        label = "${value.size -  count} successful days",
-                        amount = value.size -  count,
+                        label = "${value.size - count} successful days",
+                        amount = value.size - count,
                         color = 0xFF499F68.toInt()
-                    ),
+                    )
                 )
             }
         return hashMap
     }
 
-    override suspend fun addToCurrentCalorie(cal: Float, productName: String,p:Int,f:Int,c:Int ) {
+    override suspend fun addToCurrentCalorie(cal: Float, productName: String, p: Int, f: Int, c: Int) {
         val currentCalorie = preferences.getFloat(CURRENT_CALORIE, DEFAULT_CURRENT_CALORIE)
         val currentP = preferences.getInt(CURRENT_PROTEIN, DEFAULT_PFC)
         val currentF = preferences.getInt(CURRENT_FATS, DEFAULT_PFC)

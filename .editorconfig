@@ -1,0 +1,11 @@
+[*]
+indent_size = 4
+insert_final_newline = true
+end_of_line = lf
+charset = utf-8
+
+[*.{kt,kts}]
+# This is the rule triggering your error
+ktlint_standard_package-naming = disabled
+# Sometimes newer versions use this name instead:
+ktlint_standard_package-name = disabled

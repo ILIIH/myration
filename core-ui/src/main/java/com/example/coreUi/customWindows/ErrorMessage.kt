@@ -1,4 +1,4 @@
-package com.example.core_ui.custom_windows
+package com.example.coreUi.customWindows
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -20,11 +20,11 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
-import com.example.core_ui.R
+import com.example.coreUi.R
 import com.example.theme.MyRationTypography
 
 @Composable
-fun SuccessMessage(
+fun ErrorMessage(
     message: String,
     onDismiss: () -> Unit
 ) {
@@ -55,13 +55,13 @@ fun SuccessMessage(
                         .padding(2.dp)
                 )
                 Text(
-                    text = "Success",
+                    text = "Error",
                     style = MyRationTypography.displayLarge,
                     color = Color.Black
                 )
                 Image(
-                    painter = painterResource(id = R.drawable.ic_success),
-                    contentDescription = "success icon",
+                    painter = painterResource(id = R.drawable.ic_error_icon),
+                    contentDescription = "error icon",
                     modifier = Modifier
                         .padding(top = 40.dp)
                         .padding(horizontal = 70.dp)

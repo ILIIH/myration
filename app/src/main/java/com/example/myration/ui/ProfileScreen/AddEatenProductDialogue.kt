@@ -13,7 +13,6 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.Card
@@ -39,13 +38,13 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.wear.compose.material.Button
 import androidx.wear.compose.material.ButtonDefaults
-import com.example.core_ui.R
+import com.example.coreUi.R
 import com.example.theme.PrimaryColor
 
 @Composable
 fun AddEatenProductDialogue(
     onDismiss: () -> Unit,
-    onAdd: (productCalorie :Float, productName: String,p: Int, f: Int, c: Int) -> Unit
+    onAdd: (productCalorie: Float, productName: String, p: Int, f: Int, c: Int) -> Unit
 ) {
     var productName by remember { mutableStateOf(TextFieldValue()) }
     var productCalorie by remember { mutableStateOf(TextFieldValue()) }

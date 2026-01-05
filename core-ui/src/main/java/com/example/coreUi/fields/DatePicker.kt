@@ -1,4 +1,4 @@
-package com.example.core_ui.fields
+package com.example.coreUi.fields
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -24,12 +24,11 @@ import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
-import com.example.core_ui.R
+import com.example.coreUi.R
 import com.example.theme.MyRationTypography
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
-
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -79,18 +78,18 @@ fun DatePicker(onDateSelected: (date: String) -> Unit) {
             contentDescription = "Choose a date",
             modifier = Modifier.size(40.dp).padding(start = 10.dp)
         )
-        if(formattedDate.isEmpty()){
+        if (formattedDate.isEmpty()) {
             Text(
                 modifier = Modifier.padding(start = 20.dp),
                 text = "Pick an expiry date",
-                style = MyRationTypography.displayMedium,
+                style = MyRationTypography.displayMedium
             )
         }
         Spacer(modifier = Modifier.height(8.dp))
         Text(
             modifier = Modifier.padding(start = 20.dp),
             text = formattedDate,
-            style = MyRationTypography.displayMedium,
+            style = MyRationTypography.displayMedium
         )
     }
 }

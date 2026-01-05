@@ -22,9 +22,9 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import com.example.myration.R
+import com.example.theme.MyRationTypography
 import com.example.theme.PrimaryColor
 import com.example.theme.SecondaryBackgroundColor
-import com.example.theme.MyRationTypography
 
 @Composable
 fun BottomNavigationBar(navController: NavHostController) {

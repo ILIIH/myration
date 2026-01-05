@@ -61,17 +61,16 @@ dependencies {
     kapt("com.google.dagger:hilt-compiler:${project.extra["dagger_version"]}")
 
     // Text recognition AI
-    implementation ("com.google.mlkit:text-recognition:${project.extra["mlkit_version"]}")
+    implementation("com.google.mlkit:text-recognition:${project.extra["mlkit_version"]}")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-play-services:${project.extra["coroutines_play_services_version"]}")
 
     // Text to model AI libs
     implementation("com.microsoft.onnxruntime:onnxruntime-android:1.15.1")
-    implementation ("ai.djl.huggingface:tokenizers:0.23.0")
+    implementation("ai.djl.huggingface:tokenizers:0.23.0")
 
     // Voice recognition AI
     "withAudioRecognitionImplementation"(project(":lib"))
 
     implementation(project(":domain"))
     testImplementation(kotlin("test"))
-
 }

@@ -24,13 +24,12 @@ import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
-import com.example.theme.SecondaryBackgroundColor
 import com.example.theme.MyRationTypography
-
+import com.example.theme.SecondaryBackgroundColor
 
 @Composable
-fun ImageScanningWidget(bitmap: Bitmap, cancelScanning: () -> Unit){
-    val scanningProgress = remember { mutableFloatStateOf(0f)   }
+fun ImageScanningWidget(bitmap: Bitmap, cancelScanning: () -> Unit) {
+    val scanningProgress = remember { mutableFloatStateOf(0f) }
 
     Column(
         modifier = Modifier
@@ -41,16 +40,16 @@ fun ImageScanningWidget(bitmap: Bitmap, cancelScanning: () -> Unit){
         verticalArrangement = Arrangement.spacedBy(16.dp, Alignment.CenterVertically)
     ) {
         Text(
-            text = "Scanning progress ${(scanningProgress.floatValue*100).toInt()} %",
+            text = "Scanning progress ${(scanningProgress.floatValue * 100).toInt()} %",
             style = MyRationTypography.labelSmall,
             color = Color.Black,
-            modifier =  Modifier.fillMaxWidth().padding(horizontal = 50.dp, vertical = 10.dp)
+            modifier = Modifier.fillMaxWidth().padding(horizontal = 50.dp, vertical = 10.dp)
 
         )
 
         LinearProgressIndicator(
             progress = scanningProgress.floatValue,
-            modifier =  Modifier.padding(horizontal = 40.dp, vertical = 10.dp)
+            modifier = Modifier.padding(horizontal = 40.dp, vertical = 10.dp)
         )
 
         ScanImageView(
@@ -59,11 +58,11 @@ fun ImageScanningWidget(bitmap: Bitmap, cancelScanning: () -> Unit){
                 .fillMaxWidth()
                 .height(400.dp)
                 .padding(horizontal = 5.dp, vertical = 30.dp),
-            timerTick = {scanningProgress.floatValue += 1.0f }
+            timerTick = { scanningProgress.floatValue += 1.0f }
         )
 
         Image(
-            painter = painterResource(id = com.example.core_ui.R.drawable.ic_baseline_close),
+            painter = painterResource(id = com.example.coreUi.R.drawable.ic_baseline_close),
             contentDescription = "Make a photo",
             modifier = Modifier
                 .size(60.dp)

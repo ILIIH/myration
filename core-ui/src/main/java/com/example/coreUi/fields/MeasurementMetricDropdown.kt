@@ -1,4 +1,4 @@
-package com.example.core_ui.fields
+package com.example.coreUi.fields
 
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.material3.DropdownMenuItem
@@ -17,10 +17,10 @@ import com.example.theme.MyRationTypography
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun MeasurementMetricDropdown( setMetric: (metric: String) -> Unit) {
+fun MeasurementMetricDropdown(setMetric: (metric: String) -> Unit) {
     val expanded = remember { mutableStateOf(false) }
     val items = listOf("kg", "lt", "pcs")
-    val selectedItem  =  remember { mutableStateOf("") }
+    val selectedItem = remember { mutableStateOf("") }
 
     ExposedDropdownMenuBox(
         expanded = expanded.value,

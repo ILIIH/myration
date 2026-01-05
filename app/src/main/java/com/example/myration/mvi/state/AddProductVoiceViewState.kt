@@ -7,7 +7,7 @@ data class AddProductVoiceViewState(
     val productList: List<Product>,
     val isRecording: Boolean,
     val recordingProgress: Float,
-    val recordingResult: String,
+    val recordingResult: String
 ) : Reducer.ViewState {
     companion object {
         fun initial(): AddProductVoiceViewState {
@@ -20,4 +20,3 @@ data class AddProductVoiceViewState(
         }
     }
 }
-

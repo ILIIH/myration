@@ -23,24 +23,23 @@ class ProfileViewModel @Inject constructor(
 ) {
     init {
         viewModelScope.launch {
-            if (calorieRepository.checkMaxCalorieSetUp()){
-                val calorieInfo = async{calorieRepository.getCalorieInfo()}
-                val foodHistory = async{calorieRepository.getFoodHistory(3)}
+            if (calorieRepository.checkMaxCalorieSetUp()) {
+                val calorieInfo = async { calorieRepository.getCalorieInfo() }
+                val foodHistory = async { calorieRepository.getFoodHistory(3) }
                 sendEvent(ProfileEvents.ProfileLoaded(profileInfo = calorieInfo.await(), foodHistory = foodHistory.await()))
-            }
-            else {
+            } else {
                 sendEvent(ProfileEvents.GetProfileSetUpStatus(false))
             }
         }
     }
 
-    fun showChangeMaxCalorie(){
+    fun showChangeMaxCalorie() {
         sendEvent(ProfileEvents.ProfileShowChangeMaxCalorieWidget)
     }
-    fun showAddEatenProduct(){
+    fun showAddEatenProduct() {
         sendEvent(ProfileEvents.ProfileShowAddEatenProductWidget)
     }
-    fun showProfileSetUp(){
+    fun showProfileSetUp() {
         sendEvent(ProfileEvents.ProfileShowSetUpWidget)
     }
 
@@ -64,11 +63,11 @@ class ProfileViewModel @Inject constructor(
     fun setNewMaxCalories(
         newCalorie: Float,
         updateUICalories: suspend () -> Unit = {}
-    ){
+    ) {
         viewModelScope.launch {
             calorieRepository.setMaxCalorie(newCalorie)
             sendEvent(ProfileEvents.ProfileUpdateCalories(newCalorie))
-            withContext(Dispatchers.Main){
+            withContext(Dispatchers.Main) {
                 updateUICalories()
             }
         }
@@ -76,17 +75,21 @@ class ProfileViewModel @Inject constructor(
     fun addEatenProduct(
         productName: String,
         calorie: Float,
-        p: Int, f: Int, c: Int,
+        p: Int,
+        f: Int,
+        c: Int,
         updateCaloriesUI: suspend () -> Unit
-    ){
+    ) {
         viewModelScope.launch {
-            calorieRepository.addToCurrentCalorie(calorie, productName, p,f,c)
-            sendEvent(ProfileEvents.ProfileUpdateCalorieCounter(
-                currentCalorie = calorie,
-                protein =  p,
-                fats = f,
-                carbohydrates = c
-            ))
+            calorieRepository.addToCurrentCalorie(calorie, productName, p, f, c)
+            sendEvent(
+                ProfileEvents.ProfileUpdateCalorieCounter(
+                    currentCalorie = calorie,
+                    protein = p,
+                    fats = f,
+                    carbohydrates = c
+                )
+            )
             withContext(Dispatchers.Main) {
                 updateCaloriesUI()
             }

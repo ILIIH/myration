@@ -12,8 +12,8 @@ import com.example.domain.model.MeasurementMetric
 import com.example.domain.model.Product
 import com.example.domain.model.ScanningType
 import com.example.domain.repository.ProductsRepository
-import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.map
 import javax.inject.Inject
 
 class ProductsRepositoryImp @Inject constructor(
@@ -26,7 +26,7 @@ class ProductsRepositoryImp @Inject constructor(
     override suspend fun removeProductById(id: Int) {
         dataSource.deleteProductById(id)
     }
-    override suspend fun updateProduct(product: Product){
+    override suspend fun updateProduct(product: Product) {
         dataSource.updateProduct(product.toData())
     }
     override fun getAllProductsPaging(): Flow<PagingData<Product>> {
@@ -39,7 +39,7 @@ class ProductsRepositoryImp @Inject constructor(
             }
     }
 
-    override suspend fun getAllProducts(): List<Product>{
+    override suspend fun getAllProducts(): List<Product> {
         return dataSource.getAllProduct().map { it.toDomain() }
     }
 
@@ -47,7 +47,7 @@ class ProductsRepositoryImp @Inject constructor(
         return dataSource.getProductById(id).toDomain()
     }
 
-    override suspend fun getAllProductFromPhoto(uri: String,  type: ScanningType): List<Product> {
+    override suspend fun getAllProductFromPhoto(uri: String, type: ScanningType): List<Product> {
         return imageGroceryAnalyzer.getImageAnalyzer(type).getProductsFromReceiptImage(uri)
     }
 
@@ -75,6 +75,6 @@ class ProductsRepositoryImp @Inject constructor(
         }
 
         val name = nameTokens.joinToString(" ").replace(Regex("""^of\s+"""), "")
-        return Product(name = name.trim(), quantity = quantity?.toFloat()?:0f, measurementMetric = MeasurementMetric.valueOf(unit?:""), expirationDate = "")
+        return Product(name = name.trim(), quantity = quantity?.toFloat() ?: 0f, measurementMetric = MeasurementMetric.valueOf(unit ?: ""), expirationDate = "")
     }
 }

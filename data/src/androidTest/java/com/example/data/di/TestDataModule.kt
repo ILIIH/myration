@@ -22,8 +22,9 @@ object TestDataModule {
     @Singleton
     fun provideCalorieRepository(
         preferences: SharedPreferences,
-        foodHistoryDAO: FoodHistoryDataSource ): CalorieRepository {
-        return CalorieRepositoryImp(preferences , foodHistoryDAO)
+        foodHistoryDAO: FoodHistoryDataSource
+    ): CalorieRepository {
+        return CalorieRepositoryImp(preferences, foodHistoryDAO)
     }
 
     @Provides

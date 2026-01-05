@@ -4,7 +4,7 @@ plugins {
 }
 
 android {
-    namespace = "com.example.core_ui"
+    namespace = "com.example.coreUi"
     compileSdk = 34
 
     defaultConfig {
@@ -70,7 +70,7 @@ dependencies {
     // Widgets
     api("androidx.glance:glance-appwidget:1.1.1")
 
-    // GIF 
+    // GIF
     implementation("io.coil-kt.coil3:coil-compose:3.0.4")
     implementation("io.coil-kt.coil3:coil-gif:3.0.4")
 

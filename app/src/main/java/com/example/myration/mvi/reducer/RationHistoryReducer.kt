@@ -10,18 +10,16 @@ class RationHistoryReducer : Reducer<RationHistoryState, RationHistoryEvents, Ra
         previousState: RationHistoryState,
         event: RationHistoryEvents
     ): Pair<RationHistoryState, RationHistoryEffect?> {
-        return when(event){
+        return when (event) {
             is RationHistoryEvents.RationHistoryLoaded -> {
                 RationHistoryState.RationHistoryLoaded(foodHistoryList = event.foodHistoryList, foodMonthSummary = event.foodMonthSummary) to null
             }
             is RationHistoryEvents.RationHistoryLoading -> {
                 RationHistoryState.RationHistoryLoading to null
-
             }
             is RationHistoryEvents.RationHistoryError -> {
                 RationHistoryState.RationHistoryError(message = event.errorMessage) to null
             }
-
         }
     }
 }

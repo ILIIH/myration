@@ -50,17 +50,15 @@ class ImageReceiptAnalyzer @Inject constructor(
                 }
             }
 
-
             Log.d("OCR", "Detected Text: $resultText")
             analyzeText(words, builder.toString(), boxes)
-
         } catch (e: Exception) {
             Log.e("OCR", "Error: ${e.message}")
             listOf()
         }
     }
 
-    suspend fun analyzeText(words:List<String>, text: String, inputBBoxes: List<List<Int>>) : List<Product>{
+    suspend fun analyzeText(words: List<String>, text: String, inputBBoxes: List<List<Int>>): List<Product> {
         if (!modelFile.exists()) {
             copyAssetToFile(context, "layout_ml.onnx", modelFile)
         }
@@ -90,16 +88,15 @@ class ImageReceiptAnalyzer @Inject constructor(
             }
         }
 
-
         // Use a label map to get "B-FOOD", "B-PRICE", etc.
         val labelMap = listOf(
-            "O",           // 0 = Outside any entity
-            "B-FOOD",      // 1 = Beginning of food item
-            "I-FOOD",      // 2 = Inside a food item name
-            "B-PRICE",     // 3 = Beginning of price
-            "I-PRICE",     // 4 = Inside a price
-            "B-QUANTITY",  // 5 = Beginning of quantity
-            "I-QUANTITY"   // 6 = Inside quantity
+            "O", // 0 = Outside any entity
+            "B-FOOD", // 1 = Beginning of food item
+            "I-FOOD", // 2 = Inside a food item name
+            "B-PRICE", // 3 = Beginning of price
+            "I-PRICE", // 4 = Inside a price
+            "B-QUANTITY", // 5 = Beginning of quantity
+            "I-QUANTITY" // 6 = Inside quantity
         )
 
         // Group tokens into (food, price) pairs based on labels

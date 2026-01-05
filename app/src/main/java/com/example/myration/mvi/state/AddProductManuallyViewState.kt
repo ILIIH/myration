@@ -1,7 +1,6 @@
 package com.example.myration.mvi.state
 
 import com.example.core.mvi.Reducer
-import com.example.domain.model.Product
 
 sealed class AddProductManuallyViewState : Reducer.ViewState {
 
@@ -17,4 +16,3 @@ sealed class AddProductManuallyViewState : Reducer.ViewState {
         fun initial(): AddProductManuallyViewState = Idle
     }
 }
-

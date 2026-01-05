@@ -14,11 +14,10 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.asImageBitmap
 import com.example.myration.ui.AddProductScreen.AddProductVoice.TimerManager
 
-
 @Composable
 fun ScanImageView(bitmap: Bitmap?, modifier: Modifier = Modifier, timerTick: () -> Unit) {
-    val scanLineY = remember { mutableFloatStateOf(0f)   }
-    val scanForward = remember{ mutableStateOf(false) }
+    val scanLineY = remember { mutableFloatStateOf(0f) }
+    val scanForward = remember { mutableStateOf(false) }
 
     DisposableEffect(Unit) {
         onDispose {
@@ -32,14 +31,13 @@ fun ScanImageView(bitmap: Bitmap?, modifier: Modifier = Modifier, timerTick: () 
             onTick = {
                 timerTick()
 
-                if (scanLineY.floatValue >=  height || scanLineY.floatValue<=0) {
+                if (scanLineY.floatValue >= height || scanLineY.floatValue <= 0) {
                     scanForward.value = !scanForward.value
                 }
-                if(scanForward.value){
-                    scanLineY.floatValue +=20f
-                }
-                else{
-                    scanLineY.floatValue -=20f
+                if (scanForward.value) {
+                    scanLineY.floatValue += 20f
+                } else {
+                    scanLineY.floatValue -= 20f
                 }
             }
         )

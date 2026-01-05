@@ -37,7 +37,6 @@ private class CpuInfo(private val lines: List<String>) {
         .sorted()
         .toList()
 
-
     private fun List<Int>.countDroppingMin(): Int {
         val min = min()
         return count { it > min }
@@ -65,7 +64,7 @@ private class CpuInfo(private val lines: List<String>) {
         )
 
         private fun getMaxCpuFrequency(cpuIndex: Int): Int {
-            val path = "/sys/devices/system/cpu/cpu${cpuIndex}/cpufreq/cpuinfo_max_freq"
+            val path = "/sys/devices/system/cpu/cpu$cpuIndex/cpufreq/cpuinfo_max_freq"
             val maxFreq = BufferedReader(FileReader(path)).use { it.readLine() }
             return maxFreq.toInt()
         }

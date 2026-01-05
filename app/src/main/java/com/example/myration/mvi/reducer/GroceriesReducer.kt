@@ -10,7 +10,7 @@ class GroceriesReducer : Reducer<GroceriesViewState, GroceriesEvents, GroceriesE
         previousState: GroceriesViewState,
         event: GroceriesEvents
     ): Pair<GroceriesViewState, GroceriesEffect?> {
-        return when(event){
+        return when (event) {
             is GroceriesEvents.UpdateGroceriesIsDeleted -> {
                 val updatedProducts = previousState.products.filter { it.id != event.productId }
                 previousState.copy(
@@ -19,7 +19,7 @@ class GroceriesReducer : Reducer<GroceriesViewState, GroceriesEvents, GroceriesE
             }
             is GroceriesEvents.UpdateGroceriesLoading -> {
                 previousState.copy(
-                    productsLoading  = event.isLoading
+                    productsLoading = event.isLoading
                 ) to null
             }
         }

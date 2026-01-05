@@ -1,4 +1,4 @@
-package com.example.core_ui.custom_windows
+package com.example.coreUi.customWindows
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -34,9 +34,9 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.wear.compose.material.Button
 import androidx.wear.compose.material.ButtonDefaults
-import com.example.core_ui.R
-import com.example.core_ui.fields.DatePicker
-import com.example.core_ui.fields.MeasurementMetricDropdown
+import com.example.coreUi.R
+import com.example.coreUi.fields.DatePicker
+import com.example.coreUi.fields.MeasurementMetricDropdown
 import com.example.domain.model.Product
 import com.example.theme.PrimaryColor
 
@@ -46,10 +46,11 @@ fun EditProductDialogue(
     message: String,
     onDismiss: () -> Unit,
     onEdit: (
-        productWeight :String,
-        productName :String,
-        productMeasurementMetric:String,
-        productExpiration:String ) -> Unit
+        productWeight: String,
+        productName: String,
+        productMeasurementMetric: String,
+        productExpiration: String
+    ) -> Unit
 ) {
     var productName by remember { mutableStateOf(TextFieldValue(product.name)) }
     var productWeight by remember { mutableStateOf(TextFieldValue(product.quantity.toString())) }
@@ -143,7 +144,6 @@ fun EditProductDialogue(
                                 productMeasurementMetric,
                                 productExpiration
                             )
-
                         },
                         modifier = Modifier
                             .fillMaxWidth()
