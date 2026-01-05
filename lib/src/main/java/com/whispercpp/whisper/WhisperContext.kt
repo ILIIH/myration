@@ -3,13 +3,13 @@ package com.whispercpp.whisper
 import android.content.res.AssetManager
 import android.os.Build
 import android.util.Log
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.asCoroutineDispatcher
+import kotlinx.coroutines.runBlocking
+import kotlinx.coroutines.withContext
 import java.io.File
 import java.io.InputStream
 import java.util.concurrent.Executors
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.asCoroutineDispatcher
-import kotlinx.coroutines.withContext
-import kotlinx.coroutines.runBlocking
 
 private const val LOG_TAG = "LibWhisper"
 
