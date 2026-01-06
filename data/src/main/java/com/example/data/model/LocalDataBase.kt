@@ -6,11 +6,15 @@ import com.example.data.source.FoodHistoryDataSource
 import com.example.data.source.ProductLocalDataSource
 import com.example.data.source.RecipeDataSource
 
-@Database(entities = [
-    ProductEntity::class,
-    FoodHistoryEntity::class,
-    RecipeEntity::class,
-    RecipeIngredientEntity::class],  version = 2)
+@Database(
+    entities = [
+        ProductEntity::class,
+        FoodHistoryEntity::class,
+        RecipeEntity::class,
+        RecipeIngredientEntity::class
+    ],
+    version = 2
+)
 abstract class LocalDataBase : RoomDatabase() {
     abstract fun productDao(): ProductLocalDataSource
     abstract fun recipeDao(): RecipeDataSource

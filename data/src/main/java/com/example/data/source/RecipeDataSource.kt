@@ -39,6 +39,7 @@ interface RecipeDataSource {
 
     @Query("SELECT * FROM recipe_ingredients")
     suspend fun getAllIngredients(): List<RecipeIngredientEntity>
+
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertAllRecipe(data: List<RecipeEntity>)
 }

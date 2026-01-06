@@ -35,14 +35,14 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.wear.compose.material.Button
 import androidx.wear.compose.material.ButtonDefaults
-import com.example.core_ui.R
+import com.example.coreUi.R
 import com.example.theme.PrimaryColor
 
 @Composable
 fun ChangeMaxCalorieDialogue(
     maxCal: Float,
     onDismiss: () -> Unit,
-    onChange: (newMaxCalorie :Float) -> Unit
+    onChange: (newMaxCalorie: Float) -> Unit
 ) {
     var currentMaxCalorie by remember { mutableStateOf(TextFieldValue(maxCal.toString())) }
     Box(
@@ -98,9 +98,8 @@ fun ChangeMaxCalorieDialogue(
                     Button(
                         onClick = {
                             onChange(
-                                currentMaxCalorie.text.toFloat(),
+                                currentMaxCalorie.text.toFloat()
                             )
-
                         },
                         modifier = Modifier
                             .fillMaxWidth()

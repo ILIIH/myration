@@ -11,5 +11,4 @@ interface RecipeRepository {
     suspend fun addIngredients(recipeIngredients: RecipeIngredient)
     suspend fun getRecipeIngredient(recipeId: Int): List<RecipeIngredient>
     suspend fun getRecipesForProduct(product: Product): List<Recipe>
-
 }

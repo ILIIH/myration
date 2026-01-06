@@ -8,6 +8,7 @@ import com.example.data.model.FoodHistoryEntity
 interface FoodHistoryDataSource {
     @Insert
     suspend fun addFoodProduct(foodProduct: FoodHistoryEntity)
+
     @Query("DELETE FROM food_history WHERE id = :id")
     suspend fun deleteFoodProductById(id: Int)
 

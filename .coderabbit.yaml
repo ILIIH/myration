@@ -1,0 +1,32 @@
+reviews:
+  profile: "senior_android_engineer"
+  request_changes_workflow: true
+  instructions: >
+    Act as a Senior Android Staff Engineer. Review the PR for:
+    
+    1. **Coroutines & Threading**:
+       - Flag any use of `GlobalScope`. Suggest `viewModelScope` or `lifecycleScope`.
+       - Ensure heavy operations (Disk/Network) use `Dispatchers.IO` and CPU-heavy work uses `Dispatchers.Default`.
+       - Check that `suspend` functions are main-safe (calling withContext internally if needed).
+       - Ensure `collect()` on Flows in ViewModels is done safely (e.g., using `stateIn` or within the proper lifecycle-aware block).
+
+    2. **Memory & Lifecycle**:
+       - Watch for memory leaks: check for static Context/View references or unregistered listeners.
+       - Ensure `ViewModel` does not hold references to `Activity`, `Fragment`, or `Context` (except ApplicationContext).
+       - Verify that `remember` is used in Composables for expensive calculations.
+
+    3. **Jetpack Compose Performance**:
+       - Flag unstable parameters in Composables that might cause unnecessary recomposition.
+       - Ensure `LazyColumn/Row` uses `key` for stable item identity.
+       - Check for "backwards writes" (writing to state during the composition phase).
+       - Suggest `derivedStateOf` for state calculations that change more frequently than the UI needs to update.
+
+    4. **Material 3 & UI**:
+       - Verify use of `MaterialTheme.colorScheme` and `MaterialTheme.typography` instead of hardcoded hex codes or font sizes.
+       - Ensure proper touch target sizes (minimum 48dp).
+       - Check for accessibility support (contentDescriptions on Images).
+
+    5. **Architecture & Clean Code**:
+       - Enforce MVI/MVVM: ViewModels should expose State (StateFlow) and receive Events.
+       - Check for hardcoded strings (suggest `stringResource` or `R.string`).
+       - Flag any use of `!!` (force-unwrap). Suggest safe calls `?.` or `requireNotNull()`.

@@ -1,6 +1,5 @@
 package com.example.myration.ui.RationHistory
 
-import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
@@ -15,7 +14,6 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
@@ -30,12 +28,11 @@ import com.example.data.model.maping.SDF
 import com.example.data.model.maping.getString
 import com.example.domain.model.FoodHistory
 import com.example.domain.model.PieChartItem
-import com.example.myration.mvi.effects.RationHistoryEffect
 import com.example.myration.mvi.state.RationHistoryState
 import com.example.myration.viewModels.MainViewModel
 import com.example.myration.viewModels.RationHistoryViewModel
-import com.example.theme.PrimaryLightColor
 import com.example.theme.MyRationTypography
+import com.example.theme.PrimaryLightColor
 
 @Composable
 fun RationHistoryScreen(
@@ -59,21 +56,21 @@ fun RationHistoryScreen(
 }
 
 @Composable
-fun FoodHistoryItem(item: FoodHistory){
+fun FoodHistoryItem(item: FoodHistory) {
     Box(
         modifier = Modifier
             .height(70.dp)
             .padding(10.dp)
-    ){
+    ) {
         Row(
             modifier = Modifier.fillMaxWidth(),
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.SpaceBetween
-        ){
-            Column{
+        ) {
+            Column {
                 Text(
                     text = item.productName,
-                    style = MyRationTypography.displayLarge,
+                    style = MyRationTypography.displayLarge
                 )
                 Text(
                     text = "${item.date.getString()}",
@@ -81,13 +78,14 @@ fun FoodHistoryItem(item: FoodHistory){
                 )
             }
             Text(
-                text = "${item.productCalorie} KCAL",
+                text = "${item.productCalorie} KCAL"
             )
         }
     }
 }
+
 @Composable
-fun FoodHistoryList(foodHistory: List<List<FoodHistory>>, monthSummary: HashMap<Int,List<PieChartItem>>) {
+fun FoodHistoryList(foodHistory: List<List<FoodHistory>>, monthSummary: HashMap<Int, List<PieChartItem>>) {
     Box(
         modifier = Modifier.fillMaxWidth()
     ) {
@@ -107,14 +105,14 @@ fun FoodHistoryList(foodHistory: List<List<FoodHistory>>, monthSummary: HashMap<
                     color = Color.White
                 )
             }
-            var currentMonthIndex = if(foodHistory.isNotEmpty() && foodHistory[0].isNotEmpty()) foodHistory[0][0].date.month else 0
+            var currentMonthIndex = if (foodHistory.isNotEmpty() && foodHistory[0].isNotEmpty()) foodHistory[0][0].date.month else 0
             items(
                 count = foodHistory.size,
                 itemContent = { index ->
-                    if(index == 0 || currentMonthIndex != foodHistory[index][0].date.month){
+                    if (index == 0 || currentMonthIndex != foodHistory[index][0].date.month) {
                         currentMonthIndex = foodHistory[index][0].date.month
                         MonthSummaryInfo(
-                            monthSummary[currentMonthIndex]?:listOf(),
+                            monthSummary[currentMonthIndex] ?: listOf(),
                             foodHistory[index][0].date
                         )
                     }
@@ -130,7 +128,7 @@ fun FoodHistoryList(foodHistory: List<List<FoodHistory>>, monthSummary: HashMap<
                             )
 
                     ) {
-                        Column(modifier = Modifier.padding(10.dp)                         ) {
+                        Column(modifier = Modifier.padding(10.dp)) {
                             foodHistory[index].forEachIndexed { index2, item ->
                                 if (index2 == 0) {
                                     Text(

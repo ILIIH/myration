@@ -23,13 +23,12 @@ import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
-import com.example.core_ui.camera.CameraController
+import com.example.coreUi.camera.CameraController
 import com.example.myration.R
 import com.example.theme.SecondaryBackgroundColor
 
-
 @Composable
-fun PickingImageWidget( context: Context, submitImage: (uri: Uri) -> Unit, errorPickingImage: (error: String) -> Unit){
+fun PickingImageWidget(context: Context, submitImage: (uri: Uri) -> Unit, errorPickingImage: (error: String) -> Unit) {
     val controller = remember { CameraController() }
 
     Column(
@@ -40,7 +39,7 @@ fun PickingImageWidget( context: Context, submitImage: (uri: Uri) -> Unit, error
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.spacedBy(16.dp, Alignment.CenterVertically)
     ) {
-        com.example.core_ui.camera.CameraPreviewView(
+        com.example.coreUi.camera.CameraPreviewView(
             modifier = Modifier
                 .fillMaxWidth()
                 .height(500.dp)

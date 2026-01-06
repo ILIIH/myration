@@ -19,11 +19,11 @@ class AddProductViewModel @Inject constructor(
 ) : BaseViewModel<AddProductManuallyViewState, AddProductManuallyEvents, AddProductManuallyEffect>(
     initialState = AddProductManuallyViewState.initial(),
     reducer = AddProductManuallyReducer()
-)  {
+) {
     fun addProduct(weight: String, name: String, measurementMetric: String, expirationDate: String) {
         viewModelScope.launch {
             try {
-                if(isDataInvalid(weight, name, measurementMetric, expirationDate)){
+                if (isDataInvalid(weight, name, measurementMetric, expirationDate)) {
                     throw IllegalStateException("One of the fields is empty or invalid")
                 }
 
@@ -37,12 +37,12 @@ class AddProductViewModel @Inject constructor(
                             "lt" -> MeasurementMetric.LITERS
                             else -> MeasurementMetric.PIECES
                         },
-                        expirationDate = expirationDate,
+                        expirationDate = expirationDate
                     )
                 )
                 sendEvent(AddProductManuallyEvents.ProductAdded)
             } catch (error: Exception) {
-                sendEvent(AddProductManuallyEvents.ProductAddError(errorMessage =  error.message?:""))
+                sendEvent(AddProductManuallyEvents.ProductAddError(errorMessage = error.message ?: ""))
             }
         }
     }

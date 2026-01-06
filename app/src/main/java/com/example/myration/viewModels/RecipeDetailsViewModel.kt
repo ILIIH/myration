@@ -29,7 +29,7 @@ class RecipeDetailsViewModel @Inject constructor(
     )
     val recipeDetailsState: StateFlow<ResultState<RecipeDetailViewState>> = _recipeDetailsState.asStateFlow()
 
-    private val _calorie: MutableStateFlow<CalorieCounter> = MutableStateFlow(CalorieCounter(1400f,0f,0,0,0))
+    private val _calorie: MutableStateFlow<CalorieCounter> = MutableStateFlow(CalorieCounter(1400f, 0f, 0, 0, 0))
     val calorie: StateFlow<CalorieCounter> = _calorie.asStateFlow()
 
     init {
@@ -62,7 +62,7 @@ class RecipeDetailsViewModel @Inject constructor(
             }
         }
     }
-    private fun getCalorieInfo(){
+    private fun getCalorieInfo() {
         viewModelScope.launch {
             _calorie.value = calorieRepository.getCalorieInfo()
         }

@@ -1,6 +1,5 @@
 package com.example.domain.model
 
-import java.awt.Color
 import java.time.Duration
 
 enum class CookingDifficulty(val difficultyLevel: Int) {

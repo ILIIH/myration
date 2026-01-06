@@ -39,22 +39,22 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import coil.compose.AsyncImage
 import com.example.core.mvi.ResultState
-import com.example.core_ui.custom_windows.ConfirmationDialogue
-import com.example.core_ui.custom_windows.EditProductDialogue
-import com.example.core_ui.list_modifiers.BadgeWidget
+import com.example.coreUi.customWindows.ConfirmationDialogue
+import com.example.coreUi.customWindows.EditProductDialogue
+import com.example.coreUi.listModifiers.BadgeWidget
 import com.example.domain.model.Product
 import com.example.domain.model.Recipe
 import com.example.myration.R
+import com.example.myration.maping.getBadgesDesc
 import com.example.myration.mvi.effects.ProductDetailsEffect
 import com.example.myration.mvi.state.ProductDetailViewState
 import com.example.myration.navigation.NavigationRoute
-import com.example.myration.maping.getBadgesDesc
 import com.example.myration.viewModels.GroceriesDetailsViewModel
 import com.example.myration.viewModels.MainViewModel
+import com.example.theme.MyRationTypography
 import com.example.theme.PrimaryTransparentColor
 import com.example.theme.SecondaryColor
 import com.example.theme.SecondaryHalfTransparentColor
-import com.example.theme.MyRationTypography
 
 @Composable
 fun GroceriesDetailsScreen(
@@ -63,8 +63,8 @@ fun GroceriesDetailsScreen(
     mainViewModel: MainViewModel
 ) {
     val productUpload = viewModel.state.collectAsState()
-    val showDeleteDialogue = remember{ mutableStateOf(false) }
-    val showEditDialogue = remember{ mutableStateOf(false) }
+    val showDeleteDialogue = remember { mutableStateOf(false) }
+    val showEditDialogue = remember { mutableStateOf(false) }
 
     LaunchedEffect(Unit) {
         viewModel.effect.collect { effect ->
@@ -79,7 +79,6 @@ fun GroceriesDetailsScreen(
                 is ProductDetailsEffect.NavigateToGroceriesList -> {
                     navController.navigate(NavigationRoute.GROCERIES_LIST_TAB.route)
                 }
-
             }
         }
     }
@@ -89,25 +88,25 @@ fun GroceriesDetailsScreen(
             mainViewModel.setLoading(false)
             ProductDetailsLoaded(
                 state.data,
-                onDeleteProduct = { showDeleteDialogue.value = true},
-                onEditProduct = {showEditDialogue.value = true},
+                onDeleteProduct = { showDeleteDialogue.value = true },
+                onEditProduct = { showEditDialogue.value = true },
                 onDishClick = viewModel::navigateToDish
             )
-            if(showDeleteDialogue.value){
+            if (showDeleteDialogue.value) {
                 ConfirmationDialogue(
                     message = "Are you sure you want to delete product ?",
-                    onDismiss = {  showDeleteDialogue.value = false },
+                    onDismiss = { showDeleteDialogue.value = false },
                     onConfirm = {
                         viewModel.deleteProduct()
                         showDeleteDialogue.value = false
                     }
                 )
             }
-            if(showEditDialogue.value){
+            if (showEditDialogue.value) {
                 EditProductDialogue(
                     product = state.data.product,
                     message = "Edit your product",
-                    onDismiss = {showEditDialogue.value = false},
+                    onDismiss = { showEditDialogue.value = false },
                     onEdit = { productWeight, productName, productMeasurementMetric, productExpiration ->
                         viewModel.editProduct(
                             productWeight,
@@ -129,11 +128,10 @@ fun GroceriesDetailsScreen(
     }
 }
 
-
 @Composable
 fun ProductDetailsLoaded(
     state: ProductDetailViewState,
-    onDeleteProduct:() -> Unit,
+    onDeleteProduct: () -> Unit,
     onEditProduct: () -> Unit,
     onDishClick: (id: Int) -> Unit
 ) {
@@ -151,19 +149,20 @@ fun ProductDetailsLoaded(
 }
 
 @Composable
-fun DishesList(recipes: List<Recipe>, onDishClick: (recipeId: Int) -> Unit){
+fun DishesList(recipes: List<Recipe>, onDishClick: (recipeId: Int) -> Unit) {
     Text(
         modifier = Modifier
             .padding(top = 20.dp)
             .fillMaxWidth(),
-        text =  "${recipes.size} recipes found",
+        text = "${recipes.size} recipes found",
         style = MyRationTypography.labelLarge,
         color = SecondaryColor,
         textAlign = TextAlign.Center
     )
-    LazyColumn(modifier = Modifier
-        .padding(top = 10.dp, start = 20.dp, end = 20.dp)
-        .height((recipes.size * 300).dp),
+    LazyColumn(
+        modifier = Modifier
+            .padding(top = 10.dp, start = 20.dp, end = 20.dp)
+            .height((recipes.size * 300).dp),
         userScrollEnabled = false
     ) {
         items(
@@ -179,7 +178,7 @@ fun DishesList(recipes: List<Recipe>, onDishClick: (recipeId: Int) -> Unit){
 }
 
 @Composable
-fun DishesListItem(modifier: Modifier,recipe: Recipe){
+fun DishesListItem(modifier: Modifier, recipe: Recipe) {
     Column(
         modifier = modifier
             .padding(top = 20.dp)
@@ -231,19 +230,24 @@ fun DishesListItem(modifier: Modifier,recipe: Recipe){
 }
 
 @Composable
-fun BadgesList(product: Product){
+fun BadgesList(product: Product) {
     product.getBadgesDesc()?.let {
-        BadgeWidget(it, modifier = Modifier
-            .fillMaxWidth()
-            .padding(end = 45.dp))
+        BadgeWidget(
+            it,
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(end = 45.dp)
+        )
     }
 }
 
 @Composable
 fun ActionsButton(editProduct: () -> Unit, deleteProduct: () -> Unit) {
-    Row(modifier = Modifier
-        .fillMaxWidth()
-        .padding(horizontal = 45.dp, vertical = 20.dp)) {
+    Row(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(horizontal = 45.dp, vertical = 20.dp)
+    ) {
         Box(
             modifier = Modifier
                 .padding(end = 10.dp)
@@ -269,7 +273,7 @@ fun ActionsButton(editProduct: () -> Unit, deleteProduct: () -> Unit) {
                     color = SecondaryColor
                 )
                 Image(
-                    painter = painterResource(id = com.example.core_ui.R.drawable.ic_edit),
+                    painter = painterResource(id = com.example.coreUi.R.drawable.ic_edit),
                     contentDescription = "edit product icon",
                     modifier = Modifier
                         .size(24.dp)
@@ -301,7 +305,7 @@ fun ActionsButton(editProduct: () -> Unit, deleteProduct: () -> Unit) {
                     color = SecondaryColor
                 )
                 Image(
-                    painter = painterResource(id = com.example.core_ui.R.drawable.ic_delete),
+                    painter = painterResource(id = com.example.coreUi.R.drawable.ic_delete),
                     contentDescription = "delete product icon",
                     modifier = Modifier
                         .size(24.dp)
@@ -310,7 +314,6 @@ fun ActionsButton(editProduct: () -> Unit, deleteProduct: () -> Unit) {
         }
     }
 }
-
 
 @Composable
 fun ProductTopBar(product: Product) {

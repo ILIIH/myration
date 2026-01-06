@@ -25,7 +25,7 @@ import androidx.glance.unit.ColorProvider
 import com.example.data.repository.CalorieRepositoryImp
 import com.example.myration.MainActivity
 
-class CalorieScreenWidget  : GlanceAppWidget() {
+class CalorieScreenWidget : GlanceAppWidget() {
 
     override suspend fun provideGlance(context: Context, id: GlanceId) {
         val preferences = context.getSharedPreferences(CalorieRepositoryImp.PREF_NAME, Context.MODE_PRIVATE)
@@ -46,7 +46,7 @@ class CalorieScreenWidget  : GlanceAppWidget() {
                 Column(
                     modifier = GlanceModifier
                         .fillMaxSize()
-                        .background(color = Color(0xFFFFFFFF)) ,
+                        .background(color = Color(0xFFFFFFFF)),
                     verticalAlignment = Alignment.CenterVertically,
                     horizontalAlignment = Alignment.CenterHorizontally
                 ) {
@@ -60,11 +60,10 @@ class CalorieScreenWidget  : GlanceAppWidget() {
                     )
                     LinearProgressIndicator(
                         progress = progress,
-                        color = ColorProvider( Color(0xFF499F68))
+                        color = ColorProvider(Color(0xFF499F68))
                     )
                 }
             }
         }
     }
 }
-

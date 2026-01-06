@@ -2,6 +2,7 @@ package com.example.data.repository
 
 import android.annotation.SuppressLint
 import android.content.SharedPreferences
+import androidx.core.content.edit
 import com.example.data.model.RecipeIngredientEntity
 import com.example.data.model.maping.toData
 import com.example.data.model.maping.toDomain
@@ -14,7 +15,6 @@ import com.example.domain.repository.RecipeRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
-import androidx.core.content.edit
 
 class RecipeRepositoryImp @Inject constructor(
     private val localDataSource: RecipeDataSource,
@@ -33,7 +33,7 @@ class RecipeRepositoryImp @Inject constructor(
     override suspend fun getRecipesForProduct(product: Product): List<Recipe> {
         val ingredients = localDataSource.getAllIngredients()
             .map { it.toDomain() }
-            .filter { it.productName ==  product.name}
+            .filter { it.productName == product.name }
             .distinctBy { it.recipeID }
 
         val recipeList: List<Recipe> = localDataSource.getAllRecipes().map { it.toDomain() }

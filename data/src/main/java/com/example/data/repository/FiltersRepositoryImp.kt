@@ -1,10 +1,7 @@
 package com.example.data.repository
 
-import com.example.domain.model.CookingDifficulty
 import com.example.domain.model.Filter
-import com.example.domain.model.Recipe
 import com.example.domain.model.RecipeFilter
-import com.example.domain.model.RecipeType
 import com.example.domain.repository.FiltersRepository
 
 class FiltersRepositoryImp : FiltersRepository {

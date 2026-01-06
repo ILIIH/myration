@@ -40,7 +40,7 @@ import com.example.theme.PrimaryColor
 
 @Composable
 fun SetUpProfileDialogue(
-    onChange: ( newCalorie: Float) -> Unit,
+    onChange: (newCalorie: Float) -> Unit,
     calculateMaxCalories: (height: String, weight: String, goalWeight: String, age: String, male: Boolean) -> String
 ) {
     var maxCalorie by remember { mutableStateOf("") }
@@ -88,7 +88,8 @@ fun SetUpProfileDialogue(
                                 goalWeightTextView.text,
                                 ageTextView.text,
                                 isMaleCheckBox
-                            )},
+                            )
+                        },
                         modifier = Modifier.weight(0.5f),
                         label = { Text(text = "Height (cm)", style = MyRationTypography.displayLarge) },
                         singleLine = true,
@@ -106,7 +107,8 @@ fun SetUpProfileDialogue(
                                 goalWeightTextView.text,
                                 ageTextView.text,
                                 isMaleCheckBox
-                            )},
+                            )
+                        },
                         modifier = Modifier.weight(0.5f),
                         label = { Text(text = "Age (years)", style = MyRationTypography.displayLarge) },
                         singleLine = true,
@@ -141,7 +143,8 @@ fun SetUpProfileDialogue(
                             goalWeightTextView.text,
                             ageTextView.text,
                             isMaleCheckBox
-                        )},
+                        )
+                    },
                     modifier = Modifier.fillMaxWidth(),
                     label = { Text(text = "Current weight (kg)", style = MyRationTypography.displayLarge) },
                     singleLine = true,
@@ -159,7 +162,8 @@ fun SetUpProfileDialogue(
                             goalWeightTextView.text,
                             ageTextView.text,
                             isMaleCheckBox
-                        )},
+                        )
+                    },
                     modifier = Modifier.fillMaxWidth(),
                     label = { Text(text = "Goal weight (kg)", style = MyRationTypography.displayLarge) },
                     singleLine = true,
@@ -204,7 +208,7 @@ fun SetUpProfileDialogue(
 @Composable
 fun previewSetUpDialogue() {
     SetUpProfileDialogue(
-        { } ,
-        {a,b,c,d,g ->  "" }
+        { },
+        { a, b, c, d, g -> "" }
     )
 }

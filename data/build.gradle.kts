@@ -62,12 +62,13 @@ dependencies {
     // Room components
     implementation("androidx.room:room-runtime:2.6.1")
     implementation(project(":core"))
+    implementation("androidx.compose.ui:ui-test-junit4-android:1.10.0")
     annotationProcessor("androidx.room:room-compiler:2.6.1")
     kapt("androidx.room:room-compiler:2.6.1")
 
     // Room extensions
     implementation("androidx.room:room-ktx:2.6.1")
-    implementation ("androidx.room:room-paging:2.6.1")
+    implementation("androidx.room:room-paging:2.6.1")
 
     implementation(project(":domain"))
 
@@ -81,17 +82,17 @@ dependencies {
     implementation("com.squareup.okhttp3:logging-interceptor:5.0.0-alpha.3") // Optional: Logging
 
     // Paging
-    implementation ("androidx.paging:paging-runtime:3.3.6")
+    implementation("androidx.paging:paging-runtime:3.3.6")
 
     // Local unit tests
-    testImplementation ("androidx.test:core:1.4.0")
-    testImplementation ("junit:junit:4.13.2")
-    testImplementation ("androidx.arch.core:core-testing:2.1.0")
-    testImplementation ("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.5.1")
-    testImplementation ("com.google.truth:truth:1.1.3")
-    testImplementation ("com.squareup.okhttp3:mockwebserver:4.9.1")
-    testImplementation ("io.mockk:mockk:1.10.5")
-    debugImplementation ("androidx.compose.ui:ui-test-manifest:1.1.0-alpha04")
+    testImplementation("androidx.test:core:1.4.0")
+    testImplementation("junit:junit:4.13.2")
+    testImplementation("androidx.arch.core:core-testing:2.1.0")
+    testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.5.1")
+    testImplementation("com.google.truth:truth:1.1.3")
+    testImplementation("com.squareup.okhttp3:mockwebserver:4.9.1")
+    testImplementation("io.mockk:mockk:1.10.5")
+    debugImplementation("androidx.compose.ui:ui-test-manifest:1.1.0-alpha04")
 
     // Instrumentation tests
     androidTestImplementation("com.google.dagger:hilt-android-testing:2.37")
@@ -105,5 +106,4 @@ dependencies {
     androidTestImplementation("com.squareup.okhttp3:mockwebserver:4.9.1")
     androidTestImplementation("io.mockk:mockk-android:1.10.5")
     androidTestImplementation("androidx.test:runner:1.4.0")
-
 }

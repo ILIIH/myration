@@ -5,14 +5,13 @@ import com.example.domain.model.Product
 import com.example.myration.mvi.effects.AddProductVoiceEffect
 import com.example.myration.mvi.intent.AddProductVoiceEvents
 import com.example.myration.mvi.state.AddProductVoiceViewState
-import com.example.myration.mvi.state.ImageScanState
 
 class AddProductVoiceReducer : Reducer<AddProductVoiceViewState, AddProductVoiceEvents, AddProductVoiceEffect> {
     override fun reduce(
         previousState: AddProductVoiceViewState,
         event: AddProductVoiceEvents
     ): Pair<AddProductVoiceViewState, AddProductVoiceEffect?> {
-        return when(event){
+        return when (event) {
             is AddProductVoiceEvents.RecordingInProgress -> {
                 previousState.copy(isRecording = true) to null
             }
@@ -20,7 +19,7 @@ class AddProductVoiceReducer : Reducer<AddProductVoiceViewState, AddProductVoice
                 previousState to AddProductVoiceEffect.ShowRecordingError(event.errorMessage)
             }
             is AddProductVoiceEvents.Recorded -> {
-                previousState.copy( recordingResult = event.recordResult) to null
+                previousState.copy(recordingResult = event.recordResult) to null
             }
             is AddProductVoiceEvents.VoiceParsingError -> {
                 previousState to AddProductVoiceEffect.VoiceParsingError(event.error)
@@ -39,7 +38,7 @@ class AddProductVoiceReducer : Reducer<AddProductVoiceViewState, AddProductVoice
                 previousState.copy(productList = newProductList) to null
             }
             is AddProductVoiceEvents.EditProduct -> {
-                val newProductList: List<Product> = previousState.productList.filter { it.id != event.product.id} + event.product
+                val newProductList: List<Product> = previousState.productList.filter { it.id != event.product.id } + event.product
                 previousState.copy(productList = newProductList) to null
             }
             is AddProductVoiceEvents.ProductsSubmitted -> {

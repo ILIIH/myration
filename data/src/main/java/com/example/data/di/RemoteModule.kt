@@ -2,8 +2,8 @@ package com.example.data.di
 
 import com.example.data.model.RecipeAPIEntity
 import com.example.data.model.maping.MealDeserializer
-import com.example.data.source.TokenizationApi
 import com.example.data.source.RecipeApiService
+import com.example.data.source.TokenizationApi
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import dagger.Module
@@ -22,7 +22,7 @@ import javax.inject.Singleton
 object RemoteModule {
 
     private const val MEAL_BASE_URL = "https://www.themealdb.com"
-    private const val TOKENIZATION_BASE_URL = "https://20ad-212-129-84-94.ngrok-free.app"     //TODO: replace with actual base url
+    private const val TOKENIZATION_BASE_URL = "https://20ad-212-129-84-94.ngrok-free.app" // TODO: replace with actual base url
 
     @Provides
     @Singleton
@@ -69,9 +69,10 @@ object RemoteModule {
             .addConverterFactory(GsonConverterFactory.create(gson))
             .build()
     }
+
     @Provides
     @Singleton
-    fun provideMealApiService( @Named("mealApiRetrofit") retrofit: Retrofit): RecipeApiService {
+    fun provideMealApiService(@Named("mealApiRetrofit") retrofit: Retrofit): RecipeApiService {
         return retrofit.create(RecipeApiService::class.java)
     }
 

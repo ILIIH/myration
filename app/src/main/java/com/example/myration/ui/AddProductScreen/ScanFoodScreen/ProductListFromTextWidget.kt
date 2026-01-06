@@ -32,18 +32,18 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import com.example.domain.model.Product
 import com.example.myration.R
+import com.example.theme.MyRationTypography
 import com.example.theme.SecondaryColor
 import com.example.theme.SecondaryHalfTransparentColor
-import com.example.theme.MyRationTypography
 
 @Composable
 fun ProductListFromTextWidget(
     products: List<Product>,
-    removeProduct: (id: Int)-> Unit,
-    editProduct: (product: Product)-> Unit,
-    submitProduct:() -> Unit
+    removeProduct: (id: Int) -> Unit,
+    editProduct: (product: Product) -> Unit,
+    submitProduct: () -> Unit
 ) {
-    Column (
+    Column(
         modifier = Modifier.fillMaxSize()
     ) {
         ScannedProductList(
@@ -59,16 +59,17 @@ fun ProductListFromTextWidget(
 fun ScannedProductList(
     productsList: List<Product>,
     removeProduct: (productId: Int) -> Unit,
-    editProduct: (product: Product) -> Unit,
+    editProduct: (product: Product) -> Unit
 ) {
-    LazyColumn(modifier = Modifier
-        .fillMaxSize()
-        .padding(top = 50.dp, start = 20.dp, end = 20.dp, bottom = 30.dp)
+    LazyColumn(
+        modifier = Modifier
+            .fillMaxSize()
+            .padding(top = 50.dp, start = 20.dp, end = 20.dp, bottom = 30.dp)
     ) {
         itemsIndexed(productsList.chunked(2)) { index, chunk ->
             Row(
                 modifier = Modifier.fillMaxWidth(),
-                horizontalArrangement = Arrangement.spacedBy(20.dp),
+                horizontalArrangement = Arrangement.spacedBy(20.dp)
             ) {
                 chunk.take(2).forEach { product ->
                     ScannedProductItem(
@@ -82,6 +83,7 @@ fun ScannedProductList(
         }
     }
 }
+
 @Composable
 fun SubmitBtn(onSubmit: () -> Unit) {
     Box(
@@ -96,7 +98,7 @@ fun SubmitBtn(onSubmit: () -> Unit) {
             )
             .background(color = Color.White, shape = RoundedCornerShape(12.dp))
             .padding(vertical = 8.dp, horizontal = 12.dp)
-    ){
+    ) {
         Text(
             text = "Submit products",
             style = MyRationTypography.labelSmall,
@@ -104,6 +106,7 @@ fun SubmitBtn(onSubmit: () -> Unit) {
         )
     }
 }
+
 @Composable
 fun ScannedProductItem(
     product: Product,
@@ -171,7 +174,7 @@ fun ScannedProductItem(
 
         // 2. Delete icon (top-left corner, over everything)
         Image(
-            painter = painterResource(id = com.example.core_ui.R.drawable.ic_baseline_close),
+            painter = painterResource(id = com.example.coreUi.R.drawable.ic_baseline_close),
             contentDescription = "remove product button",
             modifier = Modifier
                 .padding(top = 30.dp, start = 10.dp)
@@ -185,7 +188,7 @@ fun ScannedProductItem(
 
         // 3. Edit icon
         Image(
-            painter = painterResource(id = com.example.core_ui.R.drawable.ic_edit),
+            painter = painterResource(id = com.example.coreUi.R.drawable.ic_edit),
             contentDescription = "edit product button",
             modifier = Modifier
                 .padding(top = 30.dp, end = 10.dp)

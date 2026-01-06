@@ -5,54 +5,54 @@ import com.example.data.source.FoodHistoryDataSource
 import io.mockk.coVerify
 import io.mockk.every
 import io.mockk.mockk
-import kotlinx.coroutines.ExperimentalCoroutinesApi
-import org.junit.Before
-import org.junit.Test
 import io.mockk.verify
 import junit.framework.TestCase.assertEquals
-import java.text.SimpleDateFormat
-import java.util.Locale
-import java.util.Date
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.runTest
+import org.junit.Before
+import org.junit.Test
+import java.text.SimpleDateFormat
+import java.util.Date
+import java.util.Locale
 
 @ExperimentalCoroutinesApi
 class CalorieRepositoryImpTest {
 
- private lateinit var sharedPreferences: SharedPreferences
- private lateinit var editor: SharedPreferences.Editor
- private lateinit var foodHistoryDAO: FoodHistoryDataSource
- private lateinit var repository: CalorieRepositoryImp
+    private lateinit var sharedPreferences: SharedPreferences
+    private lateinit var editor: SharedPreferences.Editor
+    private lateinit var foodHistoryDAO: FoodHistoryDataSource
+    private lateinit var repository: CalorieRepositoryImp
 
- @Before
- fun setup() {
-    sharedPreferences = mockk()
-    editor = mockk(relaxed = true)
-    foodHistoryDAO = mockk(relaxed = true)
+    @Before
+    fun setup() {
+        sharedPreferences = mockk()
+        editor = mockk(relaxed = true)
+        foodHistoryDAO = mockk(relaxed = true)
 
-    every { sharedPreferences.edit() } returns editor
+        every { sharedPreferences.edit() } returns editor
 
-    repository = CalorieRepositoryImp(sharedPreferences, foodHistoryDAO)
-   }
+        repository = CalorieRepositoryImp(sharedPreferences, foodHistoryDAO)
+    }
 
     @Test
     fun `resetCalorie should clear calories if date is different`() {
-         val date = "1999-01-01"
-         every { sharedPreferences.getString(CalorieRepositoryImp.CALORIE_DATE, "") } returns date
+        val date = "1999-01-01"
+        every { sharedPreferences.getString(CalorieRepositoryImp.CALORIE_DATE, "") } returns date
 
-         repository.resetCalorie()
+        repository.resetCalorie()
 
-         verify {
-              editor.putFloat(CalorieRepositoryImp.CURRENT_CALORIE, 0f)
-              editor.putInt(CalorieRepositoryImp.CURRENT_PROTEIN, 0)
-              editor.putInt(CalorieRepositoryImp.CURRENT_FATS, 0)
-              editor.putInt(CalorieRepositoryImp.CURRENT_CARB, 0)
-              editor.apply()
-         }
+        verify {
+            editor.putFloat(CalorieRepositoryImp.CURRENT_CALORIE, 0f)
+            editor.putInt(CalorieRepositoryImp.CURRENT_PROTEIN, 0)
+            editor.putInt(CalorieRepositoryImp.CURRENT_FATS, 0)
+            editor.putInt(CalorieRepositoryImp.CURRENT_CARB, 0)
+            editor.apply()
+        }
     }
 
     @Test
     fun `resetCalorie should do nothing if date is same`() {
-        val today = SimpleDateFormat(CalorieRepositoryImp.DATE_FORMAT, Locale.getDefault()).format(Date())
+        val today = SimpleDateFormat(CalorieRepositoryImp.CALORIE_DATE, Locale.getDefault()).format(Date())
         every { sharedPreferences.getString(CalorieRepositoryImp.CALORIE_DATE, "") } returns today
         repository.resetCalorie()
         verify(exactly = 0) { editor.putFloat(any(), any()) }
@@ -62,9 +62,9 @@ class CalorieRepositoryImpTest {
     fun `setCalorie should store calorie and update date`() = runTest {
         repository.setCalorie(300f)
         verify {
-           editor.putFloat(CalorieRepositoryImp.CURRENT_CALORIE, 300f)
-           editor.putString(eq(CalorieRepositoryImp.CALORIE_DATE), any())
-           editor.apply()
+            editor.putFloat(CalorieRepositoryImp.CURRENT_CALORIE, 300f)
+            editor.putString(eq(CalorieRepositoryImp.CALORIE_DATE), any())
+            editor.apply()
         }
     }
 
@@ -96,27 +96,28 @@ class CalorieRepositoryImpTest {
 
     @Test
     fun `addToCurrentCalorie should update stored values and insert food record`() = runTest {
-         every { sharedPreferences.getFloat(CalorieRepositoryImp.CURRENT_CALORIE, any()) } returns 200f
-         every { sharedPreferences.getInt(CalorieRepositoryImp.CURRENT_PROTEIN, any()) } returns 5
-         every { sharedPreferences.getInt(CalorieRepositoryImp.CURRENT_FATS, any()) } returns 5
-         every { sharedPreferences.getInt(CalorieRepositoryImp.CURRENT_CARB, any()) } returns 5
+        every { sharedPreferences.getFloat(CalorieRepositoryImp.CURRENT_CALORIE, any()) } returns 200f
+        every { sharedPreferences.getInt(CalorieRepositoryImp.CURRENT_PROTEIN, any()) } returns 5
+        every { sharedPreferences.getInt(CalorieRepositoryImp.CURRENT_FATS, any()) } returns 5
+        every { sharedPreferences.getInt(CalorieRepositoryImp.CURRENT_CARB, any()) } returns 5
 
-         repository.addToCurrentCalorie(100f, "Apple", 10, 15, 20)
+        repository.addToCurrentCalorie(100f, "Apple", 10, 15, 20)
 
-         coVerify {
-              foodHistoryDAO.addFoodProduct(match {
-                   it.productName == "Apple" && it.productCalorie == 100f
-              })
-         }
+        coVerify {
+            foodHistoryDAO.addFoodProduct(
+                match {
+                    it.productName == "Apple" && it.productCalorie == 100f
+                }
+            )
+        }
 
-         verify {
-             editor.putFloat(CalorieRepositoryImp.CURRENT_CALORIE, 300f)
-             editor.putInt(CalorieRepositoryImp.CURRENT_PROTEIN, 15)
-             editor.putInt(CalorieRepositoryImp.CURRENT_FATS, 20)
-             editor.putInt(CalorieRepositoryImp.CURRENT_CARB, 25)
-             editor.putString(eq(CalorieRepositoryImp.CALORIE_DATE), any())
-             editor.apply()
-         }
+        verify {
+            editor.putFloat(CalorieRepositoryImp.CURRENT_CALORIE, 300f)
+            editor.putInt(CalorieRepositoryImp.CURRENT_PROTEIN, 15)
+            editor.putInt(CalorieRepositoryImp.CURRENT_FATS, 20)
+            editor.putInt(CalorieRepositoryImp.CURRENT_CARB, 25)
+            editor.putString(eq(CalorieRepositoryImp.CALORIE_DATE), any())
+            editor.apply()
+        }
     }
-
 }

@@ -22,12 +22,11 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import com.example.domain.model.ScanningType
 import com.example.myration.R
-import com.example.theme.PrimaryColor
 import com.example.theme.MyRationTypography
-
+import com.example.theme.PrimaryColor
 
 @Composable
-fun PickingScanningType(pickScanningType: (type: ScanningType) -> Unit){
+fun PickingScanningType(pickScanningType: (type: ScanningType) -> Unit) {
     Box(
         modifier = Modifier
             .fillMaxSize(),
@@ -41,14 +40,14 @@ fun PickingScanningType(pickScanningType: (type: ScanningType) -> Unit){
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.spacedBy(16.dp, Alignment.CenterHorizontally)
         ) {
-            Column (
+            Column(
                 modifier = Modifier
                     .padding(top = 20.dp)
                     .weight(1f).clickable {
-                    pickScanningType(ScanningType.FOOD_SCANNING)
-                },
+                        pickScanningType(ScanningType.FOOD_SCANNING)
+                    },
                 horizontalAlignment = Alignment.CenterHorizontally
-            ){
+            ) {
                 Image(
                     painter = painterResource(id = R.drawable.ic_food_icon),
                     contentDescription = "Scan food",
@@ -66,14 +65,14 @@ fun PickingScanningType(pickScanningType: (type: ScanningType) -> Unit){
                     color = Color.White
                 )
             }
-            Column (
+            Column(
                 modifier = Modifier
                     .padding(top = 20.dp)
                     .weight(1f).clickable {
-                    pickScanningType(ScanningType.RECIPE_SCANNING)
-                },
+                        pickScanningType(ScanningType.RECIPE_SCANNING)
+                    },
                 horizontalAlignment = Alignment.CenterHorizontally
-            ){
+            ) {
                 Image(
                     painter = painterResource(id = R.drawable.ic_recipt_icon),
                     contentDescription = "Scan receipt",

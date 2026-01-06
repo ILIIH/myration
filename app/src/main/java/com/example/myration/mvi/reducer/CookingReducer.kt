@@ -16,22 +16,23 @@ class CookingReducer : Reducer<ResultState<CookingViewState>, CookingEvents, Coo
         previousState: ResultState<CookingViewState>,
         event: CookingEvents
     ): Pair<ResultState<CookingViewState>, CookingEffect?> {
-        return when(event){
+        return when (event) {
             is CookingEvents.CookingScreenLoading -> {
                 ResultState.Loading to null
             }
             is CookingEvents.ApplyFilter -> {
-                if(previousState is ResultState.Success){
+                if (previousState is ResultState.Success) {
                     var newRecipesList = previousState.data.fullRecipesList
                     val newFilterList = previousState.data.filtersList.map {
                         if (it.id == event.filterId) {
-                            newRecipesList =  getFilteredItems(
+                            newRecipesList = getFilteredItems(
                                 recipes = newRecipesList,
                                 filter = it
                             )
                             it.copy(isApplied = true)
+                        } else {
+                            it
                         }
-                        else it
                     }.sortedByDescending { it.isApplied }
 
                     ResultState.Success(
@@ -41,27 +42,26 @@ class CookingReducer : Reducer<ResultState<CookingViewState>, CookingEvents, Coo
                             fullRecipesList = previousState.data.fullRecipesList
                         )
                     ) to null
+                } else {
+                    ResultState.Error("No recipes was downloaded") to null
                 }
-                else ResultState.Error("No recipes was downloaded") to null
             }
             is CookingEvents.RemoveFilter -> {
-                if(previousState is ResultState.Success){
+                if (previousState is ResultState.Success) {
                     var newRecipesList = listOf<Recipe>()
                     var firstApplied = false
                     val newFilters = previousState.data.filtersList.map {
                         if (it.id == event.filterId) {
                             it.copy(isApplied = false)
-                        }
-                        else {
-                            if(it.isApplied){
-                                if(!firstApplied){
+                        } else {
+                            if (it.isApplied) {
+                                if (!firstApplied) {
                                     newRecipesList = getFilteredItems(
                                         recipes = previousState.data.fullRecipesList,
                                         filter = it
                                     )
                                     firstApplied = true
-                                }
-                                else {
+                                } else {
                                     newRecipesList = getFilteredItems(
                                         recipes = newRecipesList,
                                         filter = it
@@ -71,7 +71,7 @@ class CookingReducer : Reducer<ResultState<CookingViewState>, CookingEvents, Coo
                             it
                         }
                     }.sortedByDescending { it.isApplied }
-                    if (!firstApplied){
+                    if (!firstApplied) {
                         newRecipesList = previousState.data.fullRecipesList
                     }
                     ResultState.Success(
@@ -81,8 +81,9 @@ class CookingReducer : Reducer<ResultState<CookingViewState>, CookingEvents, Coo
                             fullRecipesList = previousState.data.fullRecipesList
                         )
                     ) to null
+                } else {
+                    ResultState.Error("No recipes was downloaded") to null
                 }
-                else ResultState.Error("No recipes was downloaded") to null
             }
             is CookingEvents.onRecipeClicked -> {
                 previousState to CookingEffect.NavigateToRecipeDetails(recipeId = event.recipeId)
@@ -126,5 +127,4 @@ class CookingReducer : Reducer<ResultState<CookingViewState>, CookingEvents, Coo
             }
         }
     }
-
 }

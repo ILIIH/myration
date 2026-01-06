@@ -8,8 +8,8 @@ import java.util.Calendar
 import java.util.Date
 import java.util.Locale
 
-class GetSoonExpiredProductsImp (private val repository: ProductsRepository):GetSoonExpiredProductsUseCase {
-    override suspend fun  execute() : List<Product>  {
+class GetSoonExpiredProductsImp(private val repository: ProductsRepository) : GetSoonExpiredProductsUseCase {
+    override suspend fun execute(): List<Product> {
         val calendar = Calendar.getInstance()
         val today: Date = calendar.time
 

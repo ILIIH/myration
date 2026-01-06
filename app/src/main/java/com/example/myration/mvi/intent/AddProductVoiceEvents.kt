@@ -16,5 +16,4 @@ sealed class AddProductVoiceEvents : Reducer.ViewEvent {
     data class VoiceParsingResult(val result: List<Product>) : AddProductVoiceEvents()
     data class RemoveProduct(val id: Int) : AddProductVoiceEvents()
     data class EditProduct(val product: Product) : AddProductVoiceEvents()
-
 }

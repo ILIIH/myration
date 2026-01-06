@@ -1,13 +1,11 @@
 
 package com.example.data.model.maping
 
-import android.annotation.SuppressLint
 import com.example.data.model.FoodHistoryEntity
 import com.example.data.model.ProductEntity
 import com.example.data.model.RecipeAPIEntity
 import com.example.data.model.RecipeEntity
 import com.example.data.model.RecipeIngredientEntity
-import com.example.data.repository.CalorieRepositoryImp
 import com.example.domain.model.CookingDifficulty
 import com.example.domain.model.FoodHistory
 import com.example.domain.model.MeasurementMetric
@@ -22,11 +20,10 @@ import java.time.format.DateTimeFormatter
 import java.util.Date
 import java.util.Locale
 
-
 const val DATE_FORMAT = "yyyy-MM-dd"
 val SDF = SimpleDateFormat(DATE_FORMAT, Locale.getDefault())
 
-fun Date.getString()  = this.toInstant().atZone(ZoneId.systemDefault()).toLocalDate().format(DateTimeFormatter.ofPattern(DATE_FORMAT))
+fun Date.getString() = this.toInstant().atZone(ZoneId.systemDefault()).toLocalDate().format(DateTimeFormatter.ofPattern(DATE_FORMAT))
 // Product
 
 fun ProductEntity.toDomain(): Product {
@@ -40,7 +37,7 @@ fun ProductEntity.toDomain(): Product {
 
 fun Product.toData(withId: Boolean = true): ProductEntity {
     return ProductEntity(
-        id = if(withId)this.id else null,
+        id = if (withId)this.id else null,
         this.quantity,
         this.name,
         this.measurementMetric.desc,
@@ -115,9 +112,9 @@ fun getGrams(text: String): Int {
 
 // FoodHistory
 
-fun FoodHistoryEntity.toDomain() : FoodHistory {
+fun FoodHistoryEntity.toDomain(): FoodHistory {
     return FoodHistory(
-        id = this.id?:0,
+        id = this.id ?: 0,
         productName = this.productName,
         productCalorie = this.productCalorie,
         date = SDF.parse(this.date)

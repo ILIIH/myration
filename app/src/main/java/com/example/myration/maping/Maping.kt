@@ -11,7 +11,7 @@ import java.time.format.DateTimeFormatter
 import java.time.temporal.ChronoUnit
 import kotlin.math.abs
 
-fun Recipe.getBadgesDesc():Pair<String, Color>? {
+fun Recipe.getBadgesDesc(): Pair<String, Color>? {
     return when {
         kcal < 300 -> "Low Calories" to PositiveBadgesColor
         kcal > 1300 -> "High Calories" to NegativeNegativeColor
@@ -21,7 +21,7 @@ fun Recipe.getBadgesDesc():Pair<String, Color>? {
     }
 }
 
-fun Product.getBadgesDesc():Pair<String, Color>? {
+fun Product.getBadgesDesc(): Pair<String, Color>? {
     val formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy")
     val inputDate = LocalDate.parse(expirationDate, formatter)
     val currentDate = LocalDate.now()

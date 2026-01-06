@@ -4,7 +4,6 @@ import com.example.domain.model.Product
 import kotlinx.coroutines.Deferred
 import java.io.IOException
 
-
 interface WhisperEngine {
     val isInitialized: Boolean
 

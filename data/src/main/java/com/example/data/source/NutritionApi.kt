@@ -9,4 +9,3 @@ interface NutritionApi {
     @GET("v1/nutrition")
     suspend fun getNutrition(@Header("X-Api-Key") apiKey: String, @Query("query") query: String): NutritionResponse
 }
-

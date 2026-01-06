@@ -2,7 +2,6 @@ package com.example.myration
 
 import android.annotation.SuppressLint
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -13,20 +12,19 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.health.connect.client.HealthConnectClient
 import androidx.health.connect.client.PermissionController
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.compose.rememberNavController
-import com.example.core_ui.custom_windows.ErrorMessage
-import com.example.core_ui.custom_windows.LoadingWindow
+import com.example.coreUi.customWindows.ErrorMessage
+import com.example.coreUi.customWindows.LoadingWindow
 import com.example.myration.navigation.AppNavHost
 import com.example.myration.navigation.BottomNavigationBar
 import com.example.myration.viewModels.MainViewModel
 import com.example.theme.MyRationTheme
 import dagger.hilt.android.AndroidEntryPoint
-import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.getValue
-import androidx.lifecycle.compose.collectAsStateWithLifecycle
 
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
