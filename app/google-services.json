@@ -1,29 +1,67 @@
 {
-  "project_info": {
-    "project_number": "646733557465",
-    "project_id": "myration-8ed75",
-    "storage_bucket": "myration-8ed75.firebasestorage.app"
-  },
-  "client": [
-    {
-      "client_info": {
-        "mobilesdk_app_id": "1:646733557465:android:7ae16af245e021682e18c8",
-        "android_client_info": {
-          "package_name": "com.example.myration"
-        }
-      },
-      "oauth_client": [],
-      "api_key": [
+    "project_info": {
+        "project_number": "646733557465",
+        "project_id": "myration-8ed75",
+        "storage_bucket": "myration-8ed75.firebasestorage.app"
+    },
+    "client": [
         {
-          "current_key": "AIzaSyAsLj5T-fpGmitJ31Xp942eL3ndbhxvp-w"
+            "client_info": {
+                "mobilesdk_app_id": "1:646733557465:android:7ae16af245e021682e18c8",
+                "android_client_info": {
+                    "package_name": "com.example.myration"
+                }
+            },
+            "oauth_client": [],
+            "api_key": [
+                {
+                    "current_key": "AIzaSyAsLj5T-fpGmitJ31Xp942eL3ndbhxvp-w"
+                }
+            ],
+            "services": {
+                "appinvite_service": {
+                    "other_platform_oauth_client": []
+                }
+            }
+        },
+        {
+            "client_info": {
+                "mobilesdk_app_id": "1:646733557465:android:a8796ffeaa980f592e18c8",
+                "android_client_info": {
+                    "package_name": "com.example.myration.withaudio"
+                }
+            },
+            "oauth_client": [],
+            "api_key": [
+                {
+                    "current_key": "AIzaSyAsLj5T-fpGmitJ31Xp942eL3ndbhxvp-w"
+                }
+            ],
+            "services": {
+                "appinvite_service": {
+                    "other_platform_oauth_client": []
+                }
+            }
+        },
+        {
+            "client_info": {
+                "mobilesdk_app_id": "1:646733557465:android:47ebfe3e278c76732e18c8",
+                "android_client_info": {
+                    "package_name": "com.example.myration.withoutaudio"
+                }
+            },
+            "oauth_client": [],
+            "api_key": [
+                {
+                    "current_key": "AIzaSyAsLj5T-fpGmitJ31Xp942eL3ndbhxvp-w"
+                }
+            ],
+            "services": {
+                "appinvite_service": {
+                    "other_platform_oauth_client": []
+                }
+            }
         }
-      ],
-      "services": {
-        "appinvite_service": {
-          "other_platform_oauth_client": []
-        }
-      }
-    }
-  ],
-  "configuration_version": "1"
+    ],
+    "configuration_version": "1"
 }

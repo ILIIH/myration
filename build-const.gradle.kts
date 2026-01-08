@@ -1,6 +1,6 @@
 
 // DI
-val dagger_version by extra("2.50")
+val dagger_version by extra("2.54")
 val hilt_navigation_version by extra("1.2.0")
 
 // Core
@@ -21,5 +21,7 @@ val mlkit_version by extra("16.0.1")
 val coroutines_play_services_version by extra("1.7.3")
 
 // Media
-
 val koil_version by extra("2.5.0")
+
+// Room components
+val roomVersion = "2.7.0-alpha11"

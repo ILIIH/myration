@@ -1,10 +1,13 @@
+apply(from = "../build-const.gradle.kts")
+
 plugins {
     id("com.android.library")
     id("org.jetbrains.kotlin.android")
     id("kotlin-kapt")
     id("dagger.hilt.android.plugin")
+    id("com.google.devtools.ksp")
+    id("com.google.dagger.hilt.android")
 }
-
 android {
     namespace = "com.example.data"
     compileSdk = 34
@@ -59,22 +62,21 @@ dependencies {
 
     implementation("androidx.health.connect:connect-client:1.1.0-alpha11")
 
-    // Room components
-    implementation("androidx.room:room-runtime:2.6.1")
-    implementation(project(":core"))
-    implementation("androidx.compose.ui:ui-test-junit4-android:1.10.0")
-    annotationProcessor("androidx.room:room-compiler:2.6.1")
-    kapt("androidx.room:room-compiler:2.6.1")
+    val roomVersion = "2.7.0-alpha11"
 
-    // Room extensions
-    implementation("androidx.room:room-ktx:2.6.1")
-    implementation("androidx.room:room-paging:2.6.1")
+    // Room
+    implementation("androidx.room:room-runtime:$roomVersion")
+    implementation("androidx.room:room-ktx:$roomVersion")
+    implementation("androidx.room:room-paging:$roomVersion")
+
+    ksp("androidx.room:room-compiler:$roomVersion")
 
     implementation(project(":domain"))
 
     // DI
-    implementation("com.google.dagger:hilt-android:2.50")
-    kapt("com.google.dagger:hilt-compiler:2.50")
+    implementation("com.google.dagger:hilt-android:${project.extra["dagger_version"]}")
+    kapt("com.google.dagger:hilt-compiler:${project.extra["dagger_version"]}")
+    implementation("androidx.hilt:hilt-navigation-compose:${project.extra["hilt_navigation_version"]}")
 
     // Network
     implementation("com.squareup.retrofit2:retrofit:2.9.0")
@@ -93,6 +95,7 @@ dependencies {
     testImplementation("com.squareup.okhttp3:mockwebserver:4.9.1")
     testImplementation("io.mockk:mockk:1.10.5")
     debugImplementation("androidx.compose.ui:ui-test-manifest:1.1.0-alpha04")
+    implementation("androidx.compose.ui:ui-test-junit4-android:1.10.0")
 
     // Instrumentation tests
     androidTestImplementation("com.google.dagger:hilt-android-testing:2.37")
@@ -106,4 +109,6 @@ dependencies {
     androidTestImplementation("com.squareup.okhttp3:mockwebserver:4.9.1")
     androidTestImplementation("io.mockk:mockk-android:1.10.5")
     androidTestImplementation("androidx.test:runner:1.4.0")
+
+    implementation(project(":core"))
 }
