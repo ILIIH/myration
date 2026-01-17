@@ -1,5 +1,4 @@
 apply(from = "../build-const.gradle.kts")
-
 plugins {
     id("com.android.library")
     id("org.jetbrains.kotlin.android")
@@ -15,7 +14,6 @@ android {
 
     defaultConfig {
         minSdk = 26
-        buildConfigField("String", "HUGGINGFACE_API_KEY", "\"${project.findProperty("HUGGINGFACE_API_KEY")}\"")
         testInstrumentationRunner = "com.example.data.HiltTestRunner"
         consumerProguardFiles("consumer-rules.pro")
     }
