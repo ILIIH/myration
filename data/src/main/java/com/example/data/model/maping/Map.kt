@@ -2,12 +2,14 @@
 package com.example.data.model.maping
 
 import com.example.data.model.FoodHistoryEntity
+import com.example.data.model.FoodPlanEntity
 import com.example.data.model.ProductEntity
 import com.example.data.model.RecipeAPIEntity
 import com.example.data.model.RecipeEntity
 import com.example.data.model.RecipeIngredientEntity
 import com.example.domain.model.CookingDifficulty
 import com.example.domain.model.FoodHistory
+import com.example.domain.model.FoodPlan
 import com.example.domain.model.MeasurementMetric
 import com.example.domain.model.Product
 import com.example.domain.model.Recipe
@@ -118,5 +120,31 @@ fun FoodHistoryEntity.toDomain(): FoodHistory {
         productName = this.productName,
         productCalorie = this.productCalorie,
         date = SDF.parse(this.date)
+    )
+}
+
+fun FoodPlan.toData(): FoodPlanEntity {
+    return FoodPlanEntity(
+        id = if (this.id == 0) null else this.id,
+        mealName = this.mealName,
+        mealCalorie = this.mealCalorie,
+        date = this.date,
+        completed = this.completed,
+        completionTime = this.completionTime,
+        mealNumber = this.mealNumber,
+        mealAmount = this.amountGramsIng
+    )
+}
+
+fun FoodPlanEntity.toDomain(): FoodPlan {
+    return FoodPlan(
+        id = this.id ?: 0,
+        mealName = this.mealName,
+        mealCalorie = this.mealCalorie,
+        date = this.date,
+        completed = this.completed,
+        completionTime = this.completionTime,
+        mealNumber = this.mealNumber,
+        amountGramsIng = this.mealAmount
     )
 }

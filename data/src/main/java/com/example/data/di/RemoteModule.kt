@@ -2,6 +2,7 @@ package com.example.data.di
 
 import com.example.data.model.RecipeAPIEntity
 import com.example.data.model.maping.MealDeserializer
+import com.example.data.source.LlmApi
 import com.example.data.source.RecipeApiService
 import com.example.data.source.TokenizationApi
 import com.google.gson.Gson
@@ -22,6 +23,7 @@ import javax.inject.Singleton
 object RemoteModule {
 
     private const val MEAL_BASE_URL = "https://www.themealdb.com"
+    private const val LLM_BASE_URL = "https://api.groq.com/"
     private const val TOKENIZATION_BASE_URL = "https://20ad-212-129-84-94.ngrok-free.app" // TODO: replace with actual base url
 
     @Provides
@@ -50,6 +52,17 @@ object RemoteModule {
 
     @Provides
     @Singleton
+    @Named("llmApiRetrofit")
+    fun provideLlmRetrofit(okHttpClient: OkHttpClient, gson: Gson): Retrofit {
+        return Retrofit.Builder()
+            .baseUrl(LLM_BASE_URL)
+            .client(okHttpClient)
+            .addConverterFactory(GsonConverterFactory.create(gson))
+            .build()
+    }
+
+    @Provides
+    @Singleton
     @Named("mealApiRetrofit")
     fun provideMealRetrofit(okHttpClient: OkHttpClient, gson: Gson): Retrofit {
         return Retrofit.Builder()
@@ -68,6 +81,12 @@ object RemoteModule {
             .client(okHttpClient)
             .addConverterFactory(GsonConverterFactory.create(gson))
             .build()
+    }
+
+    @Provides
+    @Singleton
+    fun provideLlmApiService(@Named("llmApiRetrofit") retrofit: Retrofit): LlmApi {
+        return retrofit.create(LlmApi::class.java)
     }
 
     @Provides

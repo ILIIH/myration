@@ -4,6 +4,7 @@ import android.content.Context
 import androidx.room.Room
 import com.example.data.model.LocalDataBase
 import com.example.data.source.FoodHistoryDataSource
+import com.example.data.source.FoodPlanDataSource
 import com.example.data.source.ProductLocalDataSource
 import com.example.data.source.RecipeDataSource
 import dagger.Module
@@ -30,6 +31,11 @@ object LocalDatabaseModule {
     @Provides
     fun provideProductsDao(database: LocalDataBase): ProductLocalDataSource {
         return database.productDao()
+    }
+
+    @Provides
+    fun provideFoodPlanDao(database: LocalDataBase): FoodPlanDataSource {
+        return database.foodPlanDao()
     }
 
     @Provides

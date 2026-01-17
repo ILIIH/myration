@@ -2,7 +2,7 @@
 <resources>
     <dimen name="display_large_size">22sp</dimen>
     <dimen name="display_medium_size">22sp</dimen>
-    <dimen name="display_small_size">16sp</dimen>
+    <dimen name="display_small_size">18sp</dimen>
 
     <dimen name="headline_large_size">16sp</dimen>
     <dimen name="headline_medium_size">14sp</dimen>

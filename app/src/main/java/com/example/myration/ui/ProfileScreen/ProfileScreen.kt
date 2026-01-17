@@ -31,9 +31,11 @@ import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.compose.ui.zIndex
 import androidx.glance.appwidget.updateAll
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -90,7 +92,8 @@ fun ProfileScreen(
                 foodHistory = state.foodHistory,
                 showChangeMaxCalorieDialogue = viewModel::showChangeMaxCalorie,
                 showAddEatenProductDialogue = viewModel::showAddEatenProduct,
-                navigateToFoodHistory = { navController.navigate(NavigationRoute.RATION_HISTORY_SCREEN.route) }
+                navigateToFoodHistory = { navController.navigate(NavigationRoute.RATION_HISTORY_SCREEN.route) },
+                openFoodPlan = { navController.navigate(NavigationRoute.FOOD_PLAN_SCREEN.route) }
             )
         }
         is ProfileViewState.ProfileInfoSetUp -> {
@@ -138,7 +141,14 @@ fun ProfileScreen(
 }
 
 @Composable
-fun ProfileScreenLoaded(calorieInfo: CalorieCounter, foodHistory: List<FoodHistory>, showChangeMaxCalorieDialogue: () -> Unit, showAddEatenProductDialogue: () -> Unit, navigateToFoodHistory: () -> Unit) {
+fun ProfileScreenLoaded(
+    calorieInfo: CalorieCounter,
+    foodHistory: List<FoodHistory>,
+    showChangeMaxCalorieDialogue: () -> Unit,
+    showAddEatenProductDialogue: () -> Unit,
+    navigateToFoodHistory: () -> Unit,
+    openFoodPlan: () -> Unit
+) {
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -148,7 +158,38 @@ fun ProfileScreenLoaded(calorieInfo: CalorieCounter, foodHistory: List<FoodHisto
     ) {
         CalorieInfoSection(calorieInfo, showChangeMaxCalorieDialogue)
         PFCSection(calorieInfo.protein, calorieInfo.fats, calorieInfo.carbohydrates)
+        FoodPlanSection(openFoodPlan)
         FoodHistorySection(showAddEatenProductDialogue, foodHistory, navigateToFoodHistory)
+    }
+}
+
+@Composable
+fun FoodPlanSection(openFoodPlan: () -> Unit) {
+    Row(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(top = 20.dp)
+            .padding(20.dp)
+            .shadow(elevation = 2.dp)
+            .background(color = PrimaryLightColor)
+            .clickable { openFoodPlan() },
+        horizontalArrangement = Arrangement.Center,
+        verticalAlignment = Alignment.CenterVertically
+    ) {
+        Text(
+            modifier = Modifier.padding(10.dp),
+            text = "Food plan",
+            fontSize = 20.sp,
+            fontWeight = FontWeight.Bold,
+            color = Color.Black,
+            style = MyRationTypography.displayMedium
+        )
+
+        Image(
+            painter = painterResource(id = com.example.coreUi.R.drawable.ic_food_plan),
+            contentDescription = "My food plan",
+            modifier = Modifier.size(24.dp)
+        )
     }
 }
 
@@ -158,7 +199,7 @@ fun CalorieInfoSection(calorieInfo: CalorieCounter, showChangeMaxCalorieDialogue
         modifier = Modifier
             .fillMaxWidth()
             .padding(top = 90.dp)
-            .padding(20.dp)
+            .padding(start = 20.dp, end = 20.dp)
             .background(color = PrimaryLightColor, shape = RoundedCornerShape(4.dp))
     ) {
         CalorieCounter(
@@ -169,7 +210,7 @@ fun CalorieInfoSection(calorieInfo: CalorieCounter, showChangeMaxCalorieDialogue
             onClick = showChangeMaxCalorieDialogue,
             modifier = Modifier
                 .align(Alignment.BottomEnd)
-                .offset(y = 20.dp, x = 20.dp)
+                .offset(y = 10.dp, x = 20.dp)
                 .zIndex(1f)
                 .padding(10.dp)
                 .shadow(elevation = 8.dp, shape = CircleShape)
@@ -192,17 +233,22 @@ fun CalorieInfoSection(calorieInfo: CalorieCounter, showChangeMaxCalorieDialogue
 @Composable
 fun FoodHistorySection(showAddEatenProductDialogue: () -> Unit, foodHistory: List<FoodHistory>, navigateToFoodHistory: () -> Unit) {
     Box(
-        modifier = Modifier.fillMaxWidth()
+        modifier = Modifier
+            .fillMaxWidth()
             .padding(20.dp)
             .padding(bottom = 90.dp)
             .background(color = PrimaryLightColor, shape = RoundedCornerShape(4.dp))
     ) {
         LazyColumn(
-            modifier = Modifier.padding(10.dp).height(240.dp)
+            modifier = Modifier
+                .padding(10.dp)
+                .height(240.dp)
         ) {
             item {
                 Text(
-                    modifier = Modifier.fillMaxWidth().padding(10.dp),
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(10.dp),
                     text = "My ration history :",
                     style = MyRationTypography.displayLarge,
                     textAlign = TextAlign.Center
@@ -218,9 +264,11 @@ fun FoodHistorySection(showAddEatenProductDialogue: () -> Unit, foodHistory: Lis
                 Text(
                     text = ". . .",
                     style = MyRationTypography.displayLarge,
-                    modifier = Modifier.fillMaxWidth().clickable {
-                        navigateToFoodHistory()
-                    },
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .clickable {
+                            navigateToFoodHistory()
+                        },
                     textAlign = TextAlign.Center
                 )
             }
@@ -252,9 +300,12 @@ fun FoodHistorySection(showAddEatenProductDialogue: () -> Unit, foodHistory: Lis
 fun PFCSection(protein: Int, fats: Int, carbohydrates: Int) {
     Row(
         modifier = Modifier
+            .fillMaxWidth()
+            .padding(start = 20.dp, end = 20.dp)
             .background(color = PrimaryLightColor, shape = RoundedCornerShape(4.dp)),
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.Center
+
     ) {
         Text(
             modifier = Modifier.padding(10.dp),
@@ -311,6 +362,7 @@ fun ProfileScreenLoadedPreview() {
                 date = SDF.parse("2012-02-02")
             )
         ),
-        navigateToFoodHistory = {}
+        navigateToFoodHistory = {},
+        openFoodPlan = {}
     )
 }
