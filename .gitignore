@@ -17,3 +17,5 @@ local.properties
 *.bin
 *.whisper-tiny.tflite
 *tokenizer.json
+.idea/
+.vs/

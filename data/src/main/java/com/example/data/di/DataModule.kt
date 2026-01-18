@@ -4,10 +4,13 @@ import android.content.SharedPreferences
 import com.example.core.media.image.ImageAnalyzedFactory
 import com.example.data.repository.CalorieRepositoryImp
 import com.example.data.repository.FiltersRepositoryImp
+import com.example.data.repository.FoodPlanRepositoryImp
 import com.example.data.repository.ProductsRepositoryImp
 import com.example.data.repository.RecipeRepositoryImp
 import com.example.data.repository.TokenizationRepositoryImp
 import com.example.data.source.FoodHistoryDataSource
+import com.example.data.source.FoodPlanDataSource
+import com.example.data.source.LlmApi
 import com.example.data.source.ProductLocalDataSource
 import com.example.data.source.RecipeApiService
 import com.example.data.source.RecipeDataSource
@@ -15,6 +18,7 @@ import com.example.data.source.TokenizationApi
 import com.example.data.usecase.GetSoonExpiredProductsImp
 import com.example.domain.repository.CalorieRepository
 import com.example.domain.repository.FiltersRepository
+import com.example.domain.repository.FoodPlanRepository
 import com.example.domain.repository.ProductsRepository
 import com.example.domain.repository.RecipeRepository
 import com.example.domain.repository.TokenizationRepository
@@ -60,6 +64,11 @@ object DataModule {
         val repo: CalorieRepository = CalorieRepositoryImp(preferences, dao)
         repo.resetCalorie()
         return repo
+    }
+
+    @Provides
+    fun provideFoodPlanRepository(dao: FoodPlanDataSource, api: LlmApi, productDao: ProductLocalDataSource): FoodPlanRepository {
+        return FoodPlanRepositoryImp(dao, api, productDao)
     }
 
     @Provides

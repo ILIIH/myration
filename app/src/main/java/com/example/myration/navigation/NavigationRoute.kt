@@ -9,7 +9,8 @@ enum class NavigationRoute(val route: String) {
     SCAN_PRODUCTS_SCREEN("scan_products_screen"),
     RECIPE_DETAILS_SCREEN("recipe_details_screen/{recipeId}"),
     PROFILE_TAB("profile_tab"),
-
+    FOOD_PLAN_SCREEN("food_plan"),
+    MANAGE_FOOD_PLAN_SCREEN("manage_food_plan"),
     RATION_HISTORY_SCREEN("ration_history_screen"),
     PRODUCT_DETAILS_SCREEN("product_details_screen/{productId}");
 

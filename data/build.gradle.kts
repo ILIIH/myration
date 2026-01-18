@@ -1,5 +1,4 @@
 apply(from = "../build-const.gradle.kts")
-
 plugins {
     id("com.android.library")
     id("org.jetbrains.kotlin.android")
@@ -7,6 +6,7 @@ plugins {
     id("dagger.hilt.android.plugin")
     id("com.google.devtools.ksp")
     id("com.google.dagger.hilt.android")
+    id("com.google.android.libraries.mapsplatform.secrets-gradle-plugin")
 }
 android {
     namespace = "com.example.data"
@@ -14,7 +14,6 @@ android {
 
     defaultConfig {
         minSdk = 26
-        buildConfigField("String", "HUGGINGFACE_API_KEY", "\"${project.findProperty("HUGGINGFACE_API_KEY")}\"")
         testInstrumentationRunner = "com.example.data.HiltTestRunner"
         consumerProguardFiles("consumer-rules.pro")
     }

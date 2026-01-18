@@ -46,7 +46,6 @@ class BitmapProvider(private val context: Context) {
                 true
             )
         } catch (e: Exception) {
-            e.printStackTrace()
             return null
         }
     }
