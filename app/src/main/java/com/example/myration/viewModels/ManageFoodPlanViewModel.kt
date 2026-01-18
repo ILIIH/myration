@@ -25,7 +25,7 @@ class ManageFoodPlanViewModel @Inject constructor(
             try {
                 val foodPlan = repository.generateFoodPlan(caloriesPerDay, numberOfMeals, foodPref)
                 sendEvent(ManageFoodPlanEvents.FoodPlanCreated(foodPlan = foodPlan))
-            } catch (error: Error) {
+            } catch (error: Exception) {
                 sendEvent(ManageFoodPlanEvents.FoodPlanCreateError(errorMessage = error.message ?: "Food plan loading error"))
             }
         }
@@ -36,7 +36,7 @@ class ManageFoodPlanViewModel @Inject constructor(
             try {
                 repository.addFoodPlan(foodPlan)
                 sendEvent(ManageFoodPlanEvents.FoodPlanApproved)
-            } catch (error: Error) {
+            } catch (error: Exception) {
                 sendEvent(ManageFoodPlanEvents.FoodPlanCreateError(errorMessage = error.message ?: "Food plan loading error"))
             }
         }

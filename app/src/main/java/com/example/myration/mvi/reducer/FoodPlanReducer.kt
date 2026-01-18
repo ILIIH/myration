@@ -21,7 +21,7 @@ class FoodPlanReducer : Reducer<ManageFoodPlanViewState, ManageFoodPlanEvents, M
                 ManageFoodPlanViewState.Idle to ManageFoodPlanEffect.FoodPlanApproveEffect(foodPlan = event.foodPlan)
             }
             is ManageFoodPlanEvents.FoodPlanApproved -> {
-                previousState to ManageFoodPlanEffect.NavigateToFoodPlan
+                ManageFoodPlanViewState.Idle to ManageFoodPlanEffect.NavigateToFoodPlan
             }
         }
     }

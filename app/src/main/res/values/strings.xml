@@ -1,3 +1,17 @@
 <resources>
     <string name="app_name">MyRation</string>
+    <string name="manage_food_plan_title">Food plan settings</string>
+    <string name="calories_per_day">Calories per day %1$d</string>
+    <string name="number_of_meals">Number of meals %1$d</string>
+    <string name="food_preferences">Food preferencies</string>
+    <string name="submit">Submit</string>
+    <string name="confirm_your_plan">Confirm Your Plan</string>
+    <string name="approve_plan">Approve plan</string>
+    <string name="close_window_button">close window button</string>
+    <string name="more_proteins">more proteins</string>
+    <string name="more_salats">more salats</string>
+    <string name="vegan">vegan</string>
+    <string name="no_dairy">no dairy</string>
+    <string name="sweet_treat">sweet treat</string>
+    <string name="meal_calorie_kcal">%1$d kcal</string>
 </resources>

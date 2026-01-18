@@ -42,6 +42,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -51,9 +52,9 @@ import androidx.navigation.NavHostController
 import androidx.wear.compose.material.Button
 import androidx.wear.compose.material.ButtonDefaults
 import com.example.annotations.DevicePreviews
-import com.example.coreUi.R
 import com.example.domain.model.FoodPlan
 import com.example.domain.model.getMealtimesStr
+import com.example.myration.R
 import com.example.myration.mvi.effects.ManageFoodPlanEffect
 import com.example.myration.mvi.state.ManageFoodPlanViewState
 import com.example.myration.navigation.NavigationRoute
@@ -132,8 +133,8 @@ fun ApprovePlanDialogue(
                 modifier = Modifier.padding(20.dp)
             ) {
                 Image(
-                    painter = painterResource(id = R.drawable.ic_baseline_close),
-                    contentDescription = "close window button",
+                    painter = painterResource(id = com.example.coreUi.R.drawable.ic_baseline_close),
+                    contentDescription = stringResource(R.string.close_window_button),
                     modifier = Modifier
                         .padding(top = 5.dp, start = 5.dp, end = 5.dp)
                         .size(32.dp)
@@ -143,7 +144,7 @@ fun ApprovePlanDialogue(
                 )
                 Spacer(modifier = Modifier.height(32.dp))
                 Text(
-                    text = "Confirm Your Plan",
+                    text = stringResource(R.string.confirm_your_plan),
                     style = MaterialTheme.typography.headlineSmall,
                     fontWeight = FontWeight.Bold,
                     modifier = Modifier.align(Alignment.CenterHorizontally)
@@ -152,7 +153,7 @@ fun ApprovePlanDialogue(
                 Text(
                     modifier = Modifier.padding(vertical = 4.dp)
                         .align(Alignment.Start),
-                    text = foodPlans.firstOrNull()?.getMealtimesStr() + ':',
+                    text = foodPlans.firstOrNull()?.getMealtimesStr()?.let { "$it:" } ?: "",
                     style = MyRationTypography.displayLarge
                 )
                 LazyColumn {
@@ -162,7 +163,7 @@ fun ApprovePlanDialogue(
                             if (index != 0) {
                                 if (foodPlans[index].mealNumber != foodPlans[index - 1].mealNumber) {
                                     Text(
-                                        text = foodPlans[index].getMealtimesStr() + ':',
+                                        text = "${foodPlans[index].getMealtimesStr()}:",
                                         style = MyRationTypography.displayLarge
                                     )
                                 }
@@ -172,7 +173,7 @@ fun ApprovePlanDialogue(
                                 horizontalArrangement = Arrangement.SpaceBetween
                             ) {
                                 Text(foodPlans[index].mealName)
-                                Text("${foodPlans[index].mealCalorie} kcal", color = Color.Gray)
+                                Text(stringResource(R.string.meal_calorie_kcal, foodPlans[index].mealCalorie), color = Color.Gray)
                             }
                         }
                     )
@@ -191,7 +192,7 @@ fun ApprovePlanDialogue(
                         contentColor = Color.White
                     )
                 ) {
-                    Text(text = "Approve plan", color = Color.White, style = MyRationTypography.displayLarge)
+                    Text(text = stringResource(R.string.approve_plan), color = Color.White, style = MyRationTypography.displayLarge)
                 }
             }
         }
@@ -212,7 +213,7 @@ fun ManageFoodPlanScreenLoaded(submitPlan: (caloriesPerDay: Int, numberOfMeals: 
     ) {
         Text(
             modifier = Modifier.padding(top = 50.dp),
-            text = "Food plan settings",
+            text = stringResource(id = R.string.manage_food_plan_title),
             style = MyRationTypography.displayLarge
         )
         Sliders(
@@ -239,7 +240,7 @@ fun ManageFoodPlanScreenLoaded(submitPlan: (caloriesPerDay: Int, numberOfMeals: 
                 contentColor = Color.White
             )
         ) {
-            Text(text = "Submit", color = Color.White)
+            Text(text = stringResource(id = R.string.submit), color = Color.White)
         }
     }
 }
@@ -248,7 +249,13 @@ fun ManageFoodPlanScreenLoaded(submitPlan: (caloriesPerDay: Int, numberOfMeals: 
 @Composable
 fun FoodPrefDropdown(setFoodPref: (pref: String) -> Unit) {
     val expanded = remember { mutableStateOf(false) }
-    val items = listOf("more proteins", "more salats", "vegan", "no dairy", "sweet treat")
+    val items = listOf(
+        stringResource(id = R.string.more_proteins),
+        stringResource(id = R.string.more_salats),
+        stringResource(id = R.string.vegan),
+        stringResource(id = R.string.no_dairy),
+        stringResource(id = R.string.sweet_treat)
+    )
     val selectedItem = remember { mutableStateOf("") }
 
     ExposedDropdownMenuBox(
@@ -262,7 +269,7 @@ fun FoodPrefDropdown(setFoodPref: (pref: String) -> Unit) {
             modifier = Modifier
                 .fillMaxWidth()
                 .menuAnchor(),
-            label = { Text("Food preferencies", style = MyRationTypography.displaySmall) },
+            label = { Text(stringResource(id = R.string.food_preferences), style = MyRationTypography.displaySmall) },
             readOnly = true,
             trailingIcon = {
                 ExposedDropdownMenuDefaults.TrailingIcon(expanded.value)
@@ -298,7 +305,7 @@ fun Sliders(caloriesPerDay: Float, onCalorieUpdate: (Float) -> Unit, numberOfMea
     ) {
         Text(
             modifier = Modifier.padding(bottom = 10.dp),
-            text = "Calories per day ${caloriesPerDay.absoluteValue.roundToInt()}",
+            text = stringResource(id = R.string.calories_per_day, caloriesPerDay.absoluteValue.roundToInt()),
             style = MyRationTypography.displaySmall
         )
         Slider(
@@ -316,7 +323,7 @@ fun Sliders(caloriesPerDay: Float, onCalorieUpdate: (Float) -> Unit, numberOfMea
         )
         Text(
             modifier = Modifier.padding(bottom = 10.dp, top = 20.dp),
-            text = "Number of meals ${numberOfMeals.absoluteValue.roundToInt()}",
+            text = stringResource(id = R.string.number_of_meals, numberOfMeals.absoluteValue.roundToInt()),
             style = MyRationTypography.displaySmall
         )
         Slider(
