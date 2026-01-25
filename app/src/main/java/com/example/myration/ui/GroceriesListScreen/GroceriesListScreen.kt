@@ -83,8 +83,8 @@ fun GroceriesLoaded(
 fun PreviewGroceriesListScreen() {
     // 1. Create a list of mock data
     val mockItems = listOf(
-        Product(id = 1, name = "Apples", quantity = 20f, measurementMetric = MeasurementMetric.CUPS, expirationDate = "20/07/2000"),
-        Product(id = 2, name = "Banana", quantity = 20f, measurementMetric = MeasurementMetric.CUPS, expirationDate = "20/07/2000")
+        Product(id = 1, name = "Apples", quantity = 20f, measurementMetric = MeasurementMetric.CUPS, expirationDate = "20/07/2000", active = true),
+        Product(id = 2, name = "Banana", quantity = 20f, measurementMetric = MeasurementMetric.CUPS, expirationDate = "20/07/2000", active = true)
     )
 
     // 2. Convert that list into a Flow of PagingData

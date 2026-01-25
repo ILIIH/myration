@@ -1,36 +1,80 @@
 package com.example.data.repository
 
+import android.util.Log
 import com.example.data.BuildConfig
+import com.example.data.model.FoodPlanIngredientEntity
 import com.example.data.model.ProductEntity
 import com.example.data.model.llm.LlmRequest
 import com.example.data.model.llm.Message
 import com.example.data.model.llm.RawNutritionResponse
 import com.example.data.model.maping.toData
 import com.example.data.model.maping.toDomain
+import com.example.data.model.toData
 import com.example.data.source.FoodPlanDataSource
+import com.example.data.source.FoodPlanIngredientDataSource
 import com.example.data.source.LlmApi
 import com.example.data.source.ProductLocalDataSource
 import com.example.domain.model.FoodPlan
+import com.example.domain.model.FoodPlanIngredient
 import com.example.domain.repository.FoodPlanRepository
 import com.google.gson.Gson
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import java.time.LocalDate
+import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 import javax.inject.Inject
 
 class FoodPlanRepositoryImp @Inject constructor(
     private val foodPlanDao: FoodPlanDataSource,
     private val api: LlmApi,
-    private val productDao: ProductLocalDataSource
+    private val productDao: ProductLocalDataSource,
+    private val foodPlanIngredientsDao: FoodPlanIngredientDataSource
 ) : FoodPlanRepository {
     override suspend fun addFoodPlan(foodPlan: List<FoodPlan>) {
-        foodPlanDao.deleteFoodPlanByDate(foodPlan.firstOrNull()?.date ?: "")
-        foodPlanDao.addFoodPlan(foodPlan.map { it.toData() })
+        withContext(Dispatchers.IO) {
+            foodPlanDao.deleteFoodPlanByDate(foodPlan.firstOrNull()?.date ?: "")
+            foodPlanDao.addFoodPlan(foodPlan.map { it.toData() })
+
+            for (plan in foodPlan) {
+                for (ingredient in plan.ingredients) {
+                    foodPlanIngredientsDao.addFoodPlanIngredient(
+                        FoodPlanIngredientEntity(
+                            amountGrams = ingredient.amountGrams,
+                            name = ingredient.name,
+                            amountSource = ingredient.amountSource.toInt(),
+                            calories = ingredient.calories.toString(),
+                            foodPlanId = plan.id,
+                            active = true,
+                            productId = ingredient.productId
+                        )
+                    )
+                }
+            }
+        }
     }
 
-    override suspend fun getFoodPlan(date: String): List<FoodPlan> {
-        return foodPlanDao.getAllFoodPlanByDate().map { it.toDomain() }
+    override suspend fun getFoodPlans(date: String): List<FoodPlan> {
+        return foodPlanDao.getAllFoodPlanByDate().map { it ->
+            val ingredients = foodPlanIngredientsDao.getFoodPlanIngredientEntity(it.id)
+            it.toDomain(ingredients.map { ing -> ing.toData() })
+        }
+    }
+
+    override suspend fun deactivateFoodPlanAndRelatedIng(foodPlan: FoodPlan) {
+        val current = LocalDateTime.now()
+        val formatter = DateTimeFormatter.ofPattern("HH:mm")
+
+        for (ingredient in foodPlan.ingredients) {
+            productDao.changeProductAmount(ingredient.productId, ingredient.amountSource)
+        }
+        foodPlanDao.updateFoodPlan(
+            foodPlan.copy(
+                completed = true,
+                completionTime = current.format(formatter)
+            ).toData()
+        )
+        foodPlanIngredientsDao.deactivateFoodPlanIngredient(foodPlan.id)
     }
 
     override suspend fun deleteFoodPlan(date: String) {
@@ -67,18 +111,37 @@ class FoodPlanRepositoryImp @Inject constructor(
                     val tomorrow = LocalDate.now().plusDays(1)
                     val date = tomorrow.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"))
 
+                    var lastFoodPlanId = foodPlanDao.getLastIdOrZero()
+
                     rawData.meals.flatMap { slot ->
+                        val ingredientsList = mutableListOf<FoodPlanIngredient>()
                         slot.options.map { option ->
+                            lastFoodPlanId++
+                            for (ingredient in option.ingredients) {
+                                val productId = productDao.getProductIdByName(ingredient.name)
+
+                                ingredientsList.add(
+                                    FoodPlanIngredient(
+                                        name = ingredient.name,
+                                        amountGrams = ingredient.amountGrams,
+                                        amountSource = ingredient.amountSource,
+                                        calories = ingredient.calories,
+                                        foodPlanId = lastFoodPlanId,
+                                        active = true,
+                                        productId = productId
+                                    )
+                                )
+                            }
+
                             FoodPlan(
+                                id = lastFoodPlanId,
                                 mealName = option.optionName,
-                                mealCalorie = option.totalCalories.toFloat(),
+                                mealCalorie = option.totalCalories,
                                 mealNumber = slot.mealNumber,
                                 completed = false,
                                 completionTime = "",
                                 date = date,
-                                amountGramsIng = option.ingredients.joinToString(", ") {
-                                    "${it.name} (${it.amountGrams.toInt()}g)"
-                                }
+                                ingredients = ingredientsList
                             )
                         }
                     }.sortedBy { it.mealNumber }
@@ -90,6 +153,7 @@ class FoodPlanRepositoryImp @Inject constructor(
                 emptyList()
             }
         } catch (e: Exception) {
+            Log.i("my_ration_log", e.message ?: "")
             emptyList()
         }
     }
@@ -121,6 +185,9 @@ class FoodPlanRepositoryImp @Inject constructor(
     2. **Multiple Options**: For EACH `mealNumber`, provide from 1 to 10 distinct "options" (different recipes/combinations) using the available ingredients, provided the ingredient list is large enough.
     3. **Preference Flexibility**: Treat "Preferred Diet" ($foodPref) as a strong suggestion. If you cannot meet the calorie goal ($calories) using only preferred items, you MUST use other available ingredients. NEVER return an empty list.
     4. **Math**: Each meal option should represent roughly its portion of the daily calories (e.g., if 4 meals total, each option should be ~25% of the $calories kcal).
+    5. **optionName**: dose not include slot name or meal group name to the optionName field of output, it should contain only short description of dish without any complex definitions or words 
+    6. **ingredients**: ingredients list must include only ingredients related to parent option. For each items in list of ingredients field "name" must contain exact name from input data "Available Ingredients" without any changes
+    7. **amountSource**:  for each items in list of ingredients field "amountSource" must contain exact amount of ingredients in measurement metric provided in Available Ingredients input, Include only number related to this metric (Float)
 
     # MEAL MAPPING
     1: Breakfast, 2: Lunch, 3: Dinner, 4: Second Breakfast, 5: Brunch, 6: Supper.
@@ -138,7 +205,7 @@ class FoodPlanRepositoryImp @Inject constructor(
               "optionName": "Option 1 Name",
               "totalCalories": 0.0,
               "ingredients": [
-                { "name": "Item", "amountGrams": 0.0, "calories": 0.0 }
+                { "name": "Item", "amountGrams": 0.0,  "amountSource": 0.0, "calories": 0.0 }
               ]
             }
           ]

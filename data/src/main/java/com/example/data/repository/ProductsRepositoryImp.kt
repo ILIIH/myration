@@ -75,6 +75,6 @@ class ProductsRepositoryImp @Inject constructor(
         }
 
         val name = nameTokens.joinToString(" ").replace(Regex("""^of\s+"""), "")
-        return Product(name = name.trim(), quantity = quantity?.toFloat() ?: 0f, measurementMetric = MeasurementMetric.valueOf(unit ?: ""), expirationDate = "")
+        return Product(name = name.trim(), quantity = quantity?.toFloat() ?: 0f, measurementMetric = MeasurementMetric.valueOf(unit ?: ""), expirationDate = "", active = true)
     }
 }

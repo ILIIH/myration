@@ -117,7 +117,8 @@ class ImageReceiptAnalyzer @Inject constructor(
                             quantity = 0f,
                             name = word,
                             measurementMetric = MeasurementMetric.KILOGRAM,
-                            expirationDate = String()
+                            expirationDate = String(),
+                            active = true
                         )
                     )
                 }

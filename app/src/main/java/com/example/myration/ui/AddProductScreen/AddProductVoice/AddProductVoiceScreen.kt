@@ -84,7 +84,8 @@ fun AddProductVoiceScreen(
                                 quantity = productWeight.toFloat(),
                                 name = productName,
                                 measurementMetric = MeasurementMetric.fromDesc(productMeasurementMetric),
-                                expirationDate = productExpiration
+                                expirationDate = productExpiration,
+                                active = true
                             )
                         )
                         productToEdit.value = null

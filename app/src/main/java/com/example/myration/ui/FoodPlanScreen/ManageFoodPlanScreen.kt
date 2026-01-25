@@ -173,7 +173,7 @@ fun ApprovePlanDialogue(
                                 horizontalArrangement = Arrangement.SpaceBetween
                             ) {
                                 Text(foodPlans[index].mealName)
-                                Text(stringResource(R.string.meal_calorie_kcal, foodPlans[index].mealCalorie), color = Color.Gray)
+                                Text(stringResource(R.string.meal_calorie_kcal, foodPlans[index].mealCalorie.toInt()), color = Color.Gray)
                             }
                         }
                     )

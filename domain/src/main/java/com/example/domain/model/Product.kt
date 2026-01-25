@@ -19,5 +19,6 @@ data class Product(
     val quantity: Float,
     val name: String,
     val measurementMetric: MeasurementMetric,
-    val expirationDate: String
+    val expirationDate: String,
+    val active: Boolean
 )

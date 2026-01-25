@@ -20,8 +20,11 @@ class FoodPlanViewModel @Inject constructor(
 
     init {
         viewModelScope.launch {
-            val plan = repository.getFoodPlan("")
+            val plan = repository.getFoodPlans("")
             _state.value = plan
         }
+    }
+
+    fun markFoodEaten(id: Int) {
     }
 }

@@ -10,6 +10,7 @@ import com.example.data.repository.RecipeRepositoryImp
 import com.example.data.repository.TokenizationRepositoryImp
 import com.example.data.source.FoodHistoryDataSource
 import com.example.data.source.FoodPlanDataSource
+import com.example.data.source.FoodPlanIngredientDataSource
 import com.example.data.source.LlmApi
 import com.example.data.source.ProductLocalDataSource
 import com.example.data.source.RecipeApiService
@@ -67,8 +68,8 @@ object DataModule {
     }
 
     @Provides
-    fun provideFoodPlanRepository(dao: FoodPlanDataSource, api: LlmApi, productDao: ProductLocalDataSource): FoodPlanRepository {
-        return FoodPlanRepositoryImp(dao, api, productDao)
+    fun provideFoodPlanRepository(dao: FoodPlanDataSource, api: LlmApi, productDao: ProductLocalDataSource, foodPlanIngredientsDao: FoodPlanIngredientDataSource): FoodPlanRepository {
+        return FoodPlanRepositoryImp(dao, api, productDao, foodPlanIngredientsDao)
     }
 
     @Provides
