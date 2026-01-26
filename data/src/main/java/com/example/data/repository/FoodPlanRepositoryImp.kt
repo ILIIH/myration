@@ -20,7 +20,6 @@ import com.example.domain.repository.FoodPlanRepository
 import com.google.gson.Gson
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
-import java.time.LocalDate
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 import javax.inject.Inject
@@ -42,7 +41,7 @@ class FoodPlanRepositoryImp @Inject constructor(
                         FoodPlanIngredientEntity(
                             amountGrams = ingredient.amountGrams,
                             name = ingredient.name,
-                            amountSource = ingredient.amountSource.toInt(),
+                            amountSource = ingredient.amountSource,
                             calories = ingredient.calories.toString(),
                             foodPlanId = plan.id,
                             active = true,
@@ -55,7 +54,7 @@ class FoodPlanRepositoryImp @Inject constructor(
     }
 
     override suspend fun getFoodPlans(date: String): List<FoodPlan> {
-        return foodPlanDao.getAllFoodPlanByDate().map { it ->
+        return foodPlanDao.getAllFoodPlanByDate(date).map { it ->
             val ingredients = foodPlanIngredientsDao.getFoodPlanIngredientEntity(it.id)
             it.toDomain(ingredients.map { ing -> ing.toData() })
         }
@@ -84,7 +83,8 @@ class FoodPlanRepositoryImp @Inject constructor(
     override suspend fun generateFoodPlan(
         caloriesPerDay: Int,
         numberOfMeals: Int,
-        foodPref: String
+        foodPref: String,
+        date: String
     ): List<FoodPlan> = withContext(Dispatchers.IO) {
         val productsList = productDao.getAllProduct()
 
@@ -100,7 +100,6 @@ class FoodPlanRepositoryImp @Inject constructor(
 
         try {
             val response = api.getContent("Bearer $apiKey", request)
-
             if (response.isSuccessful) {
                 val rawJsonString = response.body()?.choices?.firstOrNull()?.message?.content
 
@@ -108,15 +107,12 @@ class FoodPlanRepositoryImp @Inject constructor(
                     val gson = Gson()
                     val rawData = gson.fromJson(rawJsonString, RawNutritionResponse::class.java)
 
-                    val tomorrow = LocalDate.now().plusDays(1)
-                    val date = tomorrow.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"))
-
                     var lastFoodPlanId = foodPlanDao.getLastIdOrZero()
 
                     rawData.meals.flatMap { slot ->
-                        val ingredientsList = mutableListOf<FoodPlanIngredient>()
                         slot.options.map { option ->
                             lastFoodPlanId++
+                            val ingredientsList = mutableListOf<FoodPlanIngredient>()
                             for (ingredient in option.ingredients) {
                                 val productId = productDao.getProductIdByName(ingredient.name)
 
@@ -171,47 +167,57 @@ class FoodPlanRepositoryImp @Inject constructor(
         val products = getProductListStr(productsList)
 
         return """
-    # ROLE
-    Professional Nutritionist API. You always return JSON.
+# ROLE
+Professional Nutritionist API. You always return strictly valid JSON.
 
-    # INPUT DATA
-    - Target Daily Calories: $calories kcal
-    - Meal Slots to Fill: $numberOfMeals (mapped below)
-    - Preferred Diet: $foodPref
-    - Available Ingredients: $products
+# INPUT DATA
+- Target Daily Calories: $calories kcal
+- Meal Slots to Fill: $numberOfMeals
+- Preferred Diet: $foodPref
+- Available Ingredients (Database): $products
 
-    # RULES
-    1. **Variety & Diversity**: Do not repeat the same meal composition. Use as many different ingredients from the list as possible to create a diversified ration.
-    2. **Multiple Options**: For EACH `mealNumber`, provide from 1 to 10 distinct "options" (different recipes/combinations) using the available ingredients, provided the ingredient list is large enough.
-    3. **Preference Flexibility**: Treat "Preferred Diet" ($foodPref) as a strong suggestion. If you cannot meet the calorie goal ($calories) using only preferred items, you MUST use other available ingredients. NEVER return an empty list.
-    4. **Math**: Each meal option should represent roughly its portion of the daily calories (e.g., if 4 meals total, each option should be ~25% of the $calories kcal).
-    5. **optionName**: dose not include slot name or meal group name to the optionName field of output, it should contain only short description of dish without any complex definitions or words 
-    6. **ingredients**: ingredients list must include only ingredients related to parent option. For each items in list of ingredients field "name" must contain exact name from input data "Available Ingredients" without any changes
-    7. **amountSource**:  for each items in list of ingredients field "amountSource" must contain exact amount of ingredients in measurement metric provided in Available Ingredients input, Include only number related to this metric (Float)
+# RULES
+1. **Strict Isolation**: Each "option" must be a standalone recipe. NEVER merge ingredients from Option A into Option B. The ingredients list for an option must ONLY contain what is needed for that specific dish.
+2. **Multiple Options**: For EACH `mealNumber`, provide 1 to 10 distinct, unique recipe options.
+3. **Calorie Math**: 
+    - Each meal slot should target ~$(${calories.toDouble() / numberOfMeals.toDouble()}) kcal.
+    - `totalCalories` in an option MUST be the sum of its ingredients' calories.
+    - `amountSource` MUST be a calculated positive number (Float) required to reach the target calories. NEVER return 0.0.
+4. **Preference Flexibility**: Treat "Preferred Diet" ($foodPref) as a priority. If calorie goals cannot be met with preferred items, use other Available Ingredients. Never return an empty list.
+5. **Field: optionName**: Short, descriptive dish name. No "Option 1" prefixes or slot names (e.g., "Avocado Toast", not "Breakfast Option 1").
+6. **Field: ingredients**: 
+    - "name" must match the "Available Ingredients" input EXACTLY.
+    - Only include ingredients used in that specific option.
+7. **Field: amountSource**: This is the quantity of the ingredient in its original unit (from the input list). It must be a calculated value > 0.
 
-    # MEAL MAPPING
-    1: Breakfast, 2: Lunch, 3: Dinner, 4: Second Breakfast, 5: Brunch, 6: Supper.
+# MEAL MAPPING
+1: Breakfast, 2: Lunch, 3: Dinner, 4: Second Breakfast, 5: Brunch, 6: Supper.
 
-    # OUTPUT FORMAT
-    Return ONLY valid JSON.
+# OUTPUT FORMAT
+Return ONLY valid JSON. Follow this structure exactly:
+{
+  "totalDailyTarget": $calories,
+  "meals": [
     {
-      "totalDailyTarget": $calories,
-      "meals": [
+      "mealNumber": 1,
+      "slotName": "Breakfast",
+      "options": [
         {
-          "mealNumber": 1,
-          "slotName": "Breakfast",
-          "options": [
-            {
-              "optionName": "Option 1 Name",
-              "totalCalories": 0.0,
-              "ingredients": [
-                { "name": "Item", "amountGrams": 0.0,  "amountSource": 0.0, "calories": 0.0 }
-              ]
+          "optionName": "Specific Dish Name",
+          "totalCalories": 0.0,
+          "ingredients": [
+            { 
+              "name": "Exact Name From List", 
+              "amountGrams": 0.0,  
+              "amountSource": 0.0, 
+              "calories": 0.0 
             }
           ]
         }
       ]
     }
+  ]
+}
         """.trimIndent()
     }
 }

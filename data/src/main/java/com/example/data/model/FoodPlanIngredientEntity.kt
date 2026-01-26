@@ -9,7 +9,7 @@ data class FoodPlanIngredientEntity(
     @PrimaryKey(autoGenerate = true) val id: Int? = null,
     val amountGrams: Double,
     val name: String,
-    val amountSource: Int,
+    val amountSource: Float,
     val calories: String,
     val foodPlanId: Int,
     val active: Boolean,

@@ -17,8 +17,8 @@ interface FoodPlanDataSource {
     @Update
     suspend fun updateFoodPlan(plan: FoodPlanEntity)
 
-    @Query("SELECT * FROM food_plan")
-    suspend fun getAllFoodPlanByDate(): List<FoodPlanEntity>
+    @Query("SELECT * FROM food_plan WHERE date = :date")
+    suspend fun getAllFoodPlanByDate(date: String): List<FoodPlanEntity>
 
     @Query("SELECT MAX(id) FROM food_plan")
     suspend fun getLastId(): Int?

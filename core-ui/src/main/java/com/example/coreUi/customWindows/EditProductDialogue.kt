@@ -134,7 +134,7 @@ fun EditProductDialogue(
                         )
                     }
                     Spacer(modifier = Modifier.height(20.dp))
-                    DatePicker { date -> productExpiration = date }
+                    DatePicker(onDateSelected = { date -> productExpiration = date })
                     Spacer(modifier = Modifier.height(20.dp))
                     Button(
                         onClick = {

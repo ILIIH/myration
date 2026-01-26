@@ -17,7 +17,7 @@ import com.example.data.source.RecipeDataSource
         ProductFoodPlanLinkEntity::class,
         FoodPlanIngredientEntity::class
     ],
-    version = 9
+    version = 10
 )
 abstract class LocalDataBase : RoomDatabase() {
     abstract fun productDao(): ProductLocalDataSource

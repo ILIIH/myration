@@ -20,6 +20,11 @@ fun BadgeWidget(badgeDesc: Pair<String, Color>, modifier: Modifier = Modifier) {
     Box(
         modifier = modifier
             .padding(start = 45.dp)
+            .shadow(
+                elevation = 8.dp,
+                shape = RoundedCornerShape(8.dp),
+                clip = false
+            )
             .background(badgeDesc.second, shape = RoundedCornerShape(8.dp))
             .border(
                 width = 1.dp,
@@ -27,12 +32,10 @@ fun BadgeWidget(badgeDesc: Pair<String, Color>, modifier: Modifier = Modifier) {
                 shape = RoundedCornerShape(8.dp)
             )
             .padding(horizontal = 8.dp, vertical = 13.dp)
-            .shadow(elevation = 8.dp, shape = RoundedCornerShape(8.dp))
-
     ) {
         Text(
             text = badgeDesc.first,
-            style = MyRationTypography.displaySmall,
+            style = MyRationTypography.headlineMedium,
             color = Color.White
         )
     }
