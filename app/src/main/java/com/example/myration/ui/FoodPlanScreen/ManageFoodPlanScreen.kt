@@ -52,6 +52,7 @@ import androidx.navigation.NavHostController
 import androidx.wear.compose.material.Button
 import androidx.wear.compose.material.ButtonDefaults
 import com.example.annotations.DevicePreviews
+import com.example.coreUi.fields.DatePicker
 import com.example.domain.model.FoodPlan
 import com.example.domain.model.getMealtimesStr
 import com.example.myration.R
@@ -173,7 +174,7 @@ fun ApprovePlanDialogue(
                                 horizontalArrangement = Arrangement.SpaceBetween
                             ) {
                                 Text(foodPlans[index].mealName)
-                                Text(stringResource(R.string.meal_calorie_kcal, foodPlans[index].mealCalorie), color = Color.Gray)
+                                Text(stringResource(R.string.meal_calorie_kcal, foodPlans[index].mealCalorie.toInt()), color = Color.Gray)
                             }
                         }
                     )
@@ -200,10 +201,11 @@ fun ApprovePlanDialogue(
 }
 
 @Composable
-fun ManageFoodPlanScreenLoaded(submitPlan: (caloriesPerDay: Int, numberOfMeals: Int, foodPref: String) -> Unit) {
+fun ManageFoodPlanScreenLoaded(submitPlan: (caloriesPerDay: Int, numberOfMeals: Int, foodPref: String, date: String) -> Unit) {
     var caloriesPerDay by rememberSaveable { mutableFloatStateOf(0f) }
     var numberOfMeals by rememberSaveable { mutableFloatStateOf(0f) }
     var foodPref by rememberSaveable { mutableStateOf("") }
+    var planDate by remember { mutableStateOf("") }
 
     Column(
         modifier = Modifier
@@ -225,9 +227,10 @@ fun ManageFoodPlanScreenLoaded(submitPlan: (caloriesPerDay: Int, numberOfMeals: 
         FoodPrefDropdown(
             setFoodPref = { pref -> foodPref = pref }
         )
+        DatePicker(modifier = Modifier.padding(start = 50.dp, end = 50.dp, top = 20.dp), dateFormat = "yyyy-MM-dd", onDateSelected = { date -> planDate = date })
         Button(
             onClick = {
-                submitPlan(caloriesPerDay.roundToInt(), numberOfMeals.roundToInt(), foodPref)
+                submitPlan(caloriesPerDay.roundToInt(), numberOfMeals.roundToInt(), foodPref, planDate)
             },
             modifier = Modifier
                 .fillMaxWidth()
@@ -346,5 +349,5 @@ fun Sliders(caloriesPerDay: Float, onCalorieUpdate: (Float) -> Unit, numberOfMea
 @Preview(showBackground = true)
 @Composable
 fun ManageFoodPlanScreenPreview() {
-    ManageFoodPlanScreenLoaded({ a, b, c -> })
+    ManageFoodPlanScreenLoaded({ a, b, c, d -> })
 }

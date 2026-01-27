@@ -19,11 +19,11 @@ class ManageFoodPlanViewModel @Inject constructor(
     initialState = ManageFoodPlanViewState.initial(),
     reducer = FoodPlanReducer()
 ) {
-    fun createPlan(caloriesPerDay: Int, numberOfMeals: Int, foodPref: String) {
+    fun createPlan(caloriesPerDay: Int, numberOfMeals: Int, foodPref: String, date: String) {
         sendEvent(ManageFoodPlanEvents.FoodPlanLoading)
         viewModelScope.launch {
             try {
-                val foodPlan = repository.generateFoodPlan(caloriesPerDay, numberOfMeals, foodPref)
+                val foodPlan = repository.generateFoodPlan(caloriesPerDay, numberOfMeals, foodPref, date)
                 sendEvent(ManageFoodPlanEvents.FoodPlanCreated(foodPlan = foodPlan))
             } catch (error: Exception) {
                 sendEvent(ManageFoodPlanEvents.FoodPlanCreateError(errorMessage = error.message ?: "Food plan loading error"))

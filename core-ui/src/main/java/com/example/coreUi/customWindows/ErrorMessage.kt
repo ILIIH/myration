@@ -31,6 +31,7 @@ fun ErrorMessage(
     Box(
         modifier = Modifier
             .fillMaxSize()
+            .padding(40.dp)
             .background(Color.Black.copy(alpha = 0.8f))
             .clickable(onClick = onDismiss),
         contentAlignment = Alignment.Center

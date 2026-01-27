@@ -77,7 +77,8 @@ class GroceriesDetailsViewModel @Inject constructor(
                     quantity = newProductWeight.toFloat(),
                     name = newProductName,
                     measurementMetric = MeasurementMetric.fromDesc(newProductMeasurementMetric),
-                    expirationDate = newProductExpiration
+                    expirationDate = newProductExpiration,
+                    active = true
                 )
                 productRepository.updateProduct(newProduct)
                 sendEvent(ProductDetailsEvents.ProductUpdated(newProduct))

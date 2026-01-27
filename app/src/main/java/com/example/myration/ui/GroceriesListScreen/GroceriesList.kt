@@ -116,7 +116,7 @@ fun ProductItem(product: Product, onDelete: (id: Int) -> Unit, modifier: Modifie
             Spacer(modifier = Modifier.height(20.dp))
 
             Text(
-                text = "${product.quantity.toInt()}  ${product.measurementMetric.desc}",
+                text = "${"%.1f".format(product.quantity)}  ${product.measurementMetric.desc}",
                 style = MyRationTypography.displaySmall,
                 color = SecondaryColor
             )

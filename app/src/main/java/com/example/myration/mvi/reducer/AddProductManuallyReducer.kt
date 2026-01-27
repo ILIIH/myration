@@ -21,7 +21,7 @@ class AddProductManuallyReducer : Reducer<AddProductManuallyViewState, AddProduc
                 AddProductManuallyViewState.Loading to null
             }
             is AddProductManuallyEvents.ProductAdding -> {
-                previousState to null
+                AddProductManuallyViewState.Idle to null
             }
         }
     }

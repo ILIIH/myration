@@ -10,6 +10,7 @@ import com.example.data.model.RecipeIngredientEntity
 import com.example.domain.model.CookingDifficulty
 import com.example.domain.model.FoodHistory
 import com.example.domain.model.FoodPlan
+import com.example.domain.model.FoodPlanIngredient
 import com.example.domain.model.MeasurementMetric
 import com.example.domain.model.Product
 import com.example.domain.model.Recipe
@@ -34,7 +35,7 @@ fun ProductEntity.toDomain(): Product {
         "kg" -> MeasurementMetric.KILOGRAM
         else -> MeasurementMetric.PIECES
     }
-    return Product(this.id, this.weight, this.name, metric, this.expirationDate)
+    return Product(this.id, this.weight, this.name, metric, this.expirationDate, active = this.active)
 }
 
 fun Product.toData(withId: Boolean = true): ProductEntity {
@@ -43,7 +44,8 @@ fun Product.toData(withId: Boolean = true): ProductEntity {
         this.quantity,
         this.name,
         this.measurementMetric.desc,
-        this.expirationDate
+        this.expirationDate,
+        active = this.active
     )
 }
 
@@ -125,26 +127,25 @@ fun FoodHistoryEntity.toDomain(): FoodHistory {
 
 fun FoodPlan.toData(): FoodPlanEntity {
     return FoodPlanEntity(
-        id = if (this.id == 0) null else this.id,
+        id = this.id,
         mealName = this.mealName,
         mealCalorie = this.mealCalorie,
         date = this.date,
         completed = this.completed,
         completionTime = this.completionTime,
-        mealNumber = this.mealNumber,
-        mealAmount = this.amountGramsIng
+        mealNumber = this.mealNumber
     )
 }
 
-fun FoodPlanEntity.toDomain(): FoodPlan {
+fun FoodPlanEntity.toDomain(ing: List<FoodPlanIngredient>): FoodPlan {
     return FoodPlan(
-        id = this.id ?: 0,
+        id = this.id,
         mealName = this.mealName,
         mealCalorie = this.mealCalorie,
         date = this.date,
         completed = this.completed,
         completionTime = this.completionTime,
         mealNumber = this.mealNumber,
-        amountGramsIng = this.mealAmount
+        ingredients = ing
     )
 }

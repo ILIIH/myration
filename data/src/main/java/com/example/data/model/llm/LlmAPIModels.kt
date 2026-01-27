@@ -42,5 +42,7 @@ data class RawMealOption(
 
 data class RawIngredient(
     val name: String,
-    val amountGrams: Double
+    val amountGrams: Double,
+    val amountSource: Float,
+    val calories: Float
 )

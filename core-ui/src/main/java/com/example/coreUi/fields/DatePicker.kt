@@ -32,14 +32,14 @@ import java.util.Locale
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun DatePicker(onDateSelected: (date: String) -> Unit) {
+fun DatePicker(modifier: Modifier = Modifier, onDateSelected: (date: String) -> Unit, dateFormat: String = "dd/MM/yyyy") {
     val datePickerState = rememberDatePickerState()
     val showDialog = remember { mutableStateOf(false) }
 
     val selectedDateMillis = datePickerState.selectedDateMillis
     val formattedDate = remember(selectedDateMillis) {
         selectedDateMillis?.let {
-            SimpleDateFormat("dd/MM/yyyy", Locale.getDefault()).format(Date(it))
+            SimpleDateFormat(dateFormat, Locale.getDefault()).format(Date(it))
         } ?: ""
     }
 
@@ -65,10 +65,10 @@ fun DatePicker(onDateSelected: (date: String) -> Unit) {
     }
 
     Row(
-        modifier = Modifier
+        modifier = modifier
             .fillMaxWidth()
             .height(60.dp)
-            .shadow(elevation = 8.dp, shape = RoundedCornerShape(12.dp))
+            .shadow(elevation = 8.dp, shape = RoundedCornerShape(4.dp))
             .background(color = Color.White, shape = RoundedCornerShape(4.dp))
             .clickable { showDialog.value = true },
         verticalAlignment = Alignment.CenterVertically

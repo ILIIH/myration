@@ -80,7 +80,8 @@ class WhisperEngineNative(private val mContext: Context) : WhisperEngine {
                         name = name,
                         quantity = qtyValue,
                         measurementMetric = MeasurementMetric.valueOf(metric),
-                        expirationDate = date
+                        expirationDate = date,
+                        active = true
                     )
                 )
             }

@@ -37,7 +37,8 @@ class AddProductViewModel @Inject constructor(
                             "lt" -> MeasurementMetric.LITERS
                             else -> MeasurementMetric.PIECES
                         },
-                        expirationDate = expirationDate
+                        expirationDate = expirationDate,
+                        active = true
                     )
                 )
                 sendEvent(AddProductManuallyEvents.ProductAdded)

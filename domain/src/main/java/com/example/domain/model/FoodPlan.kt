@@ -1,14 +1,14 @@
 package com.example.domain.model
 
 data class FoodPlan(
-    val id: Int? = null,
+    val id: Int,
     val mealName: String,
-    val mealCalorie: Float,
+    val mealCalorie: Double,
     val completed: Boolean,
     val completionTime: String,
     val date: String,
     val mealNumber: Int,
-    val amountGramsIng: String
+    val ingredients: List<FoodPlanIngredient>
 )
 
 fun FoodPlan.getMealtimesStr(): String {

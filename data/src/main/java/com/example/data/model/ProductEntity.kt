@@ -9,5 +9,6 @@ data class ProductEntity(
     val weight: Float,
     val name: String,
     val measurementMetric: String,
-    val expirationDate: String
+    val expirationDate: String,
+    val active: Boolean
 )
