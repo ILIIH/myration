@@ -32,7 +32,7 @@ import java.util.Locale
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun DatePicker(modifier: Modifier = Modifier, onDateSelected: (date: String) -> Unit, dateFormat: String = "dd/MM/yyyy") {
+fun DatePicker(textPlaceholder: String = "Pick an expiry date", modifier: Modifier = Modifier, onDateSelected: (date: String) -> Unit, dateFormat: String = "dd/MM/yyyy") {
     val datePickerState = rememberDatePickerState()
     val showDialog = remember { mutableStateOf(false) }
 
@@ -81,7 +81,7 @@ fun DatePicker(modifier: Modifier = Modifier, onDateSelected: (date: String) -> 
         if (formattedDate.isEmpty()) {
             Text(
                 modifier = Modifier.padding(start = 20.dp),
-                text = "Pick an expiry date",
+                text = textPlaceholder,
                 style = MyRationTypography.displayMedium
             )
         }

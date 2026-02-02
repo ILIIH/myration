@@ -1,6 +1,11 @@
 package com.example.myration.ui.FoodPlanScreen
 
+import android.annotation.SuppressLint
 import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.expandVertically
+import androidx.compose.animation.fadeIn
+import androidx.compose.animation.fadeOut
+import androidx.compose.animation.shrinkVertically
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -15,13 +20,17 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.LazyListState
+import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Checkbox
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
@@ -45,8 +54,9 @@ import com.example.myration.viewModels.FoodPlanViewModel
 import com.example.myration.viewModels.MainViewModel
 import com.example.theme.MyRationTypography
 import com.example.theme.PrimaryColor
-import com.example.theme.PrimaryLightColor
+import kotlin.math.absoluteValue
 
+@SuppressLint("FrequentlyChangingValue")
 @Composable
 fun FoodPlanScreen(
     viewModel: FoodPlanViewModel = hiltViewModel(),
@@ -55,14 +65,42 @@ fun FoodPlanScreen(
 ) {
     val state = viewModel.foodList.collectAsState()
     val date = viewModel.date.collectAsState()
+    var previousOffset = remember { mutableIntStateOf(0) }
+    var isHeaderVisible = remember { mutableStateOf(true) }
 
+    val listState = rememberLazyListState()
+
+    LaunchedEffect(listState.firstVisibleItemScrollOffset) {
+        val currentOffset = listState.firstVisibleItemScrollOffset
+        if (currentOffset.absoluteValue > previousOffset.intValue) {
+            isHeaderVisible.value = false
+        } else if (currentOffset.absoluteValue < previousOffset.intValue) {
+            isHeaderVisible.value = true
+        }
+        previousOffset.intValue = currentOffset
+    }
     Column {
-        Header(isListNotEmpty = state.value.isNotEmpty(), navigateToManageFoodPlan = { navController.navigate(NavigationRoute.MANAGE_FOOD_PLAN_SCREEN.route) })
-        DateBar(date.value, viewModel::changeDate)
+        AnimatedVisibility(
+            visible = isHeaderVisible.value,
+            enter = expandVertically() + fadeIn(),
+            exit = shrinkVertically() + fadeOut()
+        ) {
+            Column (
+                modifier = Modifier.padding(30.dp)
+            ){
+                Header(
+                    isListNotEmpty = state.value.isNotEmpty(),
+                    navigateToManageFoodPlan = { navController.navigate(NavigationRoute.MANAGE_FOOD_PLAN_SCREEN.route) }
+                )
+                DateBar(date.value, viewModel::changeDate)
+            }
+        }
         FoodPlanList(
-            state.value,
-            viewModel::markFoodEaten
-        ) { navController.navigate(NavigationRoute.MANAGE_FOOD_PLAN_SCREEN.route) }
+            state = state.value,
+            listState = listState,
+            markFoodEaten = viewModel::markFoodEaten,
+            navigateToManageFoodPlan = { navController.navigate(NavigationRoute.MANAGE_FOOD_PLAN_SCREEN.route) }
+        )
     }
 }
 
@@ -75,7 +113,7 @@ fun Header(isListNotEmpty: Boolean, navigateToManageFoodPlan: () -> Unit) {
     ) {
         Text(
             text = "My food plan",
-            style = MaterialTheme.typography.headlineSmall,
+            style = MaterialTheme.typography.headlineLarge,
             fontWeight = FontWeight.Bold
         )
         if (isListNotEmpty) {
@@ -121,6 +159,16 @@ fun DateBar(date: String, changeDate: (nextDay: Boolean) -> Unit) {
             style = MyRationTypography.displayLarge,
             textAlign = TextAlign.Center
         )
+
+        Image(
+            painter = painterResource(id = R.drawable.ic_calendar),
+            contentDescription = "calendar icon",
+            modifier = Modifier
+                .size(54.dp)
+                .padding(vertical = 18.dp, horizontal = 10.dp)
+                .clickable { changeDate(true) }
+        )
+
         Image(
             painter = painterResource(id = R.drawable.ic_select_next),
             contentDescription = "Select next day",
@@ -133,33 +181,27 @@ fun DateBar(date: String, changeDate: (nextDay: Boolean) -> Unit) {
 }
 
 @Composable
-fun FoodPlanList(state: List<FoodPlan>, markFoodEaten: (plan: FoodPlan) -> Unit, navigateToManageFoodPlan: () -> Unit) {
+fun FoodPlanList(state: List<FoodPlan>, listState: LazyListState, markFoodEaten: (plan: FoodPlan) -> Unit, navigateToManageFoodPlan: () -> Unit) {
     Column(
         modifier = Modifier.fillMaxSize().padding(start = 20.dp, end = 20.dp, bottom = 20.dp)
     ) {
-        Spacer(modifier = Modifier.height(16.dp))
-        state.firstOrNull()?.getMealtimesStr()?.let {
-            Text(
-                modifier = Modifier.fillMaxWidth().padding(vertical = 18.dp),
-                text = it,
-                style = MyRationTypography.displayLarge,
-                textAlign = TextAlign.Center
-            )
-        }
-        LazyColumn {
+        LazyColumn (
+            state = listState
+        ){
             items(
                 count = state.size,
                 itemContent = { index ->
-                    if (index != 0) {
-                        if (state[index].mealNumber != state[index - 1].mealNumber) {
-                            Text(
-                                modifier = Modifier.fillMaxWidth().padding(vertical = 18.dp),
-                                text = state[index].getMealtimesStr(),
-                                style = MyRationTypography.displayLarge,
-                                textAlign = TextAlign.Center
-                            )
-                        }
+                    val shouldShowHeader = index == 0 || state[index].mealNumber != state[index - 1].mealNumber
+
+                    if (shouldShowHeader) {
+                        Text(
+                            modifier = Modifier.fillMaxWidth().padding(vertical = 22.dp),
+                            text = state[index].getMealtimesStr(),
+                            style = MyRationTypography.headlineLarge,
+                            textAlign = TextAlign.Center
+                        )
                     }
+
                     FoodPlanItem(
                         item = state[index],
                         markFoodEaten
@@ -214,7 +256,7 @@ fun FoodPlanItem(item: FoodPlan, markFoodEaten: (plan: FoodPlan) -> Unit) {
         modifier = Modifier.fillMaxWidth()
             .padding(14.dp)
             .shadow(elevation = 8.dp, shape = RoundedCornerShape(24.dp))
-            .background(color = PrimaryLightColor, shape = RoundedCornerShape(24.dp))
+            .background(color = Color.White, shape = RoundedCornerShape(24.dp))
     ) {
         Column {
             Row(
@@ -229,20 +271,13 @@ fun FoodPlanItem(item: FoodPlan, markFoodEaten: (plan: FoodPlan) -> Unit) {
                 )
                 Text(
                     text = item.mealName,
-                    style = MyRationTypography.labelLarge,
+                    style = MyRationTypography.displayLarge,
                     textAlign = TextAlign.Center,
                     textDecoration = if (isChecked.value) TextDecoration.LineThrough else TextDecoration.None
                 )
                 Text(
                     text = "${item.mealCalorie} kcal",
-                    style = MyRationTypography.labelLarge,
-                    textAlign = TextAlign.Center,
-                    textDecoration = if (isChecked.value) TextDecoration.LineThrough else TextDecoration.None
-                )
-
-                Text(
-                    text = "${item.mealCalorie} kcal",
-                    style = MyRationTypography.labelLarge,
+                    style = MyRationTypography.displayLarge,
                     textAlign = TextAlign.Center,
                     textDecoration = if (isChecked.value) TextDecoration.LineThrough else TextDecoration.None
                 )

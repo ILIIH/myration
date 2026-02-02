@@ -62,7 +62,7 @@ fun BottomNavigationBar(navController: NavHostController) {
                 )
                 Text(
                     text = "Add products",
-                    style = MyRationTypography.headlineLarge,
+                    style = MyRationTypography.displayLarge,
                     color = if (selectedTab.value == NavigationRoute.ADD_PRODUCTS_TAB) PrimaryColor else SecondaryBackgroundColor
                 )
             }
@@ -87,7 +87,7 @@ fun BottomNavigationBar(navController: NavHostController) {
                 )
                 Text(
                     text = "My groceries",
-                    style = MyRationTypography.headlineLarge,
+                    style = MyRationTypography.displayLarge,
                     color = if (selectedTab.value == NavigationRoute.GROCERIES_LIST_TAB) PrimaryColor else SecondaryBackgroundColor
                 )
             }
@@ -113,7 +113,7 @@ fun BottomNavigationBar(navController: NavHostController) {
                 )
                 Text(
                     text = "Cooking",
-                    style = MyRationTypography.headlineLarge,
+                    style = MyRationTypography.displayLarge,
                     color = if (selectedTab.value == NavigationRoute.COOKING_TAB) PrimaryColor else SecondaryBackgroundColor
                 )
             }
@@ -139,7 +139,7 @@ fun BottomNavigationBar(navController: NavHostController) {
                 )
                 Text(
                     text = "Profile",
-                    style = MyRationTypography.headlineLarge,
+                    style = MyRationTypography.displayLarge,
                     color = if (selectedTab.value == NavigationRoute.COOKING_TAB) PrimaryColor else SecondaryBackgroundColor
                 )
             }

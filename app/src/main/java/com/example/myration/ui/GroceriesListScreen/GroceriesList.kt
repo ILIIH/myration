@@ -29,16 +29,21 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.paging.LoadState
+import androidx.paging.PagingData
 import androidx.paging.compose.LazyPagingItems
+import androidx.paging.compose.collectAsLazyPagingItems
 import com.example.coreUi.listModifiers.BadgeWidget
+import com.example.domain.model.MeasurementMetric
 import com.example.domain.model.Product
 import com.example.myration.R
 import com.example.myration.maping.getBadgesDesc
 import com.example.theme.MyRationTypography
 import com.example.theme.SecondaryColor
 import com.example.theme.SecondaryHalfTransparentColor
+import kotlinx.coroutines.flow.flowOf
 
 @Composable
 fun GroceriesList(productsList: LazyPagingItems<Product>, removeProduct: (productId: Int) -> Unit, navigateToDetailsScreen: (id: Int) -> Unit) {
@@ -170,4 +175,26 @@ fun ProductItem(product: Product, onDelete: (id: Int) -> Unit, modifier: Modifie
             )
         }
     }
+}
+
+
+@Preview(showBackground = true, backgroundColor = 0xFFF5F5F5)
+@Composable
+fun PreviewGroceriesList() {
+    val mockProducts = listOf(
+        Product(id = 1, name = "Organic Milk", quantity = 2.0f, measurementMetric = MeasurementMetric.GRAM, expirationDate = "2024-12-01", active = true),
+        Product(id = 2, name = "Avocados", quantity = 3.0f, measurementMetric = MeasurementMetric.GRAM, expirationDate = "2024-11-20", active = true),
+        Product(id = 3, name = "Whole Grain Bread", quantity = 1.0f, measurementMetric = MeasurementMetric.GRAM, expirationDate = "2024-11-15", active = true),
+        Product(id = 4, name = "Greek Yogurt", quantity = 500.0f, measurementMetric = MeasurementMetric.GRAM, expirationDate = "2024-11-25", active = true)
+    )
+
+    val data = flowOf(PagingData.from(mockProducts))
+    val items = data.collectAsLazyPagingItems()
+
+    // 3. Render the Composable
+    GroceriesList(
+        productsList = items,
+        removeProduct = { /* No-op for preview */ },
+        navigateToDetailsScreen = { /* No-op for preview */ }
+    )
 }
