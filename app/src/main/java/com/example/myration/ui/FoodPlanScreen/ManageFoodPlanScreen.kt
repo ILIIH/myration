@@ -227,7 +227,7 @@ fun ManageFoodPlanScreenLoaded(submitPlan: (caloriesPerDay: Int, numberOfMeals: 
         FoodPrefDropdown(
             setFoodPref = { pref -> foodPref = pref }
         )
-        DatePicker(modifier = Modifier.padding(start = 50.dp, end = 50.dp, top = 20.dp), dateFormat = "yyyy-MM-dd", onDateSelected = { date -> planDate = date })
+        DatePicker(textPlaceholder = "Pick plan date", modifier = Modifier.padding(start = 50.dp, end = 50.dp, top = 20.dp), dateFormat = "yyyy-MM-dd", onDateSelected = { date -> planDate = date })
         Button(
             onClick = {
                 submitPlan(caloriesPerDay.roundToInt(), numberOfMeals.roundToInt(), foodPref, planDate)

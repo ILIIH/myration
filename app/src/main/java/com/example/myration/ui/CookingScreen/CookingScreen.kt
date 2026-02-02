@@ -69,7 +69,7 @@ fun loadedCookingScreen(
         modifier = Modifier
             .fillMaxSize()
             .background(SecondaryBackgroundColor)
-            .padding(bottom = 80.dp, top = 30.dp),
+            .padding(bottom = 10.dp, top = 30.dp),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         FilterWidget(

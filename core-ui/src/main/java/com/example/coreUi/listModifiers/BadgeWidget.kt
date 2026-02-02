@@ -35,7 +35,7 @@ fun BadgeWidget(badgeDesc: Pair<String, Color>, modifier: Modifier = Modifier) {
     ) {
         Text(
             text = badgeDesc.first,
-            style = MyRationTypography.headlineMedium,
+            style = MyRationTypography.labelLarge,
             color = Color.White
         )
     }

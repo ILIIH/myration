@@ -155,7 +155,7 @@ fun DishesList(recipes: List<Recipe>, onDishClick: (recipeId: Int) -> Unit) {
             .padding(top = 20.dp)
             .fillMaxWidth(),
         text = "${recipes.size} recipes found",
-        style = MyRationTypography.labelLarge,
+        style = MyRationTypography.displayLarge,
         color = SecondaryColor,
         textAlign = TextAlign.Center
     )
@@ -198,7 +198,7 @@ fun DishesListItem(modifier: Modifier, recipe: Recipe) {
     ) {
         Text(
             text = recipe.type.desc,
-            style = MyRationTypography.displaySmall,
+            style = MyRationTypography.displayLarge,
             color = SecondaryColor
         )
         Spacer(modifier = Modifier.height(20.dp))
@@ -223,7 +223,7 @@ fun DishesListItem(modifier: Modifier, recipe: Recipe) {
         Spacer(modifier = Modifier.height(10.dp))
         Text(
             text = recipe.kcal.toString() + " kcal",
-            style = MyRationTypography.displaySmall,
+            style = MyRationTypography.displayLarge,
             color = SecondaryColor
         )
     }
@@ -269,7 +269,7 @@ fun ActionsButton(editProduct: () -> Unit, deleteProduct: () -> Unit) {
                 Text(
                     modifier = Modifier.padding(end = 10.dp),
                     text = "Edit",
-                    style = MyRationTypography.displaySmall,
+                    style = MyRationTypography.displayLarge,
                     color = SecondaryColor
                 )
                 Image(
@@ -301,7 +301,7 @@ fun ActionsButton(editProduct: () -> Unit, deleteProduct: () -> Unit) {
                 Text(
                     modifier = Modifier.padding(end = 10.dp),
                     text = "Delete",
-                    style = MyRationTypography.displaySmall,
+                    style = MyRationTypography.displayLarge,
                     color = SecondaryColor
                 )
                 Image(
