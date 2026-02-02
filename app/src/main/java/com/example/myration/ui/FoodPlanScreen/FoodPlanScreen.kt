@@ -85,9 +85,9 @@ fun FoodPlanScreen(
             enter = expandVertically() + fadeIn(),
             exit = shrinkVertically() + fadeOut()
         ) {
-            Column (
+            Column(
                 modifier = Modifier.padding(30.dp)
-            ){
+            ) {
                 Header(
                     isListNotEmpty = state.value.isNotEmpty(),
                     navigateToManageFoodPlan = { navController.navigate(NavigationRoute.MANAGE_FOOD_PLAN_SCREEN.route) }
@@ -185,9 +185,9 @@ fun FoodPlanList(state: List<FoodPlan>, listState: LazyListState, markFoodEaten:
     Column(
         modifier = Modifier.fillMaxSize().padding(start = 20.dp, end = 20.dp, bottom = 20.dp)
     ) {
-        LazyColumn (
+        LazyColumn(
             state = listState
-        ){
+        ) {
             items(
                 count = state.size,
                 itemContent = { index ->

@@ -177,7 +177,6 @@ fun ProductItem(product: Product, onDelete: (id: Int) -> Unit, modifier: Modifie
     }
 }
 
-
 @Preview(showBackground = true, backgroundColor = 0xFFF5F5F5)
 @Composable
 fun PreviewGroceriesList() {

@@ -6,15 +6,14 @@ import com.example.domain.model.FoodPlan
 import com.example.domain.repository.FoodPlanRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
-import java.util.Date
 import javax.inject.Inject
-import kotlinx.coroutines.flow.SharingStarted
-import kotlinx.coroutines.flow.map
-import kotlinx.coroutines.flow.stateIn
 
 @HiltViewModel
 class FoodPlanViewModel @Inject constructor(
@@ -25,7 +24,6 @@ class FoodPlanViewModel @Inject constructor(
     val foodList: StateFlow<List<FoodPlan>> = _foodList
     private val formatter = DateTimeFormatter.ofPattern("d MMM")
     private val innerFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd")
-
 
     private val _date = MutableStateFlow(LocalDate.now())
     val date: StateFlow<String> = _date
