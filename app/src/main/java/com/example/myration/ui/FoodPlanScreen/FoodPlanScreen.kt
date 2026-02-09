@@ -55,7 +55,13 @@ import com.example.myration.viewModels.MainViewModel
 import com.example.theme.MyRationTypography
 import com.example.theme.PrimaryColor
 import kotlin.math.absoluteValue
-
+import androidx.compose.material3.TopAppBarDefaults
+import androidx.compose.material3.rememberTopAppBarState
+import androidx.compose.ui.input.nestedscroll.nestedScroll
+import androidx.compose.ui.geometry.Offset
+import androidx.compose.ui.input.nestedscroll.NestedScrollConnection
+import androidx.compose.ui.input.nestedscroll.NestedScrollSource
+import androidx.compose.ui.input.nestedscroll.nestedScroll
 @SuppressLint("FrequentlyChangingValue")
 @Composable
 fun FoodPlanScreen(
@@ -65,21 +71,27 @@ fun FoodPlanScreen(
 ) {
     val state = viewModel.foodList.collectAsState()
     val date = viewModel.date.collectAsState()
-    var previousOffset = remember { mutableIntStateOf(0) }
-    var isHeaderVisible = remember { mutableStateOf(true) }
 
-    val listState = rememberLazyListState()
-
-    LaunchedEffect(listState.firstVisibleItemScrollOffset) {
-        val currentOffset = listState.firstVisibleItemScrollOffset
-        if (currentOffset.absoluteValue > previousOffset.intValue) {
-            isHeaderVisible.value = false
-        } else if (currentOffset.absoluteValue < previousOffset.intValue) {
-            isHeaderVisible.value = true
+    val isHeaderVisible = remember { mutableStateOf(true) }
+    val nestedScrollConnection = remember {
+        object : NestedScrollConnection {
+            override fun onPreScroll(available: Offset, source: NestedScrollSource): Offset {
+                if (available.y < -1) {
+                    isHeaderVisible.value = false
+                }
+                else if (available.y > 1) {
+                    isHeaderVisible.value = true
+                }
+                return Offset.Zero
+            }
         }
-        previousOffset.intValue = currentOffset
     }
-    Column {
+
+    Column (
+        modifier = Modifier
+            .fillMaxSize()
+            .nestedScroll(nestedScrollConnection)
+    ){
         AnimatedVisibility(
             visible = isHeaderVisible.value,
             enter = expandVertically() + fadeIn(),
@@ -97,7 +109,6 @@ fun FoodPlanScreen(
         }
         FoodPlanList(
             state = state.value,
-            listState = listState,
             markFoodEaten = viewModel::markFoodEaten,
             navigateToManageFoodPlan = { navController.navigate(NavigationRoute.MANAGE_FOOD_PLAN_SCREEN.route) }
         )
@@ -181,13 +192,11 @@ fun DateBar(date: String, changeDate: (nextDay: Boolean) -> Unit) {
 }
 
 @Composable
-fun FoodPlanList(state: List<FoodPlan>, listState: LazyListState, markFoodEaten: (plan: FoodPlan) -> Unit, navigateToManageFoodPlan: () -> Unit) {
+fun FoodPlanList(state: List<FoodPlan>, markFoodEaten: (plan: FoodPlan) -> Unit, navigateToManageFoodPlan: () -> Unit) {
     Column(
         modifier = Modifier.fillMaxSize().padding(start = 20.dp, end = 20.dp, bottom = 20.dp)
     ) {
-        LazyColumn(
-            state = listState
-        ) {
+        LazyColumn {
             items(
                 count = state.size,
                 itemContent = { index ->
