@@ -10,6 +10,7 @@ interface CalorieRepository {
     suspend fun getFoodHistory(amount: Int): List<FoodHistory>
     suspend fun getFullFoodHistory(): List<List<FoodHistory>>
     suspend fun getMonthSummary(): HashMap<Int, List<PieChartItem>>
+    suspend fun getRationSummary(): List<PieChartItem>
     suspend fun checkMaxCalorieSetUp(): Boolean
     suspend fun addToCurrentCalorie(cal: Float, productName: String, p: Int, f: Int, c: Int)
     fun resetCalorie()

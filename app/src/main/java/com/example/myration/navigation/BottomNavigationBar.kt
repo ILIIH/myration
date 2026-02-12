@@ -58,7 +58,7 @@ fun BottomNavigationBar(
             animatedSize = animatedSize.value,
             navController = navController,
             mainViewModel = mainViewModel,
-            setSubNavigationMenu = {nav -> subNavigationMenu.value = nav}
+            setSubNavigationMenu = { nav -> subNavigationMenu.value = nav }
         )
         Box(
             modifier = Modifier
@@ -74,25 +74,25 @@ fun BottomNavigationBar(
                 Column(
                     modifier = Modifier.weight(1f)
                         .clickable {
-                            selectedTab.value = NavigationRoute.ADD_PRODUCTS_TAB
-                            navController.navigate(NavigationRoute.ADD_PRODUCTS_TAB.route)
+                            selectedTab.value = NavigationRoute.RATION_HISTORY_SCREEN
+                            navController.navigate(NavigationRoute.RATION_HISTORY_SCREEN.route)
                         },
                     horizontalAlignment = Alignment.CenterHorizontally,
                     verticalArrangement = Arrangement.SpaceBetween
                 ) {
                     Image(
                         painter = painterResource(
-                            id = if (selectedTab.value == NavigationRoute.ADD_PRODUCTS_TAB) {
-                                R.drawable.ic_add_products_selected_tab
+                            id = if (selectedTab.value == NavigationRoute.RATION_HISTORY_SCREEN) {
+                                com.example.coreUi.R.drawable.ic_history_selected
                             } else {
-                                R.drawable.ic_add_products_not_selected_tab
+                                com.example.coreUi.R.drawable.ic_history_unselected
                             }
                         ),
-                        contentDescription = "Add products",
+                        contentDescription = "History",
                         modifier = Modifier.size(25.dp)
                     )
                     Text(
-                        text = "Add products",
+                        text = "History",
                         style = MyRationTypography.displaySmall,
                         color = if (selectedTab.value == NavigationRoute.ADD_PRODUCTS_TAB) PrimaryColor else SecondaryBackgroundColor
                     )
@@ -198,12 +198,12 @@ fun BottomNavigationBar(
 
 @Composable
 fun navigationSubMenu(
-    subNavigationMenu:NavigationRouteSubMenu,
+    subNavigationMenu: NavigationRouteSubMenu,
     animatedSize: Dp,
     navController: NavHostController,
     mainViewModel: MainViewModel,
     setSubNavigationMenu: (menu: NavigationRouteSubMenu) -> Unit
-){
+) {
     Row(
         modifier = Modifier.fillMaxWidth()
             .background(Color.Gray.copy(alpha = 0.2f))
@@ -280,7 +280,7 @@ fun navigationSubMenu(
                         modifier = Modifier.size(60.dp)
                             .padding(start = 15.dp)
                             .clickable {
-                                setSubNavigationMenu( NavigationRouteSubMenu.GENERAL_MENU_TAB)
+                                setSubNavigationMenu(NavigationRouteSubMenu.GENERAL_MENU_TAB)
                             }
                     )
                 }

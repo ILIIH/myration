@@ -4,7 +4,6 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -15,8 +14,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
-import androidx.compose.material3.Card
-import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.OutlinedTextFieldDefaults
 import androidx.compose.material3.Text
@@ -59,131 +56,133 @@ fun AddEatenProductScreen(
 
     val isSuccessAddedEatenProduct = viewModel.isSuccessAddedFood.collectAsState()
 
-            Column(
+    Column(
+        modifier = Modifier
+            .fillMaxSize()
+            .background(Color.White),
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
+        Image(
+            painter = painterResource(id = R.drawable.ic_baseline_close),
+            contentDescription = "close window button",
+            modifier = Modifier
+                .padding(top = 20.dp, start = 20.dp, end = 20.dp)
+                .size(32.dp)
+                .align(Alignment.End)
+                .clickable { navController.popBackStack() }
+                .padding(2.dp)
+        )
+        Column(
+            modifier = Modifier
+                .padding(16.dp)
+                .fillMaxWidth(),
+            horizontalAlignment = Alignment.CenterHorizontally
+        ) {
+            Text(
+                text = "Add new product",
+                fontSize = 20.sp,
+                fontWeight = FontWeight.Bold,
+                color = Color.Black
+            )
+            Spacer(modifier = Modifier.height(60.dp))
+            TextField(
+                value = productName,
+                onValueChange = { productName = it },
+                modifier = Modifier.fillMaxWidth(),
+                label = { Text("Product name") },
+                singleLine = true,
+                colors = OutlinedTextFieldDefaults.colors(unfocusedContainerColor = Color.White, focusedContainerColor = Color.White)
+            )
+            Spacer(modifier = Modifier.height(20.dp))
+            TextField(
+                value = productCalorie,
+                onValueChange = { productCalorie = it },
+                modifier = Modifier.fillMaxWidth(),
+                label = { Text("Product calorie (kcal)") },
+                singleLine = true,
+                keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
+                colors = OutlinedTextFieldDefaults.colors(unfocusedContainerColor = Color.White, focusedContainerColor = Color.White)
+            )
+            Spacer(modifier = Modifier.height(30.dp))
+            Row(
                 modifier = Modifier
-                    .fillMaxSize()
-                    .background(Color.White),
-                horizontalAlignment = Alignment.CenterHorizontally
+                    .fillMaxWidth()
+                    .padding(horizontal = 16.dp),
+                horizontalArrangement = Arrangement.spacedBy(16.dp, Alignment.CenterHorizontally),
+                verticalAlignment = Alignment.CenterVertically
             ) {
-                Image(
-                    painter = painterResource(id = R.drawable.ic_baseline_close),
-                    contentDescription = "close window button",
-                    modifier = Modifier
-                        .padding(top = 20.dp, start = 20.dp, end = 20.dp)
-                        .size(32.dp)
-                        .align(Alignment.End)
-                        .clickable {navController.popBackStack() }
-                        .padding(2.dp)
+                OutlinedTextField(
+                    value = productProtein,
+                    onValueChange = { productProtein = it },
+                    label = { Text("Prot. (g)") },
+                    singleLine = true,
+                    keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
+                    colors = OutlinedTextFieldDefaults.colors(
+                        unfocusedContainerColor = Color.White,
+                        focusedContainerColor = Color.White
+                    ),
+                    modifier = Modifier.weight(1f)
                 )
-                Column(
-                    modifier = Modifier
-                        .padding(16.dp)
-                        .fillMaxWidth(),
-                    horizontalAlignment = Alignment.CenterHorizontally
-                ) {
-                    Text(
-                        text = "Add new product",
-                        fontSize = 20.sp,
-                        fontWeight = FontWeight.Bold,
-                        color = Color.Black
-                    )
-                    Spacer(modifier = Modifier.height(60.dp))
-                    TextField(
-                        value = productName,
-                        onValueChange = { productName = it },
-                        modifier = Modifier.fillMaxWidth(),
-                        label = { Text("Product name") },
-                        singleLine = true,
-                        colors = OutlinedTextFieldDefaults.colors(unfocusedContainerColor = Color.White, focusedContainerColor = Color.White)
-                    )
-                    Spacer(modifier = Modifier.height(20.dp))
-                    TextField(
-                        value = productCalorie,
-                        onValueChange = { productCalorie = it },
-                        modifier = Modifier.fillMaxWidth(),
-                        label = { Text("Product calorie (kcal)") },
-                        singleLine = true,
-                        keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
-                        colors = OutlinedTextFieldDefaults.colors(unfocusedContainerColor = Color.White, focusedContainerColor = Color.White)
-                    )
-                    Spacer(modifier = Modifier.height(30.dp))
-                    Row(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .padding(horizontal = 16.dp),
-                        horizontalArrangement = Arrangement.spacedBy(16.dp, Alignment.CenterHorizontally),
-                        verticalAlignment = Alignment.CenterVertically
-                    ) {
-                        OutlinedTextField(
-                            value = productProtein,
-                            onValueChange = { productProtein = it },
-                            label = { Text("Prot. (g)") },
-                            singleLine = true,
-                            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
-                            colors = OutlinedTextFieldDefaults.colors(
-                                unfocusedContainerColor = Color.White,
-                                focusedContainerColor = Color.White
-                            ),
-                            modifier = Modifier.weight(1f)
-                        )
 
-                        OutlinedTextField(
-                            value = productFats,
-                            onValueChange = { productFats = it },
-                            label = { Text("Fats (g)") },
-                            singleLine = true,
-                            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
-                            colors = OutlinedTextFieldDefaults.colors(
-                                unfocusedContainerColor = Color.White,
-                                focusedContainerColor = Color.White
-                            ),
-                            modifier = Modifier.weight(1f)
-                        )
+                OutlinedTextField(
+                    value = productFats,
+                    onValueChange = { productFats = it },
+                    label = { Text("Fats (g)") },
+                    singleLine = true,
+                    keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
+                    colors = OutlinedTextFieldDefaults.colors(
+                        unfocusedContainerColor = Color.White,
+                        focusedContainerColor = Color.White
+                    ),
+                    modifier = Modifier.weight(1f)
+                )
 
-                        OutlinedTextField(
-                            value = productCarbohydrates,
-                            onValueChange = { productCarbohydrates = it },
-                            label = { Text("Carbs (g)") },
-                            singleLine = true,
-                            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
-                            colors = OutlinedTextFieldDefaults.colors(
-                                unfocusedContainerColor = Color.White,
-                                focusedContainerColor = Color.White
-                            ),
-                            modifier = Modifier.weight(1f)
-                        )
-                    }
+                OutlinedTextField(
+                    value = productCarbohydrates,
+                    onValueChange = { productCarbohydrates = it },
+                    label = { Text("Carbs (g)") },
+                    singleLine = true,
+                    keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
+                    colors = OutlinedTextFieldDefaults.colors(
+                        unfocusedContainerColor = Color.White,
+                        focusedContainerColor = Color.White
+                    ),
+                    modifier = Modifier.weight(1f)
+                )
+            }
 
-                    Spacer(modifier = Modifier.height(40.dp))
-                    Button(
-                        onClick = {
-                            viewModel.addEatenProduct(
-                                productName = productName.text,
-                                calorie = productCalorie.text.toFloat(),
-                                p = productProtein.text.toInt(),
-                                f = productFats.text.toInt(),
-                                c = productCarbohydrates.text.toInt()
-                            )
-                        },
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .align(Alignment.CenterHorizontally)
-                            .padding(top = 10.dp)
-                            .shadow(elevation = 8.dp, shape = RoundedCornerShape(12.dp))
-                            .background(color = PrimaryColor, shape = RoundedCornerShape(4.dp)),
-                        colors = ButtonDefaults.buttonColors(
-                            backgroundColor = PrimaryColor,
-                            contentColor = Color.White
-                        )
-                    ) {
-                        Text(text = "Submit", color = Color.White)
-                    }
-                }
+            Spacer(modifier = Modifier.height(40.dp))
+            Button(
+                onClick = {
+                    viewModel.addEatenProduct(
+                        productName = productName.text,
+                        calorie = productCalorie.text.toFloat(),
+                        p = productProtein.text.toInt(),
+                        f = productFats.text.toInt(),
+                        c = productCarbohydrates.text.toInt()
+                    )
+                },
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .align(Alignment.CenterHorizontally)
+                    .padding(top = 10.dp)
+                    .shadow(elevation = 8.dp, shape = RoundedCornerShape(12.dp))
+                    .background(color = PrimaryColor, shape = RoundedCornerShape(4.dp)),
+                colors = ButtonDefaults.buttonColors(
+                    backgroundColor = PrimaryColor,
+                    contentColor = Color.White
+                )
+            ) {
+                Text(text = "Submit", color = Color.White)
+            }
+        }
     }
-    if(isSuccessAddedEatenProduct.value){
+    if (isSuccessAddedEatenProduct.value) {
         SuccessMessage(
             message = "Successfully added a eaten food",
-            onDismiss = { navController.popBackStack() }
+            onDismiss = {
+                navController.popBackStack()
+            }
         )
     }
 }

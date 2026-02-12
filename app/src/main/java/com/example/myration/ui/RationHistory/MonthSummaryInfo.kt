@@ -27,8 +27,8 @@ import java.util.Date
 import java.util.Locale
 
 @Composable
-fun MonthSummaryInfo(monthlyFailSuccessList: List<PieChartItem>, date: Date) {
-    val monthName = SimpleDateFormat("MMMM", Locale.getDefault()).format(date)
+fun MonthSummaryInfo(monthlyFailSuccessList: List<PieChartItem>, date: Date? = null) {
+    val monthName = if (date != null) SimpleDateFormat("MMMM", Locale.getDefault()).format(date) else "Ration summary"
 
     Box(
         modifier = Modifier

@@ -36,7 +36,7 @@ fun AppNavHost(navController: NavHostController, mainViewModel: MainViewModel) {
             AddProductManuallyScreen(mainViewModel = mainViewModel)
         }
         composable(NavigationRoute.ADD_EATEN_PRODUCT_SCREEN.route) {
-            AddEatenProductScreen( navController = navController )
+            AddEatenProductScreen(navController = navController)
         }
         composable(NavigationRoute.ADD_PRODUCT_VOICE.route) {
             AddProductVoiceScreen(mainViewModel = mainViewModel)

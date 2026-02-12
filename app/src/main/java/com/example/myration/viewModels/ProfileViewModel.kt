@@ -2,7 +2,6 @@ package com.example.myration.viewModels
 
 import androidx.lifecycle.viewModelScope
 import com.example.core.mvi.BaseViewModel
-import com.example.domain.model.GlobalUiState
 import com.example.domain.repository.CalorieRepository
 import com.example.myration.mvi.effects.ProfileEffect
 import com.example.myration.mvi.intent.ProfileEvents
@@ -11,11 +10,11 @@ import com.example.myration.mvi.state.ProfileViewState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.asStateFlow
 
 @HiltViewModel
 class ProfileViewModel @Inject constructor(
@@ -28,11 +27,17 @@ class ProfileViewModel @Inject constructor(
     val isSuccessAddedFood = _isSuccessAddedFood.asStateFlow()
 
     init {
+        refreshInfo()
+    }
+
+    fun refreshInfo() {
         viewModelScope.launch {
             if (calorieRepository.checkMaxCalorieSetUp()) {
                 val calorieInfo = async { calorieRepository.getCalorieInfo() }
                 val foodHistory = async { calorieRepository.getFoodHistory(3) }
-                sendEvent(ProfileEvents.ProfileLoaded(profileInfo = calorieInfo.await(), foodHistory = foodHistory.await()))
+                val foodMonthSummary = async { calorieRepository.getRationSummary() }
+
+                sendEvent(ProfileEvents.ProfileLoaded(profileInfo = calorieInfo.await(), foodHistory = foodHistory.await(), foodSummary = foodMonthSummary.await()))
             } else {
                 sendEvent(ProfileEvents.GetProfileSetUpStatus(false))
             }
@@ -83,7 +88,7 @@ class ProfileViewModel @Inject constructor(
         calorie: Float,
         p: Int,
         f: Int,
-        c: Int,
+        c: Int
     ) {
         viewModelScope.launch {
             calorieRepository.addToCurrentCalorie(calorie, productName, p, f, c)
