@@ -10,6 +10,9 @@ enum class NavigationRoute(val route: String) {
     ADD_PRODUCTS_TAB("add_products_tab"),
     GROCERIES_LIST_TAB("groceries_list_tab"),
     ADD_PRODUCT_MANUALLY("add_product_manually"),
+
+    ADD_EATEN_PRODUCT_SCREEN("add_eaten_product_scree"),
+
     ADD_PRODUCT_VOICE("add_product_voice"),
     SCAN_PRODUCTS_SCREEN("scan_products_screen"),
     RECIPE_DETAILS_SCREEN("recipe_details_screen/{recipeId}"),

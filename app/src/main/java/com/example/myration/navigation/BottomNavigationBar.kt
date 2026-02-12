@@ -28,6 +28,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavHostController
@@ -52,168 +53,13 @@ fun BottomNavigationBar(
         label = "SizeAnimation"
     )
     Column {
-        Row(
-            modifier = Modifier.fillMaxWidth()
-                .background(Color.Gray.copy(alpha = 0.2f))
-                .height(animatedSize.value),
-            horizontalArrangement = Arrangement.SpaceEvenly,
-            verticalAlignment = Alignment.CenterVertically
-        ) {
-            if (subNavigationMenu.value == NavigationRouteSubMenu.GENERAL_MENU_TAB) {
-                Row(
-                    horizontalArrangement = Arrangement.spacedBy(16.dp, Alignment.CenterHorizontally)
-                ) {
-                    Column(
-                        verticalArrangement = Arrangement.Center,
-                        horizontalAlignment = Alignment.CenterHorizontally,
-                        modifier = Modifier
-                            .size(height = 120.dp, width = 100.dp)
-                            .clip(RoundedCornerShape(20.dp))
-                            .background(Color.White)
-                            .clickable {
-                                mainViewModel.inverseOverlay()
-                                navController.navigate(NavigationRoute.ADD_PRODUCT_VOICE.route)
-                            }
-                            .padding(14.dp)
-                    ) {
-                        Image(
-                            painter = painterResource(R.drawable.ic_cooking_selected_tab),
-                            contentDescription = "Add eaten food",
-                            modifier = Modifier.size(55.dp)
-                        )
-                        Text(
-                            modifier = Modifier.padding(top = 12.dp),
-                            text = "Add meal",
-                            style = MyRationTypography.displaySmall,
-                            color = PrimaryColor
-                        )
-                    }
-                    Column(
-                        verticalArrangement = Arrangement.Center,
-                        horizontalAlignment = Alignment.CenterHorizontally,
-                        modifier = Modifier
-                            .size(height = 120.dp, width = 100.dp)
-                            .clip(RoundedCornerShape(20.dp))
-                            .background(Color.White)
-                            .clickable {
-                                subNavigationMenu.value = NavigationRouteSubMenu.ADD_PRODUCT_TAB
-                            }
-                            .padding(14.dp)
-                    ) {
-                        Image(
-                            painter = painterResource(com.example.coreUi.R.drawable.ic_add_product_green),
-                            contentDescription = "Add product",
-                            modifier = Modifier.size(30.dp)
-                        )
-                        Text(
-                            modifier = Modifier.padding(top = 12.dp),
-                            text = "Add product",
-                            style = MyRationTypography.displaySmall,
-                            color = PrimaryColor
-                        )
-                    }
-                }
-            } else {
-                Column(
-                    horizontalAlignment = Alignment.CenterHorizontally,
-                    verticalArrangement = Arrangement.Center
-                ) {
-                    Row(
-                        modifier = Modifier.fillMaxWidth(),
-                        horizontalArrangement = Arrangement.Start
-                    ) {
-                        Image(
-                            painter = painterResource(com.example.coreUi.R.drawable.ic_return),
-                            contentDescription = "Return",
-                            modifier = Modifier.size(60.dp)
-                                .padding(start = 15.dp)
-                                .clickable {
-                                    subNavigationMenu.value = NavigationRouteSubMenu.GENERAL_MENU_TAB
-                                }
-                        )
-                    }
-
-                    Row(
-                        modifier = Modifier.fillMaxWidth(),
-                        verticalAlignment = Alignment.CenterVertically,
-                        horizontalArrangement = Arrangement.spacedBy(16.dp, Alignment.CenterHorizontally)
-                    ) {
-                        Column(
-                            horizontalAlignment = Alignment.CenterHorizontally,
-                            modifier = Modifier
-                                .size(height = 100.dp, width = 100.dp)
-                                .clip(RoundedCornerShape(20.dp))
-                                .background(Color.White)
-                                .clickable {
-                                    mainViewModel.inverseOverlay()
-                                    navController.navigate(NavigationRoute.SCAN_PRODUCTS_SCREEN.route)
-                                }
-                                .padding(14.dp)
-                        ) {
-                            Image(
-                                painter = painterResource(R.drawable.ic_add_products_selected_tab),
-                                contentDescription = "Scan products",
-                                modifier = Modifier.size(40.dp)
-                            )
-                            Text(
-                                modifier = Modifier.padding(top = 12.dp),
-                                text = "Scan product",
-                                style = MyRationTypography.titleMedium,
-                                color = PrimaryColor
-                            )
-                        }
-                        Column(
-                            horizontalAlignment = Alignment.CenterHorizontally,
-                            modifier = Modifier
-                                .size(height = 100.dp, width = 100.dp)
-                                .clip(RoundedCornerShape(20.dp))
-                                .background(Color.White)
-                                .clickable {
-                                    mainViewModel.inverseOverlay()
-                                    navController.navigate(NavigationRoute.ADD_PRODUCT_MANUALLY.route)
-                                }
-                                .padding(14.dp)
-                        ) {
-                            Image(
-                                painter = painterResource(R.drawable.ic_add_product_manually),
-                                contentDescription = "Add manually",
-                                modifier = Modifier.size(40.dp)
-                            )
-                            Text(
-                                modifier = Modifier.padding(top = 12.dp),
-                                text = "Add manually",
-                                style = MyRationTypography.titleMedium,
-                                color = PrimaryColor
-                            )
-                        }
-                        Column(
-                            horizontalAlignment = Alignment.CenterHorizontally,
-                            modifier = Modifier
-                                .size(height = 100.dp, width = 100.dp)
-                                .clip(RoundedCornerShape(20.dp))
-                                .background(Color.White)
-                                .clickable {
-                                    mainViewModel.inverseOverlay()
-                                    navController.navigate(NavigationRoute.ADD_PRODUCT_VOICE.route)
-                                }
-                                .padding(14.dp)
-                        ) {
-                            Image(
-                                painter = painterResource(R.drawable.ic_say_what_did_buy),
-                                contentDescription = "Add with voice",
-                                modifier = Modifier.size(40.dp)
-                            )
-                            Text(
-                                modifier = Modifier.padding(top = 12.dp),
-                                text = "Add by voice",
-                                style = MyRationTypography.titleMedium,
-                                color = PrimaryColor
-                            )
-                        }
-                    }
-                }
-            }
-        }
+        navigationSubMenu(
+            subNavigationMenu = subNavigationMenu.value,
+            animatedSize = animatedSize.value,
+            navController = navController,
+            mainViewModel = mainViewModel,
+            setSubNavigationMenu = { nav -> subNavigationMenu.value = nav }
+        )
         Box(
             modifier = Modifier
                 .fillMaxWidth()
@@ -228,34 +74,32 @@ fun BottomNavigationBar(
                 Column(
                     modifier = Modifier.weight(1f)
                         .clickable {
-                            selectedTab.value = NavigationRoute.ADD_PRODUCTS_TAB
-                            mainViewModel.inverseOverlay()
-                            navController.navigate(NavigationRoute.ADD_PRODUCTS_TAB.route)
+                            selectedTab.value = NavigationRoute.RATION_HISTORY_SCREEN
+                            navController.navigate(NavigationRoute.RATION_HISTORY_SCREEN.route)
                         },
                     horizontalAlignment = Alignment.CenterHorizontally,
                     verticalArrangement = Arrangement.SpaceBetween
                 ) {
                     Image(
                         painter = painterResource(
-                            id = if (selectedTab.value == NavigationRoute.ADD_PRODUCTS_TAB) {
-                                R.drawable.ic_add_products_selected_tab
+                            id = if (selectedTab.value == NavigationRoute.RATION_HISTORY_SCREEN) {
+                                com.example.coreUi.R.drawable.ic_history_selected
                             } else {
-                                R.drawable.ic_add_products_not_selected_tab
+                                com.example.coreUi.R.drawable.ic_history_unselected
                             }
                         ),
-                        contentDescription = "Add products",
+                        contentDescription = "History",
                         modifier = Modifier.size(25.dp)
                     )
                     Text(
-                        text = "Add products",
-                        style = MyRationTypography.displayLarge,
-                        color = if (selectedTab.value == NavigationRoute.ADD_PRODUCTS_TAB) PrimaryColor else SecondaryBackgroundColor
+                        text = "History",
+                        style = MyRationTypography.displaySmall,
+                        color = if (selectedTab.value == NavigationRoute.RATION_HISTORY_SCREEN) PrimaryColor else SecondaryBackgroundColor
                     )
                 }
                 Column(
                     modifier = Modifier.weight(1f).clickable {
                         selectedTab.value = NavigationRoute.GROCERIES_LIST_TAB
-                        mainViewModel.inverseOverlay()
                         navController.navigate(NavigationRoute.GROCERIES_LIST_TAB.route)
                     },
                     horizontalAlignment = Alignment.CenterHorizontally,
@@ -274,7 +118,7 @@ fun BottomNavigationBar(
                     )
                     Text(
                         text = "My groceries",
-                        style = MyRationTypography.displayLarge,
+                        style = MyRationTypography.displaySmall,
                         color = if (selectedTab.value == NavigationRoute.GROCERIES_LIST_TAB) PrimaryColor else SecondaryBackgroundColor
                     )
                 }
@@ -292,14 +136,13 @@ fun BottomNavigationBar(
                     Image(
                         painter = painterResource(com.example.coreUi.R.drawable.ic_add_item),
                         contentDescription = "Add icon",
-                        modifier = Modifier.padding(10.dp)
+                        modifier = Modifier.padding(14.dp)
                     )
                 }
                 Column(
                     modifier = Modifier.weight(1f)
                         .clickable {
                             selectedTab.value = NavigationRoute.COOKING_TAB
-                            mainViewModel.inverseOverlay()
                             navController.navigate(NavigationRoute.COOKING_TAB.route)
                         },
                     horizontalAlignment = Alignment.CenterHorizontally,
@@ -318,7 +161,7 @@ fun BottomNavigationBar(
                     )
                     Text(
                         text = "Cooking",
-                        style = MyRationTypography.displayLarge,
+                        style = MyRationTypography.displaySmall,
                         color = if (selectedTab.value == NavigationRoute.COOKING_TAB) PrimaryColor else SecondaryBackgroundColor
                     )
                 }
@@ -326,7 +169,6 @@ fun BottomNavigationBar(
                     modifier = Modifier.weight(1f)
                         .clickable {
                             selectedTab.value = NavigationRoute.PROFILE_TAB
-                            mainViewModel.inverseOverlay()
                             navController.navigate(NavigationRoute.PROFILE_TAB.route)
                         },
                     horizontalAlignment = Alignment.CenterHorizontally,
@@ -345,9 +187,181 @@ fun BottomNavigationBar(
                     )
                     Text(
                         text = "Profile",
-                        style = MyRationTypography.displayLarge,
-                        color = if (selectedTab.value == NavigationRoute.COOKING_TAB) PrimaryColor else SecondaryBackgroundColor
+                        style = MyRationTypography.displaySmall,
+                        color = if (selectedTab.value == NavigationRoute.PROFILE_TAB) PrimaryColor else SecondaryBackgroundColor
                     )
+                }
+            }
+        }
+    }
+}
+
+@Composable
+fun navigationSubMenu(
+    subNavigationMenu: NavigationRouteSubMenu,
+    animatedSize: Dp,
+    navController: NavHostController,
+    mainViewModel: MainViewModel,
+    setSubNavigationMenu: (menu: NavigationRouteSubMenu) -> Unit
+) {
+    Row(
+        modifier = Modifier.fillMaxWidth()
+            .background(Color.Gray.copy(alpha = 0.2f))
+            .height(animatedSize),
+        horizontalArrangement = Arrangement.SpaceEvenly,
+        verticalAlignment = Alignment.CenterVertically
+    ) {
+        if (subNavigationMenu == NavigationRouteSubMenu.GENERAL_MENU_TAB) {
+            Row(
+                horizontalArrangement = Arrangement.spacedBy(16.dp, Alignment.CenterHorizontally)
+            ) {
+                Column(
+                    verticalArrangement = Arrangement.Center,
+                    horizontalAlignment = Alignment.CenterHorizontally,
+                    modifier = Modifier
+                        .size(height = 120.dp, width = 100.dp)
+                        .clip(RoundedCornerShape(20.dp))
+                        .background(Color.White)
+                        .clickable {
+                            mainViewModel.inverseOverlay()
+                            navController.navigate(NavigationRoute.ADD_EATEN_PRODUCT_SCREEN.route)
+                        }
+                        .padding(14.dp)
+                ) {
+                    Image(
+                        painter = painterResource(R.drawable.ic_cooking_selected_tab),
+                        contentDescription = "Add eaten food",
+                        modifier = Modifier.size(55.dp)
+                    )
+                    Text(
+                        modifier = Modifier.padding(top = 12.dp),
+                        text = "Add meal",
+                        style = MyRationTypography.displaySmall,
+                        color = PrimaryColor
+                    )
+                }
+                Column(
+                    verticalArrangement = Arrangement.Center,
+                    horizontalAlignment = Alignment.CenterHorizontally,
+                    modifier = Modifier
+                        .size(height = 120.dp, width = 100.dp)
+                        .clip(RoundedCornerShape(20.dp))
+                        .background(Color.White)
+                        .clickable {
+                            setSubNavigationMenu(NavigationRouteSubMenu.ADD_PRODUCT_TAB)
+                        }
+                        .padding(14.dp)
+                ) {
+                    Image(
+                        painter = painterResource(com.example.coreUi.R.drawable.ic_add_product_green),
+                        contentDescription = "Add product",
+                        modifier = Modifier.size(30.dp)
+                    )
+                    Text(
+                        modifier = Modifier.padding(top = 12.dp),
+                        text = "Add product",
+                        style = MyRationTypography.displaySmall,
+                        color = PrimaryColor
+                    )
+                }
+            }
+        } else {
+            Column(
+                horizontalAlignment = Alignment.CenterHorizontally,
+                verticalArrangement = Arrangement.Center
+            ) {
+                Row(
+                    modifier = Modifier.fillMaxWidth(),
+                    horizontalArrangement = Arrangement.Start
+                ) {
+                    Image(
+                        painter = painterResource(com.example.coreUi.R.drawable.ic_return),
+                        contentDescription = "Return",
+                        modifier = Modifier.size(60.dp)
+                            .padding(start = 15.dp)
+                            .clickable {
+                                setSubNavigationMenu(NavigationRouteSubMenu.GENERAL_MENU_TAB)
+                            }
+                    )
+                }
+
+                Row(
+                    modifier = Modifier.fillMaxWidth(),
+                    verticalAlignment = Alignment.CenterVertically,
+                    horizontalArrangement = Arrangement.spacedBy(16.dp, Alignment.CenterHorizontally)
+                ) {
+                    Column(
+                        horizontalAlignment = Alignment.CenterHorizontally,
+                        modifier = Modifier
+                            .size(height = 100.dp, width = 100.dp)
+                            .clip(RoundedCornerShape(20.dp))
+                            .background(Color.White)
+                            .clickable {
+                                mainViewModel.inverseOverlay()
+                                navController.navigate(NavigationRoute.SCAN_PRODUCTS_SCREEN.route)
+                            }
+                            .padding(14.dp)
+                    ) {
+                        Image(
+                            painter = painterResource(R.drawable.ic_add_products_selected_tab),
+                            contentDescription = "Scan products",
+                            modifier = Modifier.size(40.dp)
+                        )
+                        Text(
+                            modifier = Modifier.padding(top = 12.dp),
+                            text = "Scan product",
+                            style = MyRationTypography.titleMedium,
+                            color = PrimaryColor
+                        )
+                    }
+                    Column(
+                        horizontalAlignment = Alignment.CenterHorizontally,
+                        modifier = Modifier
+                            .size(height = 100.dp, width = 100.dp)
+                            .clip(RoundedCornerShape(20.dp))
+                            .background(Color.White)
+                            .clickable {
+                                mainViewModel.inverseOverlay()
+                                navController.navigate(NavigationRoute.ADD_PRODUCT_MANUALLY.route)
+                            }
+                            .padding(14.dp)
+                    ) {
+                        Image(
+                            painter = painterResource(R.drawable.ic_add_product_manually),
+                            contentDescription = "Add manually",
+                            modifier = Modifier.size(40.dp)
+                        )
+                        Text(
+                            modifier = Modifier.padding(top = 12.dp),
+                            text = "Add manually",
+                            style = MyRationTypography.titleMedium,
+                            color = PrimaryColor
+                        )
+                    }
+                    Column(
+                        horizontalAlignment = Alignment.CenterHorizontally,
+                        modifier = Modifier
+                            .size(height = 100.dp, width = 100.dp)
+                            .clip(RoundedCornerShape(20.dp))
+                            .background(Color.White)
+                            .clickable {
+                                mainViewModel.inverseOverlay()
+                                navController.navigate(NavigationRoute.ADD_PRODUCT_VOICE.route)
+                            }
+                            .padding(14.dp)
+                    ) {
+                        Image(
+                            painter = painterResource(R.drawable.ic_say_what_did_buy),
+                            contentDescription = "Add with voice",
+                            modifier = Modifier.size(40.dp)
+                        )
+                        Text(
+                            modifier = Modifier.padding(top = 12.dp),
+                            text = "Add by voice",
+                            style = MyRationTypography.titleMedium,
+                            color = PrimaryColor
+                        )
+                    }
                 }
             }
         }

@@ -78,6 +78,31 @@ class CalorieRepositoryImp @Inject constructor(
             }.values.toList()
     }
 
+    override suspend fun getRationSummary(): List<PieChartItem> {
+        val maxCalorie = preferences.getFloat(MAX_CALORIE, DEFAULT_MAX_CALORIE)
+        val allFoodItems = foodHistoryDAO.getAllFoodProducts().map { it.toDomain() }
+        val sumsByDate = allFoodItems.groupingBy { it.date }
+            .fold(0f) { acc, item -> acc + item.productCalorie }
+
+        val totalDays = sumsByDate.size
+        val unsuccessfulDays = sumsByDate.values.count { it > maxCalorie }
+        val successfulDays = totalDays - unsuccessfulDays
+
+        val summary = listOf(
+            PieChartItem(
+                label = "$unsuccessfulDays unsuccessful days",
+                amount = unsuccessfulDays,
+                color = 0xFFFA3538.toInt()
+            ),
+            PieChartItem(
+                label = "$successfulDays successful days",
+                amount = successfulDays,
+                color = 0xFF499F68.toInt()
+            )
+        )
+        return summary
+    }
+
     override suspend fun getMonthSummary(): HashMap<Int, List<PieChartItem>> {
         val maxCalorie = preferences.getFloat(MAX_CALORIE, DEFAULT_MAX_CALORIE)
         val hashMap = HashMap<Int, List<PieChartItem>>()

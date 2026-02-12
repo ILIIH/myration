@@ -30,7 +30,7 @@ fun CalorieCounter(
     productCalorie: Int = 0
 ) {
     Row(
-        modifier = Modifier.fillMaxWidth()
+        modifier = Modifier
             .padding(30.dp)
             .height(140.dp),
         verticalAlignment = Alignment.CenterVertically,

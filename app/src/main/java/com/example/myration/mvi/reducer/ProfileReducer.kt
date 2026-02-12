@@ -19,7 +19,7 @@ class ProfileReducer : Reducer<ProfileViewState, ProfileEvents, ProfileEffect> {
                 ProfileViewState.ProfileInfoError(event.errorMessage) to null
             }
             is ProfileEvents.ProfileLoaded -> {
-                ProfileViewState.ProfileLoaded(info = event.profileInfo, foodHistory = event.foodHistory) to null
+                ProfileViewState.ProfileLoaded(info = event.profileInfo, foodSummary = event.foodSummary) to null
             }
             is ProfileEvents.ProfileUpdateCalories -> {
                 ProfileViewState.ProfileLoaded(
@@ -30,7 +30,7 @@ class ProfileReducer : Reducer<ProfileViewState, ProfileEvents, ProfileEffect> {
                         fats = previousState.info?.fats ?: 0,
                         carbohydrates = previousState.info?.carbohydrates ?: 0
                     ),
-                    foodHistory = previousState.foodHistory
+                    foodSummary = previousState.foodSummary
                 ) to null
             }
             is ProfileEvents.ProfileUpdateCalorieCounter -> {
@@ -42,7 +42,7 @@ class ProfileReducer : Reducer<ProfileViewState, ProfileEvents, ProfileEffect> {
                         fats = (previousState.info?.fats ?: 0) + event.fats,
                         carbohydrates = (previousState.info?.carbohydrates ?: 0) + event.carbohydrates
                     ),
-                    foodHistory = previousState.foodHistory
+                    foodSummary = previousState.foodSummary
                 ) to null
             }
             is ProfileEvents.GetProfileSetUpStatus -> {

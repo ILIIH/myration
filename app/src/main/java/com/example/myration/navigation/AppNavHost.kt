@@ -14,6 +14,7 @@ import com.example.myration.ui.FoodPlanScreen.FoodPlanScreen
 import com.example.myration.ui.FoodPlanScreen.ManageFoodPlanScreen
 import com.example.myration.ui.GroceriesDetailsScreen.GroceriesDetailsScreen
 import com.example.myration.ui.GroceriesListScreen.GroceriesListScreen
+import com.example.myration.ui.ProfileScreen.AddEatenProductScreen
 import com.example.myration.ui.ProfileScreen.ProfileScreen
 import com.example.myration.ui.RationHistory.RationHistoryScreen
 import com.example.myration.ui.RecipeDetailsScreen.RecipeDetailsScreen
@@ -33,6 +34,9 @@ fun AppNavHost(navController: NavHostController, mainViewModel: MainViewModel) {
         }
         composable(NavigationRoute.ADD_PRODUCT_MANUALLY.route) {
             AddProductManuallyScreen(mainViewModel = mainViewModel)
+        }
+        composable(NavigationRoute.ADD_EATEN_PRODUCT_SCREEN.route) {
+            AddEatenProductScreen(navController = navController)
         }
         composable(NavigationRoute.ADD_PRODUCT_VOICE.route) {
             AddProductVoiceScreen(mainViewModel = mainViewModel)

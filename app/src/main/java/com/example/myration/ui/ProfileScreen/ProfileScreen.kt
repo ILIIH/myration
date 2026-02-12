@@ -9,13 +9,9 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Text
@@ -32,11 +28,9 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.compose.ui.zIndex
 import androidx.glance.appwidget.updateAll
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
@@ -44,13 +38,12 @@ import androidx.wear.compose.material.Button
 import androidx.wear.compose.material.ButtonDefaults
 import com.example.annotations.DevicePreviews
 import com.example.coreUi.customViews.CalorieCounter
-import com.example.data.model.maping.SDF
 import com.example.domain.model.CalorieCounter
-import com.example.domain.model.FoodHistory
+import com.example.domain.model.PieChartItem
 import com.example.myration.mvi.effects.ProfileEffect
 import com.example.myration.mvi.state.ProfileViewState
 import com.example.myration.navigation.NavigationRoute
-import com.example.myration.ui.RationHistory.FoodHistoryItem
+import com.example.myration.ui.RationHistory.MonthSummaryInfo
 import com.example.myration.viewModels.MainViewModel
 import com.example.myration.viewModels.ProfileViewModel
 import com.example.myration.widgets.CalorieScreenWidget
@@ -72,6 +65,8 @@ fun ProfileScreen(
     val context = LocalContext.current
 
     LaunchedEffect(Unit) {
+        viewModel.refreshInfo()
+        showAddEatenProductDialogue.value = false
         viewModel.effect.collect { effect ->
             when (effect) {
                 is ProfileEffect.ShowProfileChangeMaxCalorieWidget -> {
@@ -88,12 +83,10 @@ fun ProfileScreen(
         is ProfileViewState.ProfileLoaded -> {
             mainViewModel.setLoading(false)
             ProfileScreenLoaded(
-                calorieInfo = state.info!!,
-                foodHistory = state.foodHistory,
+                calorieInfo = state.info,
                 showChangeMaxCalorieDialogue = viewModel::showChangeMaxCalorie,
-                showAddEatenProductDialogue = viewModel::showAddEatenProduct,
-                navigateToFoodHistory = { navController.navigate(NavigationRoute.RATION_HISTORY_SCREEN.route) },
-                openFoodPlan = { navController.navigate(NavigationRoute.FOOD_PLAN_SCREEN.route) }
+                openFoodPlan = { navController.navigate(NavigationRoute.FOOD_PLAN_SCREEN.route) },
+                rationSummary = state.foodSummary
             )
         }
         is ProfileViewState.ProfileInfoSetUp -> {
@@ -122,32 +115,16 @@ fun ProfileScreen(
         )
     }
     if (showAddEatenProductDialogue.value) {
-        AddEatenProductDialogue(
-            onDismiss = { showAddEatenProductDialogue.value = false },
-            onAdd = { productCalorie, productName, p, f, c ->
-                viewModel.addEatenProduct(
-                    productName = productName,
-                    calorie = productCalorie,
-                    p = p,
-                    f = f,
-                    c = c
-                ) {
-                    CalorieScreenWidget().updateAll(context)
-                }
-                showAddEatenProductDialogue.value = false
-            }
-        )
+        navController.navigate(NavigationRoute.ADD_EATEN_PRODUCT_SCREEN.route)
     }
 }
 
 @Composable
 fun ProfileScreenLoaded(
     calorieInfo: CalorieCounter,
-    foodHistory: List<FoodHistory>,
     showChangeMaxCalorieDialogue: () -> Unit,
-    showAddEatenProductDialogue: () -> Unit,
-    navigateToFoodHistory: () -> Unit,
-    openFoodPlan: () -> Unit
+    openFoodPlan: () -> Unit,
+    rationSummary: List<PieChartItem>
 ) {
     Column(
         modifier = Modifier
@@ -156,10 +133,9 @@ fun ProfileScreenLoaded(
             .background(color = SecondaryHalfTransparentColor),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        CalorieInfoSection(calorieInfo, showChangeMaxCalorieDialogue)
-        PFCSection(calorieInfo.protein, calorieInfo.fats, calorieInfo.carbohydrates)
+        CalorieInfoSection(calorieInfo, showChangeMaxCalorieDialogue, calorieInfo.protein, calorieInfo.fats, calorieInfo.carbohydrates)
         FoodPlanSection(openFoodPlan)
-        FoodHistorySection(showAddEatenProductDialogue, foodHistory, navigateToFoodHistory)
+        FoodHistorySection(rationSummary)
     }
 }
 
@@ -170,8 +146,8 @@ fun FoodPlanSection(openFoodPlan: () -> Unit) {
             .fillMaxWidth()
             .padding(top = 20.dp)
             .padding(20.dp)
-            .shadow(elevation = 2.dp)
-            .background(color = PrimaryLightColor)
+            .background(color = PrimaryLightColor, shape = RoundedCornerShape(12.dp))
+            .shadow(elevation = 2.dp, shape = RoundedCornerShape(12.dp))
             .clickable { openFoodPlan() },
         horizontalArrangement = Arrangement.Center,
         verticalAlignment = Alignment.CenterVertically
@@ -194,136 +170,101 @@ fun FoodPlanSection(openFoodPlan: () -> Unit) {
 }
 
 @Composable
-fun CalorieInfoSection(calorieInfo: CalorieCounter, showChangeMaxCalorieDialogue: () -> Unit) {
+fun CalorieInfoSection(
+    calorieInfo: CalorieCounter,
+    showChangeMaxCalorieDialogue: () -> Unit,
+    protein: Int,
+    fats: Int,
+    carbohydrates: Int
+) {
     Box(
+        contentAlignment = Alignment.Center,
         modifier = Modifier
             .fillMaxWidth()
             .padding(top = 90.dp)
             .padding(start = 20.dp, end = 20.dp)
-            .background(color = PrimaryLightColor, shape = RoundedCornerShape(4.dp))
+            .background(color = Color.White, shape = RoundedCornerShape(12.dp))
+            .shadow(elevation = 2.dp, shape = RoundedCornerShape(12.dp))
+
     ) {
-        CalorieCounter(
-            currentCalorie = calorieInfo.currentCalorie,
-            maxCalorie = calorieInfo.maxCalorie
-        )
-        Button(
-            onClick = showChangeMaxCalorieDialogue,
-            modifier = Modifier
-                .align(Alignment.BottomEnd)
-                .offset(y = 10.dp, x = 20.dp)
-                .zIndex(1f)
-                .padding(10.dp)
-                .shadow(elevation = 8.dp, shape = CircleShape)
-                .background(color = PrimaryColor),
-            colors = ButtonDefaults.buttonColors(
-                backgroundColor = PrimaryColor,
-                contentColor = Color.White
-            )
+        Column(
+            modifier = Modifier.fillMaxWidth(),
+            horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            Image(
-                painter = painterResource(id = com.example.myration.R.drawable.ic_change_max_cal),
-                contentDescription = "Change max calorie icon",
-                modifier = Modifier
-                    .size(24.dp)
+            CalorieCounter(
+                currentCalorie = calorieInfo.currentCalorie,
+                maxCalorie = calorieInfo.maxCalorie
             )
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(start = 20.dp, end = 20.dp, top = 20.dp),
+                verticalAlignment = Alignment.CenterVertically,
+                horizontalArrangement = Arrangement.Center
+
+            ) {
+                Text(
+                    modifier = Modifier.padding(10.dp),
+                    text = "P : $protein",
+                    style = MyRationTypography.displayLarge,
+                    color = SecondaryColor
+                )
+                Text(
+                    modifier = Modifier.padding(10.dp),
+                    text = "F :  $fats",
+                    style = MyRationTypography.displayLarge,
+                    color = SecondaryColor
+                )
+                Text(
+                    modifier = Modifier.padding(10.dp),
+                    text = "C :  $carbohydrates",
+                    style = MyRationTypography.displayLarge,
+                    color = SecondaryColor
+                )
+            }
+            Button(
+                onClick = showChangeMaxCalorieDialogue,
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(10.dp)
+                    .shadow(elevation = 8.dp, shape = RoundedCornerShape(6.dp))
+                    .background(color = PrimaryColor, shape = RoundedCornerShape(6.dp)),
+                colors = ButtonDefaults.buttonColors(
+                    backgroundColor = PrimaryColor,
+                    contentColor = Color.White
+                )
+            ) {
+                Row(
+                    verticalAlignment = Alignment.CenterVertically,
+                    horizontalArrangement = Arrangement.SpaceEvenly
+                ) {
+                    Image(
+                        painter = painterResource(id = com.example.myration.R.drawable.ic_change_max_cal),
+                        contentDescription = "Change max calorie icon",
+                        modifier = Modifier
+                            .size(24.dp)
+                    )
+                    Text(
+                        modifier = Modifier.padding(10.dp),
+                        text = "Change max calorie",
+                        style = MyRationTypography.displayLarge,
+                        color = Color.White
+                    )
+                }
+            }
         }
     }
 }
 
 @Composable
-fun FoodHistorySection(showAddEatenProductDialogue: () -> Unit, foodHistory: List<FoodHistory>, navigateToFoodHistory: () -> Unit) {
+fun FoodHistorySection(rationSummary: List<PieChartItem>) {
     Box(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(20.dp)
             .padding(bottom = 90.dp)
-            .background(color = PrimaryLightColor, shape = RoundedCornerShape(4.dp))
     ) {
-        LazyColumn(
-            modifier = Modifier
-                .padding(10.dp)
-                .height(240.dp)
-        ) {
-            item {
-                Text(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(10.dp),
-                    text = "My ration history :",
-                    style = MyRationTypography.displayLarge,
-                    textAlign = TextAlign.Center
-                )
-            }
-            items(
-                count = foodHistory.size,
-                itemContent = { index ->
-                    FoodHistoryItem(foodHistory[index])
-                }
-            )
-            item {
-                Text(
-                    text = ". . .",
-                    style = MyRationTypography.displayLarge,
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .clickable {
-                            navigateToFoodHistory()
-                        },
-                    textAlign = TextAlign.Center
-                )
-            }
-        }
-        Button(
-            onClick = showAddEatenProductDialogue,
-            modifier = Modifier
-                .align(Alignment.BottomEnd)
-                .offset(y = 20.dp, x = 20.dp)
-                .zIndex(1f)
-                .padding(top = 30.dp)
-                .shadow(elevation = 8.dp, shape = CircleShape),
-            colors = ButtonDefaults.buttonColors(
-                backgroundColor = PrimaryColor,
-                contentColor = Color.White
-            )
-        ) {
-            Image(
-                painter = painterResource(id = com.example.myration.R.drawable.ic_add_eaten_product),
-                contentDescription = "Add eaten product icon",
-                modifier = Modifier
-                    .size(24.dp)
-            )
-        }
-    }
-}
-
-@Composable
-fun PFCSection(protein: Int, fats: Int, carbohydrates: Int) {
-    Row(
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(start = 20.dp, end = 20.dp)
-            .background(color = PrimaryLightColor, shape = RoundedCornerShape(4.dp)),
-        verticalAlignment = Alignment.CenterVertically,
-        horizontalArrangement = Arrangement.Center
-
-    ) {
-        Text(
-            modifier = Modifier.padding(10.dp),
-            text = "P : $protein",
-            style = MyRationTypography.displayLarge,
-            color = SecondaryColor
-        )
-        Text(
-            modifier = Modifier.padding(10.dp),
-            text = "F :  $fats",
-            style = MyRationTypography.displayLarge,
-            color = SecondaryColor
-        )
-        Text(
-            modifier = Modifier.padding(10.dp),
-            text = "C :  $carbohydrates",
-            style = MyRationTypography.displayLarge,
-            color = SecondaryColor
+        MonthSummaryInfo(
+            rationSummary
         )
     }
 }
@@ -341,28 +282,7 @@ fun ProfileScreenLoadedPreview() {
             carbohydrates = 100
         ),
         showChangeMaxCalorieDialogue = {},
-        showAddEatenProductDialogue = {},
-        foodHistory = listOf(
-            FoodHistory(
-                id = 1,
-                productName = "test",
-                productCalorie = 200f,
-                date = SDF.parse("2000-02-02")
-            ),
-            FoodHistory(
-                id = 1,
-                productName = "test2",
-                productCalorie = 300f,
-                date = SDF.parse("2000-02-02")
-            ),
-            FoodHistory(
-                id = 3,
-                productName = "test4",
-                productCalorie = 330f,
-                date = SDF.parse("2012-02-02")
-            )
-        ),
-        navigateToFoodHistory = {},
-        openFoodPlan = {}
+        openFoodPlan = {},
+        rationSummary = listOf()
     )
 }

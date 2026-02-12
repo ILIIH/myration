@@ -27,17 +27,17 @@ import java.util.Date
 import java.util.Locale
 
 @Composable
-fun MonthSummaryInfo(monthlyFailSuccessList: List<PieChartItem>, date: Date) {
-    val monthName = SimpleDateFormat("MMMM", Locale.getDefault()).format(date)
+fun MonthSummaryInfo(isMonthlySummary: Boolean = true, monthlyFailSuccessList: List<PieChartItem>, date: Date? = null) {
+    val monthName = if (date != null) SimpleDateFormat("MMMM", Locale.getDefault()).format(date) else "Ration summary"
 
     Box(
         modifier = Modifier
             .fillMaxWidth()
             .padding(20.dp)
-            .border(width = 1.dp, color = Color.Black, shape = RoundedCornerShape(12.dp))
+            .border(width = if (isMonthlySummary) 1.dp else 0.dp, color = Color.Black, shape = RoundedCornerShape(12.dp))
             .shadow(elevation = 8.dp, shape = RoundedCornerShape(8.dp))
             .background(
-                color = PrimaryLightColor,
+                color = if (isMonthlySummary) PrimaryLightColor else Color.White,
                 shape = RoundedCornerShape(12.dp)
             )
     ) {

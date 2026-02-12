@@ -10,6 +10,8 @@ import com.example.myration.mvi.state.ProfileViewState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
@@ -21,12 +23,17 @@ class ProfileViewModel @Inject constructor(
     initialState = ProfileViewState.ProfileLoading,
     reducer = ProfileReducer()
 ) {
-    init {
+    private val _isSuccessAddedFood = MutableStateFlow(false)
+    val isSuccessAddedFood = _isSuccessAddedFood.asStateFlow()
+
+    fun refreshInfo() {
         viewModelScope.launch {
             if (calorieRepository.checkMaxCalorieSetUp()) {
                 val calorieInfo = async { calorieRepository.getCalorieInfo() }
                 val foodHistory = async { calorieRepository.getFoodHistory(3) }
-                sendEvent(ProfileEvents.ProfileLoaded(profileInfo = calorieInfo.await(), foodHistory = foodHistory.await()))
+                val foodMonthSummary = async { calorieRepository.getRationSummary() }
+
+                sendEvent(ProfileEvents.ProfileLoaded(profileInfo = calorieInfo.await(), foodHistory = foodHistory.await(), foodSummary = foodMonthSummary.await()))
             } else {
                 sendEvent(ProfileEvents.GetProfileSetUpStatus(false))
             }
@@ -77,22 +84,11 @@ class ProfileViewModel @Inject constructor(
         calorie: Float,
         p: Int,
         f: Int,
-        c: Int,
-        updateCaloriesUI: suspend () -> Unit
+        c: Int
     ) {
         viewModelScope.launch {
             calorieRepository.addToCurrentCalorie(calorie, productName, p, f, c)
-            sendEvent(
-                ProfileEvents.ProfileUpdateCalorieCounter(
-                    currentCalorie = calorie,
-                    protein = p,
-                    fats = f,
-                    carbohydrates = c
-                )
-            )
-            withContext(Dispatchers.Main) {
-                updateCaloriesUI()
-            }
+            _isSuccessAddedFood.value = true
         }
     }
 }
