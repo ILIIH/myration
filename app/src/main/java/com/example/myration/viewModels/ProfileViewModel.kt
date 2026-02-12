@@ -2,6 +2,7 @@ package com.example.myration.viewModels
 
 import androidx.lifecycle.viewModelScope
 import com.example.core.mvi.BaseViewModel
+import com.example.domain.model.GlobalUiState
 import com.example.domain.repository.CalorieRepository
 import com.example.myration.mvi.effects.ProfileEffect
 import com.example.myration.mvi.intent.ProfileEvents
@@ -13,6 +14,8 @@ import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.asStateFlow
 
 @HiltViewModel
 class ProfileViewModel @Inject constructor(
@@ -21,6 +24,9 @@ class ProfileViewModel @Inject constructor(
     initialState = ProfileViewState.ProfileLoading,
     reducer = ProfileReducer()
 ) {
+    private val _isSuccessAddedFood = MutableStateFlow(false)
+    val isSuccessAddedFood = _isSuccessAddedFood.asStateFlow()
+
     init {
         viewModelScope.launch {
             if (calorieRepository.checkMaxCalorieSetUp()) {
@@ -78,21 +84,10 @@ class ProfileViewModel @Inject constructor(
         p: Int,
         f: Int,
         c: Int,
-        updateCaloriesUI: suspend () -> Unit
     ) {
         viewModelScope.launch {
             calorieRepository.addToCurrentCalorie(calorie, productName, p, f, c)
-            sendEvent(
-                ProfileEvents.ProfileUpdateCalorieCounter(
-                    currentCalorie = calorie,
-                    protein = p,
-                    fats = f,
-                    carbohydrates = c
-                )
-            )
-            withContext(Dispatchers.Main) {
-                updateCaloriesUI()
-            }
+            _isSuccessAddedFood.value = true
         }
     }
 }

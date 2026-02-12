@@ -22,6 +22,7 @@ import androidx.compose.material3.OutlinedTextFieldDefaults
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -36,15 +37,19 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.navigation.NavHostController
 import androidx.wear.compose.material.Button
 import androidx.wear.compose.material.ButtonDefaults
 import com.example.coreUi.R
+import com.example.coreUi.customWindows.SuccessMessage
+import com.example.myration.viewModels.ProfileViewModel
 import com.example.theme.PrimaryColor
 
 @Composable
-fun AddEatenProductDialogue(
-    onDismiss: () -> Unit,
-    onAdd: (productCalorie: Float, productName: String, p: Int, f: Int, c: Int) -> Unit
+fun AddEatenProductScreen(
+    viewModel: ProfileViewModel = hiltViewModel(),
+    navController: NavHostController
 ) {
     var productName by remember { mutableStateOf(TextFieldValue()) }
     var productCalorie by remember { mutableStateOf(TextFieldValue()) }
@@ -52,30 +57,22 @@ fun AddEatenProductDialogue(
     var productFats by remember { mutableStateOf(TextFieldValue()) }
     var productCarbohydrates by remember { mutableStateOf(TextFieldValue()) }
 
-    Box(
-        modifier = Modifier
-            .fillMaxSize()
-            .background(Color.Black.copy(alpha = 0.8f)),
-        contentAlignment = Alignment.Center
-    ) {
-        Card(
-            modifier = Modifier.fillMaxWidth().padding(horizontal = 20.dp),
-            shape = RoundedCornerShape(12.dp),
-            elevation = CardDefaults.cardElevation(8.dp)
-        ) {
+    val isSuccessAddedEatenProduct = viewModel.isSuccessAddedFood.collectAsState()
+
             Column(
                 modifier = Modifier
+                    .fillMaxSize()
                     .background(Color.White),
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
                 Image(
                     painter = painterResource(id = R.drawable.ic_baseline_close),
                     contentDescription = "close window button",
-                    modifier = Modifier.clickable(onClick = onDismiss)
+                    modifier = Modifier
                         .padding(top = 20.dp, start = 20.dp, end = 20.dp)
                         .size(32.dp)
                         .align(Alignment.End)
-                        .clickable { onDismiss() }
+                        .clickable {navController.popBackStack() }
                         .padding(2.dp)
                 )
                 Column(
@@ -160,12 +157,12 @@ fun AddEatenProductDialogue(
                     Spacer(modifier = Modifier.height(40.dp))
                     Button(
                         onClick = {
-                            onAdd(
-                                productCalorie.text.toFloat(),
-                                productName.text,
-                                productProtein.text.toInt(),
-                                productFats.text.toInt(),
-                                productCarbohydrates.text.toInt()
+                            viewModel.addEatenProduct(
+                                productName = productName.text,
+                                calorie = productCalorie.text.toFloat(),
+                                p = productProtein.text.toInt(),
+                                f = productFats.text.toInt(),
+                                c = productCarbohydrates.text.toInt()
                             )
                         },
                         modifier = Modifier
@@ -182,7 +179,11 @@ fun AddEatenProductDialogue(
                         Text(text = "Submit", color = Color.White)
                     }
                 }
-            }
-        }
+    }
+    if(isSuccessAddedEatenProduct.value){
+        SuccessMessage(
+            message = "Successfully added a eaten food",
+            onDismiss = { navController.popBackStack() }
+        )
     }
 }

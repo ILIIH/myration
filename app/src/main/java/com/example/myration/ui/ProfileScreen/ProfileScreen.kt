@@ -122,21 +122,7 @@ fun ProfileScreen(
         )
     }
     if (showAddEatenProductDialogue.value) {
-        AddEatenProductDialogue(
-            onDismiss = { showAddEatenProductDialogue.value = false },
-            onAdd = { productCalorie, productName, p, f, c ->
-                viewModel.addEatenProduct(
-                    productName = productName,
-                    calorie = productCalorie,
-                    p = p,
-                    f = f,
-                    c = c
-                ) {
-                    CalorieScreenWidget().updateAll(context)
-                }
-                showAddEatenProductDialogue.value = false
-            }
-        )
+        navController.navigate(NavigationRoute.ADD_EATEN_PRODUCT_SCREEN.route)
     }
 }
 
