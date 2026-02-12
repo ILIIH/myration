@@ -178,10 +178,6 @@ fun BottomNavigationBar(
                                 painter = painterResource(R.drawable.ic_add_product_manually),
                                 contentDescription = "Add manually",
                                 modifier = Modifier.size(40.dp)
-                                    .clickable {
-                                        mainViewModel.inverseOverlay()
-                                        navController.navigate(NavigationRoute.ADD_PRODUCT_MANUALLY.route)
-                                    }
                             )
                             Text(
                                 modifier = Modifier.padding(top = 12.dp),
