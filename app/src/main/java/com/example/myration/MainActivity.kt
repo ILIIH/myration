@@ -7,6 +7,11 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.result.contract.ActivityResultContract
 import androidx.activity.viewModels
+import androidx.compose.animation.core.LinearOutSlowInEasing
+import androidx.compose.animation.core.animateDpAsState
+import androidx.compose.animation.core.tween
+import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
@@ -14,6 +19,9 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.unit.dp
+import androidx.compose.ui.zIndex
 import androidx.health.connect.client.HealthConnectClient
 import androidx.health.connect.client.PermissionController
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
@@ -39,17 +47,42 @@ class MainActivity : ComponentActivity() {
         setContent {
             val uiState by mainViewModel.uiState.collectAsStateWithLifecycle()
 
+            val overlayAnimatedSize = animateDpAsState(
+                targetValue = if (uiState.isOverlay) 200.dp else 0.dp,
+                animationSpec = tween(durationMillis = 1000, easing = LinearOutSlowInEasing),
+                label = "SizeAnimation"
+            )
+
             MyRationTheme {
                 Box(modifier = Modifier.fillMaxSize()) {
                     Surface(modifier = Modifier.fillMaxSize()) {
                         val navController = rememberNavController()
-                        Scaffold(
-                            bottomBar = { BottomNavigationBar(navController) }
-                        ) { paddingValues ->
-                            Box(modifier = Modifier.padding(paddingValues)) {
-                                AppNavHost(
-                                    navController = navController,
-                                    mainViewModel = mainViewModel
+
+                        Box(modifier = Modifier.fillMaxSize()) {
+                            Scaffold(
+                                bottomBar = {
+                                    BottomNavigationBar(
+                                        navController,
+                                        mainViewModel
+                                    )
+                                }
+                            ) { paddingValues ->
+                                Box(modifier = Modifier.padding(paddingValues)) {
+                                    AppNavHost(
+                                        navController = navController,
+                                        mainViewModel = mainViewModel
+                                    )
+                                }
+                            }
+
+                            if (uiState.isOverlay) {
+                                Box(
+                                    modifier = Modifier
+                                        .padding(bottom = 70.dp + overlayAnimatedSize.value)
+                                        .fillMaxSize()
+                                        .background(Color.Black.copy(alpha = 0.4f))
+                                        .clickable { mainViewModel.inverseOverlay() }
+                                        .zIndex(0f)
                                 )
                             }
                         }

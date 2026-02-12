@@ -1,6 +1,5 @@
 package com.example.myration.viewModels
 
-import android.util.Log
 import androidx.lifecycle.ViewModel
 import com.example.domain.model.GlobalUiState
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -16,12 +15,13 @@ class MainViewModel @Inject constructor() : ViewModel() {
     val uiState = _uiState.asStateFlow()
 
     fun setLoading(loading: Boolean) {
-        Log.i("ui_general_loading", "isLoading = $loading")
         _uiState.update { it.copy(isLoading = loading) }
     }
 
+    fun inverseOverlay() {
+        _uiState.update { it.copy(isOverlay = !it.isOverlay) }
+    }
     fun showError(message: String) {
-        Log.i("ui_general_loading", "showError = $message")
         _uiState.update { it.copy(errorMessage = message, isLoading = false) }
     }
 

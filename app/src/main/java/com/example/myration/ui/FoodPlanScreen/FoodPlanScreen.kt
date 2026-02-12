@@ -20,23 +20,23 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.LazyListState
-import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Checkbox
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.shadow
+import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.input.nestedscroll.NestedScrollConnection
+import androidx.compose.ui.input.nestedscroll.NestedScrollSource
+import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
@@ -54,14 +54,6 @@ import com.example.myration.viewModels.FoodPlanViewModel
 import com.example.myration.viewModels.MainViewModel
 import com.example.theme.MyRationTypography
 import com.example.theme.PrimaryColor
-import kotlin.math.absoluteValue
-import androidx.compose.material3.TopAppBarDefaults
-import androidx.compose.material3.rememberTopAppBarState
-import androidx.compose.ui.input.nestedscroll.nestedScroll
-import androidx.compose.ui.geometry.Offset
-import androidx.compose.ui.input.nestedscroll.NestedScrollConnection
-import androidx.compose.ui.input.nestedscroll.NestedScrollSource
-import androidx.compose.ui.input.nestedscroll.nestedScroll
 @SuppressLint("FrequentlyChangingValue")
 @Composable
 fun FoodPlanScreen(
@@ -78,8 +70,7 @@ fun FoodPlanScreen(
             override fun onPreScroll(available: Offset, source: NestedScrollSource): Offset {
                 if (available.y < -1) {
                     isHeaderVisible.value = false
-                }
-                else if (available.y > 1) {
+                } else if (available.y > 1) {
                     isHeaderVisible.value = true
                 }
                 return Offset.Zero
@@ -87,11 +78,11 @@ fun FoodPlanScreen(
         }
     }
 
-    Column (
+    Column(
         modifier = Modifier
             .fillMaxSize()
             .nestedScroll(nestedScrollConnection)
-    ){
+    ) {
         AnimatedVisibility(
             visible = isHeaderVisible.value,
             enter = expandVertically() + fadeIn(),
