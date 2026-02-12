@@ -2,7 +2,6 @@ package com.example.myration.ui.ProfileScreen
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
-import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -147,8 +146,8 @@ fun FoodPlanSection(openFoodPlan: () -> Unit) {
             .fillMaxWidth()
             .padding(top = 20.dp)
             .padding(20.dp)
-            .border(width = 1.dp, color = Color.Black, shape = RoundedCornerShape(12.dp))
             .background(color = PrimaryLightColor, shape = RoundedCornerShape(12.dp))
+            .shadow(elevation = 2.dp, shape = RoundedCornerShape(12.dp))
             .clickable { openFoodPlan() },
         horizontalArrangement = Arrangement.Center,
         verticalAlignment = Alignment.CenterVertically
@@ -184,8 +183,9 @@ fun CalorieInfoSection(
             .fillMaxWidth()
             .padding(top = 90.dp)
             .padding(start = 20.dp, end = 20.dp)
-            .border(width = 1.dp, color = Color.Black, shape = RoundedCornerShape(12.dp))
             .background(color = Color.White, shape = RoundedCornerShape(12.dp))
+            .shadow(elevation = 2.dp, shape = RoundedCornerShape(12.dp))
+
     ) {
         Column(
             modifier = Modifier.fillMaxWidth(),
