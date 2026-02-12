@@ -1,5 +1,10 @@
 package com.example.myration.navigation
 
+enum class NavigationRouteSubMenu() {
+    GENERAL_MENU_TAB,
+    ADD_PRODUCT_TAB
+}
+
 enum class NavigationRoute(val route: String) {
     COOKING_TAB("cooking_tab"),
     ADD_PRODUCTS_TAB("add_products_tab"),
