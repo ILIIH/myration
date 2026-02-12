@@ -26,10 +26,6 @@ class ProfileViewModel @Inject constructor(
     private val _isSuccessAddedFood = MutableStateFlow(false)
     val isSuccessAddedFood = _isSuccessAddedFood.asStateFlow()
 
-    init {
-        refreshInfo()
-    }
-
     fun refreshInfo() {
         viewModelScope.launch {
             if (calorieRepository.checkMaxCalorieSetUp()) {

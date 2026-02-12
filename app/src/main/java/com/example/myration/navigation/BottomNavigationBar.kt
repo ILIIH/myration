@@ -94,7 +94,7 @@ fun BottomNavigationBar(
                     Text(
                         text = "History",
                         style = MyRationTypography.displaySmall,
-                        color = if (selectedTab.value == NavigationRoute.ADD_PRODUCTS_TAB) PrimaryColor else SecondaryBackgroundColor
+                        color = if (selectedTab.value == NavigationRoute.RATION_HISTORY_SCREEN) PrimaryColor else SecondaryBackgroundColor
                     )
                 }
                 Column(
@@ -188,7 +188,7 @@ fun BottomNavigationBar(
                     Text(
                         text = "Profile",
                         style = MyRationTypography.displaySmall,
-                        color = if (selectedTab.value == NavigationRoute.COOKING_TAB) PrimaryColor else SecondaryBackgroundColor
+                        color = if (selectedTab.value == NavigationRoute.PROFILE_TAB) PrimaryColor else SecondaryBackgroundColor
                     )
                 }
             }

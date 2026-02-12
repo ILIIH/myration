@@ -179,7 +179,7 @@ fun AddEatenProductScreen(
     }
     if (isSuccessAddedEatenProduct.value) {
         SuccessMessage(
-            message = "Successfully added a eaten food",
+            message = "Successfully added eaten food",
             onDismiss = {
                 navController.popBackStack()
             }

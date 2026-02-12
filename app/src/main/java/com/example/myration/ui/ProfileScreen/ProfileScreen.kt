@@ -67,6 +67,7 @@ fun ProfileScreen(
 
     LaunchedEffect(Unit) {
         viewModel.refreshInfo()
+        showAddEatenProductDialogue.value = false
         viewModel.effect.collect { effect ->
             when (effect) {
                 is ProfileEffect.ShowProfileChangeMaxCalorieWidget -> {
