@@ -112,8 +112,8 @@ fun FoodHistoryList(foodHistory: List<List<FoodHistory>>, monthSummary: HashMap<
                     if (index == 0 || currentMonthIndex != foodHistory[index][0].date.month) {
                         currentMonthIndex = foodHistory[index][0].date.month
                         MonthSummaryInfo(
-                            monthSummary[currentMonthIndex] ?: listOf(),
-                            foodHistory[index][0].date
+                            monthlyFailSuccessList =monthSummary[currentMonthIndex] ?: listOf(),
+                            date =  foodHistory[index][0].date
                         )
                     }
                     Box(
@@ -123,7 +123,7 @@ fun FoodHistoryList(foodHistory: List<List<FoodHistory>>, monthSummary: HashMap<
                             .border(width = 1.dp, color = Color.Black, shape = RoundedCornerShape(12.dp))
                             .shadow(elevation = 8.dp, shape = RoundedCornerShape(8.dp))
                             .background(
-                                color = PrimaryLightColor,
+                                color = Color.White,
                                 shape = RoundedCornerShape(12.dp)
                             )
 

@@ -106,28 +106,30 @@ class CalorieRepositoryImp @Inject constructor(
     override suspend fun getMonthSummary(): HashMap<Int, List<PieChartItem>> {
         val maxCalorie = preferences.getFloat(MAX_CALORIE, DEFAULT_MAX_CALORIE)
         val hashMap = HashMap<Int, List<PieChartItem>>()
-        foodHistoryDAO.getAllFoodProducts().map { it.toDomain() }
-            .groupBy { event -> event.date.month }.map { (key, value) ->
-                val sumsByDate = value.groupingBy { it.date }
+        foodHistoryDAO.getAllFoodProducts()
+            .map { it.toDomain() }
+            .groupBy { it.date.month }
+            .forEach { (month, itemsInMonth) ->
+                val caloriesPerDay = itemsInMonth.groupingBy { it.date }
                     .fold(0f) { acc, item -> acc + item.productCalorie }
 
-                val count = value.count { item ->
-                    val sum = sumsByDate[item.date]?.toInt() ?: 0
-                    sum > maxCalorie.toInt()
-                }
-                hashMap[value.first().date.month] = listOf(
+                val unsuccessfulDays = caloriesPerDay.values.count { it > maxCalorie }
+                val successfulDays = caloriesPerDay.size - unsuccessfulDays
+
+                hashMap[month] = listOf(
                     PieChartItem(
-                        label = "$count unsuccessful days",
-                        amount = count,
+                        label = "$unsuccessfulDays unsuccessful days",
+                        amount = unsuccessfulDays,
                         color = 0xFFFA3538.toInt()
                     ),
                     PieChartItem(
-                        label = "${value.size - count} successful days",
-                        amount = value.size - count,
+                        label = "$successfulDays successful days",
+                        amount = successfulDays,
                         color = 0xFF499F68.toInt()
                     )
                 )
             }
+
         return hashMap
     }
 

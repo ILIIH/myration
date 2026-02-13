@@ -67,7 +67,7 @@ fun BottomNavigationBar(
                 .background(Color.White)
         ) {
             Row(
-                modifier = Modifier.fillMaxWidth().padding(top = 15.dp),
+                modifier = Modifier.padding(top = 15.dp).fillMaxWidth(),
                 horizontalArrangement = Arrangement.SpaceEvenly,
                 verticalAlignment = Alignment.CenterVertically
             ) {
@@ -123,15 +123,13 @@ fun BottomNavigationBar(
                     )
                 }
                 Surface(
+                    onClick = mainViewModel::inverseOverlay,
                     shape = CircleShape,
                     color = Color.White,
                     shadowElevation = 6.dp,
                     modifier = Modifier
                         .size(50.dp)
                         .offset(y = (-30).dp)
-                        .clickable {
-                            mainViewModel.inverseOverlay()
-                        }
                 ) {
                     Image(
                         painter = painterResource(com.example.coreUi.R.drawable.ic_add_item),

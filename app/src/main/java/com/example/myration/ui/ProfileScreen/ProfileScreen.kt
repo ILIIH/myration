@@ -146,8 +146,8 @@ fun FoodPlanSection(openFoodPlan: () -> Unit) {
             .fillMaxWidth()
             .padding(top = 20.dp)
             .padding(20.dp)
-            .background(color = PrimaryLightColor, shape = RoundedCornerShape(12.dp))
             .shadow(elevation = 2.dp, shape = RoundedCornerShape(12.dp))
+            .background(color = PrimaryLightColor, shape = RoundedCornerShape(12.dp))
             .clickable { openFoodPlan() },
         horizontalArrangement = Arrangement.Center,
         verticalAlignment = Alignment.CenterVertically
@@ -183,9 +183,8 @@ fun CalorieInfoSection(
             .fillMaxWidth()
             .padding(top = 90.dp)
             .padding(start = 20.dp, end = 20.dp)
-            .background(color = Color.White, shape = RoundedCornerShape(12.dp))
             .shadow(elevation = 2.dp, shape = RoundedCornerShape(12.dp))
-
+            .background(color = Color.White, shape = RoundedCornerShape(12.dp))
     ) {
         Column(
             modifier = Modifier.fillMaxWidth(),
@@ -264,7 +263,8 @@ fun FoodHistorySection(rationSummary: List<PieChartItem>) {
             .padding(bottom = 90.dp)
     ) {
         MonthSummaryInfo(
-            rationSummary
+            isMonthlySummary = false,
+            monthlyFailSuccessList = rationSummary
         )
     }
 }
