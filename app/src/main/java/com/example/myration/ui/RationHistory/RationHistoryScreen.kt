@@ -32,7 +32,6 @@ import com.example.myration.mvi.state.RationHistoryState
 import com.example.myration.viewModels.MainViewModel
 import com.example.myration.viewModels.RationHistoryViewModel
 import com.example.theme.MyRationTypography
-import com.example.theme.PrimaryLightColor
 
 @Composable
 fun RationHistoryScreen(
@@ -112,8 +111,8 @@ fun FoodHistoryList(foodHistory: List<List<FoodHistory>>, monthSummary: HashMap<
                     if (index == 0 || currentMonthIndex != foodHistory[index][0].date.month) {
                         currentMonthIndex = foodHistory[index][0].date.month
                         MonthSummaryInfo(
-                            monthlyFailSuccessList =monthSummary[currentMonthIndex] ?: listOf(),
-                            date =  foodHistory[index][0].date
+                            monthlyFailSuccessList = monthSummary[currentMonthIndex] ?: listOf(),
+                            date = foodHistory[index][0].date
                         )
                     }
                     Box(

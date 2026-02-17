@@ -20,7 +20,6 @@ import androidx.compose.ui.unit.dp
 import com.example.coreUi.customViews.PieChart
 import com.example.domain.model.PieChartItem
 import com.example.theme.MyRationTypography
-import com.example.theme.PrimaryLightColor
 import com.example.theme.SecondaryColor
 import java.text.SimpleDateFormat
 import java.util.Date
@@ -34,7 +33,7 @@ fun MonthSummaryInfo(isMonthlySummary: Boolean = true, monthlyFailSuccessList: L
         modifier = Modifier
             .fillMaxWidth()
             .padding(20.dp)
-            .border(width = if (isMonthlySummary) 1.dp else 0.dp, color = if (isMonthlySummary)  Color.Black else Color.White, shape = RoundedCornerShape(12.dp))
+            .border(width = if (isMonthlySummary) 1.dp else 0.dp, color = if (isMonthlySummary) Color.Black else Color.White, shape = RoundedCornerShape(12.dp))
             .shadow(elevation = 8.dp, shape = RoundedCornerShape(8.dp))
             .background(
                 color = Color.White,

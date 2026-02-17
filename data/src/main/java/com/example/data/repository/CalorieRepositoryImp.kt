@@ -75,7 +75,10 @@ class CalorieRepositoryImp @Inject constructor(
                 Instant.ofEpochMilli(event.date.time)
                     .atZone(ZoneId.systemDefault())
                     .toLocalDate()
-            }.values.toList()
+            }
+            .toList()
+            .sortedByDescending { it.first }
+            .map { it.second }
     }
 
     override suspend fun getRationSummary(): List<PieChartItem> {

@@ -28,6 +28,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
@@ -41,6 +42,7 @@ import androidx.wear.compose.material.ButtonDefaults
 import com.example.coreUi.R
 import com.example.coreUi.customWindows.SuccessMessage
 import com.example.myration.viewModels.ProfileViewModel
+import com.example.theme.MyRationTypography
 import com.example.theme.PrimaryColor
 
 @Composable
@@ -54,6 +56,7 @@ fun AddEatenProductScreen(
     var productFats by remember { mutableStateOf(TextFieldValue()) }
     var productCarbohydrates by remember { mutableStateOf(TextFieldValue()) }
 
+    val keyboardController = LocalSoftwareKeyboardController.current
     val isSuccessAddedEatenProduct = viewModel.isSuccessAddedFood.collectAsState()
 
     Column(
@@ -89,7 +92,7 @@ fun AddEatenProductScreen(
                 value = productName,
                 onValueChange = { productName = it },
                 modifier = Modifier.fillMaxWidth(),
-                label = { Text("Product name") },
+                label = { Text(text = "Product name", style = MyRationTypography.displayLarge) },
                 singleLine = true,
                 colors = OutlinedTextFieldDefaults.colors(unfocusedContainerColor = Color.White, focusedContainerColor = Color.White)
             )
@@ -98,7 +101,7 @@ fun AddEatenProductScreen(
                 value = productCalorie,
                 onValueChange = { productCalorie = it },
                 modifier = Modifier.fillMaxWidth(),
-                label = { Text("Product calorie (kcal)") },
+                label = { Text("Product calorie (kcal)", style = MyRationTypography.displayLarge) },
                 singleLine = true,
                 keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
                 colors = OutlinedTextFieldDefaults.colors(unfocusedContainerColor = Color.White, focusedContainerColor = Color.White)
@@ -114,7 +117,7 @@ fun AddEatenProductScreen(
                 OutlinedTextField(
                     value = productProtein,
                     onValueChange = { productProtein = it },
-                    label = { Text("Prot. (g)") },
+                    label = { Text("Prot. (g)", style = MyRationTypography.displayLarge) },
                     singleLine = true,
                     keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
                     colors = OutlinedTextFieldDefaults.colors(
@@ -127,7 +130,7 @@ fun AddEatenProductScreen(
                 OutlinedTextField(
                     value = productFats,
                     onValueChange = { productFats = it },
-                    label = { Text("Fats (g)") },
+                    label = { Text("Fats (g)", style = MyRationTypography.displayLarge) },
                     singleLine = true,
                     keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
                     colors = OutlinedTextFieldDefaults.colors(
@@ -140,7 +143,7 @@ fun AddEatenProductScreen(
                 OutlinedTextField(
                     value = productCarbohydrates,
                     onValueChange = { productCarbohydrates = it },
-                    label = { Text("Carbs (g)") },
+                    label = { Text("Carbs (g)", style = MyRationTypography.displayLarge) },
                     singleLine = true,
                     keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
                     colors = OutlinedTextFieldDefaults.colors(
@@ -154,6 +157,7 @@ fun AddEatenProductScreen(
             Spacer(modifier = Modifier.height(40.dp))
             Button(
                 onClick = {
+                    keyboardController?.hide()
                     viewModel.addEatenProduct(
                         productName = productName.text,
                         calorie = productCalorie.text.toFloat(),
