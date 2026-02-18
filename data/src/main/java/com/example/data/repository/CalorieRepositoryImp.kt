@@ -51,7 +51,14 @@ class CalorieRepositoryImp @Inject constructor(
 
     override suspend fun getCalorieInfo(): CalorieCounter {
         val maxCalorie = preferences.getFloat(MAX_CALORIE, DEFAULT_MAX_CALORIE)
-        val currentCalorie = preferences.getFloat(CURRENT_CALORIE, DEFAULT_CURRENT_CALORIE)
+        val isDateChanged = preferences.getString(CALORIE_DATE, "0") == SDF.format(Date())
+
+        val currentCalorie = if (!isDateChanged) {
+            preferences.getFloat(CURRENT_CALORIE, DEFAULT_CURRENT_CALORIE)
+        } else {
+            preferences.edit { putFloat(CURRENT_CALORIE, 0f) }
+            0f
+        }
         val p = preferences.getInt(CURRENT_PROTEIN, DEFAULT_PFC)
         val f = preferences.getInt(CURRENT_FATS, DEFAULT_PFC)
         val c = preferences.getInt(CURRENT_CARB, DEFAULT_PFC)

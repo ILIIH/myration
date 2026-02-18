@@ -4,6 +4,7 @@ import android.content.Context
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.core.content.edit
 import androidx.glance.GlanceId
 import androidx.glance.GlanceModifier
 import androidx.glance.action.actionStartActivity
@@ -22,15 +23,27 @@ import androidx.glance.text.FontWeight
 import androidx.glance.text.Text
 import androidx.glance.text.TextStyle
 import androidx.glance.unit.ColorProvider
+import com.example.data.model.maping.SDF
 import com.example.data.repository.CalorieRepositoryImp
+import com.example.data.repository.CalorieRepositoryImp.Companion.CALORIE_DATE
+import com.example.data.repository.CalorieRepositoryImp.Companion.CURRENT_CALORIE
+import com.example.data.repository.CalorieRepositoryImp.Companion.DEFAULT_CURRENT_CALORIE
 import com.example.myration.MainActivity
+import java.util.Date
 
 class CalorieScreenWidget : GlanceAppWidget() {
 
     override suspend fun provideGlance(context: Context, id: GlanceId) {
         val preferences = context.getSharedPreferences(CalorieRepositoryImp.PREF_NAME, Context.MODE_PRIVATE)
         val maxCalorie = preferences.getFloat(CalorieRepositoryImp.MAX_CALORIE, CalorieRepositoryImp.DEFAULT_MAX_CALORIE)
-        val currentCalorie = preferences.getFloat(CalorieRepositoryImp.CURRENT_CALORIE, CalorieRepositoryImp.DEFAULT_CURRENT_CALORIE)
+        val isDateChanged = preferences.getString(CALORIE_DATE, "0") == SDF.format(Date())
+
+        val currentCalorie = if (!isDateChanged) {
+            preferences.getFloat(CURRENT_CALORIE, DEFAULT_CURRENT_CALORIE)
+        } else {
+            preferences.edit { putFloat(CURRENT_CALORIE, 0f) }
+            0f
+        }
         val progress = currentCalorie / maxCalorie
 
         provideContent {
