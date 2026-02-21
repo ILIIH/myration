@@ -34,14 +34,19 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import coil.compose.AsyncImage
+import com.example.annotations.DevicePreviews
 import com.example.core.mvi.ResultState
 import com.example.coreUi.customWindows.ConfirmationDialogue
 import com.example.coreUi.customWindows.EditProductDialogue
 import com.example.coreUi.listModifiers.BadgeWidget
+import com.example.domain.model.CalorieCounter
+import com.example.domain.model.CookingDifficulty
+import com.example.domain.model.MeasurementMetric
 import com.example.domain.model.Product
 import com.example.domain.model.Recipe
 import com.example.myration.R
@@ -49,12 +54,14 @@ import com.example.myration.maping.getBadgesDesc
 import com.example.myration.mvi.effects.ProductDetailsEffect
 import com.example.myration.mvi.state.ProductDetailViewState
 import com.example.myration.navigation.NavigationRoute
+import com.example.myration.ui.ProfileScreen.ProfileScreenLoaded
 import com.example.myration.viewModels.GroceriesDetailsViewModel
 import com.example.myration.viewModels.MainViewModel
 import com.example.theme.MyRationTypography
 import com.example.theme.PrimaryTransparentColor
 import com.example.theme.SecondaryColor
 import com.example.theme.SecondaryHalfTransparentColor
+import java.time.Duration
 
 @Composable
 fun GroceriesDetailsScreen(
@@ -90,7 +97,8 @@ fun GroceriesDetailsScreen(
                 state.data,
                 onDeleteProduct = { showDeleteDialogue.value = true },
                 onEditProduct = { showEditDialogue.value = true },
-                onDishClick = viewModel::navigateToDish
+                onDishClick = viewModel::navigateToDish,
+                onReturn = { navController.popBackStack() }
             )
             if (showDeleteDialogue.value) {
                 ConfirmationDialogue(
@@ -133,7 +141,8 @@ fun ProductDetailsLoaded(
     state: ProductDetailViewState,
     onDeleteProduct: () -> Unit,
     onEditProduct: () -> Unit,
-    onDishClick: (id: Int) -> Unit
+    onDishClick: (id: Int) -> Unit,
+    onReturn: () -> Unit
 ) {
     Column(
         modifier = Modifier
@@ -141,10 +150,26 @@ fun ProductDetailsLoaded(
             .verticalScroll(rememberScrollState())
             .background(PrimaryTransparentColor)
     ) {
+        ReturnTopBar(onReturn)
         ProductTopBar(state.product)
         BadgesList(state.product)
         ActionsButton(onEditProduct, onDeleteProduct)
         DishesList(state.recipes, onDishClick)
+    }
+}
+@Composable
+fun ReturnTopBar(onReturn: () -> Unit) {
+    Row(
+        modifier = Modifier.padding(top = 20.dp, start = 22.dp)
+    ){
+        Image(
+            painter = painterResource(id = com.example.coreUi.R.drawable.ic_return_main),
+            contentDescription = "return button",
+            modifier = Modifier.size(45.dp)
+                .clickable{
+                    onReturn()
+                }
+        )
     }
 }
 
@@ -333,7 +358,7 @@ fun ProductTopBar(product: Product) {
             Spacer(modifier = Modifier.height(15.dp))
             Text(
                 text = product.name,
-                style = MyRationTypography.titleLarge,
+                style = MyRationTypography.headlineLarge,
                 color = SecondaryColor,
                 modifier = Modifier.width(130.dp),
                 maxLines = 4,
@@ -343,7 +368,7 @@ fun ProductTopBar(product: Product) {
             Spacer(modifier = Modifier.height(15.dp))
             Text(
                 text = product.name,
-                style = MyRationTypography.labelSmall,
+                style = MyRationTypography.displayLarge,
                 color = SecondaryColor,
                 modifier = Modifier.width(130.dp),
                 maxLines = 4,
@@ -365,4 +390,27 @@ fun ProductTopBar(product: Product) {
             )
         }
     }
+}
+
+@DevicePreviews
+@Preview(showBackground = true)
+@Composable
+fun GroceriesDetailsPreview() {
+    ProductDetailsLoaded(
+        state = ProductDetailViewState(
+            product = Product(
+                quantity = 22f,
+                name = "Chicken breast",
+                measurementMetric = MeasurementMetric.KILOGRAM,
+                expirationDate = "20/07/2000",
+                active = true
+            ),
+            recipes = listOf(
+            )
+        ),
+        onDeleteProduct = {},
+        onEditProduct = {},
+        onDishClick = {},
+        onReturn = {}
+    )
 }

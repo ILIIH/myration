@@ -28,7 +28,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
@@ -56,7 +55,7 @@ fun AddEatenProductScreen(
     var productFats by remember { mutableStateOf(TextFieldValue()) }
     var productCarbohydrates by remember { mutableStateOf(TextFieldValue()) }
 
-    val keyboardController = LocalSoftwareKeyboardController.current
+
     val isSuccessAddedEatenProduct = viewModel.isSuccessAddedFood.collectAsState()
 
     Column(
@@ -92,6 +91,7 @@ fun AddEatenProductScreen(
                 value = productName,
                 onValueChange = { productName = it },
                 modifier = Modifier.fillMaxWidth(),
+                textStyle = MyRationTypography.displayLarge,
                 label = { Text(text = "Product name", style = MyRationTypography.displayLarge) },
                 singleLine = true,
                 colors = OutlinedTextFieldDefaults.colors(unfocusedContainerColor = Color.White, focusedContainerColor = Color.White)
@@ -101,6 +101,7 @@ fun AddEatenProductScreen(
                 value = productCalorie,
                 onValueChange = { productCalorie = it },
                 modifier = Modifier.fillMaxWidth(),
+                textStyle = MyRationTypography.displayLarge,
                 label = { Text("Product calorie (kcal)", style = MyRationTypography.displayLarge) },
                 singleLine = true,
                 keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
@@ -117,6 +118,7 @@ fun AddEatenProductScreen(
                 OutlinedTextField(
                     value = productProtein,
                     onValueChange = { productProtein = it },
+                    textStyle = MyRationTypography.displayLarge,
                     label = { Text("Prot. (g)", style = MyRationTypography.displayLarge) },
                     singleLine = true,
                     keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
@@ -132,6 +134,7 @@ fun AddEatenProductScreen(
                     onValueChange = { productFats = it },
                     label = { Text("Fats (g)", style = MyRationTypography.displayLarge) },
                     singleLine = true,
+                    textStyle = MyRationTypography.displayLarge,
                     keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
                     colors = OutlinedTextFieldDefaults.colors(
                         unfocusedContainerColor = Color.White,
@@ -143,6 +146,7 @@ fun AddEatenProductScreen(
                 OutlinedTextField(
                     value = productCarbohydrates,
                     onValueChange = { productCarbohydrates = it },
+                    textStyle = MyRationTypography.displayLarge,
                     label = { Text("Carbs (g)", style = MyRationTypography.displayLarge) },
                     singleLine = true,
                     keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
@@ -157,7 +161,6 @@ fun AddEatenProductScreen(
             Spacer(modifier = Modifier.height(40.dp))
             Button(
                 onClick = {
-                    keyboardController?.hide()
                     viewModel.addEatenProduct(
                         productName = productName.text,
                         calorie = productCalorie.text.toFloat(),
