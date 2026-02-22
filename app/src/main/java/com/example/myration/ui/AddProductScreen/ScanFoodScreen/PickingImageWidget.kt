@@ -6,11 +6,8 @@ import android.widget.Toast
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
@@ -31,19 +28,13 @@ import com.example.theme.SecondaryBackgroundColor
 fun PickingImageWidget(context: Context, submitImage: (uri: Uri) -> Unit, errorPickingImage: (error: String) -> Unit) {
     val controller = remember { CameraController() }
 
-    Column(
+    Box(
         modifier = Modifier
             .fillMaxSize()
             .background(SecondaryBackgroundColor)
-            .padding(20.dp),
-        horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.spacedBy(16.dp, Alignment.CenterVertically)
     ) {
         com.example.coreUi.camera.CameraPreviewView(
-            modifier = Modifier
-                .fillMaxWidth()
-                .height(500.dp)
-                .padding(horizontal = 20.dp, vertical = 30.dp),
+            modifier = Modifier.fillMaxSize(),
             controller = controller
         )
 
@@ -51,7 +42,9 @@ fun PickingImageWidget(context: Context, submitImage: (uri: Uri) -> Unit, errorP
             painter = painterResource(id = R.drawable.ic_make_photo_icon),
             contentDescription = "Make a photo",
             modifier = Modifier
+                .padding(bottom = 32.dp)
                 .size(60.dp)
+                .align(Alignment.BottomCenter)
                 .shadow(elevation = 8.dp, shape = CircleShape)
                 .clip(CircleShape)
                 .background(Color.White)
@@ -59,13 +52,9 @@ fun PickingImageWidget(context: Context, submitImage: (uri: Uri) -> Unit, errorP
                     controller.takePhoto(
                         context = context,
                         outputDirectory = context.cacheDir,
-                        onImageSaved = { uri ->
-                            submitImage(uri)
-                        },
+                        onImageSaved = { uri -> submitImage(uri) },
                         onError = { e ->
-                            Toast
-                                .makeText(context, "Error: ${e.message}", Toast.LENGTH_SHORT)
-                                .show()
+                            Toast.makeText(context, "Error: ${e.message}", Toast.LENGTH_SHORT).show()
                         }
                     )
                 }

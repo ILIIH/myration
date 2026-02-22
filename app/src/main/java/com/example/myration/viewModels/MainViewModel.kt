@@ -18,6 +18,12 @@ class MainViewModel @Inject constructor() : ViewModel() {
         _uiState.update { it.copy(isLoading = loading) }
     }
 
+    fun hideBottomNavBar() {
+        _uiState.update { it.copy(isBottomNavBarHidden = true) }
+    }
+    fun showBottomNavBar() {
+        _uiState.update { it.copy(isBottomNavBarHidden = false) }
+    }
     fun inverseOverlay() {
         _uiState.update { it.copy(isOverlay = !it.isOverlay) }
     }

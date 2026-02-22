@@ -5,6 +5,7 @@ import android.widget.Toast
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.mutableStateOf
@@ -35,8 +36,13 @@ fun ScanFoodScreen(
             }
         }
     )
-
+    DisposableEffect(Unit) {
+        onDispose {
+            mainViewModel.showBottomNavBar()
+        }
+    }
     LaunchedEffect(Unit) {
+        mainViewModel.hideBottomNavBar()
         cameraPermissionLauncher.launch(Manifest.permission.CAMERA)
     }
 
@@ -59,6 +65,7 @@ fun ScanFoodScreen(
                 submitProduct = viewModel::submitProducts
             )
             if (productToEdit.value != null) {
+                mainViewModel.showBottomNavBar()
                 EditProductDialogue(
                     product = productToEdit.value!!,
                     message = "Edit your product",

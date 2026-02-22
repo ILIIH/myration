@@ -52,142 +52,144 @@ fun BottomNavigationBar(
         animationSpec = tween(durationMillis = 1000, easing = LinearOutSlowInEasing),
         label = "SizeAnimation"
     )
-    Column {
-        navigationSubMenu(
-            subNavigationMenu = subNavigationMenu.value,
-            animatedSize = animatedSize.value,
-            navController = navController,
-            mainViewModel = mainViewModel,
-            setSubNavigationMenu = { nav -> subNavigationMenu.value = nav }
-        )
-        Box(
-            modifier = Modifier
-                .fillMaxWidth()
-                .height(70.dp)
-                .background(Color.White)
-        ) {
-            Row(
-                modifier = Modifier.padding(top = 15.dp).fillMaxWidth(),
-                horizontalArrangement = Arrangement.SpaceEvenly,
-                verticalAlignment = Alignment.CenterVertically
+    if (!uiState.isBottomNavBarHidden) {
+        Column {
+            navigationSubMenu(
+                subNavigationMenu = subNavigationMenu.value,
+                animatedSize = animatedSize.value,
+                navController = navController,
+                mainViewModel = mainViewModel,
+                setSubNavigationMenu = { nav -> subNavigationMenu.value = nav }
+            )
+            Box(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(70.dp)
+                    .background(Color.White)
             ) {
-                Column(
-                    modifier = Modifier.weight(1f)
-                        .clickable {
-                            selectedTab.value = NavigationRoute.RATION_HISTORY_SCREEN
-                            navController.navigate(NavigationRoute.RATION_HISTORY_SCREEN.route)
+                Row(
+                    modifier = Modifier.padding(top = 15.dp).fillMaxWidth(),
+                    horizontalArrangement = Arrangement.SpaceEvenly,
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    Column(
+                        modifier = Modifier.weight(1f)
+                            .clickable {
+                                selectedTab.value = NavigationRoute.RATION_HISTORY_SCREEN
+                                navController.navigate(NavigationRoute.RATION_HISTORY_SCREEN.route)
+                            },
+                        horizontalAlignment = Alignment.CenterHorizontally,
+                        verticalArrangement = Arrangement.SpaceBetween
+                    ) {
+                        Image(
+                            painter = painterResource(
+                                id = if (selectedTab.value == NavigationRoute.RATION_HISTORY_SCREEN) {
+                                    com.example.coreUi.R.drawable.ic_history_selected
+                                } else {
+                                    com.example.coreUi.R.drawable.ic_history_unselected
+                                }
+                            ),
+                            contentDescription = "History",
+                            modifier = Modifier.size(25.dp)
+                        )
+                        Text(
+                            text = "History",
+                            style = MyRationTypography.displaySmall,
+                            color = if (selectedTab.value == NavigationRoute.RATION_HISTORY_SCREEN) PrimaryColor else SecondaryBackgroundColor
+                        )
+                    }
+                    Column(
+                        modifier = Modifier.weight(1f).clickable {
+                            selectedTab.value = NavigationRoute.GROCERIES_LIST_TAB
+                            navController.navigate(NavigationRoute.GROCERIES_LIST_TAB.route)
                         },
-                    horizontalAlignment = Alignment.CenterHorizontally,
-                    verticalArrangement = Arrangement.SpaceBetween
-                ) {
-                    Image(
-                        painter = painterResource(
-                            id = if (selectedTab.value == NavigationRoute.RATION_HISTORY_SCREEN) {
-                                com.example.coreUi.R.drawable.ic_history_selected
-                            } else {
-                                com.example.coreUi.R.drawable.ic_history_unselected
-                            }
-                        ),
-                        contentDescription = "History",
-                        modifier = Modifier.size(25.dp)
-                    )
-                    Text(
-                        text = "History",
-                        style = MyRationTypography.displaySmall,
-                        color = if (selectedTab.value == NavigationRoute.RATION_HISTORY_SCREEN) PrimaryColor else SecondaryBackgroundColor
-                    )
-                }
-                Column(
-                    modifier = Modifier.weight(1f).clickable {
-                        selectedTab.value = NavigationRoute.GROCERIES_LIST_TAB
-                        navController.navigate(NavigationRoute.GROCERIES_LIST_TAB.route)
-                    },
-                    horizontalAlignment = Alignment.CenterHorizontally,
-                    verticalArrangement = Arrangement.SpaceBetween
-                ) {
-                    Image(
-                        painter = painterResource(
-                            id = if (selectedTab.value == NavigationRoute.GROCERIES_LIST_TAB) {
-                                R.drawable.ic_my_groceries_selected_tab
-                            } else {
-                                R.drawable.ic_my_groceries_not_selected_tab
-                            }
-                        ),
-                        contentDescription = "Groceries tab",
-                        modifier = Modifier.size(25.dp)
-                    )
-                    Text(
-                        text = "My groceries",
-                        style = MyRationTypography.displaySmall,
-                        color = if (selectedTab.value == NavigationRoute.GROCERIES_LIST_TAB) PrimaryColor else SecondaryBackgroundColor
-                    )
-                }
-                Surface(
-                    onClick = mainViewModel::inverseOverlay,
-                    shape = CircleShape,
-                    color = Color.White,
-                    shadowElevation = 6.dp,
-                    modifier = Modifier
-                        .size(50.dp)
-                        .offset(y = (-30).dp)
-                ) {
-                    Image(
-                        painter = painterResource(com.example.coreUi.R.drawable.ic_add_item),
-                        contentDescription = "Add icon",
-                        modifier = Modifier.padding(14.dp)
-                    )
-                }
-                Column(
-                    modifier = Modifier.weight(1f)
-                        .clickable {
-                            selectedTab.value = NavigationRoute.COOKING_TAB
-                            navController.navigate(NavigationRoute.COOKING_TAB.route)
-                        },
-                    horizontalAlignment = Alignment.CenterHorizontally,
-                    verticalArrangement = Arrangement.SpaceBetween
-                ) {
-                    Image(
-                        painter = painterResource(
-                            id = if (selectedTab.value == NavigationRoute.COOKING_TAB) {
-                                R.drawable.ic_cooking_selected_tab
-                            } else {
-                                R.drawable.ic_cooking_not_selected_tab
-                            }
-                        ),
-                        contentDescription = "Cooking tab",
-                        modifier = Modifier.size(25.dp)
-                    )
-                    Text(
-                        text = "Cooking",
-                        style = MyRationTypography.displaySmall,
-                        color = if (selectedTab.value == NavigationRoute.COOKING_TAB) PrimaryColor else SecondaryBackgroundColor
-                    )
-                }
-                Column(
-                    modifier = Modifier.weight(1f)
-                        .clickable {
-                            selectedTab.value = NavigationRoute.PROFILE_TAB
-                            navController.navigate(NavigationRoute.PROFILE_TAB.route)
-                        },
-                    horizontalAlignment = Alignment.CenterHorizontally,
-                    verticalArrangement = Arrangement.SpaceBetween
-                ) {
-                    Image(
-                        painter = painterResource(
-                            id = if (selectedTab.value == NavigationRoute.PROFILE_TAB) {
-                                R.drawable.ic_profile_selected_24
-                            } else {
-                                R.drawable.ic_profile_not_selected_24
-                            }
-                        ),
-                        contentDescription = "Profile tab",
-                        modifier = Modifier.size(25.dp)
-                    )
-                    Text(
-                        text = "Profile",
-                        style = MyRationTypography.displaySmall,
-                        color = if (selectedTab.value == NavigationRoute.PROFILE_TAB) PrimaryColor else SecondaryBackgroundColor
-                    )
+                        horizontalAlignment = Alignment.CenterHorizontally,
+                        verticalArrangement = Arrangement.SpaceBetween
+                    ) {
+                        Image(
+                            painter = painterResource(
+                                id = if (selectedTab.value == NavigationRoute.GROCERIES_LIST_TAB) {
+                                    R.drawable.ic_my_groceries_selected_tab
+                                } else {
+                                    R.drawable.ic_my_groceries_not_selected_tab
+                                }
+                            ),
+                            contentDescription = "Groceries tab",
+                            modifier = Modifier.size(25.dp)
+                        )
+                        Text(
+                            text = "My groceries",
+                            style = MyRationTypography.displaySmall,
+                            color = if (selectedTab.value == NavigationRoute.GROCERIES_LIST_TAB) PrimaryColor else SecondaryBackgroundColor
+                        )
+                    }
+                    Surface(
+                        onClick = mainViewModel::inverseOverlay,
+                        shape = CircleShape,
+                        color = Color.White,
+                        shadowElevation = 6.dp,
+                        modifier = Modifier
+                            .size(50.dp)
+                            .offset(y = (-30).dp)
+                    ) {
+                        Image(
+                            painter = painterResource(com.example.coreUi.R.drawable.ic_add_item),
+                            contentDescription = "Add icon",
+                            modifier = Modifier.padding(14.dp)
+                        )
+                    }
+                    Column(
+                        modifier = Modifier.weight(1f)
+                            .clickable {
+                                selectedTab.value = NavigationRoute.COOKING_TAB
+                                navController.navigate(NavigationRoute.COOKING_TAB.route)
+                            },
+                        horizontalAlignment = Alignment.CenterHorizontally,
+                        verticalArrangement = Arrangement.SpaceBetween
+                    ) {
+                        Image(
+                            painter = painterResource(
+                                id = if (selectedTab.value == NavigationRoute.COOKING_TAB) {
+                                    R.drawable.ic_cooking_selected_tab
+                                } else {
+                                    R.drawable.ic_cooking_not_selected_tab
+                                }
+                            ),
+                            contentDescription = "Cooking tab",
+                            modifier = Modifier.size(25.dp)
+                        )
+                        Text(
+                            text = "Cooking",
+                            style = MyRationTypography.displaySmall,
+                            color = if (selectedTab.value == NavigationRoute.COOKING_TAB) PrimaryColor else SecondaryBackgroundColor
+                        )
+                    }
+                    Column(
+                        modifier = Modifier.weight(1f)
+                            .clickable {
+                                selectedTab.value = NavigationRoute.PROFILE_TAB
+                                navController.navigate(NavigationRoute.PROFILE_TAB.route)
+                            },
+                        horizontalAlignment = Alignment.CenterHorizontally,
+                        verticalArrangement = Arrangement.SpaceBetween
+                    ) {
+                        Image(
+                            painter = painterResource(
+                                id = if (selectedTab.value == NavigationRoute.PROFILE_TAB) {
+                                    R.drawable.ic_profile_selected_24
+                                } else {
+                                    R.drawable.ic_profile_not_selected_24
+                                }
+                            ),
+                            contentDescription = "Profile tab",
+                            modifier = Modifier.size(25.dp)
+                        )
+                        Text(
+                            text = "Profile",
+                            style = MyRationTypography.displaySmall,
+                            color = if (selectedTab.value == NavigationRoute.PROFILE_TAB) PrimaryColor else SecondaryBackgroundColor
+                        )
+                    }
                 }
             }
         }

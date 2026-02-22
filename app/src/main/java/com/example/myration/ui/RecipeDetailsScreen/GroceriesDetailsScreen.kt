@@ -22,7 +22,6 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.CircularProgressIndicator
-import androidx.compose.material3.Divider
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
@@ -31,6 +30,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
@@ -50,7 +50,7 @@ import com.example.myration.mvi.state.RecipeDetailViewState
 import com.example.myration.viewModels.RecipeDetailsViewModel
 import com.example.theme.MyRationTypography
 import com.example.theme.PrimaryColor
-import com.example.theme.PrimaryTransparentColor
+import com.example.theme.SecondaryBackgroundColor
 import com.example.theme.SecondaryColor
 import com.example.theme.SecondaryHalfTransparentColor
 
@@ -82,34 +82,32 @@ fun RecipeDetailsScreen(
 @Composable
 fun RecipeDetailsLoaded(state: RecipeDetailViewState, calorieInfo: CalorieCounter) {
     Column(
+        verticalArrangement = Arrangement.spacedBy(20.dp),
         modifier = Modifier
             .fillMaxSize()
             .verticalScroll(rememberScrollState())
-            .background(PrimaryTransparentColor)
+            .background(SecondaryBackgroundColor)
+            .padding(top = 20.dp)
     ) {
         RecipeTopBar(state)
-        BlocksDivider()
-        CalorieCounter(
-            currentCalorie = calorieInfo.currentCalorie,
-            maxCalorie = calorieInfo.maxCalorie,
-            productCalorie = state.kcal
-        )
-        BlocksDivider()
+        Box(
+            contentAlignment = Alignment.Center,
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(start = 20.dp, end = 20.dp)
+                .shadow(elevation = 2.dp, shape = RoundedCornerShape(12.dp))
+                .background(color = Color.White, shape = RoundedCornerShape(12.dp))
+        ) {
+            CalorieCounter(
+                currentCalorie = calorieInfo.currentCalorie,
+                maxCalorie = calorieInfo.maxCalorie,
+                productCalorie = state.kcal
+            )
+        }
         IngredientsList(state.ingredients)
-        BlocksDivider()
         RecipeDescription(state.instructions)
-        BlocksDivider()
         VideoRecipe(state.videoId)
     }
-}
-
-@Composable
-fun BlocksDivider() {
-    Divider(
-        color = SecondaryHalfTransparentColor,
-        thickness = 2.dp,
-        modifier = Modifier.padding(vertical = 30.dp, horizontal = 16.dp)
-    )
 }
 
 @Composable
@@ -147,131 +145,156 @@ fun VideoRecipe(videoId: String) {
 
 @Composable
 fun RecipeDescription(recipe: String) {
-    Text(
-        text = "Recipe",
-        style = MyRationTypography.titleLarge,
-        color = SecondaryColor,
+    Column(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(top = 20.dp, bottom = 30.dp),
-        maxLines = 4,
-        overflow = TextOverflow.Ellipsis,
-        textAlign = TextAlign.Center
-    )
-
-    Text(
-        text = recipe,
-        style = MyRationTypography.displaySmall,
-        color = SecondaryColor,
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(horizontal = 20.dp),
-        textAlign = TextAlign.Justify
-    )
-
-    Button(
-        onClick = {
-        },
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(horizontal = 30.dp, vertical = 30.dp),
-        colors = ButtonDefaults.buttonColors(
-            backgroundColor = PrimaryColor,
-            contentColor = Color.White
-        ),
-        shape = RoundedCornerShape(24.dp)
+            .padding(start = 20.dp, end = 20.dp)
+            .shadow(elevation = 2.dp, shape = RoundedCornerShape(12.dp))
+            .background(color = Color.White, shape = RoundedCornerShape(12.dp))
     ) {
-        Text(text = "Cooked", color = Color.White)
+        Text(
+            text = "Recipe",
+            style = MyRationTypography.titleLarge,
+            color = SecondaryColor,
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(top = 20.dp, bottom = 30.dp),
+            maxLines = 4,
+            overflow = TextOverflow.Ellipsis,
+            textAlign = TextAlign.Center
+        )
+
+        Text(
+            text = recipe,
+            style = MyRationTypography.displaySmall,
+            color = SecondaryColor,
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(horizontal = 20.dp),
+            textAlign = TextAlign.Justify
+        )
+
+        Button(
+            onClick = {
+            },
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(horizontal = 30.dp, vertical = 30.dp),
+            colors = ButtonDefaults.buttonColors(
+                backgroundColor = PrimaryColor,
+                contentColor = Color.White
+            ),
+            shape = RoundedCornerShape(24.dp)
+        ) {
+            Text(text = "Cooked", color = Color.White)
+        }
     }
 }
 
 @Composable
 fun IngredientsList(ingredients: List<RecipeIngredient>) {
-    Text(
-        text = "Ingredients",
-        style = MyRationTypography.titleLarge,
-        color = SecondaryColor,
+    Column(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(top = 20.dp),
-        maxLines = 4,
-        overflow = TextOverflow.Ellipsis,
-        textAlign = TextAlign.Center
-    )
-
-    LazyColumn(
-        modifier = Modifier
-            .padding(top = 50.dp, start = 20.dp)
-            .height((ingredients.size * 14).dp),
-        userScrollEnabled = false
+            .padding(start = 20.dp, end = 20.dp, bottom = 20.dp)
+            .shadow(elevation = 2.dp, shape = RoundedCornerShape(12.dp))
+            .background(color = Color.White, shape = RoundedCornerShape(12.dp))
     ) {
-        items(
-            count = ingredients.size,
-            itemContent = { index ->
-                Text(
-                    text = "• " + ingredients[index].productName + " " + ingredients[index].productAmount,
-                    style = MyRationTypography.displaySmall,
-                    color = SecondaryColor
-                )
-            }
+        Text(
+            text = "Ingredients",
+            style = MyRationTypography.titleLarge,
+            color = SecondaryColor,
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(top = 20.dp),
+            maxLines = 4,
+            overflow = TextOverflow.Ellipsis,
+            textAlign = TextAlign.Center
         )
+
+        LazyColumn(
+            modifier = Modifier
+                .padding(top = 50.dp, start = 20.dp, bottom = 35.dp)
+                .height((ingredients.size * 16).dp),
+            userScrollEnabled = false
+        ) {
+            items(
+                count = ingredients.size,
+                itemContent = { index ->
+                    Text(
+                        text = "• " + ingredients[index].productName + " " + ingredients[index].productAmount,
+                        style = MyRationTypography.displaySmall,
+                        color = SecondaryColor
+                    )
+                }
+            )
+        }
     }
 }
 
 @Composable
 fun RecipeTopBar(state: RecipeDetailViewState) {
-    Row(
+    Box(
+        contentAlignment = Alignment.Center,
         modifier = Modifier
             .fillMaxWidth()
-            .padding(horizontal = 10.dp)
-            .height(250.dp)
-            .padding(vertical = 8.dp, horizontal = 12.dp),
-        verticalAlignment = Alignment.CenterVertically,
-        horizontalArrangement = Arrangement.spacedBy(16.dp, Alignment.CenterHorizontally)
+            .padding(start = 20.dp, end = 20.dp)
+            .shadow(elevation = 2.dp, shape = RoundedCornerShape(12.dp))
+            .background(color = Color.White, shape = RoundedCornerShape(12.dp))
     ) {
-        Column(
-            horizontalAlignment = Alignment.CenterHorizontally,
-            verticalArrangement = Arrangement.Center
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(horizontal = 10.dp)
+                .height(250.dp)
+                .padding(vertical = 8.dp, horizontal = 12.dp),
+            verticalAlignment = Alignment.CenterVertically,
+            horizontalArrangement = Arrangement.spacedBy(16.dp, Alignment.CenterHorizontally)
         ) {
-            Text(
-                text = state.type.desc,
-                style = MyRationTypography.displaySmall,
-                color = SecondaryColor
-            )
-            Spacer(modifier = Modifier.height(15.dp))
-            Text(
-                text = state.name,
-                style = MyRationTypography.titleLarge,
-                color = SecondaryColor,
-                modifier = Modifier.width(130.dp),
-                maxLines = 4,
-                overflow = TextOverflow.Ellipsis,
-                textAlign = TextAlign.Center
-            )
-            Spacer(modifier = Modifier.height(15.dp))
-            Text(
-                text = state.kcal.toString() + " kcal",
-                style = MyRationTypography.displaySmall,
-                color = SecondaryColor
-            )
-        }
-        Spacer(modifier = Modifier.width(20.dp))
-        Column(
-            horizontalAlignment = Alignment.CenterHorizontally,
-            verticalArrangement = Arrangement.Center
-        ) {
-            Spacer(modifier = Modifier.height(30.dp))
-            AsyncImage(
-                model = state.thumbnail,
-                contentDescription = "recipe image",
-                placeholder = painterResource(R.drawable.ic_baseline_file_download_24),
-                error = painterResource(R.drawable.ic_baseline_error_outline_24),
-                modifier = Modifier
-                    .width(130.dp)
-                    .height(130.dp)
-                    .clip(CircleShape)
-                    .border(2.dp, SecondaryHalfTransparentColor, CircleShape)
-            )
+            Column(
+                horizontalAlignment = Alignment.CenterHorizontally,
+                verticalArrangement = Arrangement.Center
+            ) {
+                Text(
+                    text = state.type.desc,
+                    style = MyRationTypography.displaySmall,
+                    color = SecondaryColor
+                )
+                Spacer(modifier = Modifier.height(15.dp))
+                Text(
+                    text = state.name,
+                    style = MyRationTypography.titleLarge,
+                    color = SecondaryColor,
+                    modifier = Modifier.width(130.dp),
+                    maxLines = 4,
+                    overflow = TextOverflow.Ellipsis,
+                    textAlign = TextAlign.Center
+                )
+                Spacer(modifier = Modifier.height(15.dp))
+                Text(
+                    text = state.kcal.toString() + " kcal",
+                    style = MyRationTypography.displaySmall,
+                    color = SecondaryColor
+                )
+            }
+            Spacer(modifier = Modifier.width(20.dp))
+            Column(
+                horizontalAlignment = Alignment.CenterHorizontally,
+                verticalArrangement = Arrangement.Center
+            ) {
+                Spacer(modifier = Modifier.height(30.dp))
+                AsyncImage(
+                    model = state.thumbnail,
+                    contentDescription = "recipe image",
+                    placeholder = painterResource(R.drawable.ic_baseline_file_download_24),
+                    error = painterResource(R.drawable.ic_baseline_error_outline_24),
+                    modifier = Modifier
+                        .width(130.dp)
+                        .height(130.dp)
+                        .clip(CircleShape)
+                        .border(2.dp, SecondaryHalfTransparentColor, CircleShape)
+                )
+            }
         }
     }
 }
