@@ -28,6 +28,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
@@ -55,8 +56,8 @@ fun AddEatenProductScreen(
     var productFats by remember { mutableStateOf(TextFieldValue()) }
     var productCarbohydrates by remember { mutableStateOf(TextFieldValue()) }
 
-
     val isSuccessAddedEatenProduct = viewModel.isSuccessAddedFood.collectAsState()
+    val keyboardController = LocalSoftwareKeyboardController.current
 
     Column(
         modifier = Modifier
@@ -161,6 +162,7 @@ fun AddEatenProductScreen(
             Spacer(modifier = Modifier.height(40.dp))
             Button(
                 onClick = {
+                    keyboardController?.hide()
                     viewModel.addEatenProduct(
                         productName = productName.text,
                         calorie = productCalorie.text.toFloat(),

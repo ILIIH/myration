@@ -44,8 +44,6 @@ import com.example.core.mvi.ResultState
 import com.example.coreUi.customWindows.ConfirmationDialogue
 import com.example.coreUi.customWindows.EditProductDialogue
 import com.example.coreUi.listModifiers.BadgeWidget
-import com.example.domain.model.CalorieCounter
-import com.example.domain.model.CookingDifficulty
 import com.example.domain.model.MeasurementMetric
 import com.example.domain.model.Product
 import com.example.domain.model.Recipe
@@ -54,14 +52,12 @@ import com.example.myration.maping.getBadgesDesc
 import com.example.myration.mvi.effects.ProductDetailsEffect
 import com.example.myration.mvi.state.ProductDetailViewState
 import com.example.myration.navigation.NavigationRoute
-import com.example.myration.ui.ProfileScreen.ProfileScreenLoaded
 import com.example.myration.viewModels.GroceriesDetailsViewModel
 import com.example.myration.viewModels.MainViewModel
 import com.example.theme.MyRationTypography
 import com.example.theme.PrimaryTransparentColor
 import com.example.theme.SecondaryColor
 import com.example.theme.SecondaryHalfTransparentColor
-import java.time.Duration
 
 @Composable
 fun GroceriesDetailsScreen(
@@ -157,16 +153,17 @@ fun ProductDetailsLoaded(
         DishesList(state.recipes, onDishClick)
     }
 }
+
 @Composable
 fun ReturnTopBar(onReturn: () -> Unit) {
     Row(
         modifier = Modifier.padding(top = 20.dp, start = 22.dp)
-    ){
+    ) {
         Image(
             painter = painterResource(id = com.example.coreUi.R.drawable.ic_return_main),
             contentDescription = "return button",
             modifier = Modifier.size(45.dp)
-                .clickable{
+                .clickable {
                     onReturn()
                 }
         )
@@ -405,8 +402,7 @@ fun GroceriesDetailsPreview() {
                 expirationDate = "20/07/2000",
                 active = true
             ),
-            recipes = listOf(
-            )
+            recipes = listOf()
         ),
         onDeleteProduct = {},
         onEditProduct = {},

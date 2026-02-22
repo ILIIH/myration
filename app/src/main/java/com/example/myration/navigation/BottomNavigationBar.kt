@@ -52,7 +52,7 @@ fun BottomNavigationBar(
         animationSpec = tween(durationMillis = 1000, easing = LinearOutSlowInEasing),
         label = "SizeAnimation"
     )
-    if(!uiState.isBottomNavBarHidden){
+    if (!uiState.isBottomNavBarHidden) {
         Column {
             navigationSubMenu(
                 subNavigationMenu = subNavigationMenu.value,

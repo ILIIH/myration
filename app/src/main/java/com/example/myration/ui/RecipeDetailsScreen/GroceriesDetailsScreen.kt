@@ -22,7 +22,6 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.CircularProgressIndicator
-import androidx.compose.material3.Divider
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
@@ -51,7 +50,6 @@ import com.example.myration.mvi.state.RecipeDetailViewState
 import com.example.myration.viewModels.RecipeDetailsViewModel
 import com.example.theme.MyRationTypography
 import com.example.theme.PrimaryColor
-import com.example.theme.PrimaryTransparentColor
 import com.example.theme.SecondaryBackgroundColor
 import com.example.theme.SecondaryColor
 import com.example.theme.SecondaryHalfTransparentColor
